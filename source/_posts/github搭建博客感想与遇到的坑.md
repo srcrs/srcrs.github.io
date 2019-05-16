@@ -60,9 +60,9 @@ next提供了四中动态背景，其他三种的使用方法大致相同
 好，那我也去这么做吧，`git branch hexo`创建一个新分支hexo，`git checkout hexo`将指针指向hexo，`git add .`暂存所有文件，然后`git commit -m "说明此次更改原因"`将暂存区内容提交到本地版本库，最后`git push origin hexo`将所有文件提交到github上，好吧，传是传上去了，那么我拉下来还能不能用呢？
 首先要将hexo分支设置成主分支，`git clone github的地址`将github保存的源文件克隆下来，执行以下三条指令，`npm install hexo`,`npm install`,`npm install hexo-deployer-git`,这时候再在本地检查一下拉下来的源文件是否是否还是原来的样子，
 三条指令依次执行 `heox clean`,`hexo g`,`hexo s`,这时候本地服务器就已经搭建成功了，再打开一看，咦，我的动态背景消失了，这时候我就知道了，我掉坑去了，找了一天还是找我班一个大神解决的。
-###### 上传到github上next文件中是空的
+  ##### 上传到github上next文件中是空的
 这个问题是next文件中隐藏了一个`.git`文件，只要删除就好了
-###### 动态效果没了
+  ##### 动态效果没了
 这个问题是lib中也会隐藏一个`.git`文件，下面是路径：根目录名\themes\next\source\lib\canvas-nest，~~删除就好~~，不不，还有另外一个问题，很重要，在上面花了很长的时间，`.gitignore`这个文件里面配置的是，在上传过程中哪些文件需要忽略掉，哪些文件很重要，动态效果没了，就是由这两个问题产生的，这个文件的路径是：根目录名\themes\next，这个是next主题，所以就是next，将里面配置文件保存成如下
 ```html
 .DS_Store
@@ -74,7 +74,7 @@ package-lock.json
 node_modules/
 ```
 其实就是将下面的一大块都删除掉，这时候，我再上传代码到hexo分支时，发现我的动态文件就不会消失了
-##接下来在说说持续集成CI
+## 接下来在说说持续集成CI
 听到这个名字是不是感觉很高大上，事实上它所实现的，也很能方便我们日常使用博客。假如没有这个东西，我们每次写我们写完博客要怎么操作呢？假如现在是在master分支，好，我现在要使用三条指令将文章更新到github的master分支中，分别是`hexo clean`,`hexo g`,`hexo d`;接下来我还要更新我的hexo源代码分支，需要四条指令`git checkout hexo`,`git add .`,`git commit -m "更新"`,`git push origin hexo`,整整需要7条指令，那么我们用持续集成CI需要几条呢？3条就够了，`git add .`,`git commit -m "更新"`,`git push origin hexo`，让我们更新博客变得更加的简单了，有了更多的时间花费在如何写博客上，而不是去敲打命令，给大家提供一个网址，那上面讲的持续集成CI还不错，
 ````html
 https://easyhexo.com/1-Hexo-install-and-config/1-5-continuous-integration.html#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%EF%BC%9F
