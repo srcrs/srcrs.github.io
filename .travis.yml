@@ -1,10 +1,12 @@
 language: node_js
 
 sudo: required
-
 dist: xenial
 
 node_js: stable
+
+#install:
+#  - npm install
 
 branches:
   only:
@@ -13,21 +15,22 @@ branches:
 before_install: 
   - export TZ='Asia/Shanghai'
   - npm install hexo-cli
-
+#  - sudo apt-get install libpng16-dev
 install:
   - npm install
 
 script:
   - hexo clean
   - hexo generate
+  # - hexo deploy
 
 deploy:
   provider: pages
   skip_cleanup: true
+  github_token: $GITHUB_TOKEN
   local_dir: public
   name: $GIT_NAME
   email: $GIT_EMAIL
-  github_token: $GITHUB_TOKEN
   keep-history: true
   target-branch: master
   on:
