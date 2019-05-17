@@ -201,7 +201,7 @@ site_state: true
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/dream980228 || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  E-Mail: mailto:531238678@qq.com || envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -265,7 +265,7 @@ sidebar:
   #  - always  expand for all pages automatically.
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  totally remove sidebar including sidebar toggle.
-  display:
+  display: post
 
   # Sidebar offset from top menubar in pixels (only for Pisces | Gemini).
   offset: 12
