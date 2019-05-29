@@ -95,5 +95,5 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/srcrs/srcrs.github.io.git
+  repository: git@github.com:srcrs/srcrs.github.io.git
   branch: master
