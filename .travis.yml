@@ -15,16 +15,15 @@ branches:
 before_install: 
   - export TZ='Asia/Shanghai'
   - npm install hexo-cli
-  - npm install gulp -g
+
 #  - sudo apt-get install libpng16-dev
 install:
   - npm install
-  - npm install gulp-htmlclean gulp-htmlmin gulp-minify-css gulp-uglify gulp-imagemin --save
 
 script:
   - hexo clean
   - hexo generate
-  - gulp
+
   # - hexo deploy
 
 deploy:
