@@ -22,7 +22,7 @@ install:
   - npm install
   - npm install gulp-htmlclean
   - npm install gulp-htmlmin
-  - npm install gulp-minify-css
+  - npm install gulp-clean-css
   - npm install gulp-uglify
   - npm install gulp-imagemin
 
