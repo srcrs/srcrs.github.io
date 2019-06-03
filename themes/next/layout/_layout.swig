@@ -125,6 +125,9 @@
   {% include '_third-party/tidio.swig' %}
   <!-- 页面点击小红心 -->
   <script type="text/javascript" src="/js/src/love.js"></script>
+
+  <!-- 添加InstantClick -->
+  <script src="instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
 </body>
-  
 </html>
