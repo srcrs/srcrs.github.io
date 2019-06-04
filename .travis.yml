@@ -16,6 +16,7 @@ before_install:
   - export TZ='Asia/Shanghai'
   - npm install hexo-cli
   - npm install gulp
+  - npm install gulp -g
 
 #  - sudo apt-get install libpng16-dev
 install:
