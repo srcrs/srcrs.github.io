@@ -30,7 +30,7 @@ npm install gulp-imagemin//压缩图片
 
 网上很多用gulp压缩css插件都用的是`gulp-minify-css`,这在`gulp4.0`已经被放弃，所以上使用上面的css压缩插件
 
-## 然后再在博客根目录中创建`gulpfile.js`文件
+## 然后再在博客根目录中创建gulpfile.js文件
 
 这是文件中的内容
 
@@ -117,7 +117,7 @@ input --> stop
 
 # InstantClick实现方法
 
-## 首先需要下载创建`instantclick.min.js`文件
+## 首先需要下载创建instantclick.min.js文件
 
 [instantclick.min.js](http://instantclick.io/v3.1.0/instantclick.min.js),直接点击就可以跳转到文件页面，直接点击右键另存为就可以了，或者创建`instantclick.min.js`文件，把链接中的内容复制下来放到里面也可以。
 把新创建的文件放在`themes/next/source/js/src`中。
@@ -128,9 +128,15 @@ input --> stop
 
 ```html
     <script src="/js/src/instantclick.min.js" data-no-instant></script>
-    <script data-no-instant>InstantClick.init(true);</script>
+    <script data-no-instant>InstantClick.init(true);</script>//里面是true就是默认所有都不预加载
     </body>//不包括
     </html>//不包括，只为了好找
 ```
 
 这时候，我们就已经完成了，部署到github上，看看效果吧。
+hexo博客似乎不支持，我原先以为成功了，原来一直都没有，true原来是所有都不预加载。
+备方案：
+直接在原位置引用这段就可以了
+```html
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+```
