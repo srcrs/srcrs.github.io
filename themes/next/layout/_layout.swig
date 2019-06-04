@@ -123,11 +123,9 @@
   {% include '_third-party/copy-code.swig' %}
   {% include '_third-party/chatra.swig' %}
   {% include '_third-party/tidio.swig' %}
+  
   <!-- 页面点击小红心 -->
   <script type="text/javascript" src="/js/src/love.js"></script>
-  
-    <script src="/js/src/instantclick.min.js" data-no-instant></script>
-    <script data-no-instant>InstantClick.init(true);</script>
 </body>
 
 </html>
