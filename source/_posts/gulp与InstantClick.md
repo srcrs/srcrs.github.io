@@ -20,7 +20,7 @@ categories: 博客优化
 
 ## 然后依次执行以下命令
 
-```c++
+```html
 npm install gulp-htmlclean//在不改变html结构下缩小
 npm install gulp-htmlmin//压缩html
 npm install gulp-clean-css//压缩css
@@ -34,7 +34,7 @@ npm install gulp-imagemin//压缩图片
 
 这是文件中的内容
 
-```c++
+```html
 var gulp = require('gulp');
 var cleancss = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
@@ -89,7 +89,7 @@ gulp.task('default', gulp.parallel(
 
 顺序不能错了
 
-```c++
+```html
 hexo clean
 hexo g
 gulp
