@@ -126,7 +126,7 @@
   
   <!-- 页面点击小红心 -->
   <script type="text/javascript" src="/js/src/love.js"></script>
-  <script src="./js/src/instantpage-1.2.2.js" type="module"></script>
+  <script src="./js/src/instantpage-1.2.2.js" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
 </body>
 
 </html>
