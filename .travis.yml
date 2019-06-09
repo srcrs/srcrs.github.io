@@ -31,7 +31,6 @@ script:
   - hexo generate
   - gulp
 
-  # - hexo deploy
 
 deploy:
   provider: pages
