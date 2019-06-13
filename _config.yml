@@ -84,6 +84,8 @@ time: true
 total_symbols: true
 total_time: true
 
+#点击爆炸
+fireworks: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
