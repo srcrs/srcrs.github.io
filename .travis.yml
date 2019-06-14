@@ -43,3 +43,15 @@ deploy:
   target-branch: master
   on:
     branch: hexo
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $CODING_TOKEN
+  local_dir: public
+  name: $GIT_NAME
+  email: $GIT_EMAIL
+  keep-history: true
+  target-branch: master
+  on:
+    branch: hexo
