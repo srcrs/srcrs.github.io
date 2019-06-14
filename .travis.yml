@@ -31,7 +31,6 @@ script:
   - hexo generate
   - gulp
 
-
 deploy:
   provider: pages
   skip_cleanup: true
