@@ -30,7 +30,6 @@ script:
   - hexo clean
   - hexo generate
   - gulp
-  - hexo d
 
 
 deploy:

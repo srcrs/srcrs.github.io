@@ -19,5 +19,9 @@
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.3",
     "hexo-symbols-count-time": "^0.6.0"
+  },
+  "scripts": {
+    "push": "git add . && git commit -m update && git push origin hexo"
   }
 }
+
