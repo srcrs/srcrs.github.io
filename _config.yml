@@ -90,6 +90,6 @@ fireworks: true
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repository: git@git.dev.tencent.com:srcrs/srcrs.coding.me.git
-  branch: master
+  type:
+  repository:
+  branch:
