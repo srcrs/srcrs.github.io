@@ -90,6 +90,6 @@ fireworks: true
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
-  repository:
-  branch:
+  type: git
+  repository: git@github.com:srcrs/srcrs.github.io.git
+  branch: master

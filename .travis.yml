@@ -1,44 +1,31 @@
 language: node_js
-
 sudo: required
 dist: xenial
-
 node_js: stable
 
-#install:
-#  - npm install
+before_install:
+- openssl aes-256-cbc -K $encrypted_73b0318d1980_key -iv $encrypted_73b0318d1980_iv
+  -in id_rsa.enc -out id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- eval $(ssh-agent)
+- ssh-add ~/.ssh/id_rsa
+- cp ssh_config ~/.ssh/config
+- git config --global user.name "srcrs"
+- git config --global user.email "531238678@qq.com"
 
-branches:
-  only:
-    - hexo
-
-before_install: 
-  - export TZ='Asia/Shanghai'
-  - npm install hexo-cli
-  - npm install gulp
-
-#  - sudo apt-get install libpng16-dev
 install:
-  - npm install
-  - npm install gulp-htmlclean
-  - npm install gulp-htmlmin
-  - npm install gulp-clean-css
-  - npm install gulp-uglify
-  - npm install gulp-imagemin
+- npm install
+- npm install hexo-cli
+- npm install hexo-deployer-git
+- npm install gulp
+- npm install gulp-htmlclean
+- npm install gulp-htmlmin
+- npm install gulp-clean-css
+- npm install gulp-uglify
+- npm install gulp-imagemin
 
 script:
-  - hexo clean
-  - hexo generate
-  - gulp
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: public
-  name: $GIT_NAME
-  email: $GIT_EMAIL
-  keep-history: true
-  target-branch: master
-  on:
-    branch: hexo
+- hexo clean
+- hexo generate
+- gulp
+- hexo deploy

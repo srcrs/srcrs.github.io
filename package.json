@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.8.0"
+    "version": "3.9.0"
   },
   "dependencies": {
     "hexo": "^3.8.0",
@@ -24,4 +24,3 @@
     "push": "git add . && git commit -m update && git push origin hexo && hexo clean && hexo g && hexo d"
   }
 }
-
