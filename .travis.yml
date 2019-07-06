@@ -30,9 +30,14 @@ script:
 - gulp
 
 after_script:
+- cd ./public
 - git init
 - git config user.name "srcrs"
 - git config user.email "531238678@qq.com"
 - git add .
 - git commit -m "自动部署"
-- git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REP}" master:master 
+- git push --force --quiet "https://${GITHUB_TOKEN}@${GITHUB_REP}" master:master 
+
+env:
+  global:
+    - GITHUB_REP: https://github.com/srcrs/srcrs.github.io.git
