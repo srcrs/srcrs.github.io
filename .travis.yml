@@ -29,12 +29,7 @@ after_script:
 - git add .
 - git commit -m "自动部署"
 - git push --force --quiet "https://${GITHUB_TOKEN}@${GITHUB_REP}" master:master 
-
+- git push --force --quiet "https://srcrs:${CODING_TOKEN}@${CODING_REF}" master:master
 branches:
   only:
   - hexo
-
-
-env:
-  global:
-    - GITHUB_REP: github.com/srcrs/srcrs.github.io.git
