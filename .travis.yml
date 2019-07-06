@@ -3,21 +3,17 @@ sudo: required
 dist: xenial
 node_js: stable
 
-before_install:
-- openssl aes-256-cbc -K $encrypted_73b0318d1980_key -iv $encrypted_73b0318d1980_iv
-  -in id_rsa.enc -out id_rsa -d
-- chmod 600 ~/.ssh/id_rsa
-- eval $(ssh-agent)
-- ssh-add ~/.ssh/id_rsa
-- cp ssh_config ~/.ssh/config
-- git config --global user.name "srcrs"
-- git config --global user.email "531238678@qq.com"
+cache：
+  directorie:
+  - node_modules
 
-install:
+before_install:
 - npm install
 - npm install hexo-cli
 - npm install hexo-deployer-git
 - npm install gulp
+
+install:
 - npm install gulp-htmlclean
 - npm install gulp-htmlmin
 - npm install gulp-clean-css
@@ -28,4 +24,15 @@ script:
 - hexo clean
 - hexo generate
 - gulp
-- hexo deploy
+
+after_script:
+- git init
+- git config user.name "srcrs"
+- git config user.email "531238678@qq.com"
+- git add .
+- git commit -m "自动部署"
+- git push --force --quiet "https://${CI_TOKEN}@${GH_REF}" master:master 
+
+branches:
+  only:
+  - hexo
