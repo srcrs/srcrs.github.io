@@ -7,10 +7,6 @@ branches:
   only:
   - hexo
 
-cache：
-  directorie:
-  - node_modules
-
 before_install:
 - npm install
 - npm install hexo-cli
