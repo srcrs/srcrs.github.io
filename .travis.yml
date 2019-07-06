@@ -3,6 +3,10 @@ sudo: required
 dist: xenial
 node_js: stable
 
+branches:
+  only:
+  - hexo
+
 cache：
   directorie:
   - node_modules
@@ -31,8 +35,4 @@ after_script:
 - git config user.email "531238678@qq.com"
 - git add .
 - git commit -m "自动部署"
-- git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:master 
-
-branches:
-  only:
-  - hexo
+- git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REP}" master:master 

@@ -92,5 +92,5 @@ fireworks: true
 
 deploy:
   type: git
-  repository: git@github.com:srcrs/srcrs.github.io.git
+  repository: https://github.com/srcrs/srcrs.github.io.git
   branch: master
