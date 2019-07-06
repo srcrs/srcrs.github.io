@@ -37,4 +37,4 @@ branches:
 
 env:
   global:
-    - GITHUB_REP: https://github.com/srcrs/srcrs.github.io.git
+    - GITHUB_REP: github.com/srcrs/srcrs.github.io.git
