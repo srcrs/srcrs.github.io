@@ -113,3 +113,11 @@ node_modules/
 ````html
 https://easyhexo.com/1-Hexo-install-and-config/1-5-continuous-integration.html#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%EF%BC%9F
 ```
+
+执行 `hexo` 时 `-bash: hexo: command not found` 出现这样的命令怎么办？
+这是环境变量所导致的。
+在你的博客根目录中找到如下类似目录并复制下来E:\github\srcrs.github.io\node_modules\hexo\bin
+打开控制面板\系统和安全\系统\高级系统设置\环境变量
+在xxx的用户变量下和系统变量下
+对path变量进行编辑，新建，将刚才复制的路径添加进去。
+然后再重新bash就可以解决了
