@@ -9,7 +9,7 @@ before_install:
 
 
 script:
-- hexo npm run docs:build
+- npm run docs:build
 
 after_script:
 - cd ./public
