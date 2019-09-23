@@ -1,0 +1,24 @@
+language: node_js
+sudo: required
+dist: xenial
+node_js: stable
+
+before_install:
+- npm install
+
+
+script:
+- hexo npm run docs:build
+
+after_script:
+- cd ./public
+- git init
+- git config user.name "srcrs"
+- git config user.email "531238678@qq.com"
+- git add .
+- git commit -m "自动部署"
+- git push --force --quiet "https://${GITHUB_TOKEN}@${GITHUB_REP}" master:master 
+- git push --force --quiet "https://srcrs:${CODING_TOKEN}@${CODING_REP}" master:master
+branches:
+  only:
+  - hexo
