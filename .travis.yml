@@ -4,6 +4,7 @@ dist: xenial
 node_js: stable
 
 before_install:
+- npm install -g vuepress
 - npm install
 
 
