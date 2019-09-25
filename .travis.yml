@@ -22,4 +22,4 @@ after_script:
 - git push --force --quiet "https://srcrs:${CODING_TOKEN}@${CODING_REP}" master:master
 branches:
   only:
-  - hexo
+  - vue
