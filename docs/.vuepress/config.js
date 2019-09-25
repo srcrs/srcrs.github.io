@@ -1,6 +1,6 @@
 module.exports = {
-  "title": "",
-  "description": "",
+  "title": "srcrs",
+  "description": "A place with all of me",
   "dest": "public",
   "base": "/",
   "head": [
@@ -46,10 +46,10 @@ module.exports = {
     ],
     "type": "blog",
     "blogConfig": {
-      // "category": {
-      //   "location": 2,
-      //   "text": "Category"
-      //  },
+      "category": {
+        "location": 2,
+        "text": "Category"
+      },
       "tag": {
         "location": 3,
         "text": "Tag"
@@ -58,7 +58,7 @@ module.exports = {
     "logo": "/head.jpg",
     "search": true,
     "searchMaxSuggestions": 10,
-    "sidebar": "auto",
+    //"sidebar": "auto",
     "lastUpdated": "Last Updated",
     "author": "",
     "record": "xxxx",
