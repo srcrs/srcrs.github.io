@@ -19,7 +19,7 @@ module.exports = {
       }
     ]
   ],
-  "theme": "reco",
+  "theme": "recos",
   "themeConfig": {
     "nav": [
       {
