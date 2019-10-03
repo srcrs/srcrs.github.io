@@ -90,7 +90,6 @@ cond(no)->e
 
 平行和操作开始的时候看的差不多，但平行是有两个出口的，而操作只有一个出口。
 
-
 ```yaml
 [Variable]->parallel: [Text]
 [Variable](path1,direction)->[Position]
