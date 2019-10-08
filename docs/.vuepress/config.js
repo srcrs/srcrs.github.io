@@ -61,7 +61,7 @@ module.exports = {
     //"sidebar": "auto",
     "lastUpdated": "Last Updated",
     "author": "",
-    "record": "xxxx",
+    "record": "blog",
     "startYear": "2017"
   },
   "markdown": {
