@@ -44,7 +44,7 @@ module.exports = {
         ]
       }
     ],
-    "type": "views",
+    "type": "blog",
     "blogConfig": {
       "category": {
         "location": 2,
