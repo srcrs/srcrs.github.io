@@ -44,7 +44,7 @@ module.exports = {
         ]
       }
     ],
-    "type": "TimeLine",
+    "type": "blog",
     "blogConfig": {
       "category": {
         "location": 2,
