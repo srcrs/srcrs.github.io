@@ -3,6 +3,7 @@ module.exports = {
   "description": "A place with all of me",
   "dest": "public",
   "base": "/",
+  "hero": "/",
   "head": [
     [
       "link",
