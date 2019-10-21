@@ -55,7 +55,7 @@ module.exports = {
         "text": "Tag"
       }
     },
-    "logo": "/head.jpg",
+    "logo": "/",
     "search": true,
     "searchMaxSuggestions": 10,
     //"sidebar": "auto",
