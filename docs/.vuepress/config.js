@@ -58,7 +58,7 @@ module.exports = {
     vssueConfig: {//评论
       platform: 'github',
       owner: 'srcrs',
-      repo: 'https://github.com/srcrs/comment.git',
+      repo: 'comment',
       clientId: '9601fd4196d77c044a86',
       clientSecret: 'cb29c9a4d3e4e6f65718f416ac8ed1df81dec3de',
     },
