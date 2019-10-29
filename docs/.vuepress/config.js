@@ -68,7 +68,7 @@ module.exports = {
     //"sidebar": "auto",
     "lastUpdated": "Last Updated",
     "author": "",
-    "record": "blog",
+    "record": "京ICP备51666888号-1",
     "startYear": "2017"
   },
   "markdown": {

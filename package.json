@@ -1,8 +1,8 @@
 {
   "name": "my-blog",
   "version": "1.0.0",
-  "repository": "http://recoluan.gitlab.io/vuepress-theme-reco-doc",
-  "author": "reco_luan",
+  "repository": "https://github.com/srcrs/srcrs.github.io",
+  "author": "srcrs",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
