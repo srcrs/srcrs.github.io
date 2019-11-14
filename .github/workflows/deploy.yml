@@ -36,4 +36,4 @@ jobs:
            git add .
            git commit -m "自动部署"
            git push --force --quiet "https://${${{secrets.GH_TOKEN}}}@${${{secrets.GH_REP}}}" vue
-           git push --force --quiet "https://srcrs:${${{secrets.CD_TOKEN}}}@${${{secrets.CD_REP}}}" vue
+#           git push --force --quiet "https://srcrs:${${{secrets.CD_TOKEN}}}@${${{secrets.CD_REP}}}" vue
