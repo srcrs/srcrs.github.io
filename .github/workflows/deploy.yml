@@ -40,5 +40,5 @@ jobs:
           git config user.email "531238678@qq.com"
           git add .
           git commit -m "自动部署"
-          git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" vue
-#         git push --force --quiet "https://srcrs:${${{secrets.CD_TOKEN}}}@${${{secrets.CD_REP}}}" vue
+          git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
+          git push --force --quiet "https://srcrs:${CD_TOKEN}@${CD_REP}" vue
