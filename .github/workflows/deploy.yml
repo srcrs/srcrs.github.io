@@ -41,4 +41,4 @@ jobs:
           git add .
           git commit -m "自动部署"
           git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
-          git push --force --quiet "https://${CD_TOKEN}@${CD_REP}" master:master
+          git push --force --quiet "https:/${CD_TOKEN}@${CD_REP}" master:master
