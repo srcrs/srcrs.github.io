@@ -28,12 +28,12 @@ jobs:
           npm run build 
 
       - name: Deploy
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        CO_TOKEN: ${{ secrets.CO_TOKEN }}
-        GH_REP: ${{ secrets.GH_REP }}
-        CO_REP: ${{ secrets.CO_REP }}
-        run: |
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          CO_TOKEN: ${{ secrets.CO_TOKEN }}
+          GH_REP: ${{ secrets.GH_REP }}
+          CO_REP: ${{ secrets.CO_REP }}
+          run: |
            cd ./public
            git init
            git config user.name "srcrs"
