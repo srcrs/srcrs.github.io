@@ -28,6 +28,11 @@ jobs:
           npm run build 
 
       - name: Deploy
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        CO_TOKEN: ${{ secrets.CO_TOKEN }}
+        GH_REP: ${{ secrets.GH_REP }}
+        CO_REP: ${{ secrets.CO_REP }}
         run: |
            cd ./public
            git init
@@ -35,5 +40,5 @@ jobs:
            git config user.email "531238678@qq.com"
            git add .
            git commit -m "自动部署"
-           git push --force --quiet "https://${${{secrets.GH_TOKEN}}}@${${{secrets.GH_REP}}}" vue
+           git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" vue
 #           git push --force --quiet "https://srcrs:${${{secrets.CD_TOKEN}}}@${${{secrets.CD_REP}}}" vue
