@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "vuepress": "1.0.1",
-    "vuepress-theme-reco": "1.1.2",
+    "vuepress-theme-reco": "1.1.4",
     "@vuepress/plugin-medium-zoom": "1.0.3",
     "vuepress-plugin-flowchart": "1.4.3"
   },
