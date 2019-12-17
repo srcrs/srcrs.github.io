@@ -76,6 +76,7 @@ module.exports = {
   },
   "plugins": [
     "@vuepress/medium-zoom",
-    "flowchart"
+    "flowchart",
+    "ribbon"
   ]
 }
