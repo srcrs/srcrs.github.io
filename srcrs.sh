@@ -4,4 +4,3 @@ set -e
 git add .
 git commit -m "$str"
 git push -f $uri
-pause
