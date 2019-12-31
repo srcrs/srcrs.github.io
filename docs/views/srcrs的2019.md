@@ -1,5 +1,5 @@
 ---
-title: srcrs的2019-2020
+title: srcrs的2019
 date: 2019-12-31
 categories:
  - Life
