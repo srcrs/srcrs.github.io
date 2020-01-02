@@ -9,10 +9,10 @@
   },
   "devDependencies": {
     "@vuepress/plugin-medium-zoom": "1.0.3",
-    "vuepress": "1.0.1",
+    "vuepress": "1.2.0",
     "vuepress-plugin-flowchart": "1.4.3",
     "vuepress-plugin-ribbon": "^1.0.0",
-    "vuepress-theme-reco": "1.1.4"
+    "vuepress-theme-reco": "1.2.0"
   },
   "description": ""
 }
