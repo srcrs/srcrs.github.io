@@ -77,6 +77,7 @@ module.exports = {
   "plugins": [
     "@vuepress/medium-zoom",
     "flowchart",
-    "ribbon"
+    "ribbon",
+	["@vuepress-reco/loading-page", false] //去掉动画
   ]
 }
