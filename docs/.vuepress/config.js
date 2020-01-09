@@ -8,7 +8,7 @@ module.exports = {
       "link",
       {
         "rel": "icon",
-        "href": "/favicon.svg"
+        "href": "/favicon.ico"
       }
     ],
     [
