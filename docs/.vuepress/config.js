@@ -4,7 +4,7 @@ module.exports = {
   "dest": "public",
   "base": "/",
    head: [
-    ['link', { rel: 'icon', href: `/logo.png` }],
+    ['link', { rel: 'icon', href: '/logo.png' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
@@ -73,8 +73,9 @@ module.exports = {
     "@vuepress/medium-zoom",
     "flowchart",
     "ribbon",
-	['@vuepress/pwa', {
-      serviceWorker: true
+    ['@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
     }],
 	["@vuepress-reco/loading-page", false] //去掉动画
   ]
