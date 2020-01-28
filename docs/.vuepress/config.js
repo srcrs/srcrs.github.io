@@ -78,6 +78,12 @@ module.exports = {
       serviceWorker: true,
       updatePopup: true
     }],
+	[
+      '@vuepress/google-analytics',
+      {
+        'ga': 'UA-179081209-1' // UA-00000000-0
+      }
+    ],
 	["@vuepress-reco/loading-page", false] //去掉动画
   ]
 }
