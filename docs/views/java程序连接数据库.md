@@ -6,7 +6,7 @@ tags:
 categories:
           - Other
 ---
-# 思路
+## 思路
 
 java连接数据库，写一个能够实现交互程序必不可少的一个操作。
 首先我们要考虑几个问题
@@ -24,7 +24,7 @@ process2->process3
 process3->e
 @flowend
 
-# 建立数据库并建立表
+## 建立数据库并建立表
 
 这个我使用的是`mysql-5.5.28-winx64`版本的数据库，数据库实验中我们学的就是这一种，在电脑上安装完之后，就可以在电脑的命令行中进行数据库的一些操作。
 创建一个数据库名字叫做`m1`。
@@ -65,7 +65,7 @@ jby_100004 | zhaoliu | 45 | 1
 
 接下来就是在`java`的`IDE`中操作了
 
-# 下载MySQL的JDBC驱动
+## 下载MySQL的JDBC驱动
 
 进入MySQL的官网下载,点击下方链接。
 
@@ -75,7 +75,7 @@ jby_100004 | zhaoliu | 45 | 1
 
 下面我们需要把这个驱动放到我们的项目文件中，我用的是`eclipse`，直接把这个驱动拖到项目中，然后还需要把驱动`jar`包`build`一下。
 
-# 加载JDBC—MySQL驱动
+## 加载JDBC—MySQL驱动
 
 ```java
 try {
@@ -99,7 +99,7 @@ catch(Exception e){
 }
 ```
 
-# java连接MySQL数据库
+## java连接MySQL数据库
 
 ```java
 Connection con = null;
@@ -116,7 +116,7 @@ try {
 
 `connection`是一个类型，主要连接数据库，可以创建一个连接数据库的对象。`DriverManager.getConnection()`方法用户试图建立到指定数据库URL的连接。
 
-# 查询数据库
+## 查询数据库
 
 ```java
 ResultSet rs ;
@@ -131,7 +131,7 @@ rs = sql.executeQuery("SELECT * FROM tb_stu");
 
 `ResultSet`按列组织数据构成，跟在数据库中现实的情况是一样的。
 
-# 完整代码
+## 完整代码
 
 ```java
 package demo;

@@ -61,7 +61,7 @@ module.exports = {
   //  "logo": "/",
     "search": true,
     "searchMaxSuggestions": 10,
-    //"sidebar": "auto",
+    "sidebar": "auto",
     "lastUpdated": "Last Updated",
     "author": "",
     "record": "京ICP备51666888号-1",
