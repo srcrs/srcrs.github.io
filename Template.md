@@ -6,6 +6,7 @@ categories:
  - Algorithm
  - Life
  - Note
+ - java
 tags:
  - 烤
 keys:
