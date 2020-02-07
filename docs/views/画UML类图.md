@@ -89,7 +89,7 @@ tags:
 
 ### 依赖（Dependency）
 
-是一种使用关系，即一个类的实现需要另一个类的协助。
+是一种使用关系，即一个类的实现需要另一个类的协助。但是需要的需要的那个类只是已局部变量存在，这就叫做依赖
 
 + 表示方式：带普通箭头的虚线，指向被被依赖者。
 
@@ -97,7 +97,7 @@ tags:
 
 ### 关联（Association）
 
-是一种拥有关系，它使一个类知道另一个类的属性和方法。有单向关联和双向关联。
+是一种拥有关系，它使一个类知道另一个类的属性和方法。有单向关联和双向关联。关联其实也需要另一个类去协助，主要区别就是需要的那个类是以成员变量的形式存在。
 
 + 代码体现：成员变量
 
@@ -106,6 +106,8 @@ tags:
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="161px" viewBox="-0.5 -0.5 161 115" content="&lt;mxfile host=&quot;www.draw.io&quot; modified=&quot;2020-01-30T15:29:29.972Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36&quot; etag=&quot;tyaJ4pNE4OCxwkTJDduS&quot; version=&quot;12.6.2&quot;&gt;&lt;diagram id=&quot;3rDs5XhHu7tece-ws2Lh&quot; name=&quot;第 1 页&quot;&gt;7VZNU9swEP01OaYT2ySBI46hHALDEGZauAlbsVVkrUfekIRf35UtxXYcStoO0x64ZLRvP7y7b1fRIJjlm6+aFdk1JFwO/FGyGQTRwPcnZwH9GmBrAd8CqRZJDXkNsBCv3IIji65EwsuOIQJIFEUXjEEpHmMHY1rDumu2BNn9asFS3gMWMZN99JtIMKvRU3/a4FdcpJn7sjc5qzU5c8a2kjJjCaxbUHAxCGYaAOtTvplxaXrn+lL7Xb6h3SWmucJjHG7U/V0+idTj1c3F8OEkHJ79gOGJTe6FyZWteAarktuUcev6UK5FLpkiKVyCwoXVeCQzKVJF55gS4ZqAF65RUAvPrQKhIDTOhEzmbAsrk26JLH52UpiBFq8Ulkkbk9Qa7TT4k47FwngSPCJU85Jsbl0PvD3omm06hnNWogVikJIVpXjalZEznQoVAiLk1sj2hsrhmze77u24pB3gkHPUWzJxDqe2w3b+PTcO62aavInFstYkBSd2iO0Ap7vQDcd0sDT/DuV+j/Ie21JUTJeo4Xk396ZJSyHlDCQQzZGCysjRL/kSD5CfiySRVbCCxUKl92YYoqHXIPPKMQoa5M62wUAakCGraTKcSPbE5S2UAgWY+Lq2DQsQCqtejcPBOKoQjTNQVAQTFVmc6F9zMwLHMfuLjenzbfmlYT2K3tOPYnfcY3eBq8TU9LnSH7PS/uifr/Tkc6X/ZqXH//dKT99nl6vk3Lx2SIKCUxNDQi6FdMtHkl09zzerh3mjoRy/Gya+jJ340NZFbuFqaeukjcCWG0kPLU3jZATnU6fNk96Ta2/1qDRY6Zgfcc/RpZLyP7mvD7GpuWQoXrrZHeLThrs1A9q6GPb+6t094SLURVmn9kttP870nUB10b1A1XTtSjw0cCQ2D87avHm1Bxc/AQ==&lt;/diagram&gt;&lt;/mxfile&gt;" onclick="(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;&amp;src.nodeName.toLowerCase()!='a'){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;&amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data=='ready'&amp;&amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute('content')),'*');window.removeEventListener('message',r);}};window.addEventListener('message',r);svg.wnd=window.open('https://www.draw.io/?client=1&amp;lightbox=1&amp;edit=_blank');}}})(this);" style="cursor:pointer;max-width:100%;max-height:115px;"><defs/><g><path d="M 0 26 L 0 0 L 160 0 L 160 26" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/><path d="M 0 26 L 0 34 L 160 34 L 160 26" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 0 26 L 160 26" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g fill="#000000" font-family="Helvetica" font-weight="bold" text-anchor="middle" font-size="12px"><text x="79.5" y="17.5">Couse</text></g><path d="M 0 30 L 160 30" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 0 106 L 0 80 L 160 80 L 160 106" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 0 106 L 0 114 L 160 114 L 160 106" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 0 106 L 160 106" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><g fill="#000000" font-family="Helvetica" font-weight="bold" text-anchor="middle" font-size="12px"><text x="79.5" y="97.5">Student</text></g><path d="M 0 110 L 160 110" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 80 80 L 80 36.24" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 86.5 48.12 L 80 35.12 L 73.5 48.12" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/></g></svg>
 
 ### 聚合（Aggregation）
+
+关联又可细化成聚合和组合。
 
 是整体与部分的关系，且部分可以离开整体而单独存在。如车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在。
 
