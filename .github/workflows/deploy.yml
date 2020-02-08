@@ -30,9 +30,9 @@ jobs:
       - name: Deploy
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          CO_TOKEN: ${{ secrets.CO_TOKEN }}
+          CD_TOKEN: ${{ secrets.CD_TOKEN }}
           GH_REP: ${{ secrets.GH_REP }}
-          CO_REP: ${{ secrets.CO_REP }}
+          CD_REP: ${{ secrets.CD_REP }}
         run: |
           cd ./public
           git init
