@@ -94,6 +94,8 @@ extension_dir = "D:/server/php7/ext"
 
 至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。
 
+## 设置PHP系统时区
+
 ## 检查
 
 打开CMD命令行，输入`httpd -t`指令，可以检查是否有语法错误，如果返回
