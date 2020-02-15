@@ -102,11 +102,11 @@ class D {
 public class test {
 	public static void main(String[] args) {
 		try {
-			Object obj = Class.forName("zoo.D").newInstance();//Class.forName返回的是一个类，newInstance实例化一个对象
+			Object obj = Class.forName("D").newInstance();//Class.forName返回的是一个类，newInstance实例化一个对象
 		    Class clazz = obj.getClass();//获得类型类
 			Method md = clazz.getMethod("run", null);//获取名为run的方法
 			md.invoke(obj);//运行方法
-			D d = (D)Class.forName("zoo.D").newInstance();//也可直接下转
+			D d = (D)Class.forName("D").newInstance();//也可直接下转
 			d.run();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
