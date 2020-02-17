@@ -16,7 +16,7 @@ tags:
 
 下载Apache的时候我可是费了老劲了，短短10M我几乎花了五个小时才下载玩。在将PHP加载到Apache中的时候需要需要注意它们的版本，否则将会加载失败，我这里`PHP2.2.25`和`httpd5.4.8`、`PHP2.4.23`和`httpd7.4.2`是可以匹配成功的（httpd是Apache超文本传输协议(HTTP)服务器的主程序，下载Apache就是它），希望不要再踩坑了。
 
-可以参考[学习地址](`https://www.bilibili.com/video/av12863134`)中老师讲的，完美配置。
+可以参考[学习地址](https://www.bilibili.com/video/av12863134)中老师讲的，完美配置。
 
 ## 下载
 
@@ -93,8 +93,6 @@ extension_dir = "D:/server/php7/ext"
 ```
 
 至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。
-
-## 设置PHP系统时区
 
 ## 检查
 
