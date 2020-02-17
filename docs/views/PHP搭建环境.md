@@ -22,7 +22,7 @@ tags:
 
 apache有支持https的，给的是不支持的。适用于64位Windows10计算机。
 
-Apache下载地址：[点我](https://www.lanzous.com/i9auove)
+Apache下载地址：[点我](https://www.lanzous.com/i9g049i)
 
 PHP下载地址：[点我](https://www.lanzous.com/i9ahfbc)
 
