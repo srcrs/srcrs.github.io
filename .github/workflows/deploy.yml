@@ -28,7 +28,7 @@ jobs:
           npm run build 
 
       - name: Deploy
-        env:
+        env: 
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GE_TOKEN: ${{ secrets.GE_TOKEN }}
           GH_REP: ${{ secrets.GH_REP }}
