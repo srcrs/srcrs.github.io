@@ -56,6 +56,6 @@ jobs:
       - name: Build with gitee
         run: |
           cd ./gitee
-          javac -cp ./jsoup-1.12.2.jar pachong.java
-          java -cp $CLASSPATH:jsoup-1.12.2.jar pachong
+          javac -cp ./jsoup-1.12.2.jar autoBuild.java
+          java -cp $CLASSPATH:jsoup-1.12.2.jar autoBuild
     

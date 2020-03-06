@@ -2,7 +2,7 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 
-public class pachong {
+public class autoBuild {
 	public static void main(String[] args) {
 		try {
 			Connection.Response res = Jsoup.connect("https://gitee.com/srcrs/srcrs/pages/rebuild")
