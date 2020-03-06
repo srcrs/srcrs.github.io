@@ -43,7 +43,6 @@ jobs:
           git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
           git push --force --quiet "https://${GE_TOKEN}@${GE_REP}" master:master
   auto:
-    needs: build
     name: auto deploy gitee
     runs-on: ubuntu-latest 
     
