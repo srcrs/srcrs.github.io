@@ -47,7 +47,7 @@ public class test {
 					.execute();
 			Map<String, String> datas = new HashMap<>();
 			Document d1 = Jsoup.parse(rs.body());
-			List<Element> eleList = d1.select("form");
+			List<Element> eleList = d1.select("form");//寻找form表单
 			for(int i = 0; i < eleList.size(); i++) {
 
 	            for (Element e : eleList.get(i).getAllElements()) {
