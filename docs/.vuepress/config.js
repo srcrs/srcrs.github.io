@@ -34,9 +34,14 @@ module.exports = {
         "items": [
           {
             "text": "GitHub",
-            "link": "https://github.com/srcrs",
+            "link": "https://srcrs.github.io",
             "icon": "reco-github"
           },
+		  {
+			"text": "Gitee"
+            "link": "https://srcrs.gitee.io",
+            "icon": "reco-github"			
+		  },
         ]
       }
     ],
