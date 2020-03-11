@@ -143,7 +143,7 @@ mvn site 创建项目文档
 这次的主要目的还是为了爬虫，因为有的jar包确实不好下载，并且也可以更简单的方式运行代码。
 
 ```yml
-mvn compile exec:java -Dexec.mainClass="(包名.项目名)"
+mvn compile exec:java -Dexec.mainClass="包名.主函数的类名"
 ```
 
 参考：
