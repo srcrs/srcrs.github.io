@@ -56,5 +56,5 @@ jobs:
       - name: Build with Maven
         run: |
           cd auto
-          mvn compile exec:java -Dexec.mainClass="org.maven.demo.autoBuild"
+          mvn compile exec:java -Dexec.mainClass="org.maven.build.autoBuild"
     
