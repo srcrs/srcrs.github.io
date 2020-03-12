@@ -140,7 +140,7 @@ mvn site 创建项目文档
 学习地址：[点我](https://www.bilibili.com/video/av21004567?)
 
 
-这次的主要目的还是为了爬虫，因为有的jar包确实不好下载，并且也可以更简单的方式运行代码。
+这次的主要目的还是为了爬虫，因为有的jar包确实不好下载，并且也可以更简单的方式运行代码。把上次在github actions运行的爬虫改成了maven项目，只有几k，而以前那个jar包就有几百k，进步明显。
 
 ```yml
 mvn compile exec:java -Dexec.mainClass="包名.主函数的类名"
