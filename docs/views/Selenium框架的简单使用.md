@@ -96,18 +96,19 @@ WebDriver driver = new ChromeDriver(chromeOptions);
 driver.get("http://jktb.haedu.gov.cn/?ext=fX93MD81Pi82fXV7OSQ=&rn=1194639372");
 //寻找界面元素然后点击
 driver.findElement(By.xpath("/html/body/ul/li[1]")).click();
-Thread.sleep(1000);
+Thread.sleep(3000);
 driver.findElement(By.xpath("//*[@id=\"my-form\"]/div[1]/div/button")).click();
-Thread.sleep(1000);
+Thread.sleep(3000);
 WebElement mobile = driver.findElement(By.name("mobile"));
 mobile.sendKeys("用户名");
 WebElement idCard = driver.findElement(By.name("idCard"));
 idCard.sendKeys("密码");
-Thread.sleep(1000);
+Thread.sleep(3000);
 driver.findElement(By.xpath("//*[@id=\"my-form\"]/div[4]/div/div/div/button")).click();
 Thread.sleep(3000);
 driver.findElement(By.xpath("/html/body/ul/li[1]")).click();
-Thread.sleep(1000);
+Thread.sleep(3000);
+driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[2]/div[2]")).click();
 /*
 选择相应省份
  */
@@ -126,11 +127,11 @@ for(int i=1;i<=5;i++){
 for(int i=1;i<=1;i++){
     driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div[2]/div/div[2]/div[3]/ul/li["+i+"]")).click();
 }
-Thread.sleep(1000);
+Thread.sleep(3000);
 driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div[2]/div/div[1]/button[2]")).click();
-Thread.sleep(1000);
+Thread.sleep(3000);
 driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[16]/button")).click();
-Thread.sleep(2000);
+Thread.sleep(3000);
 driver.close();
 ```
 
@@ -138,6 +139,8 @@ driver.close();
 
 开始的问题是，点击提交就是提交不了，最后发现，它这个填写好像是根据第一次填写就有的，有点不像是ip定位，所以我就手动更改地址。最后就可以提交了。
 也可以把gitee的自动部署改成这样的了。
+
+如果无缘无故报错请调整间隔时间Thread.sleep，有可能网站后台还没加载成功，找不到元素。
 
 参考链接：
 
