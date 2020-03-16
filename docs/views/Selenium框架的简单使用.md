@@ -105,7 +105,7 @@ WebElement idCard = driver.findElement(By.name("idCard"));
 idCard.sendKeys("密码");
 Thread.sleep(1000);
 driver.findElement(By.xpath("//*[@id=\"my-form\"]/div[4]/div/div/div/button")).click();
-Thread.sleep(1000);
+Thread.sleep(3000);
 driver.findElement(By.xpath("/html/body/ul/li[1]")).click();
 Thread.sleep(1000);
 /*
