@@ -9,7 +9,7 @@ tags:
 
 ## c++
 
-```c++
+```cpp
 #include<iostream>
 using namespace std;
 class Invoice
@@ -128,7 +128,7 @@ public class App{
 
 大致就是这个意思吧
 
-```c++
+```cpp
 #include <iostream>
 struct Base {
    virtual void f() {
