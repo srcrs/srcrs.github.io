@@ -1,6 +1,6 @@
 ---
 home: true
-bgImage: /hero.png
+bgImage: /hero.svg
 heroImageStyle: {
   maxWidth: '600px',
   width: '100%',

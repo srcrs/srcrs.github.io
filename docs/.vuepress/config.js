@@ -1,10 +1,10 @@
 module.exports = {
-  "title": "srcrs",
-  "description": "A place with all of me",
+  "title": " ",
+  "description": " ",
   "dest": "public",
   "base": "/",
    head: [
-    ['link', { rel: 'icon', href: 'favicon.ico' }],//站点图标
+    ['link', { rel: 'icon', href: 'favicon.svg' }],//站点图标
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
@@ -63,8 +63,9 @@ module.exports = {
       clientId: '9601fd4196d77c044a86',
       clientSecret: 'cb29c9a4d3e4e6f65718f416ac8ed1df81dec3de',
     },
-  //  "logo": "/",
+    "logo": "/head.svg",//个性图标
     "search": true,
+	"authorAvatar": '/favicon.svg',//浮动栏图标
     "searchMaxSuggestions": 10,
     "sidebar": "auto",
     "lastUpdated": "Last Updated",
