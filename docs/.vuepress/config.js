@@ -69,7 +69,7 @@ module.exports = {
     "searchMaxSuggestions": 10,
     "sidebar": "auto",
     "lastUpdated": "Last Updated",
-    "author": "",
+    "author": "srcrs",
     "record": "京ICP备51666888号-1",
     "startYear": "2019"
   },
