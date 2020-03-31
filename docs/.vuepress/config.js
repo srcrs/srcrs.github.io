@@ -79,7 +79,6 @@ module.exports = {
   "plugins": [
     "@vuepress/medium-zoom",
     "flowchart",
-    "ribbon",
     ['@vuepress/pwa', {
       serviceWorker: true,
       updatePopup: true
