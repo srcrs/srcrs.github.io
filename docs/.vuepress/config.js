@@ -40,7 +40,7 @@ module.exports = {
 		  {
 			"text": "Gitee",
             "link": "https://srcrs.gitee.io",
-            "icon": "reco-github"			
+            "icon": "reco-mayun"			
 		  },
         ]
       }
