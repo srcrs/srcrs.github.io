@@ -74,7 +74,7 @@ module.exports = {
     "startYear": "2019"
   },
   "markdown": {
-    "lineNumbers": true
+    "lineNumbers": false   //不显示代码块的行号
   },
   "plugins": [
     "@vuepress/medium-zoom",
