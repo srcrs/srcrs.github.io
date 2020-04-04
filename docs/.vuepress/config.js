@@ -78,6 +78,7 @@ module.exports = {
   },
   "plugins": [
     "@vuepress/medium-zoom",
+	"vuepress-plugin-cat",
     "flowchart",
     ['@vuepress/pwa', {
       serviceWorker: true,
