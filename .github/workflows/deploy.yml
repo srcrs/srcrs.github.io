@@ -34,7 +34,7 @@ jobs:
           GH_REP: ${{ secrets.GH_REP }}
           GE_REP: ${{ secrets.GE_REP }}
         run: |
-          cd ./public
+          cd ./dist
           git init
           git config user.name "srcrs"
           git config user.email "531238678@qq.com"

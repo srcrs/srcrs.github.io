@@ -4,17 +4,15 @@
   "repository": "https://github.com/srcrs/srcrs.github.io",
   "author": "srcrs",
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "dev": "vuepress dev src",
+    "build": "vuepress build src --dest dist"
   },
   "devDependencies": {
     "@vuepress/plugin-google-analytics": "^1.2.0",
-    "@vuepress/plugin-medium-zoom": "1.0.3",
     "vuepress": "1.2.0",
-	"@vuepress/plugin-pwa": "^1.2.0",
+    "@vuepress/plugin-pwa": "^1.2.0",
     "vuepress-plugin-flowchart": "1.4.3",
-    "vuepress-theme-reco": "1.4.0",
-	"vuepress-plugin-cat": "^1.0.3"
+    "vuepress-theme-meteorlxy": "^1.8.0"
   },
   "description": ""
 }
