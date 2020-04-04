@@ -1,6 +1,6 @@
 module.exports = {
-  "title": " ",
-  "description": " ",
+  "title": "srcrs",
+  "description": "A whole place about me",
   "dest": "public",
   "base": "/",
    head: [
@@ -15,70 +15,87 @@ module.exports = {
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }],
 	['meta', { name: 'viewport', 'content': 'width=device-width,initial-scale=1,user-scalable=no' }]
   ],
-  "theme": "reco",
+  theme: 'meteorlxy',
   "themeConfig": {
-    "nav": [
-      {
-        "text": "Home",
-        "link": "/",
-        "icon": "reco-home"
+	    // 个人信息（没有或不想设置的，删掉对应字段即可）
+    personalInfo: {
+      // 昵称
+      nickname: 'srcrs',
+
+      // 个人简介 (支持 HTML)
+      description: 'Happy Coding',
+
+      // 电子邮箱
+      email: 'srcrszhu@gmail.com',
+
+      // 所在地
+      location: 'Xin\'yang City, China',
+
+      // 头像
+      avatar: 'head.svg',
+      // 社交平台帐号信息
+      sns: {
+        // Github 帐号和链接
+        github: {
+          account: 'meteorlxy',
+          link: 'https://github.com/srcrs',
+        },
       },
-      {
-        "text": "TimeLine",
-        "link": "/timeLine/",
-        "icon": "reco-date"
-      },
-      {
-        "text": "Contact",
-        "icon": "reco-message",
-        "items": [
-          {
-            "text": "GitHub",
-            "link": "https://srcrs.github.io",
-            "icon": "reco-github"
-          },
-		  {
-			"text": "Gitee",
-            "link": "https://srcrs.gitee.io",
-            "icon": "reco-mayun"			
-		  },
-        ]
-      }
-    ],
-    "type": "blog",
-    "blogConfig": {
-      "category": {
-        "location": 2,
-        "text": "Category"
-      },
-      "tag": {
-        "location": 3,
-        "text": "Tag"
-      }
     },
-    vssueConfig: {//评论
+    // 上方 header 的相关设置 (可选)
+    header: {
+      // header 的背景，可以使用图片，或者随机变化的图案（geopattern）
+      background: {
+        // 使用随机变化的图案，如果设置为 false，且没有设置图片 URL，将显示为空白背景
+        useGeo: true,
+      },
+      // 是否在 header 显示标题
+      showTitle: true,
+    },
+	// 底部 footer 的相关设置 (可选)
+    footer: {
+      // 是否显示 Powered by VuePress
+      poweredBy: true,
+
+      // 是否显示使用的主题
+      poweredByTheme: true,
+
+      // 添加自定义 footer (支持 HTML)
+      custom: 'Copyright 2019-present <a href="https://github.com/srcrs" target="_blank">srcrs</a> | MIT License',
+    },
+	// 个人信息卡片相关设置 (可选)
+    infoCard: {
+      // 卡片 header 的背景，可以使用图片，或者随机变化的图案（geopattern）
+      headerBackground: {
+
+        // 使用随机变化的图案，如果设置为 false，且没有设置图片 URL，将显示为空白背景
+        useGeo: true,
+      },
+    },
+	// 是否显示文章的最近更新时间
+    lastUpdated: true,
+    // 顶部导航栏内容
+    nav: [
+      { text: 'Home', link: '/', exact: true },
+      { text: 'Posts', link: '/posts/', exact: false },
+	  { text: 'Custom Pages', link: 'Custom Pages', exact: false },
+	  { text: 'Github', link: 'https://github.com/meteorlxy/vuepress-theme-meteorlxy' },
+    ],
+	// 分页配置 (可选)
+    pagination: {
+      perPage: 7,
+    },
+	// 评论配置
+    comments: {
       platform: 'github',
       owner: 'srcrs',
       repo: 'comment',
       clientId: '9601fd4196d77c044a86',
       clientSecret: 'cb29c9a4d3e4e6f65718f416ac8ed1df81dec3de',
     },
-    "logo": "/head.svg",//个性图标
-    "search": true,
-	"authorAvatar": '/favicon.svg',//浮动栏图标
-    "searchMaxSuggestions": 10,
-    "sidebar": "auto",
-    "lastUpdated": "Last Updated",
-    "author": "srcrs",
-    "record": "京ICP备51666888号-1",
-    "startYear": "2019"
   },
-  "markdown": {
-    "lineNumbers": false   //不显示代码块的行号
-  },
-  "plugins": [
-    "@vuepress/medium-zoom",
-	"vuepress-plugin-cat",
+  plugins: [
+	"vuepress-theme-meteorlxy",
     "flowchart",
     ['@vuepress/pwa', {
       serviceWorker: true,

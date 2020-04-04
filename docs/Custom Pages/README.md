@@ -1,5 +1,4 @@
 ---
-draft: true
 category: hello
 tags:
   - world
