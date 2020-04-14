@@ -1,7 +1,7 @@
 ---
 title: 用java爬妹子图
 date: 2020-03-01
-category: java
+category: Java
 tags:
  - 爬虫
 ---

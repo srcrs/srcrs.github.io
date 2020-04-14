@@ -1,7 +1,7 @@
 ---
 title: 突破ip封禁限制
 date: 2020-03-02
-category: java
+category: Java
 tags:
  - 爬虫
 ---

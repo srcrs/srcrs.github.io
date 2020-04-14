@@ -1,7 +1,7 @@
 ---
 title: java创建对象的五种方式
 date: 2019-12-01
-category: java
+category: Java
 tags:
  - java
 ---

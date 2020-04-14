@@ -1,7 +1,7 @@
 ---
 title: Selenium+部署到服务器
 date: 2020-03-16
-category: java
+category: Java
 tags:
  - 爬虫
 ---

@@ -1,7 +1,7 @@
 ---
 title: 模拟登录GitHub拿到Cookie
 date: 2020-03-06
-category: java
+category: Java
 tags:
  - 爬虫
 ---
