@@ -32,6 +32,175 @@ SpringBoot今天才开始看，仅仅看了一点，会创建SpringBoot项目并
 
 请补充附件中的BeanFactory代码，完成附件里面AnimalCenterTest的正确运行。
 
+```java
+package zoo;
+
+public interface Animal {
+	public void move();
+}
+```
+
+```java
+package zoo;
+
+public class AnimalCenter {
+	//需要将注解的值产生实例，然后注入到first变量中
+	@Inject(value="zoo.Tiger")
+	private Animal first;
+    
+	//需要将注解的值产生实例，然后注入到second变量中
+	@Inject(value="zoo.Bird")
+	private Animal second;
+    
+	public void firstShow()
+	{
+		first.move();
+	}
+	
+	public void secondShow()
+	{
+		second.move();
+	}
+}
+```
+
+```java
+package zoo;
+
+public class AnimalCenterTest {
+
+	public static void main(String[] args) throws Exception {
+		AnimalCenter ac = BeanFactory.getBean(AnimalCenter.class);
+		ac.firstShow();
+		ac.secondShow();		
+	}
+}
+```
+
+```java
+package zoo;
+import java.lang.reflect.Field;
+
+public class BeanFactory {
+ 
+    public static <Q> Q getBean(Class<Q> clazz) {
+    	
+    	Q result = null;
+    	
+    	//请补充
+    	//首先产生一个clazz的实例对象
+        
+        
+        //请补充
+        //查找所有的成员变量，并遍历
+        //如果有成员变量带有Inject注解，请采用反射办法获取到注解的值
+        //然后产生注解值所对应的实例对象，并赋值给这个成员变量
+        //如果该成员变量是private，需要用反射办法设置为可以访问的
+    	
+        
+        return result;
+    }
+}
+```
+
+```java
+package zoo;
+
+public class Bird implements Animal{
+	
+	public void move()
+	{
+		System.out.println("Bird: I can fly high");
+	}
+}
+
+```
+
+```java
+package zoo;
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+
+//注入的注解，用于指定注入类型
+public @interface Inject {
+	public String value();
+}
+```
+
+```java
+package zoo;
+
+public class Tiger implements Animal{
+	
+	public void move()
+	{
+		System.out.println("Tiger: I can run fast");
+	}
+}
+```
+
+当时给的代码就是这样，如何补充代码也都有注释，只知道一点点反射，却不知道如何通过反射查看是否有注解。
+
 ### 这里需要注意几个问题
 
++ 如何通过反射创建一个实例对象？
+
+:::tip
+newInstance();
+:::
+
++ 如何通过反射获取实例对象的所有成员变量？
+
+:::tip
+getClass().getDeclaredFields();
+:::
+
++ 反射如何操纵私有变量或方法
+
+:::tip
+setAccessible(true);
+:::
+
++ 如何根据反射判断成员是否带有注解？
+
+:::tip
+getAnnotation();
+:::
+
 ### 补充完代码
+
+```java
+package zoo;
+import java.lang.reflect.Field;
+
+public class BeanFactory {
+ 
+    public static <Q> Q getBean(Class<Q> clazz) {
+    	
+    	Q result = null;
+        try {
+        	//创建clazz的实例对象
+			result = clazz.newInstance();
+            //获取当前实例对象的所有成员方法
+			Field[] filed = result.getClass().getDeclaredFields();
+			for(Field f : filed) {
+				//设置私有变量也可以操纵
+				f.setAccessible(true);
+				//判断当前成员变量是否有此注解
+				Inject inject = f.getAnnotation(Inject.class);
+				//根据注解里面的值反射得到实例对象
+				Object obj = Class.forName(inject.value()).newInstance();
+				//result里面的成员变量f的值设置为obj
+			    f.set(result, obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return result;
+    }
+}
+```
+
+依赖注入实现原理大概就是这样的吧，但是少量的代码时体会不到它的好处的，我就没咋体会到，相反会觉得复杂，明明有简单的方法不用，要用这个复杂的，慢慢体会吧。SpringBoot是初尝它的好，还要一步步挖掘^_^。
