@@ -34,7 +34,6 @@ SpringBoot今天才开始看，仅仅看了一点，会创建SpringBoot项目并
 
 ```java
 package zoo;
-
 public interface Animal {
 	public void move();
 }
@@ -42,21 +41,17 @@ public interface Animal {
 
 ```java
 package zoo;
-
 public class AnimalCenter {
 	//需要将注解的值产生实例，然后注入到first变量中
 	@Inject(value="zoo.Tiger")
-	private Animal first;
-    
+	private Animal first;  
 	//需要将注解的值产生实例，然后注入到second变量中
 	@Inject(value="zoo.Bird")
-	private Animal second;
-    
+	private Animal second;   
 	public void firstShow()
 	{
 		first.move();
-	}
-	
+	}	
 	public void secondShow()
 	{
 		second.move();
@@ -66,9 +61,7 @@ public class AnimalCenter {
 
 ```java
 package zoo;
-
 public class AnimalCenterTest {
-
 	public static void main(String[] args) throws Exception {
 		AnimalCenter ac = BeanFactory.getBean(AnimalCenter.class);
 		ac.firstShow();
@@ -80,13 +73,9 @@ public class AnimalCenterTest {
 ```java
 package zoo;
 import java.lang.reflect.Field;
-
 public class BeanFactory {
- 
     public static <Q> Q getBean(Class<Q> clazz) {
-    	
     	Q result = null;
-    	
     	//请补充
     	//首先产生一个clazz的实例对象
         //请补充
@@ -94,7 +83,6 @@ public class BeanFactory {
         //如果有成员变量带有Inject注解，请采用反射办法获取到注解的值
         //然后产生注解值所对应的实例对象，并赋值给这个成员变量
         //如果该成员变量是private，需要用反射办法设置为可以访问的
-    	
         return result;
     }
 }
@@ -102,25 +90,19 @@ public class BeanFactory {
 
 ```java
 package zoo;
-
 public class Bird implements Animal{
-	
 	public void move()
 	{
 		System.out.println("Bird: I can fly high");
 	}
 }
-
 ```
 
 ```java
 package zoo;
-
 import java.lang.annotation.*;
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-
 //注入的注解，用于指定注入类型
 public @interface Inject {
 	public String value();
@@ -129,9 +111,7 @@ public @interface Inject {
 
 ```java
 package zoo;
-
-public class Tiger implements Animal{
-	
+public class Tiger implements Animal{	
 	public void move()
 	{
 		System.out.println("Tiger: I can run fast");
@@ -163,13 +143,9 @@ getAnnotation();
 
 ```java
 package zoo;
-
 import java.lang.reflect.Field;
-
 public class BeanFactory {
- 
     public static <Q> Q getBean(Class<Q> clazz) {
-    	
     	Q result = null;
         try {
         	//创建clazz的实例对象
