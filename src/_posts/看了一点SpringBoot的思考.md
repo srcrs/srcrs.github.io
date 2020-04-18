@@ -145,27 +145,19 @@ public class Tiger implements Animal{
 
 + 如何通过反射创建一个实例对象？
 
-:::tip
 newInstance();
-:::
 
 + 如何通过反射获取实例对象的所有成员变量？
   
-:::tip
 getClass().getDeclaredFields();
-:::
 
 + 反射如何操纵私有变量或方法
 
-:::tip
 setAccessible(true);
-:::
 
 + 如何根据反射判断成员是否带有注解？
 
-:::tip
 getAnnotation();
-:::
 
 ### 补充完代码
 
