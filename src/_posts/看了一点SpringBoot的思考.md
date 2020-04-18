@@ -89,15 +89,12 @@ public class BeanFactory {
     	
     	//请补充
     	//首先产生一个clazz的实例对象
-        
-        
         //请补充
         //查找所有的成员变量，并遍历
         //如果有成员变量带有Inject注解，请采用反射办法获取到注解的值
         //然后产生注解值所对应的实例对象，并赋值给这个成员变量
         //如果该成员变量是private，需要用反射办法设置为可以访问的
     	
-        
         return result;
     }
 }
@@ -118,6 +115,7 @@ public class Bird implements Animal{
 
 ```java
 package zoo;
+
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -173,6 +171,7 @@ getAnnotation();
 
 ```java
 package zoo;
+
 import java.lang.reflect.Field;
 
 public class BeanFactory {
