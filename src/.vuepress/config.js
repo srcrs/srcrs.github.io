@@ -67,7 +67,7 @@ module.exports = {
     footer: {
       poweredBy: true,
       poweredByTheme: true,
-      custom: 'Copyright 2019-present <br/><a href="https://github.com/srcrs" target="_blank">srcrs</a> | MIT License',
+      custom: 'Copyright 2019-present <br/><a href="https://github.com/srcrs" target="_blank">srcrs</a> | MIT',
     },
 
     // 顶部导航栏内容
