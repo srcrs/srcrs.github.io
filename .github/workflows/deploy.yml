@@ -35,6 +35,7 @@ jobs:
           GE_REP: ${{ secrets.GE_REP }}
         run: |
           cp CNAME dist
+          cp baidu_verify_2hmRIh3DzO.html dist
           cd ./dist
           git init
           git config user.name "srcrs"
