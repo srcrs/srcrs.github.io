@@ -35,7 +35,6 @@ jobs:
           GE_REP: ${{ secrets.GE_REP }}
         run: |
           cp CNAME dist
-          cp screen dist
           cd ./dist
           git init
           git config user.name "srcrs"
