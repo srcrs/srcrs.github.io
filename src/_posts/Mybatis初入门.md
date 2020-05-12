@@ -246,6 +246,68 @@ public class App {
 }
 ```
 
+## 开启日志
+
+mybatis自带有输出到控制台的日志，如果需要使用直接到mybatis-config.xml中配置就可以，需要注意位置放置的位置。
+
+```xml
+<settings>
+    <setting name="logImpl" value="STDOUT_LOGGING"/>
+</settings>
+```
+
+这样日志就会有日志输出了。
+
+同样也可以自己配置mybatis日志实现。例如使用log4j。
+
+在pom.xml中导入log4j依赖包。
+
+```xml
+<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
+```
+
+创建log4j日志配置文件log4j.properties，放到资源目录resources中。
+
+```sh
+#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+log4j.rootLogger=DEBUG,console,file
+
+#控制台输出相关配置
+log4j.appender.console = org.apache.log4j.ConsoleAppender
+log4j.appender.comsole.Target = System.out
+log4j.appender.comsole.Threshold = DEBUG
+log4j.appender.console.layout = org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern = [%c]-%m%n
+
+#文件输出的相关设置
+log4j.appender.file = org.apache.log4j.RollingFileAppender
+log4j.appender.file.File = ./log/srcrs.log
+log4j.appender.file.MaxFileSize = 10mb
+log4j.appender.file.Threshold = DEBUG
+log4j.appender.file.layout = org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern = [%p][%d{yy-MM-dd}][%c]%m%n
+
+#日志输出级别
+log4j.logger.org.mybatis = DEBUG
+log4j.logger.java.sql = DEBUG
+log4j.logger.java.sql.Statement = DEBUG
+log4j.logger.java.sql.ResultSet = DEBUG
+log4j.logger.java.sql.PreparedStatement = DEBUG
+```
+
+在mybatis-config.xml中配置相应的日志实现标签。
+
+```xml
+<settings>
+    <setting name="logImpl" value="LOG4J"/>
+</settings>
+```
+
 sqlSession每次使用完都需要关闭，另外进行增删改的时候还得提交事务，也可以设置成自动提交事务。
 
 ## 参考链接
