@@ -7,7 +7,7 @@ tags:
 ---
 
 :::tip
-已经连续练了好几天这个，但是一些细节还是会忘，为了以后构建的更快，记下来。
+已经连续练了好几天这个，但是一些细节还是会忘，加深一下印象。
 :::
 
 <!-- more -->
@@ -20,17 +20,17 @@ tags:
 IDEA商业版 | 1.45.0
 项目 | maven
 
-如果要是没有商业版，可以申请教育邮箱，或者用激活码激活。破解jar包下载，里面带有教程[点我](https://srcrs.lanzous.com/ibtbrbe)
+如果要是没有商业版，可以申请教育邮箱，或者用激活码激活。破解`jar`包下载，里面带有教程[点我](https://srcrs.lanzous.com/ibtbrbe)
 
 ## 整合的思路
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="383px" viewBox="-0.5 -0.5 383 273" content="&lt;mxfile host=&quot;Chrome&quot; modified=&quot;2020-05-14T12:32:03.283Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36&quot; etag=&quot;yVeCgGg1K8pIFb6WYYu0&quot; version=&quot;13.0.7&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;KMxC7J5TO2hK7lTB8quv&quot; name=&quot;第 1 页&quot;&gt;3ZlNk6soFIZ/DcueUlCDS+14ZxYzVV3Vi+lZohJDtUqGkE5yf/2AoolI7sdUPqpvVy/gcDzC8x7wGAF6bg6/C7JZ/8VLWgPolQeAlgBCP4AQ6H+vPPYWHEa9oRKsNE4nwyv7So3RM9YdK+l24ig5ryXbTI0Fb1tayImNCMH3U7cVr6d33ZCKzgyvBann1r9ZKddmFXBxsv9BWbUe7uxHcT/SkMHZrGS7JiXfn5lQBtCz4Fz2rebwTGsNb+DSX/flwug4MUFb+SMXtAhXb4cNfn96qr78y6NqD8snI8YHqXdmwWay8jgQUPPe6GbBRUsFQOl+zSR93ZBCW/dKdmVby6ZWPV81V6yun3nNRXc5Wq0K9afsWyn4Oz0bQRGKkZpcauZAhaSHi4vzR2Qq1yhvqBRH5XKYpovJsiAy/f1Js9CY1mdyDTZisqQaA59AqoZh+RNc45tzLUOKy8DFFcMcRdF1uEYWV/RgroPONwRLfYV24QIbRwtErgTWtzPWezRZ/+Zkc48iGrnIehR7GF+HLLLIQjwni+9KFt7+kMUFdR+yOQ4DtbLr5Kx1GqDFo3MW3eHxRSM32XIR596VyNrn7JjDDyMb3P4BRiheOclGBab56kpkrdMABY8mi+dksxCo0y9OdSNNQZo05IO2IItB4oM0BtlCDyZZNx6DNNJDWF201EPpshvqfFLcBVNuCGQBSDMQKx8M0hDE0UxBhVVONSI1q1qtqcLbaarhM1UOJ2agYWWpL08F3bKvJO9C6V2w4ayVHawwBeFSx9pJvu0Lev9KYsbTZyZezLT0XUc7vJmYjjovi0DsgWQ5irndCNZWnx4+tgqWMJ7BX9yTPXSUghfYNx/Fp8fvI4s/xDP+8V35z8sak+laBcU/0CqoKWH8C6lg7QIUz1UYlbqPDI4aaLYNmmNOJNt+evwQfb8CvesDAM7rpEub4JfRwN4CjopqfLu9jwihYwuo4icBuCupcKLrqHnJ9NmVQPZucLw1RHcV4id+Ttw1dVJIfg71T5LT+kVBkoxruDmXkjfKodYDKSneK8F3bTl5PdN/DmEkt94+rsE7mPKGjsyHDt7BzXg73iUu8a5Z+z4lQg9Mvpl01e1/ztpLvWQ49vSCw6H3QgVT89f7ofdv1VrehqC600X6LRi6XbDRsws29uxg//cnI1rOfse3ZFVU+E4U9Bs8TfpKIioqv+HnX8iTH3ynFLRWT4KP6XxdyWHu8KLPkrMDOJymYRhb+dWv01wFz74IWIFQbJ0fnhWoBzELlAhBjmdu5qy7OGH7PqE/+VKhGn3E00YYmbr2huqevpr07qdvTyj7Dw==&lt;/diagram&gt;&lt;/mxfile&gt;" onclick="(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;&amp;src.nodeName.toLowerCase()!='a'){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;&amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data=='ready'&amp;&amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute('content')),'*');window.removeEventListener('message',r);}};window.addEventListener('message',r);svg.wnd=window.open('https://app.diagrams.net/?client=1&amp;lightbox=1&amp;edit=_blank');}}})(this);" style="cursor:pointer;max-width:100%;max-height:273px;"><defs/><g><path d="M 0 220 L 50 220 L 50 240 L 20 240 L 20 270 L 0 270 Z" fill="#ffcccc" stroke="#36393d" stroke-miterlimit="10" pointer-events="none"/><path d="M 50 190 L 100 190 L 100 210 L 70 210 L 70 240 L 50 240 Z" fill="#d5e8d4" stroke="#82b366" stroke-miterlimit="10" pointer-events="none"/><path d="M 100 160 L 150 160 L 150 180 L 120 180 L 120 210 L 100 210 Z" fill="#e1d5e7" stroke="#9673a6" stroke-miterlimit="10" pointer-events="none"/><path d="M 300 40 L 380 40 L 380 60 L 320 60 L 320 90 L 300 90 Z" fill="#b0e3e6" stroke="#0e8088" stroke-miterlimit="10" pointer-events="none"/><path d="M 150 130 L 200 130 L 200 150 L 170 150 L 170 180 L 150 180 Z" fill="#f8cecc" stroke="#b85450" stroke-miterlimit="10" pointer-events="none"/><path d="M 250 70 L 300 70 L 300 90 L 270 90 L 270 120 L 250 120 Z" fill="#ffe6cc" stroke="#d79b00" stroke-miterlimit="10" pointer-events="none"/><path d="M 200 100 L 250 100 L 250 120 L 220 120 L 220 150 L 200 150 Z" fill="#dae8fc" stroke="#6c8ebf" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 257px; margin-left: 109px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">创建maven项目并配置相关依赖</div></div></div></foreignObject><text x="109" y="261" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">创建maven项目并配置相关依赖</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 229px; margin-left: 105px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">搭建spring</div></div></div></foreignObject><text x="105" y="233" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">搭建spring</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 198px; margin-left: 165px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">搭建springmvc</div></div></div></foreignObject><text x="165" y="202" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">搭建springmvc</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 168px; margin-left: 235px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">spring整合springmvc</div></div></div></foreignObject><text x="235" y="172" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">spring整合springmvc</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 140px; margin-left: 260px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">搭建mybatis</div></div></div></foreignObject><text x="260" y="144" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">搭建mybatis</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 110px; margin-left: 325px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">spring整合mybatis</div></div></div></foreignObject><text x="325" y="114" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">spring整合mybatis</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 80px; margin-left: 350px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">事务配置</div></div></div></foreignObject><text x="350" y="84" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">事务配置</text></switch></g><ellipse cx="340" cy="5" rx="5" ry="5" fill="#ffffff" stroke="#000000" pointer-events="none"/><path d="M 340 10 L 340 26.67 M 340 13.33 L 330 13.33 M 340 13.33 L 350 13.33 M 340 26.67 L 330 40 M 340 26.67 L 350 40" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 20 268 L 378 268 L 378 60 M 382 60 L 382 268 Q 382 272 378 272 L 20 272 M 382 60" fill="none" stroke="#0e8088" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="none"/></g><switch><g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/><a transform="translate(0,-5)" xlink:href="https://desk.draw.io/support/solutions/articles/16000042487" target="_blank"><text text-anchor="middle" font-size="10px" x="50%" y="100%">Viewer does not support full SVG 1.1</text></a></switch></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="383px" viewBox="-0.5 -0.5 383 273" content="&lt;mxfile host=&quot;Chrome&quot; modified=&quot;2020-05-14T13:37:05.164Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36&quot; etag=&quot;Ep6B8qSyu7yQqAg39nts&quot; version=&quot;13.0.7&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;KMxC7J5TO2hK7lTB8quv&quot; name=&quot;第 1 页&quot;&gt;3ZlPk6MqEMA/DcfZUlGDR51kdg/vVU3VHN7sEZUYalSyhPzbT/9A0SiSrd0qk9RsDilooIVfN02jAD5Xp68cbzf/spyUwHPyE4BL4HmBF8p/JThrQQRbQcFp3orci+CN/iRa6GjpnuZkN+ooGCsF3Y6FGatrkomRDHPOjuNua1aOn7rFBZkI3jJcTqX/0VxsWinyFhf5N0KLTfdkN4zalgp3nfVKdhucs+NABFcAPnPGRFuqTs+kVOw6Lu24lyut/cQ4qcXvDKghKt5PW/Tx9FS8/GBhcfTyJ22dAy73esF6suLcEZDz3qpixnhNOIDJcUMFedviTEmP0upSthFVKWuuLK5pWT6zkvFmOFyvM/mT8p3g7IMMWmAIIygnl0xXohd3IFyQ00CkV/aVsIoIfpZdTmN30V7mh7p+vNgs0KLNwFydDGsvKXrFF5CyoFn+Adfo5lzzgKDct3FFXgrDcB6uocEVPphrZ+cbgiWuRLuwgY3CBcQzgXVNj3UeTda9OdnUIZCENrIOQQ5C85CFBlkPTcmiu5L1bh9kUUbsQTZFgS9XNo/PGtEALh7ts/AOxxcJ7WTzRZQ6M5E142zvww8j69/+AMMEra1kwwyRdD0TWSMaQP/RZNGU7CoAMvpFiSokCUjiCh9IDVYRiF2QRGC1UI3xqmmPQBKqJiQHLVVTsmyamj4JapTJblBJ0ArEL0oSewDBiQUlQzG2ES5pUSubSuKNTRVpKtPhWDdUNM/V8ISTHf2J00aV2gVbRmvRwAoSECyVrr1guzahd2cK7caZiRYTW7q20O7dzJiWPG8VgsgB8bI35m7LaV18evjIgB9EE/iLe7L3LKngFfbVIfv0+F3T+T004R/dlf80rdGerqwg+fvKCnJKCP1FVjB2AYymVugtdR8zWHKgyTaozikWdPfp8ZsngC0DvesB4E3zpGub4K+xgbkFLBlVf7u9jxECyxbwpdsD1KRUKFZ51DRl+uyWgOZusNwawrsa4g9eJ+6rMs4EG0L9B6ekfJWQBGUKbsqEYJXsUKqGBGcfBWf7Oh9dz9TPYhjBjNvHHLz9MW/P4vmehbd/M96Wu8Q13iWtP8ZEyImKd+2uqvx9UF6qJXt9TS046GqvhFM5f7Uf2v61XMt7p1RVGk1f/K7aKOt7Nsr6mqlsxldGO7bnGfkFPu2tAvOCiF/0616NkXz0rWDqJ795p+SklCfBYfyFweYc+gmvKpYMAnAwdsMgMvyrXbge5Q2+CBiKYGTED8dQ1JKZKIo5x+dBNx3rrk7YfE7gjr5UyEKr8bIReqa2vSGrl68mbffLpye4+h8=&lt;/diagram&gt;&lt;/mxfile&gt;" onclick="(function(svg){var src=window.event.target||window.event.srcElement;while (src!=null&amp;&amp;src.nodeName.toLowerCase()!='a'){src=src.parentNode;}if(src==null){if(svg.wnd!=null&amp;&amp;!svg.wnd.closed){svg.wnd.focus();}else{var r=function(evt){if(evt.data=='ready'&amp;&amp;evt.source==svg.wnd){svg.wnd.postMessage(decodeURIComponent(svg.getAttribute('content')),'*');window.removeEventListener('message',r);}};window.addEventListener('message',r);svg.wnd=window.open('https://app.diagrams.net/?client=1&amp;lightbox=1&amp;edit=_blank');}}})(this);" style="cursor:pointer;max-width:100%;max-height:273px;"><defs/><g><path d="M 0 220 L 50 220 L 50 240 L 20 240 L 20 270 L 0 270 Z" fill="#ffcccc" stroke="#36393d" stroke-miterlimit="10" pointer-events="none"/><path d="M 50 190 L 100 190 L 100 210 L 70 210 L 70 240 L 50 240 Z" fill="#d5e8d4" stroke="#82b366" stroke-miterlimit="10" pointer-events="none"/><path d="M 100 160 L 150 160 L 150 180 L 120 180 L 120 210 L 100 210 Z" fill="#e1d5e7" stroke="#9673a6" stroke-miterlimit="10" pointer-events="none"/><path d="M 300 40 L 380 40 L 380 60 L 320 60 L 320 90 L 300 90 Z" fill="#b0e3e6" stroke="#0e8088" stroke-miterlimit="10" pointer-events="none"/><path d="M 150 130 L 200 130 L 200 150 L 170 150 L 170 180 L 150 180 Z" fill="#f8cecc" stroke="#b85450" stroke-miterlimit="10" pointer-events="none"/><path d="M 250 70 L 300 70 L 300 90 L 270 90 L 270 120 L 250 120 Z" fill="#ffe6cc" stroke="#d79b00" stroke-miterlimit="10" pointer-events="none"/><path d="M 200 100 L 250 100 L 250 120 L 220 120 L 220 150 L 200 150 Z" fill="#dae8fc" stroke="#6c8ebf" stroke-miterlimit="10" pointer-events="none"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 257px; margin-left: 110px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">创建maven项目并配置相关环境</div></div></div></foreignObject><text x="110" y="261" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">创建maven项目并配置相关环境</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 229px; margin-left: 105px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">搭建spring</div></div></div></foreignObject><text x="105" y="233" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">搭建spring</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 198px; margin-left: 165px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">搭建springmvc</div></div></div></foreignObject><text x="165" y="202" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">搭建springmvc</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 168px; margin-left: 235px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">spring整合springmvc</div></div></div></foreignObject><text x="235" y="172" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">spring整合springmvc</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 140px; margin-left: 260px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">搭建mybatis</div></div></div></foreignObject><text x="260" y="144" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">搭建mybatis</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 110px; margin-left: 325px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">spring整合mybatis</div></div></div></foreignObject><text x="325" y="114" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">spring整合mybatis</text></switch></g><g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 80px; margin-left: 350px;"><div style="box-sizing: border-box; font-size: 0; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: none; white-space: nowrap; ">事务配置</div></div></div></foreignObject><text x="350" y="84" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">事务配置</text></switch></g><ellipse cx="340" cy="5" rx="5" ry="5" fill="#ffffff" stroke="#000000" pointer-events="none"/><path d="M 340 10 L 340 26.67 M 340 13.33 L 330 13.33 M 340 13.33 L 350 13.33 M 340 26.67 L 330 40 M 340 26.67 L 350 40" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 20 268 L 378 268 L 378 60 M 382 60 L 382 268 Q 382 272 378 272 L 20 272 M 382 60" fill="none" stroke="#0e8088" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="none"/></g><switch><g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/><a transform="translate(0,-5)" xlink:href="https://desk.draw.io/support/solutions/articles/16000042487" target="_blank"><text text-anchor="middle" font-size="10px" x="50%" y="100%">Viewer does not support full SVG 1.1</text></a></switch></svg>
 
 ## 环境搭建
 
-1. 创建maven项目
+### 创建maven项目
 
-2. 在pom.xml中导入相关依赖
+### 在pom.xml中导入相关依赖
 
 ```xml
 <properties>
@@ -150,9 +150,9 @@ IDEA商业版 | 1.45.0
 </dependencies>
 ```
 
-3. 创建好项目的整体结构
+### 创建好项目的整体结构
 
-这里就是整个ssm框架基本的结构了。可以根据下面的思路走，看到哪个文件开始编写时，就可以在这里找到文件该到哪里创建。controller是表示层，dao是持久层，service是业务层，domain是实体类。
+这里就是整个`ssm`框架基本的结构了。可以根据下面的思路走，看到哪个文件开始编写时，就可以在这里找到文件该到哪里创建。`controller`是表示层，`dao`是持久层，`service`是业务层，`domain`是实体类。
 
 ```md
 .
@@ -194,7 +194,7 @@ IDEA商业版 | 1.45.0
 └── ssm3.iml 
 ```
 
-3. 创建数据库
+### 创建数据库
 
 ```
 create database srcrs;
@@ -206,9 +206,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-4. 编写javabean实体类
+### 编写javabean实体类
 
-即将User.java补充完整，这个是根据数据库的内容来编写的，数据库表的内容不同，javabean就要做出相应改变。
+即将`User.java`补充完整，这个是根据数据库的内容来编写的，数据库表的内容不同，`javabean`就要做出相应改变。
 
 ```java
 package org.example.domain;
@@ -245,9 +245,9 @@ public class User implements Serializable {
 }
 ```
 
-5. 编写持久层接口
+### 编写持久层接口
 
-即编写UserMapper.java。这个接口主要的作用制定操作数据库的规范，例如查询用户，增加用户，实现其方法就行，但是在mybatis中不需要自己实现，通过注解或者配置xml即可。
+即编写`UserMapper.java`。这个接口主要的作用制定操作数据库的规范，例如查询用户，增加用户，实现其方法就行，但是在`mybatis`中不需要自己实现，通过注解或者配置`xml`即可。
 
 ```java
 package org.example.dao;
@@ -266,9 +266,9 @@ public interface UserMapper {
 }
 ```
 
-6. 编写service接口和实现类。
+### 编写service接口和实现类。
 
-即编写UserService.java和UserServiceImpl.java
+即编写`UserService.java`和`UserServiceImpl.java`
 
 ```java
 package org.example.service;
@@ -316,7 +316,7 @@ public class UserServiceImpl implements UserService {
 
 ### 编写applicationContext.xml
 
-配置spring扫描注解，将相应的类交给Spring管理。排除Controller注解。
+配置`spring`扫描注解，将相应的类交给`Spring`管理。排除`Controller`注解。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -363,7 +363,7 @@ public class SpringTest {
 }
 ```
 
-输出以下内容，则证明spring搭建好了。
+输出以下内容，则证明`spring`搭建好了。
 
 ```sh
 Service业务层，查询所有用户
@@ -488,7 +488,7 @@ public class UserController {
 
 ### 编写success.jsp
 
-这个页面没有做过多操作，如果能够成功跳转到这个页面则证明代码没有问题。反之如果在这个页面中有500等类似错误，就需要好好看看哪错了。
+这个页面没有做过多操作，如果能够成功跳转到这个页面则证明代码没有问题。反之如果在这个页面中有`500`等类似错误，就需要好好看看哪错了。
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -508,11 +508,17 @@ public class UserController {
 
 ### 测试运行
 
-如果点击页面中的`查询所有用户`按钮，可以跳转到`响应成功`的页面，并且控制台输出`Controller表现层，查询所有学生`则说明springmvc搭建成功。
+如果点击页面中的`查询所有用户`按钮，可以跳转到`响应成功`的页面，并且控制台输出
+
+```sh
+Controller表现层，查询所有学生
+```
+
+则说明`springmvc`搭建成功。
 
 ## spring整合springmvc
 
-主要的一个问题就是当web项目启动时，spring.xml如何运行起来。所谓的整合也就是说，可以相互间调用其对象。
+主要的一个问题就是当`web`项目启动时，`spring.xml`如何运行起来。所谓的整合也就是说，可以相互间调用其对象。
 
 ### 在web.xml中配置ContextLoaderListener监听器
 
@@ -562,7 +568,7 @@ public class UserController {
 
 ### 测试整合的结果
 
-运行web项目，点击查询所有学生，如果可以输出以下内容则证明整合成功。
+运行`web`项目，点击查询所有学生，如果可以输出以下内容则证明整合成功。
 
 ```sh
 Controller表现层，查询所有用户
@@ -571,7 +577,7 @@ Service业务层，查询所有用户
 
 ## mabatis代码编写
 
-有很多都是采用注解的方式，以后假如说遇到复杂的查询还是需要使用配置文件的，我想的就是畅通不如短统，一步到位。
+有很多都是采用注解的方式，以后假如说遇到复杂的查询还是需要使用配置文件的，我想的就是长痛不如短痛，一步到位。
 
 ### 编写UserMapper.java
 
@@ -679,7 +685,7 @@ public class MybatisTest {
 }
 ```
 
-运行，如果可以查询到数据库中的数据，则证明，可以mybatis搭建成功。增加用户就不用测了。
+运行，如果可以查询到数据库中的数据，则证明，可以`mybatis`搭建成功。增加用户就不用测了。
 
 ## spring整合mybatis
 
@@ -835,7 +841,7 @@ public class UserController {
 
 ### 测试运行
 
-运行web项目，点击查询所有用户，如果在控制台中输出所有的学生，则证明整合成功。也可以输入id和name，添加一个用户。可能添加用户会失败，因为增删改需要提交事务。接下来进行事务配置。
+运行`web`项目，点击查询所有用户，如果在控制台中输出所有的学生，则证明整合成功。也可以输入`id`和`name`，添加一个用户。可能添加用户会失败，因为增删改需要提交事务。接下来进行事务配置。
 
 ## 事务配置
 
