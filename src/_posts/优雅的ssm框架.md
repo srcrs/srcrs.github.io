@@ -208,7 +208,7 @@ CREATE TABLE `user` (
 
 ### 编写javabean实体类
 
-即将`User.java`补充完整，这个是根据数据库的内容来编写的，数据库表的内容不同，`javabean`就要做出相应改变。
+即编写`User.java`，这个是根据数据库的内容来编写的，数据库表的内容不同，`javabean`就要做出相应改变。
 
 ```java
 package org.example.domain;
@@ -242,27 +242,6 @@ public class User implements Serializable {
                 ", name='" + name + '\'' +
                 '}';
     }
-}
-```
-
-### 编写持久层接口
-
-即编写`UserMapper.java`。这个接口主要的作用制定操作数据库的规范，例如查询用户，增加用户，实现其方法就行，但是在`mybatis`中不需要自己实现，通过注解或者配置`xml`即可。
-
-```java
-package org.example.dao;
-
-import org.example.domain.User;
-
-import java.util.List;
-
-public interface UserMapper {
-
-    //查找所有的用户
-    List<User> findAll();
-
-    //增加一个用户
-    void addUser(User user);
 }
 ```
 
@@ -477,10 +456,6 @@ public class UserController {
     @RequestMapping("/findAll")
     public String findAll(){
         System.out.println("Controller表现层，查询所有学生");
-        List<User> all = userService.findAll();
-        for (User user : all) {
-            System.out.println(user);
-        }
         return "success";
     }
 }
@@ -536,6 +511,8 @@ Controller表现层，查询所有学生
 
 ### controller中注入service对象
 
+完善`UserController.java`。
+
 ```java
 package org.example.controller;
 
@@ -557,10 +534,8 @@ public class UserController {
     @RequestMapping("/findAll")
     public String findAll(){
         System.out.println("Controller表现层，查询所有用户");
+        //此时这里只能进行调用不能输出，因为List是null
         List<User> all = userService.findAll();
-        for (User user : all) {
-            System.out.println(user);
-        }
         return "success";
     }
 }
@@ -579,7 +554,9 @@ Service业务层，查询所有用户
 
 有很多都是采用注解的方式，以后假如说遇到复杂的查询还是需要使用配置文件的，我想的就是长痛不如短痛，一步到位。
 
-### 编写UserMapper.java
+### 编写持久层接口UserMapper.java
+
+即编写`UserMapper.java`。这个接口主要的作用制定操作数据库的规范，例如查询用户，增加用户，实现其方法就行，但是在`mybatis`中不需要自己实现，通过注解或者配置`xml`即可。
 
 ```java
 package org.example.dao;
@@ -591,8 +568,10 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
+    //查找所有的用户
     List<User> findAll();
 
+    //增加一个用户
     void addUser(User user);
 }
 ```
@@ -631,12 +610,15 @@ public interface UserMapper {
 
 ### 编写UserMapper.xml
 
+如果要使用扫包的方式注册UserMapper.xml，这里命名需要和对应的接口命名一致。
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.dao.UserMapper">
+    <!-- 开启二级缓存 -->
     <cache/>
     <select id="findAll" resultType="user">
       select * from user
@@ -820,6 +802,27 @@ public class UserController {
 
 ```
 
+### 完善UserMapper.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.UserMapper">
+    <!-- 开启二级缓存 -->
+    <cache/>
+    <select id="findAll" resultType="user">
+      select * from user
+    </select>
+    <insert id="addUser" parameterType="user">
+        insert into User (id,name) values (
+        #{id},#{name}
+        );
+    </insert>
+</mapper>
+```
+
 ### 完善index.jsp
 
 ```jsp
@@ -864,6 +867,8 @@ public class UserController {
     <aop:advisor advice-ref="txAdvice" pointcut="execution(* org.example.service.Impl.*ServiceImp.*(..))"/>
 </aop:config>
 ```
+
+至此，一个优雅的框架搭建好了，如果需要别的功能可以在添加。可以删除不必要的文件，`org.example.test`做测试用的，可以删除，`mybatis-config.xml`也可以删除了。
 
 ## 完整代码
 
