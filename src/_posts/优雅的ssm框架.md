@@ -325,13 +325,10 @@ public class UserServiceImpl implements UserService {
 ```java
 package org.example.test;
 
-import org.example.domain.User;
-import org.example.service.Impl.UserServiceImpl;
 import org.example.service.UserService;
+import org.example.service.Impl.UserServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
 
 public class SpringTest {
     public static void main(String[] args) {
