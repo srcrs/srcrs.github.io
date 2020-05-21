@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src --dest dist",
-	"submit": "git add . & git commit -m $str & git push"
+	"submit": "git add . & git commit -m str & git push"
   },
   "devDependencies": {
     "@vuepress/plugin-google-analytics": "^1.2.0",
