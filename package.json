@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "repository": "https://github.com/srcrs/srcrs.github.io",
   "author": "srcrs",
-  "str": "update title",
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src --dest dist",
