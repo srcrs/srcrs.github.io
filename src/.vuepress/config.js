@@ -106,6 +106,7 @@ module.exports = {
 	"sitemap": {
 		hostname: 'https://srcrs.github.io'
 	},
+	['vuepress-plugin-code-copy', true],
     ['@vuepress/pwa', {
       serviceWorker: true,
       updatePopup: true
