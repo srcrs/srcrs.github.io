@@ -105,7 +105,7 @@ module.exports = {
     "flowchart",
 	"sitemap": {
 		hostname: 'https://srcrs.github.io'
-	}
+	},
     ['@vuepress/pwa', {
       serviceWorker: true,
       updatePopup: true
