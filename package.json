@@ -6,14 +6,15 @@
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src --dest dist",
-	  "submit": "git add . & git commit -m update_title & git push"
+    "submit": "git add . & git commit -m update_title & git push"
   },
   "devDependencies": {
     "@vuepress/plugin-google-analytics": "^1.2.0",
     "@vuepress/plugin-pwa": "^1.2.0",
     "vuepress": "^1.3.0",
     "vuepress-plugin-flowchart": "1.4.3",
-    "vuepress-theme-meteorlxy": "^1.8.0"
+    "vuepress-theme-meteorlxy": "^1.8.0",
+	"vuepress-plugin-sitemap": "^2.3.1"
   },
   "description": ""
 }

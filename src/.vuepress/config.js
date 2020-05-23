@@ -103,6 +103,9 @@ module.exports = {
   "plugins": [
     "vuepress-theme-meteorlxy",
     "flowchart",
+	"sitemap": {
+		hostname: 'https://srcrs.github.io'
+	}
     ['@vuepress/pwa', {
       serviceWorker: true,
       updatePopup: true
