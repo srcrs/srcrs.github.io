@@ -267,10 +267,8 @@ public interface UserService {
 ```java
 package org.example.service.Impl;
 
-import org.example.dao.UserMapper;
 import org.example.domain.User;
 import org.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -438,13 +436,8 @@ Service业务层，查询所有用户
 ```java
 package org.example.controller;
 
-import org.example.domain.User;
-import org.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -540,7 +533,7 @@ public class UserController {
 
 ### 测试整合的结果
 
-运行`web`项目，点击查询所有学生，如果可以输出以下内容则证明整合成功。
+运行`web`项目，点击`查询所有用户`，如果页面可以跳转到`响应成功`页面，并且在控制台输出以下内容则证明整合成功。
 
 ```sh
 Controller表现层，查询所有用户
@@ -559,6 +552,7 @@ Service业务层，查询所有用户
 package org.example.dao;
 
 import org.example.domain.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
