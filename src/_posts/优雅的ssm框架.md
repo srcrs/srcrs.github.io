@@ -158,37 +158,37 @@ IDEA商业版 | 1.45.0
 .
 ├── .idea
 ├── src
-│   ├── main
-|   ├── java
-|   |   └── org
-|   |       └── example
-|   |           ├── controller
-|   |           |   └── UserController.java
-|   |           ├── dao
-|   |           |   └── UserMapper.java
-|   |           ├── domain
-|   |           |   └── User.java
-|   |           ├── service
-|   |           |   ├── UserService.java
-|   |           |   └── Impl
-|   |           |      └── UserServiceImpl.java
-|   |           └── test
-|   |               ├── SpringTest.java
-|   |               └── MybatisTest.java
-|   ├── resources
-|   |   ├── org
-|   |   |   └── example
-|   |   |       └──dao
-|   |   ├── applicationContext.xml
-|   |   ├── db.properties
-|   |   ├── mybatis-config.xml
-|   |   └── springmvc.xml
-│   └── webapp
-│       ├── WEB-INF
-|       |   ├── Pages
-|       |   |   └── success.jsp
-│       │   └── web.xml
-│       └── index.jsp 
+│   └── main
+|       ├── java
+|       |   └── org
+|       |       └── example
+|       |           ├── controller
+|       |           |   └── UserController.java
+|       |           ├── dao
+|       |           |   └── UserMapper.java
+|       |           ├── domain
+|       |           |   └── User.java
+|       |           ├── service
+|       |           |   ├── UserService.java
+|       |           |   └── Impl
+|       |           |      └── UserServiceImpl.java
+|       |           └── test
+|       |               ├── SpringTest.java
+|       |               └── MybatisTest.java
+|       ├── resources
+|       |   ├── org
+|       |   |   └── example
+|       |   |       └──dao
+|       |   ├── applicationContext.xml
+|       |   ├── db.properties
+|       |   ├── mybatis-config.xml
+|       |   └── springmvc.xml
+│       └── webapp
+│           ├── WEB-INF
+|           |   ├── Pages
+|           |   |   └── success.jsp
+│           │   └── web.xml
+│           └── index.jsp 
 ├── target
 ├── pom.xml
 └── ssm3.iml 
