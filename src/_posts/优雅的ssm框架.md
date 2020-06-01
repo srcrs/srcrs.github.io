@@ -179,6 +179,7 @@ IDEA商业版 | 1.45.0
 |       |   ├── org
 |       |   |   └── example
 |       |   |       └──dao
+|       |   |          └── UserMapper.xml
 |       |   ├── applicationContext.xml
 |       |   ├── db.properties
 |       |   ├── mybatis-config.xml
