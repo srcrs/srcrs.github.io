@@ -35,7 +35,7 @@ module.exports = {
       // organization: 'Xi\'an Jiao Tong University',
 
       // 头像
-      avatar: 'head.svg',
+      avatar: 'favicon.svg',
 
       // 社交平台帐号信息
       sns: {
