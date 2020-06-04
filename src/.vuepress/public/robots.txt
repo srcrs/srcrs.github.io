@@ -1,8 +1,9 @@
+User-agent: *
 Disallow: /posts/categories
 Disallow: /posts/tags
 Disallow: /assets
 Disallow: /CNAME
-Disallow: /manifest.json
-Disallow: /service-worker.js
-Disallow: /404.html
+Disallow: Disallow: /manifest.json
+Disallow: Disallow: /service-worker.js
+Disallow: Disallow: /404.html
 Sitemap: https://srcrs.top/sitemap.xml
