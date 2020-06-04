@@ -1,0 +1,3 @@
+Disallow: /posts/categories
+Disallow: /posts/tags
+Sitemap: https://srcrs.top/sitemap.xml
