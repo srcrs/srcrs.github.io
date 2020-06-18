@@ -16,5 +16,8 @@
     "vuepress-theme-meteorlxy": "^1.9.0",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "vue-class-component": "^7.2.3"
+  }
 }
