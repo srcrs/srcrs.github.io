@@ -49,27 +49,113 @@ source /etc/profile
 
 ## mysql
 
-mysql安装比较简单一点，此方式安装mysql版本是5.7。
+以前那个方法不行了，这次又换了一个。
 
-1. 安装mysql-server
+先运行`dpkg -l | grep mysql`查看有没有安装mysql，如果有输出就说明安装了，请参考，我的[ubuntu18.04彻底删除MySQL数据库]()这篇文章就能解决你的问题。
 
-有弹窗，是设置mysql登录密码的。
+### 安装mysql-server
+
++ 安装MySQL`apt install mysql-server`
+
++ 查看是否安装成功`netstat -tap | grep mysql`,如果看到有mysql就说明安装成功。
+
++ 输入`mysql`进入数据库，此时数据库是没有密码的。
+
+### 配置MySQL
+
++ 输入`mysql_secure_installation`
+
++ secure enough. Would you like to setup VALIDATE PASSWORD plugin?    # 要安装验证密码插件吗?
+
++ Press y|Y for Yes, any other key for No: `N`    # 这里我选择N
+
++ New password:   # 输入要为root管理员设置的数据库密码
+
++ Re-enter new password:   # 再次输入密码
+
++ Remove anonymous users? (Press y|Y for Yes, any other key for No) : `y`     # 删除匿名账户
+Success.
+
++ Disallow root login remotely? (Press y|Y for Yes, any other key for No) : `N`    # 是否禁止root管理员从远程登录？
+
++ Remove test database and access to it? (Press y|Y for Yes, any other key for No) : `y`   # 删除test数据库并取消对它的访问权限
+
++ Reload privilege tables now? (Press y|Y for Yes, any other key for No) : `y`   # 刷新授权表，让初始化后的设定立即生效
+
+此时mysql就是初步配置好了，但是仍然不够。
+
+### 配置MySQL允许远程访问
+
++ 编辑配置文件`vim /etc/mysql/mysql.conf.d/mysqld.cnf`
+
++ 注释`bind-address = 127.0.0.1`
+
++ 按Esc键，输入冒号，再输入wq，即可保存退出。
+
++ 输入`mysql -uroot -p`加上你设置的密码，就能进入到数据库。
+
++ 进行授权`grant all on *.* to root@'%' identified by '你的密码' with grant option;`
+
++ 刷新权限`flush privileges;`
+
++ 退出`exit`
+
++ 重启MySQL`systemctl restart mysql`
+
+接下来就可以远程访问了。
+
+### 解决不用密码就能登录
+
+到现在发现不用密码也是能登录的，相当与以前设置的密码还没有生效。
+
++ 进入数据库`mysql -uroot -p`
+
++ 进入mysql`use mysql;`
+
++ 无password版本，即5.7以下包括5.7`update user set authentication_string=password("你的密码") where user='root';`
+
++ 大于5.7`update user set password=password('你的密码') where user='root';`
+
+不清楚这两条运行了，也没关系。
+
++ update user set plugin="mysql_native_password";
+
++ 刷新`flush privileges;`
+
++ 退出`exit`
+
++ 重启MySQL`systemctl restart mysql`
+
+### 解决数据库大小写敏感问题
+
+在windows中，数据库的大小写是不敏感的，而在Linux是区分大小写的。
+
+mysql是通过lower_case_table_names变量来处理大小写问题的。
+
++ 进入mysql`mysql -uroot -p`，回车输入你的密码
+
++ 查询大小写变量`show variables like '%case%';`
+
+输入如下内容，该变量值是0，说明对大小写是敏感的。
 
 ```sh
-sudo apt-get install mysql-server
++------------------------+-------+
+| Variable_name          | Value |
++------------------------+-------+
+| lower_case_file_system | OFF   |
+| lower_case_table_names | 0     |
++------------------------+-------+
 ```
 
-2. 安装mysql-client
++ 退出数据库，进入终端`vim /etc/mysql/mysql.conf.d/mysqld.cnf`
 
-```sh
-sudo apt-get install mysql-client
-```
++ 在[mysqld]下面添加`lower_case_table_names=1`
 
-3. 安装libmysqlclient-dev
++ 保存并退出
 
-```sh
-sudo apt-get install libmysqlclient-dev
-```
++ 重启MySQL`systemctl restart mysql`
+
+至此，mysql算是差不多配置完了。如果再出问题，应该就是驱动和数据版本不匹配了。
 
 ## tomcat
 
@@ -162,6 +248,8 @@ Tomcat started.
 
 [Ubuntu18.04安装jdk](https://www.jianshu.com/p/dfce73d80ffb)
 
-[Ubuntu 18.04安装mysql](https://www.jianshu.com/p/99c4baca1983)
+[Ubuntu 18.04安装mysql](https://blog.csdn.net/mier9042/article/details/106408075/)
 
 [Ubuntu18.04 安装tomcat](https://blog.csdn.net/weixx3/article/details/80808484)
+
+[Linux下MySQL大小写敏感问题](https://blog.csdn.net/zhaopeng_yu/article/details/80785813)

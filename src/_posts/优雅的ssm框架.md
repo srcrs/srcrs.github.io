@@ -866,6 +866,10 @@ public class UserController {
 
 下载地址：[ssm框架源码](https://srcrs.lanzous.com/icmn3af)
 
+## 注意
+
+有一点需要注意，当你的web应用部署到服务器，关于连接数据库，或者执行SQL语言报错的时候，应该是你的数据库驱动和数据库版本不一致，假如你的数据库是5.7版本，就数据库驱动也要是5版本，数据库是8版本，驱动也要调成8版本。还有一种错误就是Linux默认对于数据库大小写敏感，需要自己改变一下。请参考我的[web服务环境配置](https://srcrs.top/posts/2020/05/06/web%E6%9C%8D%E5%8A%A1%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html)。
+
 ## 参考
 
 [史上最详细的IDEA优雅整合maven+ssm框架](https://blog.csdn.net/qq_44543508/article/details/100192558)
