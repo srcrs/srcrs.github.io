@@ -17,6 +17,7 @@
   },
   "description": "",
   "dependencies": {
-    "vue-class-component": "^7.2.3"
+    "vue-class-component": "^7.2.3",
+    "vuepress-plugin-goatcounter": "^1.0.3"
   }
 }
