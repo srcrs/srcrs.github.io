@@ -4,6 +4,7 @@ date: 2020-03-01
 category: Java
 tags:
  - 爬虫
+permalink: /posts/202003011.html
 ---
 
 :::tip

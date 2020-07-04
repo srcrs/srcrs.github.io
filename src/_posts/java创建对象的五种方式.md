@@ -4,6 +4,7 @@ date: 2019-12-01
 category: Java
 tags:
  - java
+permalink: /posts/201912011.html
 ---
 ## 静态编译&编码方式
 

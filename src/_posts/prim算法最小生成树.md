@@ -4,6 +4,7 @@ date: 2019-05-27 13:03:18
 tags: 
     - 最小生成树
 category: Algorithm
+permalink: /posts/201905271.html
 ---
 
 :::tip

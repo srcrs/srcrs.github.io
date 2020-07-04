@@ -4,6 +4,7 @@ date: 2020-04-18
 tags: 
     - java
 category: Other
+permalink: /posts/202004181.html
 ---
 
 :::tip

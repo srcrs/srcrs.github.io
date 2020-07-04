@@ -4,6 +4,7 @@ date: 2019-05-29 23:55:38
 tags: 
     - 回溯
 category: Algorithm
+permalink: /posts/201905291.html
 ---
 
 :::tip

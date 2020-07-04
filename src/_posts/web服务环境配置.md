@@ -4,6 +4,7 @@ date: 2020-05-06
 category: Note
 tags:
     - ubuntu
+permalink: /posts/202005061.html
 ---
 
 ## jdk

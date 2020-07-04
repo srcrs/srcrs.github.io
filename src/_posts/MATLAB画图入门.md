@@ -4,6 +4,7 @@ date: 2019-08-10 12:57:48
 tags: 
     - 画图
 category: Other
+permalink: /posts/201908101.html
 ---
 
 :::tip

@@ -4,6 +4,7 @@ date: 2019-07-04 19:59:22
 tags: 
     - 系统
 category: Other
+permalink: /posts/201907041.html
 ---
 
 :::tip

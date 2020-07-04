@@ -4,6 +4,7 @@ date: 2020-01-30
 category: Note
 tags:
  - UML
+permalink: /posts/202001301.html
 ---
 
 ## UML的分类

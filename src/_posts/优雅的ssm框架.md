@@ -4,6 +4,7 @@ date: 2020-05-14
 category: Note
 tags:
     - ssm
+permalink: /posts/202005141.html
 ---
 
 :::tip

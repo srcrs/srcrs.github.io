@@ -4,6 +4,7 @@ date: 2020-04-24
 category: Note
 tags:
     - spring
+permalink: /posts/202004241.html
 ---
 
 ## SpringMVC在三层架构的位置

@@ -4,6 +4,7 @@ date: 2020-02-06
 category: Other
 tags:
  - 问题
+permalink: /posts/202002061.html
 ---
 
 ## 问题1

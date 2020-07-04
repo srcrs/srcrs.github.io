@@ -4,6 +4,7 @@ date: 2019-09-30
 tags: 
     - 流程图
 category: Other
+permalink: /posts/201909301.html
 ---
 ## 开始和结束
 

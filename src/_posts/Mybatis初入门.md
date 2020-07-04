@@ -4,6 +4,7 @@ date: 2020-05-05
 category: Note
 tags:
     - mybatis
+permalink: /posts/202005051.html
 ---
 
 :::tip

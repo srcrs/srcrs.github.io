@@ -4,6 +4,7 @@ date: 2020-03-27
 category: Note
 tags:
  - 数据库
+permalink: /posts/202003271.html
 ---
 
 ## 某一元素是否包含某一集合成员

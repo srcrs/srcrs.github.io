@@ -4,6 +4,7 @@ date: 2020-02-27
 category: Note
 tags:
  - Android
+permalink: /posts/202002271.html
 ---
 
 :::tip

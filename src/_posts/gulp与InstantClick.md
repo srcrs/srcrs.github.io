@@ -4,6 +4,7 @@ date: 2019-06-04 22:01:23
 tags: 
     - 优化
 category: Other
+permalink: /posts/201906041.html
 ---
 
 :::tip

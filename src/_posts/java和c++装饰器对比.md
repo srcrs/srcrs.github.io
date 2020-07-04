@@ -4,6 +4,7 @@ date: 2020-03-23
 category: Other
 tags:
  - 设计模式
+permalink: /posts/202003231.html
 ---
 
 ## c++

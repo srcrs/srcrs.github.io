@@ -4,6 +4,7 @@ date: 2019-05-16 19:44:13
 tags: 
     - 感悟
 category: Other
+permalink: /posts/201905161.html
 ---
 
 :::tip

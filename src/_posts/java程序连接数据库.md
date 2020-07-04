@@ -4,6 +4,7 @@ date: 2019-10-15
 tags: 
     - java
 category: Other
+permalink: /posts/201910151.html
 ---
 ## 思路
 

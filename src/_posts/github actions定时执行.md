@@ -4,6 +4,7 @@ date: 2020-03-18
 category: Other
 tags:
  - 爬虫
+permalink: /posts/202003181.html
 ---
 
 github actions（以下简称gc）太牛了，还支持定时执行，正和我意，脚本不用我每天都去提交触发一次，到达某个时间就会执行的，真良心。

@@ -4,6 +4,7 @@ date: 2020-03-28
 category: Note
 tags:
  - 数据库
+permalink: /posts/202003281.html
 ---
 
 :::tip

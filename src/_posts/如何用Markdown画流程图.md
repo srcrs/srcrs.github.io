@@ -4,6 +4,7 @@ date: 2019-05-28 22:24:44
 tags: 
     - Markdown语法
 category: Other
+permalink: /posts/201905281.html
 ---
 
 :::tip
