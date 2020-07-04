@@ -113,9 +113,6 @@ module.exports = {
 	['vuepress-plugin-goatcounter',{
 		'user': 'srcrs'
 	}],
-	['vuepress-plugin-permalink-pinyin', {
-      lowercase: true, // Converted into lowercase, default: true
-      separator: '-' // Separator of the slug, default: '-'
-    }]
+	'vuepress-plugin-permalink-pinyin'
   ]
 }
