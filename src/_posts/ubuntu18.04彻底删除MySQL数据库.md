@@ -4,6 +4,7 @@ date: 2020-06-19
 category: Other
 tags:
     - mysql
+permalink: /posts/202006191.html
 ---
 
 从接触MySQL数据库开始，不可避免的一个问题就是数据库彻底删除，windows上，卸载了之后，可能要到ProgramData里面有没有看看是否有mysql文件夹，找到删除，Program Files，Program Files(x86)也是如此，然后再到注册表搜索一下mysql，找到也要删除，如果这些文件存在的话，很有可能会影响下一次的安装。

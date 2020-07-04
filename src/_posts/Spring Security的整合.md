@@ -4,6 +4,7 @@ date: 2020-06-12
 category: Note
 tags:
     - web
+permalink: /posts/202006121.html
 ---
 
 :::tip
