@@ -62,7 +62,5 @@
     }
 
     a {color: white;}
-    .page-common ul li, .page-common ol li {
-        margin-bottom: 12px;
-    }
+
 </style>
