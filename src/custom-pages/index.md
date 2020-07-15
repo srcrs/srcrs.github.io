@@ -62,5 +62,11 @@
     }
 
     a {color: white;}
-
+    .page-common ul li, .page-common ol li {
+        margin-bottom: 12px;
+    }
+    .page-friends ul {
+        padding: 0;
+        margin: 0;
+    }
 </style>
