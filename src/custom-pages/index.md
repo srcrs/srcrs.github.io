@@ -61,8 +61,9 @@
         .readers-list li{width:100%;}
     }
 
-    a{ text-decoration:none} 
-    a:hover{ text-decoration:none}
+    a {
+        color: white;
+    }
     .page-common ul li, .page-common ol li {
         margin-bottom: 12px;
     }
