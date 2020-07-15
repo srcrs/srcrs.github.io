@@ -1,3 +1,4 @@
+<div class="page-friends page-common">
 <div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">博客友链</div>
 <ul class="readers-list clearfix">
 
@@ -17,6 +18,8 @@
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="有编程实战训练" target="_blank" href="https://www.w3cschool.cn/"><div>w3cschool</div><div>有编程实战训练</div></a></li>
 
 </ul>
+
+</div>
 
 <style>
     .clearfix {zoom:1;}
@@ -58,11 +61,8 @@
         .readers-list li{width:100%;}
     }
 
-    a {
-        color: white;
-    }
+    a {color: white;}
     .page-common ul li, .page-common ol li {
         margin-bottom: 12px;
     }
-}
 </style>
