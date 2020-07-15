@@ -27,7 +27,7 @@
     .readers-list {list-style:none;}
     .readers-list *{margin:0;padding:0;}
     .readers-list li{position:relative;float:left;margin-top:20px!important;padding:0 10px;}
-    .readers-list li a{display:block;border:1px solid #eee;border-left: 3px solid #FF002B;border-radius:7px;padding-left:15px;transition:all .3s;}
+    .readers-list li a{display:block;border:1px solid #eee;border-left: 3px solid #FF002B;border-radius:7px;padding-left:15px;transition:all .3s;color: white;}
     .readers-list li:nth-of-type(6n+1) a{border-left-color:#FF002B;}
     .readers-list li:nth-of-type(6n+2) a{border-left-color:#FFA900;}
     .readers-list li:nth-of-type(6n+3) a{border-left-color:#00CC00;}
@@ -61,7 +61,6 @@
         .readers-list li{width:100%;}
     }
 
-    a {color: white;}
     .page-common ul li, .page-common ol li {
         margin-bottom: 12px;
     }
