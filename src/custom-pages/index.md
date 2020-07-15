@@ -60,9 +60,6 @@
     @media(max-width:767px){
         .readers-list li{width:100%;}
     }
-    @media(min-width:1920px){
-        .readers-list li{width:25%;}
-    }
 
     a{ text-decoration:none} 
     a:hover{ text-decoration:none}
