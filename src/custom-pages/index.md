@@ -43,7 +43,7 @@
 }
     .link-title {
 	position: relative;
-	left: -30px;
+	left: -19px;
 	display: inline-block;
 	margin: 20px 0;
 	font-size: 15px;
