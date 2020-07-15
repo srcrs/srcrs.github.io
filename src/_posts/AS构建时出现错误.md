@@ -21,7 +21,7 @@ permalink: /posts/202002271.html
 
 ## 第一个方法
 
-修改项目的 `build.gradle` 文件
+修改项目的 `build.gradle` 文件 
 
 ```md
 allprojects {
