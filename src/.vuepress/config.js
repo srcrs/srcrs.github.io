@@ -74,7 +74,7 @@ module.exports = {
     nav: [
       { text: 'Home', link: '/', exact: true },
       { text: 'Posts', link: '/posts/', exact: false },
-      { text: 'Share', link: '/Share/', exact: false },
+      { text: 'Share', link: '/share/', exact: false },
       { text: 'Github', link: 'https://github.com/srcrs/srcrs.github.io' },
     ],
 
