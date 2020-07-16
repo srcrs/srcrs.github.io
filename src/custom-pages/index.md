@@ -55,7 +55,7 @@
 	color: #fff;
     }
     @media(min-width:768px){
-        .readers-list li{width:33.3333333%;}
+        .readers-list li{width:50%;}
     }
     @media(max-width:767px){
         .readers-list li{width:100%;}
