@@ -2,7 +2,9 @@
 <div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">博客友链</div>
 <ul class="readers-list clearfix">
 
-<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="创造狮，一个创意工作者的导航" target="_blank" href="https://liujunzhou.top/"><div>Junzhou Liu</div><div>Happy Coding , Happy Life</div></a></li>
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="Happy Coding , Happy Life" target="_blank" href="https://liujunzhou.top/"><div>Junzhou Liu</div><div>Happy Coding , Happy Life</div></a></li>
+
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="where there is a will,there is a way" target="_blank" href="https://liying66-cmd.github.io/"><div>Liying66-cmd</div><div>初来乍到的前端小姐姐</div></a></li>
 
 </ul>
 
