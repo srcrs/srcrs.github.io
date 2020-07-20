@@ -4,7 +4,7 @@
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="Happy Coding , Happy Life" target="_blank" href="https://liujunzhou.top/"><div>Junzhou Liu</div><div>Happy Coding , Happy Life</div></a></li>
 
-<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="where there is a will,there is a way" target="_blank" href="https://liying66-cmd.now.sh"><div>Liying66-cmd</div><div>初来乍到的前端小姐姐</div></a></li>
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="where there is a will,there is a way" target="_blank" href="https://liying66-cmd.vercel.app"><div>Liying66-cmd</div><div>初来乍到的前端小姐姐</div></a></li>
 
 </ul>
 
