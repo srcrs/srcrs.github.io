@@ -4,6 +4,7 @@ date: 2020-07-24
 category: Note
 tags:
     - web
+permalink: /posts/202007241.html
 ---
 
 本次基于`Spring Boot`整合了`Spring Security`和`Jwt`，可以解决前后端分离之后用户认证与授权的问题。在前后端还未分离的时候，对用户进行身份认证大约是这样的。
