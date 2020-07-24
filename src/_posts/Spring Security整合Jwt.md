@@ -31,6 +31,7 @@ Windows | 家庭版1903
 
 ## 项目结构
 
+```sh
 .
 ├── .idea
 ├── src
@@ -57,6 +58,7 @@ Windows | 家庭版1903
 ├── target
 ├── pom.xml
 └── security-jwt.iml 
+```
 
 ## 在pom.xml添加相关jar包
 
