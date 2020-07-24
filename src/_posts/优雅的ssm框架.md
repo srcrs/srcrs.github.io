@@ -172,7 +172,7 @@ IDEA商业版 | 1.45.0
 |       |           ├── service
 |       |           |   ├── UserService.java
 |       |           |   └── Impl
-|       |           |      └── UserServiceImpl.java
+|       |           |       └── UserServiceImpl.java
 |       |           └── test
 |       |               ├── SpringTest.java
 |       |               └── MybatisTest.java
