@@ -41,7 +41,7 @@ Windows | 家庭版1903
 |       |   └── com
 |       |       └── example
 |       |           ├── controller
-|       |           |   └── UserController.java
+|       |           |   └── HelloResource.java
 |       |           ├── filters
 |       |           |   └── JwtRequestFilter.java
 |       |           ├── model
