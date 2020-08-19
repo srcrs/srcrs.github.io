@@ -13,6 +13,8 @@
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="学的不仅是技术，更是梦想" target="_blank" href="http://www.runoob.com/"><div>菜鸟教程</div><div>学的不仅是技术，更是梦想</div></a></li>
 
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="找工作神器" target="_blank" href="https://www.nowcoder.com/"><div>牛客网</div><div>找工作神器</div></a></li>
+
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="经典模块化前端框架" target="_blank" href="http://www.layui.com/"><div>Layui</div><div>经典模块化前端框架</div></a></li>
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="在线学习教程" target="_blank" href="http://www.w3school.com.cn/"><div>w3school</div><div>在线学习教程</div></a></li>
