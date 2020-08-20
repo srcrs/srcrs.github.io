@@ -1,3 +1,7 @@
+---
+title: Share
+---
+
 <div class="page-friends page-common">
 <div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">博客友链</div>
 <ul class="readers-list clearfix">
