@@ -26,7 +26,7 @@ module.exports = {
       description: 'Happy Coding<br/>Happy Life',
 
       // 电子邮箱
-      email: 'srcrszhu@gmail.com',
+      email: 'srcrs@foxmail.com',
 
       // 所在地
       location: 'XinYang City, China',
