@@ -89,7 +89,7 @@ module.exports = {
 
     // 分页配置
     pagination: {
-      perPage: 7,
+      perPage: 9,
     },
 
     // 默认页面（可选，默认全为 true）
