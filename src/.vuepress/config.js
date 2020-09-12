@@ -52,9 +52,9 @@ module.exports = {
       // header 的背景，可以使用图片，或者随机变化的图案（geopattern）
       background: {
         // 使用图片的 URL，如果设置了图片 URL，则不会生成随机变化的图案，下面的 useGeo 将失效
-      //  url: '/assets/img/head1.4.png',
+        url: '/assets/img/background.svg',
         // 使用随机变化的图案，如果设置为 false，且没有设置图片 URL，将显示为空白背景
-         useGeo: true,
+         useGeo: false,
       },
 
       // 是否在 header 显示标题
