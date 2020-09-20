@@ -79,27 +79,27 @@ permalink: /posts/202009191.html
 
 ### 日志级别
 
-#### severe
+**severe**
 
 当程序运行错误的时候，就可以用`severe`来记录错误信息。
 
-#### warning
+**warning**
 
 记录程序运行遇到的问题，一般不会造成程序中止运行，但是也需要注意。
 
-#### info
+**info**
 
 记录程序运行中的一些消息，例如数据库连接信息，`io`的传递信息等等。
 
-#### config
+**config**
 
 记录配置信息。
 
-#### fine
+**fine**
 
-#### finer
+**finer**
 
-#### finest
+**finest**
 
 这三者都是记录`debug`信息。使用时用其中一个就行了。
 
