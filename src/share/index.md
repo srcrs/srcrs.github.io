@@ -12,6 +12,8 @@ title: Share
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="骚年骚年，匆匆数年" target="_blank" href="https://vengo.top/"><div>mavengo</div><div>骚年骚年，匆匆数年</div></a></li>
 
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="我不是猪猪强，我是qiangzhuzhu" target="_blank" href="https://qiangzhuzhu.github.io/"><div>qiangzhuzhu</div><div>我不是猪猪强，我是qiangzhuzhu</div></a></li>
+
 </ul>
 
 <div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">学习教程</div>
