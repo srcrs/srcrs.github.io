@@ -10,6 +10,8 @@ title: Share
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="where there is a will,there is a way" target="_blank" href="https://liying66-cmd.vercel.app"><div>Liying66-cmd</div><div>初来乍到的前端小姐姐</div></a></li>
 
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="colleague" title="骚年骚年，匆匆数年" target="_blank" href="https://vengo.top/"><div>mavengo</div><div>骚年骚年，匆匆数年</div></a></li>
+
 </ul>
 
 <div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">学习教程</div>
