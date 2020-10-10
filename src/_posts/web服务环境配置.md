@@ -52,7 +52,7 @@ source /etc/profile
 
 以前那个方法不行了，这次又换了一个。
 
-先运行`dpkg -l | grep mysql`查看有没有安装mysql，如果有输出就说明安装了，请参考，我的[ubuntu18.04彻底删除MySQL数据库]()这篇文章就能解决你的问题。
+先运行`dpkg -l | grep mysql`查看有没有安装mysql，如果有输出就说明安装了，请参考，我的[ubuntu18.04彻底删除MySQL数据库](https://srcrs.top/posts/202006191.html)这篇文章就能解决你的问题。
 
 ### 安装mysql-server
 

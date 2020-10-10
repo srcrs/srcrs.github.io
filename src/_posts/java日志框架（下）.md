@@ -317,6 +317,29 @@ Logback主要分为三个模块：
 </dependency>
 ```
 
+```java
+package org.example;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class App
+{
+    // 定义日志记录器对象
+    public static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
+    public static void main( String[] args )
+    {
+        // 日志输出
+        LOGGER.error("error");
+        LOGGER.warn("warn");
+        LOGGER.info("info");
+        LOGGER.debug("debug");
+        LOGGER.trace("trace");
+    }
+}
+```
+
 ### logback基础配置
 
 logback会依次读取以下类型配置文件：
