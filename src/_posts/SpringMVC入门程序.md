@@ -3,7 +3,7 @@ title: SpringMVC入门程序
 date: 2020-04-24
 category: Note
 tags:
-    - spring
+    - Spring
 permalink: /posts/202004241.html
 ---
 
