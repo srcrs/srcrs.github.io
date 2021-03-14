@@ -1,5 +1,6 @@
 ---
 title: Share
+aside: false
 ---
 
 <div class="page-friends page-common">
