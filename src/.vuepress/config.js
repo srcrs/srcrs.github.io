@@ -82,7 +82,7 @@ module.exports = {
     comments: {
       platform: 'github',
       owner: 'srcrs',
-      repo: 'comment',
+      repo: 'srcrs.github.io',
       clientId: '9601fd4196d77c044a86',
       clientSecret: 'cb29c9a4d3e4e6f65718f416ac8ed1df81dec3de',
     },
