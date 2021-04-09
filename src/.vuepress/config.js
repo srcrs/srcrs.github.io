@@ -83,8 +83,8 @@ module.exports = {
       platform: 'github',
       owner: 'srcrs',
       repo: 'srcrs.github.io',
-      clientId: '9601fd4196d77c044a86',
-      clientSecret: 'cb29c9a4d3e4e6f65718f416ac8ed1df81dec3de',
+      clientId: '153b7e2c6e4ae7a94c26',
+      clientSecret: '4bc5a496fcde2be0e1d2b595799a624056f21d47',
     },
 
     // 分页配置
