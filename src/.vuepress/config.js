@@ -109,8 +109,7 @@ module.exports = {
       },
       resolve: {
         alias: {
-          'dist': path.resolve(__dirname, './dist')
-
+          'dist': path.resolve(__dirname, './dist/')
         }
       }
     }
