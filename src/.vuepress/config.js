@@ -4,7 +4,7 @@ module.exports = {
   description: "A whole place about me",
    head: [
     ['link', { rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@master/assets/img/favicon.svg' }],//站点图标
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    ['link', { rel: 'manifest', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@master/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
