@@ -1,0 +1,21 @@
+version: 2.1
+jobs:
+  build:
+    branches:
+      only:
+        - source
+    docker:
+      - image: circleci/node:10
+    steps:
+      - run: 
+          command: |
+            sudo npm install -g vuepress
+            sudo npm install
+            sudo npm run build
+            cd ./dist
+            git init
+            git config user.name "srcrs"
+            git config user.email "531238678@qq.com"
+            git add .
+            git commit -m "自动部署"
+            git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
