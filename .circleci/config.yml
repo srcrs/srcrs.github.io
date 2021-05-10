@@ -2,6 +2,8 @@ version: 2.1
 jobs:
   executor: my-ubuntu-exec
   build:
+    docker:
+      - image: circleci/node:stable
     steps:
       - run: 
           command: |
