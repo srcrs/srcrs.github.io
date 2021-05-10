@@ -26,5 +26,5 @@ jobs:
       - run: |
           git pull
           yarn build
-          git checkout gh-pages
+          git checkout master
           git push
