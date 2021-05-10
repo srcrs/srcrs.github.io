@@ -24,6 +24,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: |
+          git config --global user.email "srcrs@foxmail.com"
+          git config --global user.name "srcrs"
           git pull
           yarn build
           git add .
