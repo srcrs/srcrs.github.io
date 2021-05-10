@@ -1,21 +1,31 @@
 version: 2.1
 
 jobs:
-  test:
+  auto:
     docker:
       - image: cimg/node:15.1
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{checksum "package.json"}}
       - run:
-          name: Run Tests
+          name: install packages
           command: |
-            sudo npm install -g vuepress
-            sudo npm install
-            sudo npm run build
+            npm install -g vuepress
+            npm install
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "package.json"}}
+          paths:
+            - ~/node_modules
+      - run:
+          name: Run build
+          command: |
+            npm run build
             cd ./dist
             git init
             git config user.name "srcrs"
-            git config user.email "531238678@qq.com"
+            git config user.email "srcrs@foxmail.com"
             git add .
             git commit -m "自动部署"
             git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
@@ -23,4 +33,4 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      - test
+      - auto
