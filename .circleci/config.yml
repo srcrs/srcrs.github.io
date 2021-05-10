@@ -5,12 +5,12 @@ jobs:
       - image: circleci/node:latest
     filters:
       branches:
-        only: source
+        only: main
     steps:
       # connect to github by ssh
       - add_ssh_keys:
           fingerprints:
-          - "e9:d3:de:cf:38:a6:7a:21:9a:92:02:39:e9:81:a7:da"
+          - $FPS
       - checkout
       # Download and cache dependencies
       - restore_cache:
