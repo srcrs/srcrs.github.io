@@ -5,21 +5,11 @@ jobs:
       - image: cimg/node:15.1
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - node-deps-v1-{{ .Branch }}-{{checksum "package.json"}}
-      - run:
-          name: install packages
-          command: |
-            sudo npm install -g vuepress
-            sudo npm install
-      - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "package.json"}}
-          paths:
-            - ~/node_modules
       - run:
           name: Run build
           command: |
+            sudo npm install -g vuepress
+            sudo npm install
             sudo npm run build
             cd ./dist
             git init
@@ -27,7 +17,7 @@ jobs:
             git config user.email "srcrs@foxmail.com"
             git add .
             git commit -m "自动部署"
-            git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
+            git push --force --quiet "https://$GH_TOKEN@$GH_REP" master:master
 
 workflows:
   orb-free-workflow:
