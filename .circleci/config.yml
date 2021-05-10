@@ -29,6 +29,7 @@ jobs:
           git pull
           git checkout gh-pages
           npm run build
+          git checkout gh-pages
           git add .
           git commit -m "update title"
           git push
