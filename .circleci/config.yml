@@ -1,9 +1,7 @@
 version: 2.1
 jobs:
+  executor: my-ubuntu-exec
   build:
-    branches:
-      only:
-        - source
     docker:
       - image: circleci/node:10
     steps:
