@@ -12,8 +12,8 @@ jobs:
       - run:
           name: install packages
           command: |
-            npm install -g vuepress
-            npm install
+            sudo npm install -g vuepress
+            sudo npm install
       - save_cache:
           key: node-deps-v1-{{ .Branch }}-{{checksum "package.json"}}
           paths:
@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Run build
           command: |
-            npm run build
+            sudo npm run build
             cd ./dist
             git init
             git config user.name "srcrs"
