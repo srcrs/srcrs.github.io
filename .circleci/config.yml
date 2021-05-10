@@ -28,6 +28,7 @@ jobs:
           git config --global user.name "srcrs"
           git pull
           npm run build
+          git checkout gh-pages
           git add .
           git commit -m "update title"
           git push
