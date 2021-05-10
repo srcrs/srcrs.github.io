@@ -1,11 +1,25 @@
 version: 2.1
+
 jobs:
-  executor: my-ubuntu-exec
-  build:
+  test:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:15.1
     steps:
-      - run: 
+      - checkout
+      - restore_cache:
+          # See the configuration reference documentation for more details on using restore_cache and save_cache steps
+          # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+      - run:
+          name: install packages
+          command: npm ci
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+          paths:
+            - ~/.npm
+      - run:
+          name: Run Tests
           command: |
             sudo npm install -g vuepress
             sudo npm install
@@ -17,3 +31,8 @@ jobs:
             git add .
             git commit -m "自动部署"
             git push --force --quiet "https://${GH_TOKEN}@${GH_REP}" master:master
+
+workflows:
+  orb-free-workflow:
+    jobs:
+      - test
