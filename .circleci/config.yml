@@ -26,5 +26,4 @@ jobs:
       - run: |
           git pull
           yarn build
-          git checkout master
-          git push -f
+          git push
