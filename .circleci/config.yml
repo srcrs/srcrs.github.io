@@ -1,25 +1,30 @@
-version: 2.1
+version: 2
 jobs:
-  auto:
+  build:
     docker:
-      - image: cimg/node:15.1
+      - image: circleci/node:latest
+    filters:
+      branches:
+        only: source
     steps:
+      # connect to github by ssh
+      - add_ssh_keys:
+          fingerprints:
+          - "e9:d3:de:cf:38:a6:7a:21:9a:92:02:39:e9:81:a7:da"
       - checkout
-      - run:
-          name: Run build
-          command: |
-            sudo npm install -g vuepress
-            sudo npm install
-            sudo npm run build
-            cd ./dist
-            git init
-            git config user.name "srcrs"
-            git config user.email "srcrs@foxmail.com"
-            git add .
-            git commit -m "自动部署"
-            git push --force --quiet "https://$GH_TOKEN@$GH_REP" master:master
-
-workflows:
-  orb-free-workflow:
-    jobs:
-      - auto
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: |
+          git pull
+          yarn build
+          git checkout gh-pages
+          git push
