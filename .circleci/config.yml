@@ -27,7 +27,7 @@ jobs:
           git config --global user.email "srcrs@foxmail.com"
           git config --global user.name "srcrs"
           git pull
-          git checkout gh-pages
+          git checkout -b gh-pages
           npm run build
           git checkout gh-pages
           git add .
