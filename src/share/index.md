@@ -30,6 +30,8 @@ aside: false
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="有编程实战训练" target="_blank" href="https://www.w3cschool.cn/"><div>w3cschool</div><div>有编程实战训练</div></a></li>
 
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="美团技术团队" target="_blank" href="https://tech.meituan.com/"><div>w3cschool</div><div>美团技术团队</div></a></li>
+
 </ul>
 
 </div>
