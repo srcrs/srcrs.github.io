@@ -31,4 +31,4 @@ jobs:
           git add .
           git commit -m "auto build"
           git checkout gh-pages
-          git push origin gh-pages --force
+          git push
