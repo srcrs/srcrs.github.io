@@ -105,11 +105,11 @@ module.exports = {
   configureWebpack: () => {
     return {
       output: {
-        publicPath: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@master/'
+        publicPath: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/'
       },
       resolve: {
         alias: {
-          'dist': path.resolve(__dirname, './dist'),
+          'docs': path.resolve(__dirname, './docs'),
         }
       }
     }
