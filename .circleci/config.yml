@@ -26,9 +26,9 @@ jobs:
       - run: |
           git config --global user.email "srcrs@foxmail.com"
           git config --global user.name "srcrs"
-          git pull
           git checkout gh-pages
+          git reset --hard origin/main
           npm run build
           git add .
           git commit -m "auto build"
-          git push --set-upstream origin gh-pages
+          git push -f --set-upstream origin gh-pages
