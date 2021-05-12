@@ -1,8 +1,5 @@
 version: 2.1
-workflows:
-  build_accept_deploy:
-    jobs:
-      - build
+
 jobs:
   build:
     docker:
@@ -36,3 +33,7 @@ jobs:
           git add .
           git commit -m "auto build"
           git push -f --set-upstream origin gh-pages
+workflows:
+  build_and_deploy:
+    jobs:
+      - build
