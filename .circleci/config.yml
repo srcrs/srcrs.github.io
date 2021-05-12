@@ -4,9 +4,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:latest
-    filters:
-      branches:
-        only: main
     steps:
       # connect to github by ssh
       - add_ssh_keys:
@@ -33,7 +30,11 @@ jobs:
           git add .
           git commit -m "auto build"
           git push -f --set-upstream origin gh-pages
+
 workflows:
   build_and_deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: main
