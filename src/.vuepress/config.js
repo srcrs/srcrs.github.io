@@ -105,7 +105,7 @@ module.exports = {
   configureWebpack: () => {
     return {
       output: {
-        publicPath: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/'
+        publicPath: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs'
       },
       resolve: {
         alias: {
