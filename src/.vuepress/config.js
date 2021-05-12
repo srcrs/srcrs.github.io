@@ -117,13 +117,9 @@ module.exports = {
   "plugins": [
     "vuepress-theme-meteorlxy",
     "flowchart",
-	["sitemap", { 
+	["sitemap", {
 		hostname: 'https://srcrs.top'
 	}],
-    ['@vuepress/pwa', {
-      serviceWorker: true,
-      updatePopup: true
-    }],
 	['vuepress-plugin-goatcounter',{
 		'user': 'srcrs'
 	}]
