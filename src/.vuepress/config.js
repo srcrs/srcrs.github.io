@@ -4,10 +4,6 @@ module.exports = {
   description: "A whole place about me",
    head: [
     ['link', { rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/favicon.svg' }],//站点图标
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
     ['link', { rel: 'apple-touch-icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/apple-touch-icon-152x152.png' }],
     ['link', { rel: 'mask-icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/safari-pinned-tab.svg', color: '#3eaf7c' }],
     ['meta', { name: 'msapplication-TileImage', content: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/msapplication-icon-144x144.png' }],
