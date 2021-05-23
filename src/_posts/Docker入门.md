@@ -95,6 +95,12 @@ docker exec -it xxxxxx bash
 mysql -uroot -p
 ```
 
+上述进入mysql的容器中，当存在对汉字操作的时候可能会出现汉字异常无法出现的情况，此时只需要在进入容器的时候制定字符集即可。
+
+```bash
+docker exec -it -e LANG=C.UTF-8 xxxxxx bash
+```
+
 ### nginx
 
 ```bash

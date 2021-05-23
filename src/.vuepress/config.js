@@ -118,6 +118,7 @@ module.exports = {
 	}],
 	['vuepress-plugin-goatcounter',{
 		'user': 'srcrs'
-	}]
+	}],
+  ['vuepress-plugin-good-copycode']
   ]
 }
