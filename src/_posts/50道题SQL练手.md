@@ -10,63 +10,143 @@ permalink: /posts/202105241.html
 ## 表结构及数据
 
 ```sql
-create table Student(
-S varchar(10),
-Sname varchar(10),
-Sage datetime,
-Ssex nvarchar(10)
+create table student(
+sid varchar(10),
+sname varchar(10),
+sage datetime,
+sex nvarchar(10)
 );
  
-insert into Student values('01' , '赵雷' , '1990-01-01' , '男');
-insert into Student values('02' , '钱电' , '1990-12-21' , '男');
-insert into Student values('03' , '孙风' , '1990-05-20' , '男');
-insert into Student values('04' , '李云' , '1990-08-06' , '男');
-insert into Student values('05' , '周梅' , '1991-12-01' , '女');
-insert into Student values('06' , '吴兰' , '1992-03-01' , '女');
-insert into Student values('07' , '郑竹' , '1989-07-01' , '女');
-insert into Student values('08' , '王菊' , '1990-01-20' , '女');
+insert into student values('01' , '赵雷' , '1990-01-01' , '男');
+insert into student values('02' , '钱电' , '1990-12-21' , '男');
+insert into student values('03' , '孙风' , '1990-05-20' , '男');
+insert into student values('04' , '李云' , '1990-08-06' , '男');
+insert into student values('05' , '周梅' , '1991-12-01' , '女');
+insert into student values('06' , '吴兰' , '1992-03-01' , '女');
+insert into student values('07' , '郑竹' , '1989-07-01' , '女');
+insert into student values('08' , '王菊' , '1990-01-20' , '女');
 
-create table Course(
-C varchar(10),
-Cname varchar(10),
-T varchar(10)
+create table course(
+cid varchar(10),
+cname varchar(10),
+tid varchar(10)
 );
  
-insert into Course values('01' , '语文' , '02');
-insert into Course values('02' , '数学' , '01');
-insert into Course values('03' , '英语' , '03');
+insert into course values('01' , '语文' , '02');
+insert into course values('02' , '数学' , '01');
+insert into course values('03' , '英语' , '03');
  
-create table Teacher(
-T varchar(10),
-Tname varchar(10)
+create table teacher(
+tid varchar(10),
+tname varchar(10)
 );
  
-insert into Teacher values('01' , '张三');
-insert into Teacher values('02' , '李四');
-insert into Teacher values('03' , '王五');
+insert into teacher values('01' , '张三');
+insert into teacher values('02' , '李四');
+insert into teacher values('03' , '王五');
 
-create table SC(
-S varchar(10),
-C varchar(10),
+create table sc(
+sid varchar(10),
+cid varchar(10),
 score decimal(18,1)
 );
  
-insert into SC values('01' , '01' , 80);
-insert into SC values('01' , '02' , 90);
-insert into SC values('01' , '03' , 99);
-insert into SC values('02' , '01' , 70);
-insert into SC values('02' , '02' , 60);
-insert into SC values('02' , '03' , 80);
-insert into SC values('03' , '01' , 80);
-insert into SC values('03' , '02' , 80);
-insert into SC values('03' , '03' , 80);
-insert into SC values('04' , '01' , 50);
-insert into SC values('04' , '02' , 30);
-insert into SC values('04' , '03' , 20);
-insert into SC values('05' , '01' , 76);
-insert into SC values('05' , '02' , 87);
-insert into SC values('06' , '01' , 31);
-insert into SC values('06' , '03' , 34);
-insert into SC values('07' , '02' , 89);
-insert into SC values('07' , '03' , 98);
+insert into sc values('01' , '01' , 80);
+insert into sc values('01' , '02' , 90);
+insert into sc values('01' , '03' , 99);
+insert into sc values('02' , '01' , 70);
+insert into sc values('02' , '02' , 60);
+insert into sc values('02' , '03' , 80);
+insert into sc values('03' , '01' , 80);
+insert into sc values('03' , '02' , 80);
+insert into sc values('03' , '03' , 80);
+insert into sc values('04' , '01' , 50);
+insert into sc values('04' , '02' , 30);
+insert into sc values('04' , '03' , 20);
+insert into sc values('05' , '01' , 76);
+insert into sc values('05' , '02' , 87);
+insert into sc values('06' , '01' , 31);
+insert into sc values('06' , '03' , 34);
+insert into sc values('07' , '02' , 89);
+insert into sc values('07' , '03' , 98);
+```
+
+## 1
+
+查询"01"课程比"02"课程成绩高的学生的信息及课程分数。
+
+```sql
+SELECT s.*, sc1.score
+FROM student s, sc sc1, sc sc2
+WHERE sc1.cid = '01'
+	AND sc2.cid = '02'
+	AND sc1.score > sc2.score
+	AND s.sid = sc1.sid
+	AND s.sid = sc2.sid;
+```
+
+## 2
+
+查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩。
+
+```sql
+SELECT sid, avg(score)
+FROM sc
+GROUP BY sid
+HAVING avg(score) > 60;
+```
+
+## 3
+
+查询所有同学的学号、姓名、选课数、总成绩。
+
+```sql
+SELECT s.sid, s.sname, count(sc.cid)
+	, sum(sc.score)
+FROM student s
+	LEFT JOIN sc ON s.sid = sc.sid
+GROUP BY s.sid;
+```
+
+我使用的是最新版的mysql8.0.25版本，执行上述代码遇到了一个莫名其妙的错误。
+
+```sql
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'my.s.sname' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+```
+
+执行下面两个sql就能解决，但是退出后还要重新输入。
+
+```sql
+set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+```
+
+
+## 4
+
+查询姓“李”的老师的个数。
+
+```sql
+SELECT count(tid)
+FROM teacher
+WHERE tname LIKE '李%';
+```
+
+## 5
+
+查询没学过“张三”老师课的同学的学号、姓名。
+
+```sql
+SELECT s.sid, s.sname
+FROM student s
+	LEFT JOIN sc
+	ON sc.sid = s.sid
+		AND sc.cid IN (
+			SELECT cid
+			FROM course c, teacher t
+			WHERE t.tname = '张三'
+				AND t.tid = c.tid
+		)
+GROUP BY sc.sid
+HAVING count(sc.cid) = 0;
 ```
