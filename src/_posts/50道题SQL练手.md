@@ -71,7 +71,7 @@ insert into sc values('07' , '02' , 89);
 insert into sc values('07' , '03' , 98);
 ```
 
-## 1
+## 题目：1
 
 查询"01"课程比"02"课程成绩高的学生的信息及课程分数。
 
@@ -85,7 +85,7 @@ WHERE sc1.cid = '01'
 	AND s.sid = sc2.sid;
 ```
 
-## 2
+## 题目：2
 
 查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩。
 
@@ -96,7 +96,7 @@ GROUP BY sid
 HAVING avg(score) > 60;
 ```
 
-## 3
+## 题目：3
 
 查询所有同学的学号、姓名、选课数、总成绩。
 
@@ -122,7 +122,7 @@ set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR
 ```
 
 
-## 4
+## 题目：4
 
 查询姓“李”的老师的个数。
 
@@ -132,7 +132,7 @@ FROM teacher
 WHERE tname LIKE '李%';
 ```
 
-## 5
+## 题目：5
 
 查询没学过“张三”老师课的同学的学号、姓名。
 
@@ -150,3 +150,27 @@ FROM student s
 GROUP BY sc.sid
 HAVING count(sc.cid) = 0;
 ```
+
+## 题目：6
+
+查询学过“01”并且也学过编号“02”课程的同学的学号、姓名。
+
+```sql
+select s.sid, s.sname from sc, student s where sc.sid=s.sid and sc.cid='01' and s.sid in (select sid from sc where sc.cid='02');
+```
+
+## 题目：7
+
+查询学过“张三”老师所教的所有课的同学的学号、姓名。
+
+## 题目：8
+
+查询课程编号“01”的成绩比课程编号“02”课程低的所有同学的学号、姓名。
+
+## 题目：9
+
+查询所有课程成绩小于60分的同学的学号、姓名。
+
+## 题目：10
+
+查询没有学全所有课的同学的学号、姓名。
