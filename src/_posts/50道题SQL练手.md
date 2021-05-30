@@ -193,8 +193,8 @@ SELECT s.sid, s.sname
 FROM (student s, sc s1)
 	JOIN sc s2
 	ON s1.sid = s2.sid
-		AND s1.cid = 1
-		AND s2.cid = 2
+		AND s1.cid = '01'
+		AND s2.cid = '02'
 		AND s1.score < s2.score
 WHERE s.sid = s1.sid;
 ```
@@ -225,3 +225,49 @@ HAVING count(sc.cid) != (
 	FROM course
 );
 ```
+
+## 题目：11
+
+查询至少有一门课与学号为“01”的同学所学相同的同学的学号和姓名。
+
+```sql
+SELECT s.sid, s.sname
+FROM student s
+WHERE s.sid != '01'
+	AND EXISTS (
+		SELECT *
+		FROM sc
+		WHERE s.sid = sc.sid
+	);
+```
+
+## 题目：12
+
+查询和"01"号的同学学习的课程完全相同的其他同学的学号和姓名
+
+## 题目：13
+
+把“SC”表中“张三”老师教的课的成绩都更改为此课程的平均成绩；
+
+```sql
+UPDATE sc, (
+		SELECT sc.cid, avg(sc.score) AS score
+		FROM teacher t, course c, sc
+		WHERE c.tid = t.tid
+			AND c.cid = sc.cid
+			AND t.tname = '张三'
+	) sc2
+SET sc.score = sc2.score
+WHERE sc.cid = sc2.cid;
+```
+
+## 题目：14
+
+查询没学过"张三"老师讲授的任一门课程的学生姓名
+
+```sql
+```
+
+## 题目：15
+
+查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩
