@@ -119,6 +119,14 @@ module.exports = {
 	['vuepress-plugin-goatcounter',{
 		'user': 'srcrs'
 	}],
-  ['vuepress-plugin-code-copy', true]
+  ["vuepress-plugin-code-copy", {
+    selector: String,
+    align: String,
+    color: String,
+    backgroundTransition: Boolean,
+    backgroundColor: String,
+    successText: String
+    }
+  ]
   ]
 }
