@@ -156,21 +156,72 @@ HAVING count(sc.cid) = 0;
 查询学过“01”并且也学过编号“02”课程的同学的学号、姓名。
 
 ```sql
-select s.sid, s.sname from sc, student s where sc.sid=s.sid and sc.cid='01' and s.sid in (select sid from sc where sc.cid='02');
+SELECT s.sid, s.sname
+FROM sc, student s
+WHERE sc.sid = s.sid
+	AND sc.cid = '01'
+	AND s.sid IN (
+		SELECT sid
+		FROM sc
+		WHERE sc.cid = '02'
+	);
 ```
 
 ## 题目：7
 
 查询学过“张三”老师所教的所有课的同学的学号、姓名。
 
+```sql
+SELECT s.sid, s.sname, c.cid, c.cname
+FROM student s, course c, sc
+WHERE sc.sid = s.sid
+	AND sc.cid = c.cid
+GROUP BY s.sid
+HAVING count(s.sid) = (
+	SELECT count(c.cid)
+	FROM teacher t, course c
+	WHERE t.tid = c.tid
+);
+```
+
 ## 题目：8
 
 查询课程编号“01”的成绩比课程编号“02”课程低的所有同学的学号、姓名。
+
+```sql
+SELECT s.sid, s.sname
+FROM (student s, sc s1)
+	JOIN sc s2
+	ON s1.sid = s2.sid
+		AND s1.cid = 1
+		AND s2.cid = 2
+		AND s1.score < s2.score
+WHERE s.sid = s1.sid;
+```
 
 ## 题目：9
 
 查询所有课程成绩小于60分的同学的学号、姓名。
 
+```sql
+SELECT s.sid, s.sname
+FROM student s
+	LEFT JOIN sc ON s.sid = sc.sid
+GROUP BY s.sid
+HAVING max(sc.score) < 60;
+```
+
 ## 题目：10
 
 查询没有学全所有课的同学的学号、姓名。
+
+```sql
+SELECT *
+FROM student s, sc
+WHERE s.sid = sc.sid
+GROUP BY s.sid
+HAVING count(sc.cid) != (
+	SELECT count(cid)
+	FROM course
+);
+```
