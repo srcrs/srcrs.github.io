@@ -271,3 +271,7 @@ WHERE sc.cid = sc2.cid;
 ## 题目：15
 
 查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩
+
+```sql
+select s.sid, s.sname, avg(sc.score) from student s right join sc on s.sid=sc.sid and sc.score<60 having count(sc.cid)>=2;
+```
