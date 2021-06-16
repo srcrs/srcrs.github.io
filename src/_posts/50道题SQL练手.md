@@ -245,6 +245,13 @@ WHERE s.sid != '01'
 
 查询和"01"号的同学学习的课程完全相同的其他同学的学号和姓名
 
+解题思路：首先查找到01同学所学的课程。
+
+```sql
+select s.sid, s.sname from student s, sc where s.sid=sc.sid and s.sid!='01' and sc.cid in
+(select cid from student s, sc where s.sid=sc.sid and s.sid='01') sf group by sc.cid having count(sf.cid)==count(sc.sid);
+```
+
 ## 题目：13
 
 把“SC”表中“张三”老师教的课的成绩都更改为此课程的平均成绩；
@@ -265,7 +272,10 @@ WHERE sc.cid = sc2.cid;
 
 查询没学过"张三"老师讲授的任一门课程的学生姓名
 
+解题思路：找到张三老师教的所有课程，筛选出没学过张三老师课程同学的学号，输出他们的姓名
+
 ```sql
+select sname from student s where sid in (select sid from student sc where sc.cid not in (select cid from course c,teacher t where t.tname='张三' and c.tid=t.tid));
 ```
 
 ## 题目：15
@@ -275,3 +285,36 @@ WHERE sc.cid = sc2.cid;
 ```sql
 select s.sid, s.sname, avg(sc.score) from student s right join sc on s.sid=sc.sid and sc.score<60 having count(sc.cid)>=2;
 ```
+
+## 题目：16
+
+检索"01"课程分数小于60，按分数降序排列的学生信息
+
+```sql
+select * from (select * from sc where sc.cid='01' and sc.score<60) sc left join student s on s.sid=sc.sid order by sc.score desc;
+```
+
+## 题目：17
+
+按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩
+
+```sql
+select sc.sid, sc.cid, sc.score, dot.avgScore avgScore from sc left join (select sid, avg(score) avgScore from sc group by sid) dot on sc.sid=dot.sid order by dot.avgScore de
+sc;
+```
+
+## 题目：18
+
+查询各科成绩最高分、最低分和平均分：以如下形式显示：课程ID，课程name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率
+
+## 题目：19
+
+按各科平均成绩从低到高和及格率的百分数从高到低顺序
+
+## 题目：20
+
+查询学生的总成绩并进行排名
+
+```sql
+select sum(score) from sc group by sid order by sc.sid desc;
+```ß
