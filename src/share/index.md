@@ -32,6 +32,14 @@ aside: false
 
 <li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="美团技术团队" target="_blank" href="https://tech.meituan.com/"><div>美团技术团队</div><div>美团技术团队</div></a></li>
 
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="腾讯CDC" target="_blank" href="https://cdc.tencent.com"><div>腾讯CDC</div><div>腾讯CDC</div></a></li>
+
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="Tencent AlloyTeam" target="_blank" href="https://www.alloyteam.com"><div>Tencent AlloyTeam</div><div>Tencent AlloyTeam</div></a></li>
+
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="腾讯社交用户体验设计(ISUX)" target="_blank" href="https://isux.tencent.com/"><div>腾讯社交用户体验设计(ISUX)</div><div>腾讯社交用户体验设计(ISUX)</div></a></li>
+
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a rel="" title="京东设计中心" target="_blank" href="https://jdc.jd.com"><div>京东设计中心</div><div>京东设计中心</div></a></li>
+
 </ul>
 
 </div>
