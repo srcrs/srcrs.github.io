@@ -112,6 +112,8 @@ cd yaf/tools/cg
 php yaf_cg -a test -d /var/www/html
 #在docker外执行创建yaf基础项目
 docker exec mytest /bin/bash -c 'cd /root/yaf/tools/cg && php yaf_cg -a test -d /var/www/html/test'
+#更改时区
+apt install -y tzdata
 ```
 
 ### 目录说明
