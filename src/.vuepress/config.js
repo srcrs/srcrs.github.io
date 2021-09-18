@@ -3,10 +3,10 @@ module.exports = {
   title: "srcrs",
   description: "A whole place about me",
    head: [
-    ['link', { rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/favicon.svg' }],//站点图标
-    ['link', { rel: 'apple-touch-icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/apple-touch-icon-152x152.png' }],
-    ['link', { rel: 'mask-icon', href: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/safari-pinned-tab.svg', color: '#3eaf7c' }],
-    ['meta', { name: 'msapplication-TileImage', content: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/msapplication-icon-144x144.png' }],
+    ['link', { rel: 'icon', href: '/assets/img/favicon.svg' }],//站点图标
+    ['link', { rel: 'apple-touch-icon', href: '/assets/img/apple-touch-icon-152x152.png' }],
+    ['link', { rel: 'mask-icon', href: '/assets/img/safari-pinned-tab.svg', color: '#3eaf7c' }],
+    ['meta', { name: 'msapplication-TileImage', content: '/assets/img/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }],
 	['meta', { name: 'viewport', 'content': 'width=device-width,initial-scale=1,user-scalable=no' }]
   ],
@@ -32,7 +32,7 @@ module.exports = {
       // organization: 'Xi\'an Jiao Tong University',
 
       // 头像
-      avatar: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/head.svg',
+      avatar: '/assets/img/head.svg',
 
       // 社交平台帐号信息
       sns: {
@@ -49,7 +49,7 @@ module.exports = {
       // header 的背景，可以使用图片，或者随机变化的图案（geopattern）
       background: {
         // 使用图片的 URL，如果设置了图片 URL，则不会生成随机变化的图案，下面的 useGeo 将失效
-        url: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/assets/img/background.svg',
+        url: '/assets/img/background.svg',
         // 使用随机变化的图案，如果设置为 false，且没有设置图片 URL，将显示为空白背景
          useGeo: false,
       },
@@ -96,19 +96,6 @@ module.exports = {
       // 是否允许主题自动添加 Posts 页面 (url: /posts/)
       posts: true,
     },
-  },
-  //加速静态资源
-  configureWebpack: () => {
-    return {
-      output: {
-        publicPath: 'https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/'
-      },
-      resolve: {
-        alias: {
-          'docs': path.resolve(__dirname, './docs'),
-        }
-      }
-    }
   },
   "plugins": [
     "vuepress-theme-meteorlxy",
