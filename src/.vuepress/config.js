@@ -102,9 +102,6 @@ module.exports = {
     "flowchart",
 	["sitemap", {
 		hostname: 'https://srcrs.top'
-	}],
-	['vuepress-plugin-goatcounter',{
-		'user': 'srcrs'
 	}]
   ]
 }
