@@ -8,12 +8,32 @@ fields:
 - type: datetime
   name: date
   label: date
-- type: text
-  name: category
+- name: category
+  type: select
+  default: ''
+  config:
+    required: false
+    options:
+    - Algorithm
+    - Life
+    - Note
+    - Linux
+    - Java
+    - Other
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
   label: category
 - type: list
   name: tags
   label: tags
+  config:
+    use_select: true
+    source:
+      type: simple
+    options: []
 - type: text
   name: permalink
   label: permalink
