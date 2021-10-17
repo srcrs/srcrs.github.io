@@ -8,12 +8,14 @@ fields:
 - type: datetime
   name: date
   label: date
-- type: list
-  name: tags
-  label: tags
-- type: text
-  name: category
+- name: category
+  type: tag_list
+  default: []
   label: category
 - type: text
   name: permalink
   label: permalink
+- name: tags
+  type: tag_list
+  default: []
+  label: tags
