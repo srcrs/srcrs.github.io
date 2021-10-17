@@ -9,8 +9,22 @@ fields:
   name: date
   label: date
 - name: category
-  type: tag_list
-  default: []
+  type: select
+  default: ''
+  config:
+    required: false
+    options:
+    - Other
+    - Life
+    - Algorithm
+    - Note
+    - Linux
+    - Java
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
   label: category
 - name: tags
   type: tag_list
