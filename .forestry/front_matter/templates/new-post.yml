@@ -19,3 +19,5 @@ fields:
 - type: text
   name: permalink
   label: permalink
+pages:
+- src/_posts/sql-with.md
