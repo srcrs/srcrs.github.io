@@ -12,10 +12,10 @@ fields:
   type: tag_list
   default: []
   label: category
-- type: text
-  name: permalink
-  label: permalink
 - name: tags
   type: tag_list
   default: []
   label: tags
+- type: text
+  name: permalink
+  label: permalink
