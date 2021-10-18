@@ -8,10 +8,6 @@ fields:
 - type: datetime
   name: date
   label: date
-- name: category
-  type: tag_list
-  default: []
-  label: category
 - name: tags
   type: tag_list
   default: []
@@ -19,5 +15,23 @@ fields:
 - type: text
   name: permalink
   label: permalink
+- name: category
+  type: select
+  default: []
+  config:
+    required: false
+    options:
+    - Algorithm
+    - Other
+    - Java
+    - Life
+    - Note
+    - Linux
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
+  label: category
 pages:
 - src/_posts/sql-with.md
