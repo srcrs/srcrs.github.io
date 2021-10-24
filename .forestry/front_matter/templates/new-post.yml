@@ -34,6 +34,7 @@ fields:
   name: permalink
   label: permalink
 pages:
+- src/_posts/sql-bug.md
 - src/_posts/sql-with.md
 - src/_posts/不好的一天.md
 - src/_posts/平凡一天的得与失.md
