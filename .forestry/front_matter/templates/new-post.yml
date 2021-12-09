@@ -37,6 +37,7 @@ pages:
 - src/_posts/docker-swarm.md
 - src/_posts/sql-bug.md
 - src/_posts/sql-with.md
+- src/_posts/一次使用消息队列的场景.md
 - src/_posts/不好的一天.md
 - src/_posts/好累啊.md
 - src/_posts/平凡一天的得与失.md
