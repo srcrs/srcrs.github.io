@@ -1,6 +1,7 @@
 ---
 category: Other
-tags: []
+tags:
+- sql
 title: 慢查SQL与一个BUG
 date: 2021-10-22 12:00:00 +0000
 permalink: "/posts/202110221.html"
