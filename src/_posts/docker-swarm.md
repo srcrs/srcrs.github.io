@@ -1,6 +1,7 @@
 ---
 category: Note
-tags: []
+tags:
+- docker
 title: 初识docker swarm
 date: 2021-11-28 12:00:00 +0000
 permalink: "/posts/202111281.html"
