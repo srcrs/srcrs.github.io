@@ -45,11 +45,9 @@ docker service create
 
 三台ubuntu服务器，已安装docker。
 
-- 主机master
-
-- 主机slave-1
-
-- 主机slave-2
+* 主机master
+* 主机slave-1
+* 主机slave-2
 
 ### 初始化集群
 
