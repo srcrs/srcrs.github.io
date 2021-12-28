@@ -35,6 +35,7 @@ fields:
   label: permalink
 pages:
 - src/_posts/docker-swarm.md
+- src/_posts/docker.md
 - src/_posts/sql-bug.md
 - src/_posts/sql-with.md
 - src/_posts/一次使用消息队列的场景.md
