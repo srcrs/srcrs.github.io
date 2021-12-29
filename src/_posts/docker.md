@@ -48,4 +48,39 @@ docker run -d -p 8081:80 nginx
 docker run -d -p 8082:80 nginx
 ```
 
-失败，创建的web服务无法创建对应的键值对
+此时可以在consul的8500端口，看到nginx已成功注册。
+
+### nginx配置
+
+创建nginx配置文件，使请求打在8081和8082端口。
+
+```bash
+events {
+  worker_connections 1024; 
+} 
+http { 
+  upstream elb { 
+    server 192.168.33.10:8081; 
+    server 192.168.33.10:8082; 
+  } 
+  server { 
+    listen 80; 
+    location / {
+      proxy_pass http://elb; 
+    } 
+  }
+}
+```
+
+运行nginx，充当elb，由于8081和8082输出内容一样，有条件的可以进入容器，更改nginx默认输出内容，在`/usr/share/nginx/html/index.html`。
+
+```bash
+docker run -d -p 80:80 -v /root/nginx.conf:/etc/nginx/nginx.conf --name elb nginx
+```
+
+至此，便实现了通常意义上的负载均衡，但是服务器信息还需要手动配置，不能实现动态配置。
+
+### 安装confd
+
+参考[confd安装指南](https://github.com/kelseyhightower/confd/blob/master/docs/installation.md)。
+
