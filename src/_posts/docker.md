@@ -206,3 +206,5 @@ server {
 consul部署到两台机器，一主一从，两台nginx服务器将流量转发到三台server机器进行处理。
 
 ![cluster-elb](https://gallery-srcrs.vercel.app/blog/cluster-elb.png)
+
+稍后建一个仓库，上面实现代码进行了更新，之前服务名是写死状态，现在可根据使用习惯进行自定义，可配置服务是否需要进行动态负载均衡。
