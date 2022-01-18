@@ -3,7 +3,7 @@ category: Note
 tags:
 - docker
 title: docker实现动态负载均衡
-date: 2021-12-29 12:00:00 +0000
+date: 2021-12-29T12:00:00.000+00:00
 permalink: "/posts/202112291.html"
 
 ---
@@ -194,3 +194,15 @@ server {
 ```
 
 现在可以转发的web服务数量确实是3个了。
+
+## 实验二：集群动态负载均衡
+
+### 背景
+
+在企业应用中，通常采用集群的部署方式，保证服务的高可用。
+
+### 实现方式
+
+consul部署到两台机器，一主一从，两台nginx服务器将流量转发到三台server机器进行处理。
+
+![cluster-elb](https://gallery-srcrs.vercel.app/blog/cluster-elb.png)
