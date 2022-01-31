@@ -34,6 +34,7 @@ fields:
   name: permalink
   label: permalink
 pages:
+- src/_posts/2022.md
 - src/_posts/docker-swarm.md
 - src/_posts/docker.md
 - src/_posts/sql-bug.md
