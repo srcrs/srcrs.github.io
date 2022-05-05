@@ -99,4 +99,28 @@ CSP vs Actor
 
 - 通讯双方必须在channel中
 
-- 异步方式，跟队列类似  
+- 异步方式，跟队列类似   
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	fmt.Println(service())
+	OtherTask()
+}
+
+func OtherTask() {
+	fmt.Println("working on something else")
+	time.Sleep(time.Microsecond * 100)
+	fmt.Println("Task is done")
+}
+```
+
+```go
+s
+```
