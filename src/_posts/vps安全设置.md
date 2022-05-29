@@ -7,6 +7,8 @@ category: Other
 permalink: /posts/202109281.html
 ---
 
+系统版本：ubuntu20.04
+
 前不久入手的国外vps被入侵了，发生次数超过三次，发现是因为配置的公钥匙被更改，导致我登陆不上去，并且代码配置的公钥、私钥都被删除，cpu跑满，大概被拉去挖矿了，不知是何种方式入侵的。为了以后减少被入侵的风险，我做了如下配置
 
 ### 修改ssh登陆接口
@@ -50,4 +52,34 @@ usermod -g wheel book
 echo "SU_WHEEL_ONLY yes">>/etc/login.defs
 ```
 
+## 开启BBR
 
+```bash
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+
+#开启
+sysctl -p
+
+#查看是否开启，结果包含有bbr说明正常
+sysctl net.ipv4.tcp_available_congestion_control
+lsmod | grep bbr
+```
+
+## 设置交换内存
+
+```bash
+#设置7G交换内存
+dd if=/dev/zero of=/swapfile bs=1G count=7
+#设置文件访问权限
+chmod 600 /swapfile
+#设置改文件为交换分区
+mkswap /swapfile
+#激活交换分区
+swapon /swapfile
+#开启永久生效 下行内容写入到该文件 /etc/fstab
+/swapfile swap swap defaults 0 0
+#验证是否设置成功
+swapon --show
+free -h
+```
