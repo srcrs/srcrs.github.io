@@ -70,7 +70,7 @@ lsmod | grep bbr
 
 ```bash
 #设置7G交换内存
-dd if=/dev/zero of=/swapfile bs=1G count=7
+dd if=/dev/zero of=/swapfile bs=1G count=3
 #设置文件访问权限
 chmod 600 /swapfile
 #设置改文件为交换分区
@@ -82,4 +82,20 @@ swapon /swapfile
 #验证是否设置成功
 swapon --show
 free -h
+```
+
+## 安装docker
+
+```bash
+apt-get update
+apt-get install docker.io
+apt-get install docker-compose
+```
+
+给普通用户授权
+
+```bash
+gpasswd -a ${USER} docker
+systemctl restart docker
+chmod a+rw /var/run/docker.sock
 ```
