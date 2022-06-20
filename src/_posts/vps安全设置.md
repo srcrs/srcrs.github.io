@@ -27,6 +27,8 @@ Port: 12312
 vim /etc/ssh/sshd_config
 #禁止root用户登陆，将yes改为no
 PermitRootLogin no
+#禁止密码登陆
+PasswordAuthentication no
 #重启sshd
 /etc/init.d/ssh restart
 ```
