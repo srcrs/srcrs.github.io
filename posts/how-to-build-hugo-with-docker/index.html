@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录说明 # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.cc #博客源代码目录 mkdir src #头像文件目录 mkdir assets/img #静态文件目录 mkdir static # 获取主题示例 博客Github地址：hugo-theme-stack 进入 doduo.cc/src ，执行以下命令 1 2 3 4 5 #克隆主题源代码 git clone https://github.">
+<title>使用Docker搭建Hugo博客</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/how-to-build-hugo-with-docker/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="使用Docker搭建Hugo博客">
+<meta property='og:description' content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录说明 # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.cc #博客源代码目录 mkdir src #头像文件目录 mkdir assets/img #静态文件目录 mkdir static # 获取主题示例 博客Github地址：hugo-theme-stack 进入 doduo.cc/src ，执行以下命令 1 2 3 4 5 #克隆主题源代码 git clone https://github.">
+<meta property='og:url' content='https://blog.lass.cc/posts/how-to-build-hugo-with-docker/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='hugo' /><meta property='article:published_time' content='2022-12-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="使用Docker搭建Hugo博客">
+<meta name="twitter:description" content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录说明 # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.cc #博客源代码目录 mkdir src #头像文件目录 mkdir assets/img #静态文件目录 mkdir static # 获取主题示例 博客Github地址：hugo-theme-stack 进入 doduo.cc/src ，执行以下命令 1 2 3 4 5 #克隆主题源代码 git clone https://github.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#环境">环境</a>
+      <ol>
+        <li><a href="#系统软件环境">系统软件环境</a></li>
+        <li><a href="#环境安装">环境安装</a></li>
+      </ol>
+    </li>
+    <li><a href="#简述">简述</a></li>
+    <li><a href="#目录说明">目录说明</a></li>
+    <li><a href="#实操">实操</a>
+      <ol>
+        <li><a href="#创建相关的目录">创建相关的目录</a></li>
+        <li><a href="#获取主题示例">获取主题示例</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+        <li><a href="#部署">部署</a></li>
+      </ol>
+    </li>
+    <li><a href="#nginx反向代理配置">Nginx反向代理配置</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/docker/" >
+                Docker
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/how-to-build-hugo-with-docker/">使用Docker搭建Hugo博客</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 08, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="环境">
+    <a href="#%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    环境
+</h2><h3 id="系统软件环境">
+    <a href="#%e7%b3%bb%e7%bb%9f%e8%bd%af%e4%bb%b6%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    系统软件环境
+</h3><ul>
+<li>
+<p>Server: Debian 11</p>
+</li>
+<li>
+<p>Docker: 20.10.5</p>
+</li>
+</ul>
+<h3 id="环境安装">
+    <a href="#%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85" class="header-anchor">#</a>
+    环境安装
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#更新包</span>
+</span></span><span class="line"><span class="cl">apt-get install update
+</span></span><span class="line"><span class="cl"><span class="c1">#安装Docker</span>
+</span></span><span class="line"><span class="cl">apt-get install docker.io -y
+</span></span><span class="line"><span class="cl"><span class="c1">#安装Docker-Compose</span>
+</span></span><span class="line"><span class="cl">apt-get install docker-compose
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注：需具备Linux系统简单操作能力，需会使用Docker基本命令</p>
+<h2 id="简述">
+    <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    简述
+</h2><p>陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。</p>
+<h2 id="目录说明">
+    <a href="#%e7%9b%ae%e5%bd%95%e8%af%b4%e6%98%8e" class="header-anchor">#</a>
+    目录说明
+</h2><h2 id="实操">
+    <a href="#%e5%ae%9e%e6%93%8d" class="header-anchor">#</a>
+    实操
+</h2><h3 id="创建相关的目录">
+    <a href="#%e5%88%9b%e5%bb%ba%e7%9b%b8%e5%85%b3%e7%9a%84%e7%9b%ae%e5%bd%95" class="header-anchor">#</a>
+    创建相关的目录
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#博客根目录</span>
+</span></span><span class="line"><span class="cl">mkdir doduo.cc
+</span></span><span class="line"><span class="cl"><span class="c1">#博客源代码目录</span>
+</span></span><span class="line"><span class="cl">mkdir src
+</span></span><span class="line"><span class="cl"><span class="c1">#头像文件目录</span>
+</span></span><span class="line"><span class="cl">mkdir assets/img
+</span></span><span class="line"><span class="cl"><span class="c1">#静态文件目录</span>
+</span></span><span class="line"><span class="cl">mkdir static
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="获取主题示例">
+    <a href="#%e8%8e%b7%e5%8f%96%e4%b8%bb%e9%a2%98%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    获取主题示例
+</h3><p>博客Github地址：<a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack"  target="_blank" rel="noopener"
+    >hugo-theme-stack</a></p>
+<p>进入 <code>doduo.cc/src</code> ，执行以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#克隆主题源代码</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
+</span></span><span class="line"><span class="cl"><span class="c1">#复制示例网站源码</span>
+</span></span><span class="line"><span class="cl">cp -r ./themes/hugo-theme-stack/exampleSite/content .
+</span></span><span class="line"><span class="cl">cp ./themes/hugo-theme-stack/exampleSite/config.yaml .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>content</code> 此目录保存文章数据，<code>config.yaml</code> 网站自定义配置，可以参考<a class="link" href="https://stack.jimmycai.com/guide/getting-started"  target="_blank" rel="noopener"
+    >hugo-theme-stack官方教程</a>，<code>config.yaml</code> 需要配置 <code>baseurl</code> 才可以正常展示。</p>
+<h3 id="dockerfile">
+    <a href="#dockerfile" class="header-anchor">#</a>
+    Dockerfile
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> node:14-alpine as node_modules</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> LANG en_US.UTF-8<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> LANGUAGE en_US.UTF-8<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="s2">&#34;Asia/Shanghai&#34;</span> &gt; /etc/timezone<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> klakegg/hugo:0.107.0-ext-alpine as hugo</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /src</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./src/ /src/<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 生成静态文件</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> hugo<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># nginx web 服务器</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> nginx:1.19.7-alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span>  rm -rf /usr/share/nginx/html/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>hugo /src/public /usr/share/nginx/html<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-composeyml">
+    <a href="#docker-composeyml" class="header-anchor">#</a>
+    docker-compose.yml
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">hugo-server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;20040:80&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="部署">
+    <a href="#%e9%83%a8%e7%bd%b2" class="header-anchor">#</a>
+    部署
+</h3><p>部署网站</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker-compose up --build -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>删除中间镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker rmi <span class="k">$(</span>docker images -f <span class="s2">&#34;dangling=true&#34;</span> -q<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="nginx反向代理配置">
+    <a href="#nginx%e5%8f%8d%e5%90%91%e4%bb%a3%e7%90%86%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    Nginx反向代理配置
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen 20443 ssl;
+</span></span><span class="line"><span class="cl">    server_name blog.doduo.cc;
+</span></span><span class="line"><span class="cl">    ssl_certificate  /etc/nginx/cert/doduo.cc/fullchain.cer;
+</span></span><span class="line"><span class="cl">    ssl_certificate_key /etc/nginx/cert/doduo.cc/doduo.cc.key;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location ~ /tags.*[^/]$ {
+</span></span><span class="line"><span class="cl">        try_files $uri @rewrite;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    location ~ /categories.*[^/]$ {
+</span></span><span class="line"><span class="cl">        try_files $uri @rewrite;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    location @rewrite {
+</span></span><span class="line"><span class="cl">        return 302 $scheme://$http_host$uri/;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / {
+</span></span><span class="line"><span class="cl">        proxy_pass  http://96.43.94.91:20040;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen 80;
+</span></span><span class="line"><span class="cl">    server_name blog.doduo.cc;
+</span></span><span class="line"><span class="cl">    rewrite ^(.*)$ https://$host$1 permanent;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor">#</a>
+    参考
+</h2><ul>
+<li>
+<p><a class="link" href="https://stack.jimmycai.com/guide/getting-started"  target="_blank" rel="noopener"
+    >hugo-theme-stack官方教程</a></p>
+</li>
+<li>
+<p><a class="link" href="https://gohugo.io/documentation/"  target="_blank" rel="noopener"
+    >Hugo官方文档</a></p>
+</li>
+<li>
+<p><a class="link" href="https://serverfault.com/questions/739498/nginx-rewrite-on-docker-machine-when-host-port-container-port/1053762#1053762"  target="_blank" rel="noopener"
+    >解决Nginx反向代理问题</a></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/how-use-plik/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">plik自建临时文件系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/douyin-remove-watermark/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">抖音去水印开源工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/easy-to-use-torrent-client/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【exatorrent】好用的web端BT磁力在线播放工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-use-dashdot/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【DashDot】好看的服务器仪表盘</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/a-web-page-monitoring-tool/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">一个网页监控工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Ubuntu on srcrs</title>
+        <link>https://blog.lass.cc/tags/ubuntu/</link>
+        <description>Recent content in Ubuntu on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>不信邪的我设置了8G交换内存</title>
+        <link>https://blog.lass.cc/posts/%E4%B8%8D%E4%BF%A1%E9%82%AA%E7%9A%84%E6%88%91%E8%AE%BE%E7%BD%AE%E4%BA%868g%E4%BA%A4%E6%8D%A2%E5%86%85%E5%AD%98/</link>
+        <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E4%B8%8D%E4%BF%A1%E9%82%AA%E7%9A%84%E6%88%91%E8%AE%BE%E7%BD%AE%E4%BA%868g%E4%BA%A4%E6%8D%A2%E5%86%85%E5%AD%98/</guid>
+        <description>&lt;p&gt;在网上看到很多文章都在说交换内存的设置公式，然而我却不明白为什么要这么设置。交换内存是用于当物理内存不足时，将硬盘一部分存储当作内存来使用，众所周知，内存速度和硬盘速度不是一个量级的。当交换内存远大于物理内存时，“交换”将消耗大量的IO，最终导致系统成不可用状态。&lt;/p&gt;
+&lt;p&gt;交换内存设置表&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RAM&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;MB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; No hibernation With Hibernation Maximum
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt;             &lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt;             &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RAM&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; No hibernation  With Hibernation  Maximum
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;                   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;                   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;                   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;                   &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;29&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;48&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;38&lt;/span&gt;                  &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;               &lt;span class=&#34;m&#34;&gt;72&lt;/span&gt;                 &lt;span class=&#34;m&#34;&gt;128&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;128&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;139&lt;/span&gt;                 &lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;服务器配置信息&#34;&gt;
+    &lt;a href=&#34;#%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%85%8d%e7%bd%ae%e4%bf%a1%e6%81%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    服务器配置信息
+&lt;/h2&gt;&lt;p&gt;我有一台服务器，是 (2C,1G) 的，充当玩具，性能对我来说，不太卡顿即可。我将虚拟内存扩充到8G，我测试下，极限8G，服务器功能是否还正常。&lt;/p&gt;
+&lt;h2 id=&#34;阶段一&#34;&gt;
+    &lt;a href=&#34;#%e9%98%b6%e6%ae%b5%e4%b8%80&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    阶段一
+&lt;/h2&gt;&lt;p&gt;主要是启动docker容器，目前已经部署了6个&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d -p 3006:3000  metabase/metabase
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ free -h
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              total        used        free      shared  buff/cache   available
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mem:          981Mi       829Mi        63Mi       1.0Mi        88Mi        43Mi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Swap:         8.0Gi       3.6Gi       4.4Gi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ vmstat &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3768788&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;63056&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1768&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;105964&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;201&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;133&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;409&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;257&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;212&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;102&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3769948&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;79620&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1456&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;86660&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;40374&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3102&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;40550&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3102&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8772&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18201&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;28&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;37&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;23&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3769692&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;78044&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1468&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;87848&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;180&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;794&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;26&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;604&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1120&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;93&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3769436&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;77320&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1468&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;88496&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;180&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;462&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;614&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1119&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;92&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3769068&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;85424&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;488&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;76440&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;35714&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1980&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;38084&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1980&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8914&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19889&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;28&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;40&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3773860&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;72068&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;432&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;76732&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33324&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4628&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;45138&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4732&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9686&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19808&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;28&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3773348&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;66600&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;528&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;82452&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;412&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3322&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;814&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1410&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;92&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3780272&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;74500&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;508&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;87972&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1318&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3978&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;7880&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4018&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1457&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2445&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;83&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3781112&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;69772&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;87836&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15334&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2006&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;17140&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2010&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4221&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9283&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;67&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3801412&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;67120&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;608&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;76812&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;38858&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11870&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;39434&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12020&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11162&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;23234&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;35&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;46&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3806960&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;71364&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;664&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;95416&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3282&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4286&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14936&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4334&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2038&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3575&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;78&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3806192&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;61568&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;664&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;100552&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;974&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3538&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;902&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1734&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;90&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3812808&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;79968&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;664&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98404&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3562&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1190&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3676&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;773&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1342&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;93&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3812040&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;75684&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;664&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98412&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1370&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1374&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;807&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1758&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;93&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3811016&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;70424&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;664&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98400&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1452&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1452&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;898&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1848&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;93&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810504&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;69636&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;680&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98664&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;258&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;372&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;52&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;703&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1411&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810504&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;68660&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1212&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98732&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;50&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;348&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;555&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;93&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810504&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;68628&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1220&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98720&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;26&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;510&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1025&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810248&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;68156&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1220&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98784&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;156&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;168&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;548&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1104&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;95&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3809992&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;68124&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1220&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98780&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;104&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;104&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;557&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1140&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;97&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3809480&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;66896&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1236&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98788&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;572&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;572&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;42&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;803&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1526&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;95&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3809224&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;65164&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1236&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98828&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;474&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;488&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;631&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1260&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;94&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3808712&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;64092&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1244&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;99268&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;254&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;464&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;28&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;597&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1197&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;94&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3808456&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;63368&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1244&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;99232&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;274&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;274&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;533&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1071&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3808200&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;62076&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1244&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;99268&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;596&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;596&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;709&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1548&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;95&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810984&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;74556&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1248&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;96444&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1340&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1870&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1486&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1906&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1035&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1989&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;88&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810728&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;66804&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2504&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;102852&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;358&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4174&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;748&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1350&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;92&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3809960&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;65480&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2512&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;102904&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;494&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;494&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;643&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1242&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3809704&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;65260&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2512&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;103116&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;150&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;266&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;86&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;545&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1080&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3809704&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;64220&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2512&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;103332&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;214&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;314&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;601&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1201&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;阶段二&#34;&gt;
+    &lt;a href=&#34;#%e9%98%b6%e6%ae%b5%e4%ba%8c&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    阶段二
+&lt;/h2&gt;&lt;p&gt;再加一个，在服务器的后台查到IOPS读已经达到了50Mbps/s了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d -p 3007:3000  metabase/metabase
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ free -h
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              total        used        free      shared  buff/cache   available
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mem:          981Mi       812Mi        68Mi       1.0Mi        99Mi        51Mi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Swap:         8.0Gi       4.0Gi       4.0Gi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;阶段三&#34;&gt;
+    &lt;a href=&#34;#%e9%98%b6%e6%ae%b5%e4%b8%89&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    阶段三
+&lt;/h2&gt;&lt;p&gt;已经启动到第十个了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ free -h
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              total        used        free      shared  buff/cache   available
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mem:          981Mi       786Mi       100Mi       1.0Mi        93Mi        82Mi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Swap:         8.0Gi       5.0Gi       3.0Gi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;貌似有点快扛不住了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ vmstat &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5119212&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;60124&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2908&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;73884&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;260&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;185&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;499&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;314&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;146&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5155220&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;75324&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3376&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;94224&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1520&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19544&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14760&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19606&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4138&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3414&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;13&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;75&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5154452&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;74096&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3908&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;94660&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;298&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;792&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;764&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1530&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;96&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5177536&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;78392&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3668&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;97028&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3446&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14728&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6424&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14766&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2743&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3810&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;63&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5152432&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;73284&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2396&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;81296&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;24644&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11270&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;26372&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11480&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9063&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15522&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5139892&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;61932&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1664&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;81592&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11460&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4734&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16178&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4804&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4186&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;7736&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;70&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5177700&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;94216&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1916&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;91476&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;356&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19256&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10052&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19432&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2545&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2223&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;82&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5147428&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;68192&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1792&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;90704&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;17006&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;382&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18850&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;446&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4116&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9416&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;74&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5144804&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;63024&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1796&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;94800&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11590&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9828&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15352&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9946&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5561&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8727&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5144292&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;62332&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1796&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;94996&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;336&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;424&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;795&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1585&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;94&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5143012&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;59720&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2200&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;95744&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;586&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1154&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;832&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1743&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;94&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5147044&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;71256&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1952&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;88356&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1784&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3676&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3400&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3884&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1604&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2822&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;85&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5141924&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;62976&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1952&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;90736&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2628&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3812&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1623&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2930&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;90&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5167424&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;89004&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1920&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;84096&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2070&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14930&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3112&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15092&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2454&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3112&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;82&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5166656&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;88248&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1920&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;84428&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;406&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;570&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;807&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1586&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;93&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5151296&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;69852&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1920&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;85524&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;7648&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;8192&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2820&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6528&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5159880&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;79004&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1724&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;82588&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8130&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12100&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9970&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12162&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4509&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;7477&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;37&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;43&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5149128&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;66436&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1724&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;82548&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6292&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6292&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3330&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4899&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;43&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;43&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5145112&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;67056&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1592&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;79028&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9530&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5800&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10330&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6002&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3360&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5822&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;63&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5143576&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;65292&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1668&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;78976&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;836&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;872&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;970&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1944&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;94&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5151016&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;73140&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1656&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;78032&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1886&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5508&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2514&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;5630&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1812&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2829&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;87&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5149992&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;66336&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1672&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;85960&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;406&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;4370&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;70&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1045&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1946&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;92&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;阶段四&#34;&gt;
+    &lt;a href=&#34;#%e9%98%b6%e6%ae%b5%e5%9b%9b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    阶段四
+&lt;/h2&gt;&lt;p&gt;扛不住了扛不住了,cpu经常性的飙100%，系统也卡顿严重了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ free -h
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              total        used        free      shared  buff/cache   available
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mem:          981Mi       799Mi        80Mi       1.0Mi       101Mi        60Mi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Swap:         8.0Gi       5.8Gi       2.2Gi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;work@dodov:~$ vmstat &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6038828&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;69424&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2468&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;98080&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;274&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;202&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;527&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;334&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;157&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;95&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6025196&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;64804&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2392&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;90328&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;22348&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15200&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33226&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19556&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12588&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19423&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;56&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6023244&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;63616&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1344&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;89936&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12070&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11056&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16376&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11968&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9198&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;13661&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;72&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6026188&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;62840&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;928&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;90600&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;13742&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15552&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18348&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18354&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9982&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15065&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;66&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6036792&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;70836&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;744&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;87876&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14026&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18614&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;20084&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;20208&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12157&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18162&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;65&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;17&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6058080&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;72168&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1092&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;96804&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;13226&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;23642&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;24766&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;23990&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;14056&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;23795&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;29&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;59&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;6071048&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;76688&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1824&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;93440&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;12736&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18720&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;15984&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;18800&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;11871&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;22269&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;23&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;65&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;结论&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%93%e8%ae%ba&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    结论
+&lt;/h2&gt;&lt;p&gt;收工了。结论是8G确实太高了，当交换内存为将近6G时，系统已经达到了几乎一个极限的状态，正常的指令已经卡顿到不能获取CPU去执行。接下来，我要将交换内存变更成了4G，在这一区间，各方面能达到一个均衡的状态，况且5G内存也足够使用了，正常状态下用不了那么多。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>web服务环境配置</title>
+        <link>https://blog.lass.cc/posts/web-service-environment-configuration/</link>
+        <pubDate>Wed, 06 May 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/web-service-environment-configuration/</guid>
+        <description>&lt;h2 id=&#34;jdk&#34;&gt;
+    &lt;a href=&#34;#jdk&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    jdk
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;将jdk压缩包上传到服务器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以从官网下载，或者自己备份有。上传后文件名为&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-md&#34; data-lang=&#34;md&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;jdk-8u231-linux-x64.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;解压&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果什么都不加，默认解压在当前目录下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tar -zxvf jdk-8u231-linux-x64.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;环境变量配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在命令行输入此命令，打开环境变量配置文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vim /etc/profile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/ubuntu/jdk1.8.0_231
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;CLASSPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/lib/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$JAVA_HOME&lt;/span&gt;/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; PATH JAVA_HOME CLASSPATH
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;使配置生效&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; /etc/profile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;mysql&#34;&gt;
+    &lt;a href=&#34;#mysql&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    mysql
+&lt;/h2&gt;&lt;p&gt;以前那个方法不行了，这次又换了一个。&lt;/p&gt;
+&lt;p&gt;先运行&lt;code&gt;dpkg -l | grep mysql&lt;/code&gt;查看有没有安装mysql，如果有输出就说明安装了，请参考，我的&lt;a class=&#34;link&#34; href=&#34;https://srcrs.top/posts/202006191.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ubuntu18.04彻底删除MySQL数据库&lt;/a&gt;这篇文章就能解决你的问题。&lt;/p&gt;
+&lt;h3 id=&#34;安装mysql-server&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85mysql-server&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    安装mysql-server
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;安装MySQL&lt;code&gt;apt install mysql-server&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看是否安装成功&lt;code&gt;netstat -tap | grep mysql&lt;/code&gt;,如果看到有mysql就说明安装成功。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输入&lt;code&gt;mysql&lt;/code&gt;进入数据库，此时数据库是没有密码的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;配置mysql&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%aemysql&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置MySQL
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;输入&lt;code&gt;mysql_secure_installation&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;secure enough. Would you like to setup VALIDATE PASSWORD plugin?    # 要安装验证密码插件吗?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press y|Y for Yes, any other key for No: &lt;code&gt;N&lt;/code&gt;    # 这里我选择N&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;New password:   # 输入要为root管理员设置的数据库密码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Re-enter new password:   # 再次输入密码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Remove anonymous users? (Press y|Y for Yes, any other key for No) : &lt;code&gt;y&lt;/code&gt;     # 删除匿名账户
+Success.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disallow root login remotely? (Press y|Y for Yes, any other key for No) : &lt;code&gt;N&lt;/code&gt;    # 是否禁止root管理员从远程登录？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Remove test database and access to it? (Press y|Y for Yes, any other key for No) : &lt;code&gt;y&lt;/code&gt;   # 删除test数据库并取消对它的访问权限&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reload privilege tables now? (Press y|Y for Yes, any other key for No) : &lt;code&gt;y&lt;/code&gt;   # 刷新授权表，让初始化后的设定立即生效&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此时mysql就是初步配置好了，但是仍然不够。&lt;/p&gt;
+&lt;h3 id=&#34;配置mysql允许远程访问&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%aemysql%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置MySQL允许远程访问
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;编辑配置文件&lt;code&gt;vim /etc/mysql/mysql.conf.d/mysqld.cnf&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;注释&lt;code&gt;bind-address = 127.0.0.1&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按Esc键，输入冒号，再输入wq，即可保存退出。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输入&lt;code&gt;mysql -uroot -p&lt;/code&gt;加上你设置的密码，就能进入到数据库。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;进行授权&lt;code&gt;grant all on *.* to root@&#39;%&#39; identified by &#39;你的密码&#39; with grant option;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;刷新权限&lt;code&gt;flush privileges;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;退出&lt;code&gt;exit&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启MySQL&lt;code&gt;systemctl restart mysql&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下来就可以远程访问了。&lt;/p&gt;
+&lt;h3 id=&#34;解决不用密码就能登录&#34;&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e4%b8%8d%e7%94%a8%e5%af%86%e7%a0%81%e5%b0%b1%e8%83%bd%e7%99%bb%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    解决不用密码就能登录
+&lt;/h3&gt;&lt;p&gt;到现在发现不用密码也是能登录的，相当与以前设置的密码还没有生效。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;进入数据库&lt;code&gt;mysql -uroot -p&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;进入mysql&lt;code&gt;use mysql;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;无password版本，即5.7以下包括5.7&lt;code&gt;update user set authentication_string=password(&amp;quot;你的密码&amp;quot;) where user=&#39;root&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;大于5.7&lt;code&gt;update user set password=password(&#39;你的密码&#39;) where user=&#39;root&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不清楚这两条运行了，也没关系。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;update user set plugin=&amp;ldquo;mysql_native_password&amp;rdquo;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;刷新&lt;code&gt;flush privileges;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;退出&lt;code&gt;exit&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启MySQL&lt;code&gt;systemctl restart mysql&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;解决数据库大小写敏感问题&#34;&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e6%95%b0%e6%8d%ae%e5%ba%93%e5%a4%a7%e5%b0%8f%e5%86%99%e6%95%8f%e6%84%9f%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    解决数据库大小写敏感问题
+&lt;/h3&gt;&lt;p&gt;在windows中，数据库的大小写是不敏感的，而在Linux是区分大小写的。&lt;/p&gt;
+&lt;p&gt;mysql是通过lower_case_table_names变量来处理大小写问题的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;进入mysql&lt;code&gt;mysql -uroot -p&lt;/code&gt;，回车输入你的密码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查询大小写变量&lt;code&gt;show variables like &#39;%case%&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;输入如下内容，该变量值是0，说明对大小写是敏感的。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+------------------------+-------+
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Variable_name          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Value &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+------------------------+-------+
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; lower_case_file_system &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; OFF   &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; lower_case_table_names &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+------------------------+-------+
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;退出数据库，进入终端&lt;code&gt;vim /etc/mysql/mysql.conf.d/mysqld.cnf&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在[mysqld]下面添加&lt;code&gt;lower_case_table_names=1&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;保存并退出&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启MySQL&lt;code&gt;systemctl restart mysql&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;至此，mysql算是差不多配置完了。如果再出问题，应该就是驱动和数据版本不匹配了。&lt;/p&gt;
+&lt;h2 id=&#34;tomcat&#34;&gt;
+    &lt;a href=&#34;#tomcat&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    tomcat
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;下载tomcat&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;地址：&lt;a class=&#34;link&#34; href=&#34;https://tomcat.apache.org/download-90.cgi&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;tomcat 9.0.34&lt;/a&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;上传到服务器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;上传后名字为&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-md&#34; data-lang=&#34;md&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apache-tomcat-9.0.34.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;解压&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;解压到当前目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tar -zxvf apache-tomcat-9.0.34.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;赋权限&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我不知有何用。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;755&lt;/span&gt; -R apache-tomcat-9.0.34
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;修改startup.sh启动脚本&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在apache-tomcat-9.0.34/bin目录中输入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vi startup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在最后一行的前面添加如下内容，路径要符合自己的实际情况。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/ubuntu/jdk1.8.0_231
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JRE_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/jre
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLASSPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;.:%&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;JAVA_HOME&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;/lib:%&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;JRE_HOME&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;/lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/bin:&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#tomcat&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;TOMCAT_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/ubuntu/apache-tomcat-9.0.34
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;修改shutdown.sh关闭脚本&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在apache-tomcat-9.0.34/bin目录中输入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo vi shutdown.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;和上面哪个一样，在最后一行的前面添加如下内容，路径要符合自己的实际情况。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/ubuntu/jdk1.8.0_231
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;JRE_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/jre
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLASSPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;.:%&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;JAVA_HOME&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;/lib:%&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;JRE_HOME&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;/lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/bin:&lt;span class=&#34;nv&#34;&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#tomcat&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;TOMCAT_HOME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/ubuntu/apache-tomcat-9.0.34
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;启动tomcat&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo ./startup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;提示如下内容则说明启动成功&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Using CATALINA_BASE:   /home/ubuntu/apache-tomcat-9.0.34
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Using CATALINA_HOME:   /home/ubuntu/apache-tomcat-9.0.34
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Using CATALINA_TMPDIR: /home/ubuntu/apache-tomcat-9.0.34/temp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Using JRE_HOME:        /home/ubuntu/jdk1.8.0_231/jre
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Using CLASSPATH:       /home/ubuntu/apache-tomcat-9.0.34/bin/bootstrap.jar:/home/ubuntu/apache-tomcat-9.0.34/bin/tomcat-juli.jar
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Tomcat started.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;参考链接&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    参考链接
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.jianshu.com/p/dfce73d80ffb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ubuntu18.04安装jdk&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/mier9042/article/details/106408075/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ubuntu 18.04安装mysql&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixx3/article/details/80808484&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ubuntu18.04 安装tomcat&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/zhaopeng_yu/article/details/80785813&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux下MySQL大小写敏感问题&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

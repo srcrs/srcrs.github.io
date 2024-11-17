@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>PHP on srcrs</title>
+        <link>https://blog.lass.cc/tags/php/</link>
+        <description>Recent content in PHP on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Thu, 13 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/php/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PHP搭建环境</title>
+        <link>https://blog.lass.cc/posts/php%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/</link>
+        <pubDate>Thu, 13 Feb 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/php%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/</guid>
+        <description>&lt;h2 id=&#34;简述&#34;&gt;
+    &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    简述
+&lt;/h2&gt;&lt;p&gt;搭建php环境需要用到三个软件&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apache：用作搭建服务器&lt;/li&gt;
+&lt;li&gt;PHP：用作解析php代码&lt;/li&gt;
+&lt;li&gt;Mysql：用作数据存储&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下载Apache的时候我可是费了老劲了，短短10M我几乎花了五个小时才下载玩。在将PHP加载到Apache中的时候需要需要注意它们的版本，否则将会加载失败，我这里&lt;code&gt;PHP2.2.25&lt;/code&gt;和&lt;code&gt;httpd5.4.8&lt;/code&gt;、&lt;code&gt;PHP2.4.23&lt;/code&gt;和&lt;code&gt;httpd7.4.2&lt;/code&gt;是可以匹配成功的（httpd是Apache超文本传输协议(HTTP)服务器的主程序，下载Apache就是它），希望不要再踩坑了。&lt;/p&gt;
+&lt;p&gt;可以参考&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/av12863134&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;学习地址&lt;/a&gt;中老师讲的，完美配置。&lt;/p&gt;
+&lt;h2 id=&#34;下载&#34;&gt;
+    &lt;a href=&#34;#%e4%b8%8b%e8%bd%bd&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    下载
+&lt;/h2&gt;&lt;p&gt;apache有支持https的，给的是不支持的。适用于64位Windows10计算机。&lt;/p&gt;
+&lt;p&gt;Apache下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.lanzous.com/i9g049i&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;点我&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.lanzous.com/i9ahfbc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;点我&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Mysql下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.lanzous.com/i93viof&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;点我&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    安装
+&lt;/h2&gt;&lt;p&gt;安装就不需要多说了，为了方便以后的配置，建议在D盘目录下建立一个名称为&lt;code&gt;server&lt;/code&gt;的文件夹，将三个软件都安装在这个文件夹中&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;httpd的安装目录为&lt;code&gt;D:\server\apache&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PHP的安装目录为&lt;code&gt;D:\server\php7&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;php是压缩包，不需要安装，只需要将里面的文件放到php7中就可以了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mysql的安装目录&lt;code&gt;D:\server\mysql&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;配置&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;将&lt;code&gt;D:\server\apache\bin&lt;/code&gt;配置到环境变量中，mysql因为我是之前就安装了，如果没有环境变量也需要把它的bin目录加载进来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开&lt;code&gt;D:\server\apache\conf\httpd.conf&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;需要认识几个地方&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;37行的&lt;code&gt;ServerRoot&lt;/code&gt;就是服务的根目录，这里不需要修改。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;将220行的&lt;code&gt;#ServerName localhost:80&lt;/code&gt;修改成&lt;code&gt;ServerName localhost&lt;/code&gt;,这里是服务的名字。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;58行的&lt;code&gt;Listen 80&lt;/code&gt;这里是服务监听的端口，通常不需要修改。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;配置DNS域名解析&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;打开&lt;code&gt;C:\Windows\System32\drivers\etc\hosts&lt;/code&gt;，注意要给管理员权限（但是我的给了也不行，后来用vscode才修改成功，今天再一看又可以修改了，迷），在最后一行添加&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;127.0.0.1       localhost&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;三项配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在178行后面添加&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#加载PHP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;LoadModule php7_module &amp;#39;D:/server/php7/php7apache2_4.dll&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#将PHP配置文件加载到Apache配置文件&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;PHPIniDir &amp;#39;D:/server/php7/php.ini&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#分配给PHP&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;AddType application/x-httpd-php .php&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;将&lt;code&gt;D:\server\php7\php.ini-development&lt;/code&gt;复制一份，然后将&lt;code&gt;php - 副本.ini-development&lt;/code&gt;修改为&lt;code&gt;php.ini&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;将mysql加载到php中&#34;&gt;
+    &lt;a href=&#34;#%e5%b0%86mysql%e5%8a%a0%e8%bd%bd%e5%88%b0php%e4%b8%ad&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    将MySQL加载到PHP中
+&lt;/h2&gt;&lt;p&gt;这里我就简短的说明一下，因为如果只是学习php语言的话很可能用不到。但是很重要。&lt;/p&gt;
+&lt;p&gt;在上面推荐的视频中，使用的时&lt;code&gt;php5.4.8&lt;/code&gt;版本，有mysql的扩展，但是下载的软件时&lt;code&gt;php7.4.2&lt;/code&gt;版本，在这哥版本中已经删掉了&lt;code&gt;php_mysql.dll&lt;/code&gt;扩展，但是可以使用&lt;code&gt;php_pdo_mysql.dll&lt;/code&gt;来代替。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开&lt;code&gt;D:\server\php7\php.ini&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;搜索&lt;code&gt;pdo_mysql&lt;/code&gt;,将927行&lt;code&gt;;extension=pdo_mysql&lt;/code&gt;修改成&lt;code&gt;extension=pdo_mysql&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;搜索&lt;code&gt;extension_dir&lt;/code&gt;在757行后面添加&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;;增加扩展路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;extension_dir&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;D:/server/php7/ext&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。&lt;/p&gt;
+&lt;h2 id=&#34;检查&#34;&gt;
+    &lt;a href=&#34;#%e6%a3%80%e6%9f%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    检查
+&lt;/h2&gt;&lt;p&gt;打开CMD命令行，输入&lt;code&gt;httpd -t&lt;/code&gt;指令，可以检查是否有语法错误，如果返回&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;httpd&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;不是内部或外部命令，也不是可运行的程序&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;或批处理文件。&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;说明是没有配置环境变量。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;httpd -M&lt;/code&gt;可以看哪写模块加载到服务程序中。&lt;/p&gt;
+&lt;p&gt;注意每次更改配置文件都要重启一下。&lt;/p&gt;
+&lt;h2 id=&#34;测试&#34;&gt;
+    &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    测试
+&lt;/h2&gt;&lt;p&gt;如果前面一切都没有问题，那么现在就可以测试了&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;D:\server\apache\htdocs&lt;/code&gt;中新建一个&lt;code&gt;index.php&lt;/code&gt;,里面内容为&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;hello world&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在浏览器输入&lt;code&gt;http://localhost/index.php&lt;/code&gt;正常时可以返回&lt;code&gt;hello world&lt;/code&gt;的。不清楚的可以参考上面推荐的视频。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

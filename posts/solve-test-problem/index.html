@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 问题描述： 前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。 # 问题分析过程 # 确认问题复现步骤 在本次问题中，可以通过curl请求即可复现。 # 是否是nginx设置了超时？ # 确认部署机器 假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令 1 curl -v &#39;https://api.xxxx.com&#39; 通过-v命令可以，查询到curl请求更详细的过程，格式类似如下 1 2 3 4 5 6 7 8 9 10 * Trying 198.18.1.220:80... * Connected to baidu.com (198.18.1.220) port 80 (#0) &gt; GET / HTTP/1.1 &gt; Host: baidu.com &gt; User-Agent: curl/7.87.0 &gt; Accept: */* &gt; * Empty reply from server * Closing connection 0 curl: (52) Empty reply from server 便得到第一步请求到达了 198.">
+<title>记录一下问题排查过程</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/solve-test-problem/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="记录一下问题排查过程">
+<meta property='og:description' content="# 问题描述： 前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。 # 问题分析过程 # 确认问题复现步骤 在本次问题中，可以通过curl请求即可复现。 # 是否是nginx设置了超时？ # 确认部署机器 假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令 1 curl -v &#39;https://api.xxxx.com&#39; 通过-v命令可以，查询到curl请求更详细的过程，格式类似如下 1 2 3 4 5 6 7 8 9 10 * Trying 198.18.1.220:80... * Connected to baidu.com (198.18.1.220) port 80 (#0) &gt; GET / HTTP/1.1 &gt; Host: baidu.com &gt; User-Agent: curl/7.87.0 &gt; Accept: */* &gt; * Empty reply from server * Closing connection 0 curl: (52) Empty reply from server 便得到第一步请求到达了 198.">
+<meta property='og:url' content='https://blog.lass.cc/posts/solve-test-problem/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='solve' /><meta property='article:published_time' content='2023-07-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-10T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="记录一下问题排查过程">
+<meta name="twitter:description" content="# 问题描述： 前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。 # 问题分析过程 # 确认问题复现步骤 在本次问题中，可以通过curl请求即可复现。 # 是否是nginx设置了超时？ # 确认部署机器 假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令 1 curl -v &#39;https://api.xxxx.com&#39; 通过-v命令可以，查询到curl请求更详细的过程，格式类似如下 1 2 3 4 5 6 7 8 9 10 * Trying 198.18.1.220:80... * Connected to baidu.com (198.18.1.220) port 80 (#0) &gt; GET / HTTP/1.1 &gt; Host: baidu.com &gt; User-Agent: curl/7.87.0 &gt; Accept: */* &gt; * Empty reply from server * Closing connection 0 curl: (52) Empty reply from server 便得到第一步请求到达了 198.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#问题描述">问题描述：</a></li>
+    <li><a href="#问题分析过程">问题分析过程</a>
+      <ol>
+        <li><a href="#确认问题复现步骤">确认问题复现步骤</a></li>
+        <li><a href="#是否是nginx设置了超时">是否是nginx设置了超时？</a>
+          <ol>
+            <li><a href="#确认部署机器">确认部署机器</a></li>
+            <li><a href="#确认web服务器是什么查看日志">确认web服务器是什么查看日志</a></li>
+            <li><a href="#nginx配置更新">nginx配置更新</a></li>
+          </ol>
+        </li>
+        <li><a href="#是否是apigateway层原因">是否是apigateway层原因</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/other/" >
+                Other
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/solve-test-problem/">记录一下问题排查过程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 10, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="问题描述">
+    <a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0" class="header-anchor">#</a>
+    问题描述：
+</h2><p>前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。</p>
+<h2 id="问题分析过程">
+    <a href="#%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e8%bf%87%e7%a8%8b" class="header-anchor">#</a>
+    问题分析过程
+</h2><h3 id="确认问题复现步骤">
+    <a href="#%e7%a1%ae%e8%ae%a4%e9%97%ae%e9%a2%98%e5%a4%8d%e7%8e%b0%e6%ad%a5%e9%aa%a4" class="header-anchor">#</a>
+    确认问题复现步骤
+</h3><p>在本次问题中，可以通过curl请求即可复现。</p>
+<h3 id="是否是nginx设置了超时">
+    <a href="#%e6%98%af%e5%90%a6%e6%98%afnginx%e8%ae%be%e7%bd%ae%e4%ba%86%e8%b6%85%e6%97%b6" class="header-anchor">#</a>
+    是否是nginx设置了超时？
+</h3><h4 id="确认部署机器">
+    <a href="#%e7%a1%ae%e8%ae%a4%e9%83%a8%e7%bd%b2%e6%9c%ba%e5%99%a8" class="header-anchor">#</a>
+    确认部署机器
+</h4><p>假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v <span class="s1">&#39;https://api.xxxx.com&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过<code>-v</code>命令可以，查询到curl请求更详细的过程，格式类似如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">*   Trying 198.18.1.220:80...
+</span></span><span class="line"><span class="cl">* Connected to baidu.com (198.18.1.220) port 80 (#0)
+</span></span><span class="line"><span class="cl">&gt; GET / HTTP/1.1
+</span></span><span class="line"><span class="cl">&gt; Host: baidu.com
+</span></span><span class="line"><span class="cl">&gt; User-Agent: curl/7.87.0
+</span></span><span class="line"><span class="cl">&gt; Accept: */*
+</span></span><span class="line"><span class="cl">&gt; 
+</span></span><span class="line"><span class="cl">* Empty reply from server
+</span></span><span class="line"><span class="cl">* Closing connection 0
+</span></span><span class="line"><span class="cl">curl: (52) Empty reply from server
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>便得到第一步请求到达了 198.18.1.220 机器，登录进行查看。</p>
+<h4 id="确认web服务器是什么查看日志">
+    <a href="#%e7%a1%ae%e8%ae%a4web%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%98%af%e4%bb%80%e4%b9%88%e6%9f%a5%e7%9c%8b%e6%97%a5%e5%bf%97" class="header-anchor">#</a>
+    确认web服务器是什么查看日志
+</h4><p>公司用到最多的是nginx和haproxy，因此直接使用命令可以查到，这二者同时使用存在端口冲突，一般只会一台机器有一个</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep nginx
+</span></span><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep haproxy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果类似如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">root      2662     1  0 07:12 ?        00:00:00 nginx: master process /usr/sbin/nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过结果可分析出进程的启动目录，目的是找到日志文件。如果进程中无法分析出，可以进一步通过find命令查看，nginx默认配置文件是<code>nginx.conf</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find / -name nginx.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在logs目录中找到nginx错误日志error.log，检索接口，看到有超时日志，接着查看配置信息，有30秒超时设置，因此这里是要更改的。</p>
+<h4 id="nginx配置更新">
+    <a href="#nginx%e9%85%8d%e7%bd%ae%e6%9b%b4%e6%96%b0" class="header-anchor">#</a>
+    nginx配置更新
+</h4><p>将30秒超时时间更改为300秒后，再次请求接口，仍然大概30秒断开，但是这次并没有错误信息，返回空值。需要继续排查下去。</p>
+<h3 id="是否是apigateway层原因">
+    <a href="#%e6%98%af%e5%90%a6%e6%98%afapigateway%e5%b1%82%e5%8e%9f%e5%9b%a0" class="header-anchor">#</a>
+    是否是apigateway层原因
+</h3><p>nginx在本次请求链中的作用是反向代理，直接将请求转发到apigateway层，这是一个golang程序，之前有过一些了解，直接找到其日志文件，再次curl进行复现，令我好奇的是，gateway程序有打印正常返回日志，但是却未返回。</p>
+<p>因此网关层应该是有设置超时时间的。</p>
+<p>在conf目录中找到了几个配置文件，看了一圈并不能确认哪个是超时字段，只有app.conf中有个ServerTimeout字段设置了20，此时我并不知道他就是beego的默认启动配置文件。抱着实验的想法，将20改成了60，将程序重启，然后就有正常返回了。后面还找了好一会ServerTimeout的初始化位置，后面才知道这里是在框架层做的，所以是找不到的。</p>
+<p>到此，解决了这个问题。</p>
+<p>总结改动点：nginx路径超时时间、apigateway网关层超时时间。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/solve/">Solve</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2024/11/10/ruankao-sd-by-2024/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2024年下半年软件设计师</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/use-helix/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">helix使用记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/work-for-two-years/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">工作两年了随便聊点什么吧</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">细数我做的一些小工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

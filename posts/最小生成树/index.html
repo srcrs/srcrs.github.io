@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时prim算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用Kruskal来解决这类问题吧。 ::: # 迷之想法 中午用vector版本邻接表存储的无向图，我的想法是这样的，对每一个顶点域邻接的部分从小到大排序，这样求一个顶点到邻接点的最短距离直接取第一个点就好，等用完了这个点，就将它从该位置移除，与此同时，还要将它的主对角线对称位置也移除，就这样一步步运行下去，但是到最后，还是判断不了添加完的的多个点是否是连通状态，结果就卡在这了。 # 迷之代码 # 采用存储的方式 1 2 3 4 5 6 7 8 const int Max=1e4+2; typedef struct EdgeNode { int to; int w; }; vector&lt;EdgeNode&gt; s[Max];//存储方式 vector&lt;bool&gt; f; # 输入的方式 1 2 3 4 5 6 7 8 9 10 11 12 int n,m; cin &gt;&gt; n &gt;&gt; m;//n代表点数,m代表边数 for(int k=0;k&lt;m;k++){ int i,j,w; cin &gt;&gt; i &gt;&gt; j &gt;&gt; w; EdgeNode e; e.to=j; e.w=w; s[i].">
+<title>最小生成树</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="最小生成树">
+<meta property='og:description' content=":::tip 最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时prim算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用Kruskal来解决这类问题吧。 ::: # 迷之想法 中午用vector版本邻接表存储的无向图，我的想法是这样的，对每一个顶点域邻接的部分从小到大排序，这样求一个顶点到邻接点的最短距离直接取第一个点就好，等用完了这个点，就将它从该位置移除，与此同时，还要将它的主对角线对称位置也移除，就这样一步步运行下去，但是到最后，还是判断不了添加完的的多个点是否是连通状态，结果就卡在这了。 # 迷之代码 # 采用存储的方式 1 2 3 4 5 6 7 8 const int Max=1e4+2; typedef struct EdgeNode { int to; int w; }; vector&lt;EdgeNode&gt; s[Max];//存储方式 vector&lt;bool&gt; f; # 输入的方式 1 2 3 4 5 6 7 8 9 10 11 12 int n,m; cin &gt;&gt; n &gt;&gt; m;//n代表点数,m代表边数 for(int k=0;k&lt;m;k++){ int i,j,w; cin &gt;&gt; i &gt;&gt; j &gt;&gt; w; EdgeNode e; e.to=j; e.w=w; s[i].">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='图论' /><meta property='article:published_time' content='2019-05-22T17:51:35&#43;00:00'/><meta property='article:modified_time' content='2019-05-22T17:51:35&#43;00:00'/>
+<meta name="twitter:title" content="最小生成树">
+<meta name="twitter:description" content=":::tip 最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时prim算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用Kruskal来解决这类问题吧。 ::: # 迷之想法 中午用vector版本邻接表存储的无向图，我的想法是这样的，对每一个顶点域邻接的部分从小到大排序，这样求一个顶点到邻接点的最短距离直接取第一个点就好，等用完了这个点，就将它从该位置移除，与此同时，还要将它的主对角线对称位置也移除，就这样一步步运行下去，但是到最后，还是判断不了添加完的的多个点是否是连通状态，结果就卡在这了。 # 迷之代码 # 采用存储的方式 1 2 3 4 5 6 7 8 const int Max=1e4+2; typedef struct EdgeNode { int to; int w; }; vector&lt;EdgeNode&gt; s[Max];//存储方式 vector&lt;bool&gt; f; # 输入的方式 1 2 3 4 5 6 7 8 9 10 11 12 int n,m; cin &gt;&gt; n &gt;&gt; m;//n代表点数,m代表边数 for(int k=0;k&lt;m;k++){ int i,j,w; cin &gt;&gt; i &gt;&gt; j &gt;&gt; w; EdgeNode e; e.to=j; e.w=w; s[i].">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#迷之想法">迷之想法</a>
+      <ol>
+        <li><a href="#迷之代码">迷之代码</a>
+          <ol>
+            <li><a href="#采用存储的方式">采用存储的方式</a></li>
+            <li><a href="#输入的方式">输入的方式</a></li>
+            <li><a href="#对邻接点按权值从小到大排序">对邻接点按权值从小到大排序</a></li>
+            <li><a href="#处理并入点过程">处理并入点过程</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#构建最小生成树">构建最小生成树</a>
+      <ol>
+        <li><a href="#例题">例题</a></li>
+        <li><a href="#代码如下">代码如下</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">最小生成树</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 22, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时<code>prim</code>算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用<code>Kruskal</code>来解决这类问题吧。
+:::</p>
+<!-- raw HTML omitted -->
+<h2 id="迷之想法">
+    <a href="#%e8%bf%b7%e4%b9%8b%e6%83%b3%e6%b3%95" class="header-anchor">#</a>
+    迷之想法
+</h2><p>中午用vector版本邻接表存储的无向图，我的想法是这样的，对每一个顶点域邻接的部分从小到大排序，这样求一个顶点到邻接点的最短距离直接取第一个点就好，等用完了这个点，就将它从该位置移除，与此同时，还要将它的主对角线对称位置也移除，就这样一步步运行下去，但是到最后，还是判断不了添加完的的多个点是否是连通状态，结果就卡在这了。</p>
+<h3 id="迷之代码">
+    <a href="#%e8%bf%b7%e4%b9%8b%e4%bb%a3%e7%a0%81" class="header-anchor">#</a>
+    迷之代码
+</h3><h4 id="采用存储的方式">
+    <a href="#%e9%87%87%e7%94%a8%e5%ad%98%e5%82%a8%e7%9a%84%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    采用存储的方式
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">Max</span><span class="o">=</span><span class="mf">1e4</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">EdgeNode</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">EdgeNode</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">[</span><span class="n">Max</span><span class="p">];</span><span class="c1">//存储方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="输入的方式">
+    <a href="#%e8%be%93%e5%85%a5%e7%9a%84%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    输入的方式
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span><span class="c1">//n代表点数,m代表边数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&gt;&gt;</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EdgeNode</span> <span class="n">e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="p">.</span><span class="n">to</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="p">.</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="p">.</span><span class="n">to</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="对邻接点按权值从小到大排序">
+    <a href="#%e5%af%b9%e9%82%bb%e6%8e%a5%e7%82%b9%e6%8c%89%e6%9d%83%e5%80%bc%e4%bb%8e%e5%b0%8f%e5%88%b0%e5%a4%a7%e6%8e%92%e5%ba%8f" class="header-anchor">#</a>
+    对邻接点按权值从小到大排序
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">EdgeNode</span> <span class="n">x</span><span class="p">,</span><span class="n">EdgeNode</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">w</span><span class="o">&lt;</span><span class="n">y</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">(),</span><span class="n">cmp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="处理并入点过程">
+    <a href="#%e5%a4%84%e7%90%86%e5%b9%b6%e5%85%a5%e7%82%b9%e8%bf%87%e7%a8%8b" class="header-anchor">#</a>
+    处理并入点过程
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">E</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">E</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">v</span><span class="o">!=</span><span class="mi">5</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">key</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">E</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">w</span><span class="o">&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">w</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">key</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="c1">//找到已并入的点的最近点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span><span class="p">]</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span><span class="c1">//声明此点已被使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">E</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span><span class="p">);</span><span class="c1">//将该点并入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">cout</span> <span class="o">&lt;&lt;</span><span class="s">&#34;选：&#34;</span><span class="o">&lt;&lt;</span> <span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">w</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span><span class="p">].</span><span class="n">size</span><span class="p">();</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span><span class="p">][</span><span class="n">j</span><span class="p">].</span><span class="n">to</span><span class="o">==</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="c1">//找到它关于主对角线的点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]][</span><span class="mi">0</span><span class="p">].</span><span class="n">to</span><span class="p">].</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]].</span><span class="n">erase</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">key</span><span class="p">]].</span><span class="n">begin</span><span class="p">());</span><span class="c1">//删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">v</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">it</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span><span class="n">it</span><span class="o">!=</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">();</span><span class="n">it</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">EdgeNode</span> <span class="n">e</span><span class="o">=*</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">to</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">w</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>记录下来，以后发现能解决了，再办它。</p>
+<h2 id="构建最小生成树">
+    <a href="#%e6%9e%84%e5%bb%ba%e6%9c%80%e5%b0%8f%e7%94%9f%e6%88%90%e6%a0%91" class="header-anchor">#</a>
+    构建最小生成树
+</h2><p><code>prim</code>算法建造最小生成树的时间复杂度是<code>O(n^2)</code>,而<code>Kruskal</code>的时间复杂度是<code>eloge</code>，当边比较少时用<code>Kruskal</code>效率会很好，以后边多的时候，也用它凑合着用吧，因为它主要消耗的时间就是排序，排完序后一切都好说，还有就是并查集了。</p>
+<h3 id="例题">
+    <a href="#%e4%be%8b%e9%a2%98" class="header-anchor">#</a>
+    例题
+</h3><p>假设有6个顶点，10条边，6个顶点分别用1，2，3，4，5，6表示，边的输入<code>x y w</code>起点、终点、权值，问其中一颗最小生成树的组合，并求它的权值。
+<strong>输入如下</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="m">6</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">2</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">5</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">6</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">6</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">4</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="代码如下">
+    <a href="#%e4%bb%a3%e7%a0%81%e5%a6%82%e4%b8%8b" class="header-anchor">#</a>
+    代码如下
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include&lt;bits/stdc++.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">Max</span><span class="o">=</span><span class="mf">1e4</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">f</span><span class="p">[</span><span class="n">Max</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">e</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="c1">//代表此刻边的数目
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="c1">//权值之和
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">EdgeNode</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">from</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">EdgeNode</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">build</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">EdgeNode</span> <span class="n">x</span><span class="p">,</span><span class="n">EdgeNode</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">w</span><span class="o">&lt;</span><span class="n">y</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Find</span><span class="p">(</span><span class="kt">int</span> <span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="o">==</span><span class="n">w</span><span class="o">?</span><span class="nl">w</span><span class="p">:</span><span class="n">f</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="o">=</span><span class="n">Find</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">w</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">che</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span><span class="kt">int</span> <span class="n">to</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Find</span><span class="p">(</span><span class="n">from</span><span class="p">)</span><span class="o">==</span><span class="n">Find</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">mer</span><span class="p">(</span><span class="kt">int</span> <span class="n">from</span><span class="p">,</span><span class="kt">int</span> <span class="n">to</span><span class="p">,</span><span class="kt">int</span> <span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">che</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">from</span><span class="p">]]</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">to</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sum</span><span class="o">+=</span><span class="n">s</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;边有:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">from</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">to</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">w</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">build</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="n">j</span> <span class="o">&gt;&gt;</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EdgeNode</span> <span class="n">g</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g</span><span class="p">.</span><span class="n">from</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g</span><span class="p">.</span><span class="n">to</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g</span><span class="p">.</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="n">cmp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">e</span><span class="o">!=</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mer</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">from</span><span class="p">,</span><span class="n">s</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">to</span><span class="p">,</span><span class="n">p</span><span class="p">);</span><span class="c1">//将边一个个送入去尝试
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">p</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;最小权值为：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">sum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

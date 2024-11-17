@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>服务器 on srcrs</title>
+        <link>https://blog.lass.cc/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+        <description>Recent content in 服务器 on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Fri, 09 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>项目部署到tomcat无法显示验证码</title>
+        <link>https://blog.lass.cc/posts/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E9%AA%8C%E8%AF%81%E7%A0%81/</link>
+        <pubDate>Fri, 09 Oct 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E9%AA%8C%E8%AF%81%E7%A0%81/</guid>
+        <description>&lt;h2 id=&#34;起因&#34;&gt;
+    &lt;a href=&#34;#%e8%b5%b7%e5%9b%a0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    起因
+&lt;/h2&gt;&lt;p&gt;记得在今年六月份做的安卓作业，后端使用的是SSM+Spring Security，并且添加了验证码，服务器的环境是ubuntu，web服务器是tomcat，当我把项目部署上去的时候，验证码却不能显示，但是在本地却是可以的。&lt;/p&gt;
+&lt;p&gt;前两天，我再次将web项目部署到服务器中，仍旧出现了这样的问题。&lt;/p&gt;
+&lt;h2 id=&#34;遇到的问题&#34;&gt;
+    &lt;a href=&#34;#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    遇到的问题
+&lt;/h2&gt;&lt;p&gt;在linux服务器上使用tomcat部署web项目时，发现验证码刷新不出来，但是我在windows部署到tomcat却是正常的，令我很疑惑。&lt;/p&gt;
+&lt;h2 id=&#34;解决办法&#34;&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e5%8a%9e%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    解决办法
+&lt;/h2&gt;&lt;p&gt;在tomcat里面的catalina.sh文件中，增加以下代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;JAVA_OPTS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$JAVA_OPTS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; -Djava.awt.headless=true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;问题原因&#34;&gt;
+    &lt;a href=&#34;#%e9%97%ae%e9%a2%98%e5%8e%9f%e5%9b%a0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    问题原因
+&lt;/h2&gt;&lt;p&gt;据说是因为Xsecurity的问题。我就在网上找关于Xsecurity是什么，一直也没有找到。等找到的时候再记录下来吧。&lt;/p&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    参考链接
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_27808011/article/details/82730613&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;tomcat部署web服务，验证码刷新不出来&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

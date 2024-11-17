@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 部署环境 # Dockerfile # docker-compose.yml # Roles and Conversations roles_and_conversations_demo_1.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 import os import pprint from autogen import ConversableAgent cathy = ConversableAgent( &#34;cathy&#34;, system_message=&#34;Your name is Cathy and you are a part of a duo of comedians.&#34;, llm_config={&#34;config_list&#34;: [{&#34;model&#34;: &#34;deepseek-chat&#34;, &#34;temperature&#34;: 0.9, &#34;api_key&#34;: os.">
+<title>利用AutoGen的人工智能智能体设计模式</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/ai-agentic-design-patterns-with-autogen/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="利用AutoGen的人工智能智能体设计模式">
+<meta property='og:description' content="# 部署环境 # Dockerfile # docker-compose.yml # Roles and Conversations roles_and_conversations_demo_1.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 import os import pprint from autogen import ConversableAgent cathy = ConversableAgent( &#34;cathy&#34;, system_message=&#34;Your name is Cathy and you are a part of a duo of comedians.&#34;, llm_config={&#34;config_list&#34;: [{&#34;model&#34;: &#34;deepseek-chat&#34;, &#34;temperature&#34;: 0.9, &#34;api_key&#34;: os.">
+<meta property='og:url' content='https://blog.lass.cc/posts/ai-agentic-design-patterns-with-autogen/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2024-07-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-27T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="利用AutoGen的人工智能智能体设计模式">
+<meta name="twitter:description" content="# 部署环境 # Dockerfile # docker-compose.yml # Roles and Conversations roles_and_conversations_demo_1.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 import os import pprint from autogen import ConversableAgent cathy = ConversableAgent( &#34;cathy&#34;, system_message=&#34;Your name is Cathy and you are a part of a duo of comedians.&#34;, llm_config={&#34;config_list&#34;: [{&#34;model&#34;: &#34;deepseek-chat&#34;, &#34;temperature&#34;: 0.9, &#34;api_key&#34;: os.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#部署环境">部署环境</a>
+      <ol>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+      </ol>
+    </li>
+    <li><a href="#roles-and-conversations">Roles and Conversations</a></li>
+    <li><a href="#human-input-mode--never">Human Input Mode = NEVER</a></li>
+    <li><a href="#human-input-mode--always">Human Input Mode = ALWAYS</a></li>
+    <li><a href="#使用autogen执行代码">使用autogen执行代码</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/ai-agentic-design-patterns-with-autogen/">利用AutoGen的人工智能智能体设计模式</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 27, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="部署环境">
+    <a href="#%e9%83%a8%e7%bd%b2%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    部署环境
+</h2><h3 id="dockerfile">
+    <a href="#dockerfile" class="header-anchor">#</a>
+    Dockerfile
+</h3><h3 id="docker-composeyml">
+    <a href="#docker-composeyml" class="header-anchor">#</a>
+    docker-compose.yml
+</h3><h2 id="roles-and-conversations">
+    <a href="#roles-and-conversations" class="header-anchor">#</a>
+    Roles and Conversations
+</h2><p>roles_and_conversations_demo_1.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pprint</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">autogen</span> <span class="kn">import</span> <span class="n">ConversableAgent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cathy</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;cathy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="s2">&#34;Your name is Cathy and you are a part of a duo of comedians.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;config_list&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;deepseek-chat&#34;</span><span class="p">,</span> <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&#34;api_key&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;OPENAI_API_KEY&#34;</span><span class="p">),</span> <span class="s2">&#34;base_url&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;BASE_URL&#34;</span><span class="p">),</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}]},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;NEVER&#34;</span><span class="p">,</span>  <span class="c1"># Never ask for human input.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">joe</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="s2">&#34;Your name is Joe and you are a part of a duo of comedians.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;config_list&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;deepseek-chat&#34;</span><span class="p">,</span> <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s2">&#34;api_key&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;OPENAI_API_KEY&#34;</span><span class="p">),</span> <span class="s2">&#34;base_url&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;BASE_URL&#34;</span><span class="p">),</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}]},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;NEVER&#34;</span><span class="p">,</span>  <span class="c1"># Never ask for human input.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">joe</span><span class="o">.</span><span class="n">initiate_chat</span><span class="p">(</span><span class="n">cathy</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&#34;Cathy, tell me a joke.&#34;</span><span class="p">,</span> <span class="n">max_turns</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#获取聊天历史对话</span>
+</span></span><span class="line"><span class="cl"><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">chat_history</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#消耗令牌情况</span>
+</span></span><span class="line"><span class="cl"><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="human-input-mode--never">
+    <a href="#human-input-mode--never" class="header-anchor">#</a>
+    Human Input Mode = NEVER
+</h2><p>guess_a_number_game_demo_2.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">autogen</span> <span class="kn">import</span> <span class="n">ConversableAgent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">llm_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;config_list&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;deepseek-coder&#34;</span><span class="p">,</span> <span class="s2">&#34;api_key&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;OPENAI_API_KEY&#34;</span><span class="p">),</span> <span class="s2">&#34;base_url&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;BASE_URL&#34;</span><span class="p">),</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}]}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">agent_with_number</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;agent_with_number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="s2">&#34;You are playing a game of guess-my-number. You have the &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;number 53 in your mind, and I will try to guess it. &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;If I guess too high, say &#39;too high&#39;, if I guess too low, say &#39;too low&#39;. &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="s2">&#34;53&#34;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s2">&#34;content&#34;</span><span class="p">],</span>  <span class="c1"># terminate if the number is guessed by the other agent</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;NEVER&#34;</span><span class="p">,</span>  <span class="c1"># never ask for human input</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">agent_guess_number</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;agent_guess_number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="s2">&#34;I have a number in my mind, and you will try to guess it. &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;If I say &#39;too high&#39;, you should guess a lower number. If I say &#39;too low&#39;, &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;you should guess a higher number. &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;NEVER&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">agent_with_number</span><span class="o">.</span><span class="n">initiate_chat</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">agent_guess_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span><span class="o">=</span><span class="s2">&#34;I have a number between 1 and 100. Guess it!&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="human-input-mode--always">
+    <a href="#human-input-mode--always" class="header-anchor">#</a>
+    Human Input Mode = ALWAYS
+</h2><p>有人工参与</p>
+<p>guess_a_number_game_human_demo_3.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">autogen</span> <span class="kn">import</span> <span class="n">ConversableAgent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">llm_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;config_list&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;deepseek-coder&#34;</span><span class="p">,</span> <span class="s2">&#34;api_key&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;OPENAI_API_KEY&#34;</span><span class="p">),</span> <span class="s2">&#34;base_url&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;BASE_URL&#34;</span><span class="p">),</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}]}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">agent_with_number</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;agent_with_number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="s2">&#34;You are playing a game of guess-my-number. You have the &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;number 53 in your mind, and I will try to guess it. &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;If I guess too high, say &#39;too high&#39;, if I guess too low, say &#39;too low&#39;. &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">is_termination_msg</span><span class="o">=</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="s2">&#34;53&#34;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s2">&#34;content&#34;</span><span class="p">],</span>  <span class="c1"># terminate if the number is guessed by the other agent</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;NEVER&#34;</span><span class="p">,</span>  <span class="c1"># never ask for human input</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">agent_guess_number</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;agent_guess_number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="s2">&#34;I have a number in my mind, and you will try to guess it. &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;If I say &#39;too high&#39;, you should guess a lower number. If I say &#39;too low&#39;, &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;you should guess a higher number. &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="n">llm_config</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;NEVER&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">human_proxy</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;human_proxy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># no LLM used for human proxy</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;ALWAYS&#34;</span><span class="p">,</span>  <span class="c1"># always ask for human input</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Start a chat with the agent with number with an initial guess.</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">human_proxy</span><span class="o">.</span><span class="n">initiate_chat</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">agent_with_number</span><span class="p">,</span>  <span class="c1"># this is the same agent with the number as before</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span><span class="o">=</span><span class="s2">&#34;10&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用autogen执行代码">
+    <a href="#%e4%bd%bf%e7%94%a8autogen%e6%89%a7%e8%a1%8c%e4%bb%a3%e7%a0%81" class="header-anchor">#</a>
+    使用autogen执行代码
+</h2><p>code_executors_demo_4.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tempfile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">autogen</span> <span class="kn">import</span> <span class="n">ConversableAgent</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">autogen.coding</span> <span class="kn">import</span> <span class="n">LocalCommandLineCodeExecutor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a temporary directory to store the code files.</span>
+</span></span><span class="line"><span class="cl"><span class="n">temp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a local command line code executor.</span>
+</span></span><span class="line"><span class="cl"><span class="n">executor</span> <span class="o">=</span> <span class="n">LocalCommandLineCodeExecutor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Timeout for each code execution in seconds.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">work_dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>  <span class="c1"># Use the temporary directory to store the code files.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create an agent with code executor configuration.</span>
+</span></span><span class="line"><span class="cl"><span class="n">code_executor_agent</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;code_executor_agent&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Turn off LLM for this agent.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code_execution_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;executor&#34;</span><span class="p">:</span> <span class="n">executor</span><span class="p">},</span>  <span class="c1"># Use the local command line code executor.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;ALWAYS&#34;</span><span class="p">,</span>  <span class="c1"># Always take human input for this agent for safety.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">message_with_code_block</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;This is a message with code block.
+</span></span></span><span class="line"><span class="cl"><span class="s2">The code block is below:
+</span></span></span><span class="line"><span class="cl"><span class="s2">```python
+</span></span></span><span class="line"><span class="cl"><span class="s2">import numpy as np
+</span></span></span><span class="line"><span class="cl"><span class="s2">import matplotlib.pyplot as plt
+</span></span></span><span class="line"><span class="cl"><span class="s2">x = np.random.randint(0, 100, 100)
+</span></span></span><span class="line"><span class="cl"><span class="s2">y = np.random.randint(0, 100, 100)
+</span></span></span><span class="line"><span class="cl"><span class="s2">plt.scatter(x, y)
+</span></span></span><span class="line"><span class="cl"><span class="s2">plt.savefig(&#39;scatter.png&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s2">print(&#39;Scatter plot saved to scatter.png&#39;)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the end of the message.
+&quot;&quot;&quot;</p>
+<h1 id="generate-a-reply-for-the-given-code">
+    <a href="#generate-a-reply-for-the-given-code" class="header-anchor">#</a>
+    Generate a reply for the given code.
+</h1><p>reply = code_executor_agent.generate_reply(messages=[{&ldquo;role&rdquo;: &ldquo;user&rdquo;, &ldquo;content&rdquo;: message_with_code_block}])
+print(reply)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 在docker中执行代码</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">code_execution_docker_demo_5</span><span class="o">.</span><span class="n">py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">python</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">tempfile</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">from</span> <span class="n">autogen</span> <span class="n">import</span> <span class="n">ConversableAgent</span>
+</span></span><span class="line"><span class="cl"><span class="n">from</span> <span class="n">autogen</span><span class="o">.</span><span class="n">coding</span> <span class="n">import</span> <span class="n">DockerCommandLineCodeExecutor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a temporary directory to store the code files.</span>
+</span></span><span class="line"><span class="cl"><span class="n">temp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">dir</span><span class="o">=</span><span class="s1">&#39;/tmp/autogen/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a Docker command line code executor.</span>
+</span></span><span class="line"><span class="cl"><span class="n">executor</span> <span class="o">=</span> <span class="n">DockerCommandLineCodeExecutor</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">image</span><span class="o">=</span><span class="s2">&#34;python:3.12-slim&#34;</span><span class="p">,</span>  <span class="c1"># Execute code using the given docker image name.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Timeout for each code execution in seconds.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">work_dir</span><span class="o">=</span><span class="n">temp_dir</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>  <span class="c1"># Use the temporary directory to store the code files.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="n">temp_dir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create an agent with code executor configuration that uses docker.</span>
+</span></span><span class="line"><span class="cl"><span class="n">code_executor_agent_using_docker</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;code_executor_agent_docker&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="n">False</span><span class="p">,</span>  <span class="c1"># Turn off LLM for this agent.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code_execution_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;executor&#34;</span><span class="p">:</span> <span class="n">executor</span><span class="p">},</span>  <span class="c1"># Use the docker command line code executor.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">human_input_mode</span><span class="o">=</span><span class="s2">&#34;ALWAYS&#34;</span><span class="p">,</span>  <span class="c1"># Always take human input for this agent for safety.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># When the code executor is no longer used, stop it to release the resources.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># executor.stop()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># The code writer agent&#39;s system message is to instruct the LLM on how to use</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># the code executor in the code executor agent.</span>
+</span></span><span class="line"><span class="cl"><span class="n">code_writer_system_message</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;You are a helpful AI assistant.
+</span></span></span><span class="line"><span class="cl"><span class="s2">Solve tasks using your coding and language skills.
+</span></span></span><span class="line"><span class="cl"><span class="s2">In the following cases, suggest python code (in a python coding block) or shell script (in a sh coding block) for the user to execute.
+</span></span></span><span class="line"><span class="cl"><span class="s2">1. When you need to collect info, use the code to output the info you need, for example, browse or search the web, download/read a file, print the content of a webpage or a file, get the current date/time, check the operating system. After sufficient info is printed and the task is ready to be solved based on your language skill, you can solve the task by yourself.
+</span></span></span><span class="line"><span class="cl"><span class="s2">2. When you need to perform some task with code, use the code to perform the task and output the result. Finish the task smartly.
+</span></span></span><span class="line"><span class="cl"><span class="s2">Solve the task step by step if you need to. If a plan is not provided, explain your plan first. Be clear which step uses code, and which step uses your language skill.
+</span></span></span><span class="line"><span class="cl"><span class="s2">When using code, you must indicate the script type in the code block. The user cannot provide any other feedback or perform any other action beyond executing the code you suggest. The user can&#39;t modify your code. So do not suggest incomplete code which requires users to modify. Don&#39;t use a code block if it&#39;s not intended to be executed by the user.
+</span></span></span><span class="line"><span class="cl"><span class="s2">If you want the user to save the code in a file before executing it, put # filename: &lt;filename&gt; inside the code block as the first line. Don&#39;t include multiple code blocks in one response. Do not ask users to copy and paste the result. Instead, use &#39;print&#39; function for the output when relevant. Check the execution result returned by the user.
+</span></span></span><span class="line"><span class="cl"><span class="s2">If the result indicates there is an error, fix the error and output the code again. Suggest the full code instead of partial code or code changes. If the error can&#39;t be fixed or if the task is not solved even after the code is executed successfully, analyze the problem, revisit your assumption, collect additional info you need, and think of a different approach to try.
+</span></span></span><span class="line"><span class="cl"><span class="s2">When you find an answer, verify the answer carefully. Include verifiable evidence in your response if possible.
+</span></span></span><span class="line"><span class="cl"><span class="s2">Reply &#39;TERMINATE&#39; in the end when everything is done.
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">code_writer_agent</span> <span class="o">=</span> <span class="n">ConversableAgent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;code_writer_agent&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system_message</span><span class="o">=</span><span class="n">code_writer_system_message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llm_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;config_list&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;deepseek-chat&#34;</span><span class="p">,</span> <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&#34;api_key&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;OPENAI_API_KEY&#34;</span><span class="p">),</span> <span class="s2">&#34;base_url&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;BASE_URL&#34;</span><span class="p">),</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}],</span> <span class="s2">&#34;cache_seed&#34;</span><span class="p">:</span> <span class="n">None</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code_execution_config</span><span class="o">=</span><span class="n">False</span><span class="p">,</span>  <span class="c1"># Turn off code execution for this agent.</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">chat_result</span> <span class="o">=</span> <span class="n">code_executor_agent_using_docker</span><span class="o">.</span><span class="n">initiate_chat</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code_writer_agent</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span><span class="o">=</span><span class="s2">&#34;Write Python code to calculate the 14th Fibonacci number.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+            <a href="/tags/ai/">Ai</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/self-deploy-gemini-pro-api/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自部署gemini pro api</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/real-chrome-docker/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">真正的Chrome-Docker镜像</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">复盘国密sm4踩坑</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/use-helix-debug-by-golang/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用helix&#43;delve调试golang</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

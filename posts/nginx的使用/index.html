@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="以前从未系统的了解过nginx，对于以后的配置学习和使用还是必不可少的。 # nginx的作用 动静分离动静分离反向代理反向代理负载均衡负载均衡Viewer does not support full SVG 1.1 反向代理：和正向代理相区分，正向代理是通过一个代理服务器上网，类似一个由内到外的过程，而反向代理 我觉得是由外到内的过程，用户通过访问服务器暴露在外部host:port，能够映射服务器内部的web容器。 负载均衡：当用户访问量达到一定量级时，提升一台物理机的硬件已经不足以应对，则需要用到分而治之的思想了， 通过多台服务器合作，处理用户的请求，是一对多的一种关系，通过nginx可以将用户的请求分发到不同的服务器。 动静分离：在一个web项目中，有静态资源（图片、js、css等）和动态资源（需要实时访问服务器获取的资源），nginx可 以判断请求的资源类型，分发到不同的服务器，大概是这样吧。 # nginx的配置文件 默认的nginx配置文件大致如下， 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 #定义nginx运行的用户 user nginx; #nginx的进程数 worker_processes auto; #错误日志的存储 error_log /var/log/nginx/error.log notice; #进程文件 pid /var/run/nginx.pid; #工作模式与连接数上限 events { #单个进程的最大连接数 worker_connections 1024; } #设置http服务器 #只一部分需要配置的内容很多，但是作为初级使用是不需要配置的。 http { include /etc/nginx/mime.">
+<title>Nginx的使用</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/nginx%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="Nginx的使用">
+<meta property='og:description' content="以前从未系统的了解过nginx，对于以后的配置学习和使用还是必不可少的。 # nginx的作用 动静分离动静分离反向代理反向代理负载均衡负载均衡Viewer does not support full SVG 1.1 反向代理：和正向代理相区分，正向代理是通过一个代理服务器上网，类似一个由内到外的过程，而反向代理 我觉得是由外到内的过程，用户通过访问服务器暴露在外部host:port，能够映射服务器内部的web容器。 负载均衡：当用户访问量达到一定量级时，提升一台物理机的硬件已经不足以应对，则需要用到分而治之的思想了， 通过多台服务器合作，处理用户的请求，是一对多的一种关系，通过nginx可以将用户的请求分发到不同的服务器。 动静分离：在一个web项目中，有静态资源（图片、js、css等）和动态资源（需要实时访问服务器获取的资源），nginx可 以判断请求的资源类型，分发到不同的服务器，大概是这样吧。 # nginx的配置文件 默认的nginx配置文件大致如下， 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 #定义nginx运行的用户 user nginx; #nginx的进程数 worker_processes auto; #错误日志的存储 error_log /var/log/nginx/error.log notice; #进程文件 pid /var/run/nginx.pid; #工作模式与连接数上限 events { #单个进程的最大连接数 worker_connections 1024; } #设置http服务器 #只一部分需要配置的内容很多，但是作为初级使用是不需要配置的。 http { include /etc/nginx/mime.">
+<meta property='og:url' content='https://blog.lass.cc/posts/nginx%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='中间件' /><meta property='article:published_time' content='2021-06-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Nginx的使用">
+<meta name="twitter:description" content="以前从未系统的了解过nginx，对于以后的配置学习和使用还是必不可少的。 # nginx的作用 动静分离动静分离反向代理反向代理负载均衡负载均衡Viewer does not support full SVG 1.1 反向代理：和正向代理相区分，正向代理是通过一个代理服务器上网，类似一个由内到外的过程，而反向代理 我觉得是由外到内的过程，用户通过访问服务器暴露在外部host:port，能够映射服务器内部的web容器。 负载均衡：当用户访问量达到一定量级时，提升一台物理机的硬件已经不足以应对，则需要用到分而治之的思想了， 通过多台服务器合作，处理用户的请求，是一对多的一种关系，通过nginx可以将用户的请求分发到不同的服务器。 动静分离：在一个web项目中，有静态资源（图片、js、css等）和动态资源（需要实时访问服务器获取的资源），nginx可 以判断请求的资源类型，分发到不同的服务器，大概是这样吧。 # nginx的配置文件 默认的nginx配置文件大致如下， 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 #定义nginx运行的用户 user nginx; #nginx的进程数 worker_processes auto; #错误日志的存储 error_log /var/log/nginx/error.log notice; #进程文件 pid /var/run/nginx.pid; #工作模式与连接数上限 events { #单个进程的最大连接数 worker_connections 1024; } #设置http服务器 #只一部分需要配置的内容很多，但是作为初级使用是不需要配置的。 http { include /etc/nginx/mime.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#nginx的作用">nginx的作用</a></li>
+    <li><a href="#nginx的配置文件">nginx的配置文件</a></li>
+    <li><a href="#环境说明">环境说明</a></li>
+    <li><a href="#反向代理一">反向代理一</a></li>
+    <li><a href="#反向代理二">反向代理二</a></li>
+    <li><a href="#负载均衡">负载均衡</a></li>
+    <li><a href="#动静分离">动静分离</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/nginx%E7%9A%84%E4%BD%BF%E7%94%A8/">Nginx的使用</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 19, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>以前从未系统的了解过nginx，对于以后的配置学习和使用还是必不可少的。</p>
+<!-- raw HTML omitted -->
+<h2 id="nginx的作用">
+    <a href="#nginx%e7%9a%84%e4%bd%9c%e7%94%a8" class="header-anchor">#</a>
+    nginx的作用
+</h2><p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->动静分离<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->动静分离<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->反向代理<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->反向代理<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->负载均衡<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->负载均衡<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Viewer does not support full SVG 1.1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>反向代理：和正向代理相区分，正向代理是通过一个代理服务器上网，类似一个由内到外的过程，而反向代理
+我觉得是由外到内的过程，用户通过访问服务器暴露在外部host:port，能够映射服务器内部的web容器。</p>
+<p>负载均衡：当用户访问量达到一定量级时，提升一台物理机的硬件已经不足以应对，则需要用到分而治之的思想了，
+通过多台服务器合作，处理用户的请求，是一对多的一种关系，通过nginx可以将用户的请求分发到不同的服务器。</p>
+<p>动静分离：在一个web项目中，有静态资源（图片、js、css等）和动态资源（需要实时访问服务器获取的资源），nginx可
+以判断请求的资源类型，分发到不同的服务器，大概是这样吧。</p>
+<h2 id="nginx的配置文件">
+    <a href="#nginx%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="header-anchor">#</a>
+    nginx的配置文件
+</h2><p>默认的nginx配置文件大致如下，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">#定义nginx运行的用户</span>
+</span></span><span class="line"><span class="cl"><span class="n">user</span>  <span class="n">nginx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#nginx的进程数</span>
+</span></span><span class="line"><span class="cl"><span class="n">worker_processes</span>  <span class="n">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#错误日志的存储</span>
+</span></span><span class="line"><span class="cl"><span class="n">error_log</span>  <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">error</span><span class="o">.</span><span class="n">log</span> <span class="n">notice</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#进程文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">pid</span>        <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">nginx</span><span class="o">.</span><span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#工作模式与连接数上限</span>
+</span></span><span class="line"><span class="cl"><span class="n">events</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#单个进程的最大连接数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">worker_connections</span>  <span class="mi">1024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#设置http服务器</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#只一部分需要配置的内容很多，但是作为初级使用是不需要配置的。</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">include</span>       <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">mime</span><span class="o">.</span><span class="n">types</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">default_type</span>  <span class="n">application</span><span class="o">/</span><span class="n">octet</span><span class="o">-</span><span class="n">stream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">log_format</span>  <span class="n">main</span>  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
+</span></span><span class="line"><span class="cl">                      <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span>
+</span></span><span class="line"><span class="cl">                      <span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">access_log</span>  <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">access</span><span class="o">.</span><span class="n">log</span>  <span class="n">main</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">sendfile</span>        <span class="n">on</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#tcp_nopush     on;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">keepalive_timeout</span>  <span class="mi">65</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#gzip  on;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">#需要配置最多配置就在这里</span>
+</span></span><span class="line"><span class="cl">    <span class="n">include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="o">.</span><span class="n">d</span><span class="o">/*.</span><span class="n">conf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#监听端口号</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span>       <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span>  <span class="p">[::]:</span><span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#监听ing域名</span>
+</span></span><span class="line"><span class="cl">    <span class="n">server_name</span>  <span class="n">localhost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#access_log  /var/log/nginx/host.access.log  main;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#匹配Url进行方向代理</span>
+</span></span><span class="line"><span class="cl">    <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">root</span>   <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">index</span>  <span class="n">index</span><span class="o">.</span><span class="n">html</span> <span class="n">index</span><span class="o">.</span><span class="n">htm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#error_page  404              /404.html;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># redirect server error pages to the static page /50x.html</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error_page</span>   <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="o">/</span><span class="mi">50</span><span class="n">x</span><span class="o">.</span><span class="n">html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">location</span> <span class="o">=</span> <span class="o">/</span><span class="mi">50</span><span class="n">x</span><span class="o">.</span><span class="n">html</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">root</span>   <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># proxy the PHP scripts to Apache listening on 127.0.0.1:80</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#location ~ \.php$ {</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    proxy_pass   http://127.0.0.1;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#location ~ \.php$ {</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    root           html;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    fastcgi_pass   127.0.0.1:9000;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    fastcgi_index  index.php;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    include        fastcgi_params;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># deny access to .htaccess files, if Apache&#39;s document root</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># concurs with nginx&#39;s one</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#location ~ /\.ht {</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    deny  all;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="环境说明">
+    <a href="#%e7%8e%af%e5%a2%83%e8%af%b4%e6%98%8e" class="header-anchor">#</a>
+    环境说明
+</h2><p><a class="link" href="https://labs.play-with-docker.com/"  target="_blank" rel="noopener"
+    >https://labs.play-with-docker.com/</a> 一个免费在线的docker环境服务器</p>
+<h2 id="反向代理一">
+    <a href="#%e5%8f%8d%e5%90%91%e4%bb%a3%e7%90%86%e4%b8%80" class="header-anchor">#</a>
+    反向代理一
+</h2><p>实现目标：通过访问nginx能够映射到tomcat。</p>
+<ul>
+<li>拉取镜像、运行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull nginx
+</span></span><span class="line"><span class="cl">docker pull tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name tomcat-1 -p 8081:8080 tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name nginx-master -p 80:80 nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>解决tomcat访问404</li>
+</ul>
+<p>tomcat默认的访问路径webapps，但是docker版的这个文件夹是空的，真正的是在webapps.list
+需要先将webapps删除，再将webapps.list名字更改为webapps。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf webapps
+</span></span><span class="line"><span class="cl">mv webapps.list webapps
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>配置nginx</li>
+</ul>
+<p>进入到nginx配置文件所在目录</p>
+<p>更改server配置项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">location / {
+</span></span><span class="line"><span class="cl">    proxy_pass http://192.168.0.28:8081
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>保存。</p>
+<p>nginx -t 检查nginx配置文件是否正确
+nginx -s reload 重启，新的配置将生效。</p>
+<h2 id="反向代理二">
+    <a href="#%e5%8f%8d%e5%90%91%e4%bb%a3%e7%90%86%e4%ba%8c" class="header-anchor">#</a>
+    反向代理二
+</h2><p>实现目标：通过访问nginx的不同的路径，能够映射到不同的tomcat服务器。</p>
+<ul>
+<li>拉取镜像、运行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull nginx
+</span></span><span class="line"><span class="cl">docker pull tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name tomcat-1 -p 8081:8080 tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name tomcat-2 -p 8082:8080 tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name nginx-master -p 80:80 nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>配置服务器显示内容</li>
+</ul>
+<p>默认tomcat服务访问的路径是 webapps/ROOT 目录，docker默认webapps为空文件夹，需要自己在里面创建index.html文件，来显示不同的内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#进入tomcat-1容器中</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it tomcat-1 bash
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> webapps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir one
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> one
+</span></span><span class="line"><span class="cl"><span class="c1">#写入8081</span>
+</span></span><span class="line"><span class="cl">vim index.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#进入tomcat-2容器中</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it tomcat-2 bash
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> webapps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir one
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> one
+</span></span><span class="line"><span class="cl"><span class="c1">#写入8082</span>
+</span></span><span class="line"><span class="cl">vim index.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用免费的容器反向代理会把url后面的链接带上。</p>
+<ul>
+<li>配置nginx</li>
+</ul>
+<p>进入到nginx配置文件所在目录</p>
+<p>更改server配置项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">location ~ /one {
+</span></span><span class="line"><span class="cl">    proxy_pass httpL//192.168.0.28:8081
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">location ~ /two {
+</span></span><span class="line"><span class="cl">    proxy_pass httpL//192.168.0.28:8082
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>保存。</p>
+<p>nginx -t 检查nginx配置文件是否正确
+nginx -s reload 重启，新的配置将生效。</p>
+<h2 id="负载均衡">
+    <a href="#%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" class="header-anchor">#</a>
+    负载均衡
+</h2><p>上面的反向代理通过访问不同的路径映射到了不同的tomcat服务器，而负载均衡是访问同一个路径，也就是一个请求会根据对应的策略转发到不同的服务器。</p>
+<p>实现目标：一个请求能够被转发到不同的服务器上。</p>
+<ul>
+<li>拉取镜像、运行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull nginx
+</span></span><span class="line"><span class="cl">docker pull tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name tomcat-1 -p 8081:8080 tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name tomcat-2 -p 8082:8080 tomcat
+</span></span><span class="line"><span class="cl">docker run -itd --name nginx-master -p 80:80 nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>配置服务器显示内容</li>
+</ul>
+<p>默认tomcat服务访问的路径是 webapps/ROOT 目录，docker默认webapps为空文件夹，需要自己在里面创建index.html文件，来显示不同的内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#进入tomcat-1容器中</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it tomcat-1 bash
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> webapps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#写入8081</span>
+</span></span><span class="line"><span class="cl">vim index.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#进入tomcat-2容器中</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it tomcat-2 bash
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> webapps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#写入8082</span>
+</span></span><span class="line"><span class="cl">vim index.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>配置nginx</li>
+</ul>
+<p>更改server配置项</p>
+<p>nginx.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">upstream myserver {
+</span></span><span class="line"><span class="cl">    server   192.168.0.8:8081  weight=1;
+</span></span><span class="line"><span class="cl">    server   192.168.0.8:8082  weight=1;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当所有的请求weight相等的时候就相当于轮询。</p>
+<p>conf.d/default.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">location / {
+</span></span><span class="line"><span class="cl">    root         html;
+</span></span><span class="line"><span class="cl">    index        index.html index.htm;
+</span></span><span class="line"><span class="cl">    proxy_pass   http://myserver;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>weight是负载均衡策略的一种。会根据权重的不同，改变请求落在一个包的几率。</p>
+<p>nginx/1.21.0默认的负载均衡策略是轮询，会根据时间顺序轮流落在每个服务器上。</p>
+<h2 id="动静分离">
+    <a href="#%e5%8a%a8%e9%9d%99%e5%88%86%e7%a6%bb" class="header-anchor">#</a>
+    动静分离
+</h2>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

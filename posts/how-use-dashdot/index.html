@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# DashDot介绍 DashDot是一个服务器仪表盘，可以实时展示服务器运行状况，系统版本、CPU、硬盘、内存和网络等信息，有着非常漂亮界面。提供Docker部署方式，占用资源少，能够在性能较低的VPS上运行。 演示：https://dash.doduo.cc # 环境要求 本教程使用Docker方式部署，本地需要有Docker环境。 1 2 3 4 $ docker --version Docker version 20.10.5+dfsg1, build 55c4c88 $ docker-compose --version docker-compose version 1.25.0, build unknown 如果执行完上两条命令，并没有显示版本信息，则说明需要搭建Docker环境。ubuntu/debian环境，可以执行以下命令 1 2 3 apt-get update apt-get install docker.io apt-get install docker-compose 注意：国内机器需要使用国内源，否则会拉取镜像比较慢 # 创建docker-compose.yml 首先创建一个空文件夹，然后新建docker-compose.yml，写入如下内容 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 version: &#39;3&#39; services: dash: image: mauricenino/dashdot:latest restart: unless-stopped privileged: true ports: - &#39;3001:3001&#39; volumes: - /:/mnt/host:ro environment: DASHDOT_ALWAYS_SHOW_PERCENTAGES: &#39;true&#39; DASHDOT_SPEED_TEST_INTERVAL: 43200 DASHDOT_OVERRIDE_NETWORK_INTERFACE_SPEED: 1000 DASHDOT_OVERRIDE_NETWORK_SPEED_UP: 861600000 DASHDOT_OVERRIDE_NETWORK_SPEED_DOWN: 563100000 DASHDOT_SHOW_HOST: &#39;true&#39; 部分变量的说明">
+<title>【DashDot】好看的服务器仪表盘</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/how-use-dashdot/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="【DashDot】好看的服务器仪表盘">
+<meta property='og:description' content="# DashDot介绍 DashDot是一个服务器仪表盘，可以实时展示服务器运行状况，系统版本、CPU、硬盘、内存和网络等信息，有着非常漂亮界面。提供Docker部署方式，占用资源少，能够在性能较低的VPS上运行。 演示：https://dash.doduo.cc # 环境要求 本教程使用Docker方式部署，本地需要有Docker环境。 1 2 3 4 $ docker --version Docker version 20.10.5+dfsg1, build 55c4c88 $ docker-compose --version docker-compose version 1.25.0, build unknown 如果执行完上两条命令，并没有显示版本信息，则说明需要搭建Docker环境。ubuntu/debian环境，可以执行以下命令 1 2 3 apt-get update apt-get install docker.io apt-get install docker-compose 注意：国内机器需要使用国内源，否则会拉取镜像比较慢 # 创建docker-compose.yml 首先创建一个空文件夹，然后新建docker-compose.yml，写入如下内容 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 version: &#39;3&#39; services: dash: image: mauricenino/dashdot:latest restart: unless-stopped privileged: true ports: - &#39;3001:3001&#39; volumes: - /:/mnt/host:ro environment: DASHDOT_ALWAYS_SHOW_PERCENTAGES: &#39;true&#39; DASHDOT_SPEED_TEST_INTERVAL: 43200 DASHDOT_OVERRIDE_NETWORK_INTERFACE_SPEED: 1000 DASHDOT_OVERRIDE_NETWORK_SPEED_UP: 861600000 DASHDOT_OVERRIDE_NETWORK_SPEED_DOWN: 563100000 DASHDOT_SHOW_HOST: &#39;true&#39; 部分变量的说明">
+<meta property='og:url' content='https://blog.lass.cc/posts/how-use-dashdot/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2023-04-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-04-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="【DashDot】好看的服务器仪表盘">
+<meta name="twitter:description" content="# DashDot介绍 DashDot是一个服务器仪表盘，可以实时展示服务器运行状况，系统版本、CPU、硬盘、内存和网络等信息，有着非常漂亮界面。提供Docker部署方式，占用资源少，能够在性能较低的VPS上运行。 演示：https://dash.doduo.cc # 环境要求 本教程使用Docker方式部署，本地需要有Docker环境。 1 2 3 4 $ docker --version Docker version 20.10.5+dfsg1, build 55c4c88 $ docker-compose --version docker-compose version 1.25.0, build unknown 如果执行完上两条命令，并没有显示版本信息，则说明需要搭建Docker环境。ubuntu/debian环境，可以执行以下命令 1 2 3 apt-get update apt-get install docker.io apt-get install docker-compose 注意：国内机器需要使用国内源，否则会拉取镜像比较慢 # 创建docker-compose.yml 首先创建一个空文件夹，然后新建docker-compose.yml，写入如下内容 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 version: &#39;3&#39; services: dash: image: mauricenino/dashdot:latest restart: unless-stopped privileged: true ports: - &#39;3001:3001&#39; volumes: - /:/mnt/host:ro environment: DASHDOT_ALWAYS_SHOW_PERCENTAGES: &#39;true&#39; DASHDOT_SPEED_TEST_INTERVAL: 43200 DASHDOT_OVERRIDE_NETWORK_INTERFACE_SPEED: 1000 DASHDOT_OVERRIDE_NETWORK_SPEED_UP: 861600000 DASHDOT_OVERRIDE_NETWORK_SPEED_DOWN: 563100000 DASHDOT_SHOW_HOST: &#39;true&#39; 部分变量的说明">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#dashdot介绍">DashDot介绍</a></li>
+    <li><a href="#环境要求">环境要求</a></li>
+    <li><a href="#创建docker-composeyml">创建docker-compose.yml</a></li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#注意坑点">注意坑点</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/docker/" >
+                Docker
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/how-use-dashdot/">【DashDot】好看的服务器仪表盘</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 22, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="dashdot介绍">
+    <a href="#dashdot%e4%bb%8b%e7%bb%8d" class="header-anchor">#</a>
+    DashDot介绍
+</h2><p>DashDot是一个服务器仪表盘，可以实时展示服务器运行状况，系统版本、CPU、硬盘、内存和网络等信息，有着非常漂亮界面。提供Docker部署方式，占用资源少，能够在性能较低的VPS上运行。</p>
+<p>演示：<a class="link" href="https://dash.doduo.cc"  target="_blank" rel="noopener"
+    >https://dash.doduo.cc</a></p>
+<p><img src="/posts/how-use-dashdot/dashdot-view.png"
+	width="1915"
+	height="999"
+	srcset="/posts/how-use-dashdot/dashdot-view_hu9555e66beb1ea5e8dbb2e100ddd70c81_640124_480x0_resize_box_3.png 480w, /posts/how-use-dashdot/dashdot-view_hu9555e66beb1ea5e8dbb2e100ddd70c81_640124_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="dashdot-view"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="460px"
+	
+></p>
+<h2 id="环境要求">
+    <a href="#%e7%8e%af%e5%a2%83%e8%a6%81%e6%b1%82" class="header-anchor">#</a>
+    环境要求
+</h2><p>本教程使用Docker方式部署，本地需要有Docker环境。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker --version
+</span></span><span class="line"><span class="cl">Docker version 20.10.5+dfsg1, build 55c4c88
+</span></span><span class="line"><span class="cl">$ docker-compose --version
+</span></span><span class="line"><span class="cl">docker-compose version 1.25.0, build unknown
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果执行完上两条命令，并没有显示版本信息，则说明需要搭建Docker环境。ubuntu/debian环境，可以执行以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt-get update
+</span></span><span class="line"><span class="cl">apt-get install docker.io
+</span></span><span class="line"><span class="cl">apt-get install docker-compose
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>注意</code>：国内机器需要使用国内源，否则会拉取镜像比较慢</p>
+<h2 id="创建docker-composeyml">
+    <a href="#%e5%88%9b%e5%bb%badocker-composeyml" class="header-anchor">#</a>
+    创建docker-compose.yml
+</h2><p>首先创建一个空文件夹，然后新建<code>docker-compose.yml</code>，写入如下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl">version: <span class="s1">&#39;3&#39;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>services:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  dash:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    image: mauricenino/dashdot:latest<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    restart: unless-stopped<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    privileged: true<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    ports:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      - <span class="s1">&#39;3001:3001&#39;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    volumes:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      - /:/mnt/host:ro<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    environment:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      DASHDOT_ALWAYS_SHOW_PERCENTAGES: <span class="s1">&#39;true&#39;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      DASHDOT_SPEED_TEST_INTERVAL: <span class="m">43200</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      DASHDOT_OVERRIDE_NETWORK_INTERFACE_SPEED: <span class="m">1000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      DASHDOT_OVERRIDE_NETWORK_SPEED_UP: <span class="m">861600000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      DASHDOT_OVERRIDE_NETWORK_SPEED_DOWN: <span class="m">563100000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      DASHDOT_SHOW_HOST: <span class="s1">&#39;true&#39;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>部分变量的说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DASHDOT_ALWAYS_SHOW_PERCENTAGES</td>
+<td>在每个组件的右上角展示资源当前所占百分比</td>
+</tr>
+<tr>
+<td>DASHDOT_SPEED_TEST_INTERVAL</td>
+<td>网络速度测试，默认240（4个小时），刷新一次，比较消耗流量，如不需要可以将此值调大一些</td>
+</tr>
+<tr>
+<td>DASHDOT_OVERRIDE_NETWORK_INTERFACE_SPEED</td>
+<td>服务器网络带宽，这里有时会测不准，所以直接写上固定值，1000（10 GB/s）</td>
+</tr>
+<tr>
+<td>DASHDOT_OVERRIDE_NETWORK_SPEED_UP</td>
+<td>网络上行，填写固定值，默认可以不填写，每次执行网络速度测试会更新（100000000 for 100 Mb/s, because it is 100 * 1000 * 1000）</td>
+</tr>
+<tr>
+<td>DASHDOT_OVERRIDE_NETWORK_SPEED_DOWN</td>
+<td>网络下行，填写固定值，默认可以不填写（100000000 for 100 Mb/s, because it is 100 * 1000 * 1000）</td>
+</tr>
+<tr>
+<td>DASHDOT_SHOW_HOST</td>
+<td>显示自定义主机，用域名访问时有效</td>
+</tr>
+</tbody>
+</table></div>
+<p>完整的配置，可以查看<a class="link" href="https://getdashdot.com/docs/config"  target="_blank" rel="noopener"
+    >config</a>文档。</p>
+<h2 id="部署">
+    <a href="#%e9%83%a8%e7%bd%b2" class="header-anchor">#</a>
+    部署
+</h2><p>执行如下命令后，访问http://localhost:3001 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以参考我的服务器演示<a class="link" href="https://dash.doduo.cc"  target="_blank" rel="noopener"
+    >https://dash.doduo.cc</a></p>
+<h2 id="注意坑点">
+    <a href="#%e6%b3%a8%e6%84%8f%e5%9d%91%e7%82%b9" class="header-anchor">#</a>
+    注意坑点
+</h2><p>如果将该服务绑定到域名，需要注意一下IP泄漏问题。在服务部署完成之后，会提供有对外的API，可以看<a class="link" href="https://getdashdot.com/docs/integration/api"  target="_blank" rel="noopener"
+    >API文档</a>，任意一个用户访问<code>http://xxx.com/info</code>，会得到如下信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;os&#34;</span><span class="p">:{</span><span class="nt">&#34;arch&#34;</span><span class="p">:</span><span class="s2">&#34;x64&#34;</span><span class="p">,</span><span class="nt">&#34;distro&#34;</span><span class="p">:</span><span class="s2">&#34;Debian GNU/Linux&#34;</span><span class="p">,</span><span class="nt">&#34;kernel&#34;</span><span class="p">:</span><span class="s2">&#34;5.10.0-8-amd64&#34;</span><span class="p">,</span><span class="nt">&#34;platform&#34;</span><span class="p">:</span><span class="s2">&#34;linux&#34;</span><span class="p">,</span><span class="nt">&#34;release&#34;</span><span class="p">:</span><span class="s2">&#34;11&#34;</span><span class="p">,</span><span class="nt">&#34;uptime&#34;</span><span class="p">:</span><span class="mf">12152768.56</span><span class="p">,</span><span class="nt">&#34;dash_version&#34;</span><span class="p">:</span><span class="s2">&#34;5.1.3&#34;</span><span class="p">,</span><span class="nt">&#34;dash_buildhash&#34;</span><span class="p">:</span><span class="s2">&#34;386191c474bac123a412312355bf77a8b4953e8645b&#34;</span><span class="p">},</span><span class="nt">&#34;cpu&#34;</span><span class="p">:{</span><span class="nt">&#34;brand&#34;</span><span class="p">:</span><span class="s2">&#34;Intel&#34;</span><span class="p">,</span><span class="nt">&#34;model&#34;</span><span class="p">:</span><span class="s2">&#34;Xeon® E5-2697 v2&#34;</span><span class="p">,</span><span class="nt">&#34;cores&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&#34;threads&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&#34;frequency&#34;</span><span class="p">:</span><span class="mf">2.7</span><span class="p">},</span><span class="nt">&#34;ram&#34;</span><span class="p">:{</span><span class="nt">&#34;size&#34;</span><span class="p">:</span><span class="mi">1023594496</span><span class="p">,</span><span class="nt">&#34;layout&#34;</span><span class="p">:[{</span><span class="nt">&#34;brand&#34;</span><span class="p">:</span><span class="s2">&#34;Red Hat&#34;</span><span class="p">,</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;RAM&#34;</span><span class="p">,</span><span class="nt">&#34;frequency&#34;</span><span class="p">:</span><span class="kc">null</span><span class="p">}]},</span><span class="nt">&#34;storage&#34;</span><span class="p">:[{</span><span class="nt">&#34;size&#34;</span><span class="p">:</span><span class="mi">37580963840</span><span class="p">,</span><span class="nt">&#34;disks&#34;</span><span class="p">:[{</span><span class="nt">&#34;device&#34;</span><span class="p">:</span><span class="s2">&#34;vda&#34;</span><span class="p">,</span><span class="nt">&#34;brand&#34;</span><span class="p">:</span><span class="s2">&#34;vda&#34;</span><span class="p">,</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;HDD&#34;</span><span class="p">}]}],</span><span class="nt">&#34;network&#34;</span><span class="p">:{</span><span class="nt">&#34;interfaceSpeed&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&#34;speedDown&#34;</span><span class="p">:</span><span class="mf">47293873.86119574</span><span class="p">,</span><span class="nt">&#34;speedUp&#34;</span><span class="p">:</span><span class="mf">21163328.504007757</span><span class="p">,</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Wired&#34;</span><span class="p">,</span><span class="nt">&#34;publicIp&#34;</span><span class="p">:</span><span class="s2">&#34;123.123.123.123&#34;</span><span class="p">},</span><span class="nt">&#34;gpu&#34;</span><span class="p">:{</span><span class="nt">&#34;layout&#34;</span><span class="p">:[]}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>publicIp</code>就是服务器的ip，如果使用nginx，可以禁止某个路径的访问，类似下面这样，避免ip泄漏。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">location /info {
+</span></span><span class="line"><span class="cl">    deny all;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor">#</a>
+    参考链接
+</h2><ul>
+<li>
+<p><a class="link" href="https://github.com/MauriceNino/dashdot"  target="_blank" rel="noopener"
+    >DashDot</a></p>
+</li>
+<li>
+<p><a class="link" href="https://getdashdot.com/docs/install"  target="_blank" rel="noopener"
+    >官方安装教程</a></p>
+</li>
+<li>
+<p><a class="link" href="https://getdashdot.com/docs/config"  target="_blank" rel="noopener"
+    >配置参考文档</a></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/how-use-plik/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">plik自建临时文件系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/douyin-remove-watermark/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">抖音去水印开源工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/easy-to-use-torrent-client/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【exatorrent】好用的web端BT磁力在线播放工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/a-web-page-monitoring-tool/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">一个网页监控工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-to-build-hugo-with-docker/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用Docker搭建Hugo博客</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

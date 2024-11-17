@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在网上看到很多文章都在说交换内存的设置公式，然而我却不明白为什么要这么设置。交换内存是用于当物理内存不足时，将硬盘一部分存储当作内存来使用，众所周知，内存速度和硬盘速度不是一个量级的。当交换内存远大于物理内存时，“交换”将消耗大量的IO，最终导致系统成不可用状态。 交换内存设置表 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 RAM(MB) No hibernation With Hibernation Maximum 256 256 512 512 512 512 1024 1024 1024 1024 2048 2048 RAM(GB) No hibernation With Hibernation Maximum 1 1 2 2 2 1 3 4 3 2 5 6 4 2 6 8 5 2 7 10 6 2 8 12 8 3 11 16 12 3 15 24 16 4 20 32 24 5 29 48 32 6 38 64 64 8 72 128 128 11 139 256 # 服务器配置信息 我有一台服务器，是 (2C,1G) 的，充当玩具，性能对我来说，不太卡顿即可。我将虚拟内存扩充到8G，我测试下，极限8G，服务器功能是否还正常。">
+<title>不信邪的我设置了8G交换内存</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E4%B8%8D%E4%BF%A1%E9%82%AA%E7%9A%84%E6%88%91%E8%AE%BE%E7%BD%AE%E4%BA%868g%E4%BA%A4%E6%8D%A2%E5%86%85%E5%AD%98/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="不信邪的我设置了8G交换内存">
+<meta property='og:description' content="在网上看到很多文章都在说交换内存的设置公式，然而我却不明白为什么要这么设置。交换内存是用于当物理内存不足时，将硬盘一部分存储当作内存来使用，众所周知，内存速度和硬盘速度不是一个量级的。当交换内存远大于物理内存时，“交换”将消耗大量的IO，最终导致系统成不可用状态。 交换内存设置表 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 RAM(MB) No hibernation With Hibernation Maximum 256 256 512 512 512 512 1024 1024 1024 1024 2048 2048 RAM(GB) No hibernation With Hibernation Maximum 1 1 2 2 2 1 3 4 3 2 5 6 4 2 6 8 5 2 7 10 6 2 8 12 8 3 11 16 12 3 15 24 16 4 20 32 24 5 29 48 32 6 38 64 64 8 72 128 128 11 139 256 # 服务器配置信息 我有一台服务器，是 (2C,1G) 的，充当玩具，性能对我来说，不太卡顿即可。我将虚拟内存扩充到8G，我测试下，极限8G，服务器功能是否还正常。">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E4%B8%8D%E4%BF%A1%E9%82%AA%E7%9A%84%E6%88%91%E8%AE%BE%E7%BD%AE%E4%BA%868g%E4%BA%A4%E6%8D%A2%E5%86%85%E5%AD%98/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ubuntu' /><meta property='article:published_time' content='2022-05-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-30T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="不信邪的我设置了8G交换内存">
+<meta name="twitter:description" content="在网上看到很多文章都在说交换内存的设置公式，然而我却不明白为什么要这么设置。交换内存是用于当物理内存不足时，将硬盘一部分存储当作内存来使用，众所周知，内存速度和硬盘速度不是一个量级的。当交换内存远大于物理内存时，“交换”将消耗大量的IO，最终导致系统成不可用状态。 交换内存设置表 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 RAM(MB) No hibernation With Hibernation Maximum 256 256 512 512 512 512 1024 1024 1024 1024 2048 2048 RAM(GB) No hibernation With Hibernation Maximum 1 1 2 2 2 1 3 4 3 2 5 6 4 2 6 8 5 2 7 10 6 2 8 12 8 3 11 16 12 3 15 24 16 4 20 32 24 5 29 48 32 6 38 64 64 8 72 128 128 11 139 256 # 服务器配置信息 我有一台服务器，是 (2C,1G) 的，充当玩具，性能对我来说，不太卡顿即可。我将虚拟内存扩充到8G，我测试下，极限8G，服务器功能是否还正常。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#服务器配置信息">服务器配置信息</a></li>
+    <li><a href="#阶段一">阶段一</a></li>
+    <li><a href="#阶段二">阶段二</a></li>
+    <li><a href="#阶段三">阶段三</a></li>
+    <li><a href="#阶段四">阶段四</a></li>
+    <li><a href="#结论">结论</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E4%B8%8D%E4%BF%A1%E9%82%AA%E7%9A%84%E6%88%91%E8%AE%BE%E7%BD%AE%E4%BA%868g%E4%BA%A4%E6%8D%A2%E5%86%85%E5%AD%98/">不信邪的我设置了8G交换内存</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 30, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>在网上看到很多文章都在说交换内存的设置公式，然而我却不明白为什么要这么设置。交换内存是用于当物理内存不足时，将硬盘一部分存储当作内存来使用，众所周知，内存速度和硬盘速度不是一个量级的。当交换内存远大于物理内存时，“交换”将消耗大量的IO，最终导致系统成不可用状态。</p>
+<p>交换内存设置表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">RAM<span class="o">(</span>MB<span class="o">)</span> No hibernation With Hibernation Maximum
+</span></span><span class="line"><span class="cl"> <span class="m">256</span>     <span class="m">256</span>              <span class="m">512</span>               <span class="m">512</span>
+</span></span><span class="line"><span class="cl"> <span class="m">512</span>     <span class="m">512</span>             <span class="m">1024</span>              <span class="m">1024</span>
+</span></span><span class="line"><span class="cl"><span class="m">1024</span>    <span class="m">1024</span>             <span class="m">2048</span>              <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RAM<span class="o">(</span>GB<span class="o">)</span> No hibernation  With Hibernation  Maximum
+</span></span><span class="line"><span class="cl">  <span class="m">1</span>      <span class="m">1</span>                <span class="m">2</span>                   <span class="m">2</span>
+</span></span><span class="line"><span class="cl">  <span class="m">2</span>      <span class="m">1</span>                <span class="m">3</span>                   <span class="m">4</span>
+</span></span><span class="line"><span class="cl">  <span class="m">3</span>      <span class="m">2</span>                <span class="m">5</span>                   <span class="m">6</span>
+</span></span><span class="line"><span class="cl">  <span class="m">4</span>      <span class="m">2</span>                <span class="m">6</span>                   <span class="m">8</span>
+</span></span><span class="line"><span class="cl">  <span class="m">5</span>      <span class="m">2</span>                <span class="m">7</span>                  <span class="m">10</span>
+</span></span><span class="line"><span class="cl">  <span class="m">6</span>      <span class="m">2</span>                <span class="m">8</span>                  <span class="m">12</span>
+</span></span><span class="line"><span class="cl">  <span class="m">8</span>      <span class="m">3</span>               <span class="m">11</span>                  <span class="m">16</span>
+</span></span><span class="line"><span class="cl"> <span class="m">12</span>      <span class="m">3</span>               <span class="m">15</span>                  <span class="m">24</span>
+</span></span><span class="line"><span class="cl"> <span class="m">16</span>      <span class="m">4</span>               <span class="m">20</span>                  <span class="m">32</span>
+</span></span><span class="line"><span class="cl"> <span class="m">24</span>      <span class="m">5</span>               <span class="m">29</span>                  <span class="m">48</span>
+</span></span><span class="line"><span class="cl"> <span class="m">32</span>      <span class="m">6</span>               <span class="m">38</span>                  <span class="m">64</span>
+</span></span><span class="line"><span class="cl"> <span class="m">64</span>      <span class="m">8</span>               <span class="m">72</span>                 <span class="m">128</span>
+</span></span><span class="line"><span class="cl"><span class="m">128</span>     <span class="m">11</span>              <span class="m">139</span>                 <span class="m">256</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="服务器配置信息">
+    <a href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%85%8d%e7%bd%ae%e4%bf%a1%e6%81%af" class="header-anchor">#</a>
+    服务器配置信息
+</h2><p>我有一台服务器，是 (2C,1G) 的，充当玩具，性能对我来说，不太卡顿即可。我将虚拟内存扩充到8G，我测试下，极限8G，服务器功能是否还正常。</p>
+<h2 id="阶段一">
+    <a href="#%e9%98%b6%e6%ae%b5%e4%b8%80" class="header-anchor">#</a>
+    阶段一
+</h2><p>主要是启动docker容器，目前已经部署了6个</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d -p 3006:3000  metabase/metabase
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ free -h
+</span></span><span class="line"><span class="cl">              total        used        free      shared  buff/cache   available
+</span></span><span class="line"><span class="cl">Mem:          981Mi       829Mi        63Mi       1.0Mi        88Mi        43Mi
+</span></span><span class="line"><span class="cl">Swap:         8.0Gi       3.6Gi       4.4Gi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ vmstat <span class="m">2</span>
+</span></span><span class="line"><span class="cl">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+</span></span><span class="line"><span class="cl"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3768788</span>  <span class="m">63056</span>   <span class="m">1768</span> <span class="m">105964</span>  <span class="m">201</span>  <span class="m">133</span>   <span class="m">409</span>   <span class="m">257</span>  <span class="m">212</span>  <span class="m">102</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3769948</span>  <span class="m">79620</span>   <span class="m">1456</span>  <span class="m">86660</span> <span class="m">40374</span> <span class="m">3102</span> <span class="m">40550</span>  <span class="m">3102</span> <span class="m">8772</span> <span class="m">18201</span>  <span class="m">9</span> <span class="m">28</span> <span class="m">37</span> <span class="m">23</span>  <span class="m">4</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">3769692</span>  <span class="m">78044</span>   <span class="m">1468</span>  <span class="m">87848</span>  <span class="m">180</span>    <span class="m">0</span>   <span class="m">794</span>    <span class="m">26</span>  <span class="m">604</span> <span class="m">1120</span>  <span class="m">3</span>  <span class="m">1</span> <span class="m">93</span>  <span class="m">1</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">3</span>  <span class="m">0</span> <span class="m">3769436</span>  <span class="m">77320</span>   <span class="m">1468</span>  <span class="m">88496</span>  <span class="m">180</span>    <span class="m">0</span>   <span class="m">462</span>     <span class="m">0</span>  <span class="m">614</span> <span class="m">1119</span>  <span class="m">3</span>  <span class="m">2</span> <span class="m">92</span>  <span class="m">1</span>  <span class="m">3</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">2</span> <span class="m">3769068</span>  <span class="m">85424</span>    <span class="m">488</span>  <span class="m">76440</span> <span class="m">35714</span> <span class="m">1980</span> <span class="m">38084</span>  <span class="m">1980</span> <span class="m">8914</span> <span class="m">19889</span>  <span class="m">7</span> <span class="m">28</span> <span class="m">40</span> <span class="m">21</span>  <span class="m">4</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3773860</span>  <span class="m">72068</span>    <span class="m">432</span>  <span class="m">76732</span> <span class="m">33324</span> <span class="m">4628</span> <span class="m">45138</span>  <span class="m">4732</span> <span class="m">9686</span> <span class="m">19808</span> <span class="m">14</span> <span class="m">31</span> <span class="m">28</span> <span class="m">24</span>  <span class="m">3</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3773348</span>  <span class="m">66600</span>    <span class="m">528</span>  <span class="m">82452</span>  <span class="m">412</span>    <span class="m">0</span>  <span class="m">3322</span>     <span class="m">0</span>  <span class="m">814</span> <span class="m">1410</span>  <span class="m">3</span>  <span class="m">2</span> <span class="m">92</span>  <span class="m">2</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3780272</span>  <span class="m">74500</span>    <span class="m">508</span>  <span class="m">87972</span> <span class="m">1318</span> <span class="m">3978</span>  <span class="m">7880</span>  <span class="m">4018</span> <span class="m">1457</span> <span class="m">2445</span>  <span class="m">6</span>  <span class="m">4</span> <span class="m">83</span>  <span class="m">3</span>  <span class="m">4</span>
+</span></span><span class="line"><span class="cl"> <span class="m">2</span>  <span class="m">1</span> <span class="m">3781112</span>  <span class="m">69772</span>    <span class="m">644</span>  <span class="m">87836</span> <span class="m">15334</span> <span class="m">2006</span> <span class="m">17140</span>  <span class="m">2010</span> <span class="m">4221</span> <span class="m">9283</span>  <span class="m">4</span> <span class="m">14</span> <span class="m">67</span> <span class="m">10</span>  <span class="m">5</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">3801412</span>  <span class="m">67120</span>    <span class="m">608</span>  <span class="m">76812</span> <span class="m">38858</span> <span class="m">11870</span> <span class="m">39434</span> <span class="m">12020</span> <span class="m">11162</span> <span class="m">23234</span> <span class="m">10</span> <span class="m">35</span>  <span class="m">1</span> <span class="m">46</span>  <span class="m">8</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3806960</span>  <span class="m">71364</span>    <span class="m">664</span>  <span class="m">95416</span> <span class="m">3282</span> <span class="m">4286</span> <span class="m">14936</span>  <span class="m">4334</span> <span class="m">2038</span> <span class="m">3575</span>  <span class="m">4</span>  <span class="m">9</span> <span class="m">78</span>  <span class="m">7</span>  <span class="m">3</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3806192</span>  <span class="m">61568</span>    <span class="m">664</span> <span class="m">100552</span>  <span class="m">974</span>    <span class="m">0</span>  <span class="m">3538</span>     <span class="m">0</span>  <span class="m">902</span> <span class="m">1734</span>  <span class="m">4</span>  <span class="m">3</span> <span class="m">90</span>  <span class="m">2</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3812808</span>  <span class="m">79968</span>    <span class="m">664</span>  <span class="m">98404</span>  <span class="m">512</span> <span class="m">3562</span>  <span class="m">1190</span>  <span class="m">3676</span>  <span class="m">773</span> <span class="m">1342</span>  <span class="m">2</span>  <span class="m">3</span> <span class="m">93</span>  <span class="m">1</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3812040</span>  <span class="m">75684</span>    <span class="m">664</span>  <span class="m">98412</span> <span class="m">1370</span>    <span class="m">0</span>  <span class="m">1374</span>     <span class="m">0</span>  <span class="m">807</span> <span class="m">1758</span>  <span class="m">1</span>  <span class="m">3</span> <span class="m">93</span>  <span class="m">1</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3811016</span>  <span class="m">70424</span>    <span class="m">664</span>  <span class="m">98400</span> <span class="m">1452</span>    <span class="m">0</span>  <span class="m">1452</span>     <span class="m">0</span>  <span class="m">898</span> <span class="m">1848</span>  <span class="m">3</span>  <span class="m">2</span> <span class="m">93</span>  <span class="m">1</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3810504</span>  <span class="m">69636</span>    <span class="m">680</span>  <span class="m">98664</span>  <span class="m">258</span>    <span class="m">0</span>   <span class="m">372</span>    <span class="m">52</span>  <span class="m">703</span> <span class="m">1411</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3810504</span>  <span class="m">68660</span>   <span class="m">1212</span>  <span class="m">98732</span>   <span class="m">50</span>    <span class="m">0</span>   <span class="m">348</span>     <span class="m">0</span>  <span class="m">555</span> <span class="m">1029</span>  <span class="m">3</span>  <span class="m">1</span> <span class="m">93</span>  <span class="m">0</span>  <span class="m">3</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3810504</span>  <span class="m">68628</span>   <span class="m">1220</span>  <span class="m">98720</span>   <span class="m">22</span>    <span class="m">0</span>    <span class="m">22</span>    <span class="m">26</span>  <span class="m">510</span> <span class="m">1025</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3810248</span>  <span class="m">68156</span>   <span class="m">1220</span>  <span class="m">98784</span>  <span class="m">156</span>    <span class="m">0</span>   <span class="m">168</span>     <span class="m">0</span>  <span class="m">548</span> <span class="m">1104</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">95</span>  <span class="m">0</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3809992</span>  <span class="m">68124</span>   <span class="m">1220</span>  <span class="m">98780</span>  <span class="m">104</span>    <span class="m">0</span>   <span class="m">104</span>     <span class="m">0</span>  <span class="m">557</span> <span class="m">1140</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">97</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3809480</span>  <span class="m">66896</span>   <span class="m">1236</span>  <span class="m">98788</span>  <span class="m">572</span>    <span class="m">0</span>   <span class="m">572</span>    <span class="m">42</span>  <span class="m">803</span> <span class="m">1526</span>  <span class="m">2</span>  <span class="m">2</span> <span class="m">95</span>  <span class="m">1</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">1</span> <span class="m">3809224</span>  <span class="m">65164</span>   <span class="m">1236</span>  <span class="m">98828</span>  <span class="m">474</span>    <span class="m">0</span>   <span class="m">488</span>     <span class="m">0</span>  <span class="m">631</span> <span class="m">1260</span>  <span class="m">3</span>  <span class="m">1</span> <span class="m">94</span>  <span class="m">1</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3808712</span>  <span class="m">64092</span>   <span class="m">1244</span>  <span class="m">99268</span>  <span class="m">254</span>    <span class="m">0</span>   <span class="m">464</span>    <span class="m">28</span>  <span class="m">597</span> <span class="m">1197</span>  <span class="m">3</span>  <span class="m">1</span> <span class="m">94</span>  <span class="m">0</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3808456</span>  <span class="m">63368</span>   <span class="m">1244</span>  <span class="m">99232</span>  <span class="m">274</span>    <span class="m">0</span>   <span class="m">274</span>     <span class="m">0</span>  <span class="m">533</span> <span class="m">1071</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3808200</span>  <span class="m">62076</span>   <span class="m">1244</span>  <span class="m">99268</span>  <span class="m">596</span>    <span class="m">0</span>   <span class="m">596</span>     <span class="m">0</span>  <span class="m">709</span> <span class="m">1548</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">95</span>  <span class="m">1</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3810984</span>  <span class="m">74556</span>   <span class="m">1248</span>  <span class="m">96444</span> <span class="m">1340</span> <span class="m">1870</span>  <span class="m">1486</span>  <span class="m">1906</span> <span class="m">1035</span> <span class="m">1989</span>  <span class="m">3</span>  <span class="m">4</span> <span class="m">88</span>  <span class="m">4</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3810728</span>  <span class="m">66804</span>   <span class="m">2504</span> <span class="m">102852</span>  <span class="m">358</span>    <span class="m">0</span>  <span class="m">4174</span>     <span class="m">0</span>  <span class="m">748</span> <span class="m">1350</span>  <span class="m">3</span>  <span class="m">3</span> <span class="m">92</span>  <span class="m">1</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3809960</span>  <span class="m">65480</span>   <span class="m">2512</span> <span class="m">102904</span>  <span class="m">494</span>    <span class="m">0</span>   <span class="m">494</span>    <span class="m">32</span>  <span class="m">643</span> <span class="m">1242</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3809704</span>  <span class="m">65260</span>   <span class="m">2512</span> <span class="m">103116</span>  <span class="m">150</span>    <span class="m">0</span>   <span class="m">266</span>    <span class="m">86</span>  <span class="m">545</span> <span class="m">1080</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">3809704</span>  <span class="m">64220</span>   <span class="m">2512</span> <span class="m">103332</span>  <span class="m">214</span>    <span class="m">0</span>   <span class="m">314</span>     <span class="m">0</span>  <span class="m">601</span> <span class="m">1201</span>  <span class="m">1</span>  <span class="m">2</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="阶段二">
+    <a href="#%e9%98%b6%e6%ae%b5%e4%ba%8c" class="header-anchor">#</a>
+    阶段二
+</h2><p>再加一个，在服务器的后台查到IOPS读已经达到了50Mbps/s了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d -p 3007:3000  metabase/metabase
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ free -h
+</span></span><span class="line"><span class="cl">              total        used        free      shared  buff/cache   available
+</span></span><span class="line"><span class="cl">Mem:          981Mi       812Mi        68Mi       1.0Mi        99Mi        51Mi
+</span></span><span class="line"><span class="cl">Swap:         8.0Gi       4.0Gi       4.0Gi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="阶段三">
+    <a href="#%e9%98%b6%e6%ae%b5%e4%b8%89" class="header-anchor">#</a>
+    阶段三
+</h2><p>已经启动到第十个了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ free -h
+</span></span><span class="line"><span class="cl">              total        used        free      shared  buff/cache   available
+</span></span><span class="line"><span class="cl">Mem:          981Mi       786Mi       100Mi       1.0Mi        93Mi        82Mi
+</span></span><span class="line"><span class="cl">Swap:         8.0Gi       5.0Gi       3.0Gi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>貌似有点快扛不住了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ vmstat <span class="m">2</span>
+</span></span><span class="line"><span class="cl">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+</span></span><span class="line"><span class="cl"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+</span></span><span class="line"><span class="cl"> <span class="m">3</span>  <span class="m">0</span> <span class="m">5119212</span>  <span class="m">60124</span>   <span class="m">2908</span>  <span class="m">73884</span>  <span class="m">260</span>  <span class="m">185</span>   <span class="m">499</span>   <span class="m">314</span>   <span class="m">12</span>  <span class="m">146</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">1</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">5155220</span>  <span class="m">75324</span>   <span class="m">3376</span>  <span class="m">94224</span> <span class="m">1520</span> <span class="m">19544</span> <span class="m">14760</span> <span class="m">19606</span> <span class="m">4138</span> <span class="m">3414</span>  <span class="m">4</span> <span class="m">13</span> <span class="m">75</span>  <span class="m">7</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5154452</span>  <span class="m">74096</span>   <span class="m">3908</span>  <span class="m">94660</span>  <span class="m">298</span>    <span class="m">0</span>   <span class="m">792</span>     <span class="m">0</span>  <span class="m">764</span> <span class="m">1530</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">96</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5177536</span>  <span class="m">78392</span>   <span class="m">3668</span>  <span class="m">97028</span> <span class="m">3446</span> <span class="m">14728</span>  <span class="m">6424</span> <span class="m">14766</span> <span class="m">2743</span> <span class="m">3810</span> <span class="m">15</span> <span class="m">12</span> <span class="m">63</span> <span class="m">10</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">2</span>  <span class="m">2</span> <span class="m">5152432</span>  <span class="m">73284</span>   <span class="m">2396</span>  <span class="m">81296</span> <span class="m">24644</span> <span class="m">11270</span> <span class="m">26372</span> <span class="m">11480</span> <span class="m">9063</span> <span class="m">15522</span>  <span class="m">6</span> <span class="m">24</span> <span class="m">57</span> <span class="m">12</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5139892</span>  <span class="m">61932</span>   <span class="m">1664</span>  <span class="m">81592</span> <span class="m">11460</span> <span class="m">4734</span> <span class="m">16178</span>  <span class="m">4804</span> <span class="m">4186</span> <span class="m">7736</span>  <span class="m">6</span> <span class="m">14</span> <span class="m">70</span>  <span class="m">9</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">5177700</span>  <span class="m">94216</span>   <span class="m">1916</span>  <span class="m">91476</span>  <span class="m">356</span> <span class="m">19256</span> <span class="m">10052</span> <span class="m">19432</span> <span class="m">2545</span> <span class="m">2223</span>  <span class="m">3</span> <span class="m">10</span> <span class="m">82</span>  <span class="m">3</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">5</span>  <span class="m">0</span> <span class="m">5147428</span>  <span class="m">68192</span>   <span class="m">1792</span>  <span class="m">90704</span> <span class="m">17006</span>  <span class="m">382</span> <span class="m">18850</span>   <span class="m">446</span> <span class="m">4116</span> <span class="m">9416</span>  <span class="m">4</span> <span class="m">14</span> <span class="m">74</span>  <span class="m">6</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">5144804</span>  <span class="m">63024</span>   <span class="m">1796</span>  <span class="m">94800</span> <span class="m">11590</span> <span class="m">9828</span> <span class="m">15352</span>  <span class="m">9946</span> <span class="m">5561</span> <span class="m">8727</span>  <span class="m">9</span> <span class="m">15</span> <span class="m">53</span> <span class="m">21</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5144292</span>  <span class="m">62332</span>   <span class="m">1796</span>  <span class="m">94996</span>  <span class="m">336</span>    <span class="m">0</span>   <span class="m">424</span>     <span class="m">0</span>  <span class="m">795</span> <span class="m">1585</span>  <span class="m">3</span>  <span class="m">2</span> <span class="m">94</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5143012</span>  <span class="m">59720</span>   <span class="m">2200</span>  <span class="m">95744</span>  <span class="m">586</span>    <span class="m">0</span>  <span class="m">1154</span>     <span class="m">0</span>  <span class="m">832</span> <span class="m">1743</span>  <span class="m">3</span>  <span class="m">1</span> <span class="m">94</span>  <span class="m">1</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">5147044</span>  <span class="m">71256</span>   <span class="m">1952</span>  <span class="m">88356</span> <span class="m">1784</span> <span class="m">3676</span>  <span class="m">3400</span>  <span class="m">3884</span> <span class="m">1604</span> <span class="m">2822</span>  <span class="m">4</span>  <span class="m">6</span> <span class="m">85</span>  <span class="m">3</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">5141924</span>  <span class="m">62976</span>   <span class="m">1952</span>  <span class="m">90736</span> <span class="m">2628</span>    <span class="m">0</span>  <span class="m">3812</span>     <span class="m">0</span> <span class="m">1623</span> <span class="m">2930</span>  <span class="m">3</span>  <span class="m">3</span> <span class="m">90</span>  <span class="m">3</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5167424</span>  <span class="m">89004</span>   <span class="m">1920</span>  <span class="m">84096</span> <span class="m">2070</span> <span class="m">14930</span>  <span class="m">3112</span> <span class="m">15092</span> <span class="m">2454</span> <span class="m">3112</span>  <span class="m">3</span> <span class="m">10</span> <span class="m">82</span>  <span class="m">5</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5166656</span>  <span class="m">88248</span>   <span class="m">1920</span>  <span class="m">84428</span>  <span class="m">406</span>    <span class="m">0</span>   <span class="m">570</span>     <span class="m">0</span>  <span class="m">807</span> <span class="m">1586</span>  <span class="m">3</span>  <span class="m">2</span> <span class="m">93</span>  <span class="m">0</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">1</span> <span class="m">5151296</span>  <span class="m">69852</span>   <span class="m">1920</span>  <span class="m">85524</span> <span class="m">7648</span>    <span class="m">0</span>  <span class="m">8192</span>     <span class="m">0</span> <span class="m">2820</span> <span class="m">6528</span>  <span class="m">3</span>  <span class="m">9</span> <span class="m">51</span> <span class="m">34</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">1</span> <span class="m">5159880</span>  <span class="m">79004</span>   <span class="m">1724</span>  <span class="m">82588</span> <span class="m">8130</span> <span class="m">12100</span>  <span class="m">9970</span> <span class="m">12162</span> <span class="m">4509</span> <span class="m">7477</span>  <span class="m">6</span> <span class="m">12</span> <span class="m">37</span> <span class="m">43</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">2</span>  <span class="m">1</span> <span class="m">5149128</span>  <span class="m">66436</span>   <span class="m">1724</span>  <span class="m">82548</span> <span class="m">6292</span>    <span class="m">0</span>  <span class="m">6292</span>     <span class="m">0</span> <span class="m">3330</span> <span class="m">4899</span>  <span class="m">3</span>  <span class="m">8</span> <span class="m">43</span> <span class="m">43</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5145112</span>  <span class="m">67056</span>   <span class="m">1592</span>  <span class="m">79028</span> <span class="m">9530</span> <span class="m">5800</span> <span class="m">10330</span>  <span class="m">6002</span> <span class="m">3360</span> <span class="m">5822</span>  <span class="m">3</span> <span class="m">10</span> <span class="m">63</span> <span class="m">22</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">1</span> <span class="m">5143576</span>  <span class="m">65292</span>   <span class="m">1668</span>  <span class="m">78976</span>  <span class="m">836</span>    <span class="m">0</span>   <span class="m">872</span>     <span class="m">0</span>  <span class="m">970</span> <span class="m">1944</span>  <span class="m">3</span>  <span class="m">2</span> <span class="m">94</span>  <span class="m">1</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>  <span class="m">0</span> <span class="m">5151016</span>  <span class="m">73140</span>   <span class="m">1656</span>  <span class="m">78032</span> <span class="m">1886</span> <span class="m">5508</span>  <span class="m">2514</span>  <span class="m">5630</span> <span class="m">1812</span> <span class="m">2829</span>  <span class="m">3</span>  <span class="m">5</span> <span class="m">87</span>  <span class="m">4</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>  <span class="m">0</span> <span class="m">5149992</span>  <span class="m">66336</span>   <span class="m">1672</span>  <span class="m">85960</span>  <span class="m">406</span>    <span class="m">0</span>  <span class="m">4370</span>    <span class="m">70</span> <span class="m">1045</span> <span class="m">1946</span>  <span class="m">2</span>  <span class="m">2</span> <span class="m">92</span>  <span class="m">1</span>  <span class="m">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="阶段四">
+    <a href="#%e9%98%b6%e6%ae%b5%e5%9b%9b" class="header-anchor">#</a>
+    阶段四
+</h2><p>扛不住了扛不住了,cpu经常性的飙100%，系统也卡顿严重了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ free -h
+</span></span><span class="line"><span class="cl">              total        used        free      shared  buff/cache   available
+</span></span><span class="line"><span class="cl">Mem:          981Mi       799Mi        80Mi       1.0Mi       101Mi        60Mi
+</span></span><span class="line"><span class="cl">Swap:         8.0Gi       5.8Gi       2.2Gi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">work@dodov:~$ vmstat <span class="m">2</span>
+</span></span><span class="line"><span class="cl">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+</span></span><span class="line"><span class="cl"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+</span></span><span class="line"><span class="cl"><span class="m">15</span>  <span class="m">9</span> <span class="m">6038828</span>  <span class="m">69424</span>   <span class="m">2468</span>  <span class="m">98080</span>  <span class="m">274</span>  <span class="m">202</span>   <span class="m">527</span>   <span class="m">334</span>   <span class="m">20</span>  <span class="m">157</span>  <span class="m">2</span>  <span class="m">1</span> <span class="m">95</span>  <span class="m">1</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl"> <span class="m">9</span> <span class="m">15</span> <span class="m">6025196</span>  <span class="m">64804</span>   <span class="m">2392</span>  <span class="m">90328</span> <span class="m">22348</span> <span class="m">15200</span> <span class="m">33226</span> <span class="m">19556</span> <span class="m">12588</span> <span class="m">19423</span> <span class="m">10</span> <span class="m">32</span>  <span class="m">0</span> <span class="m">56</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">0</span> <span class="m">16</span> <span class="m">6023244</span>  <span class="m">63616</span>   <span class="m">1344</span>  <span class="m">89936</span> <span class="m">12070</span> <span class="m">11056</span> <span class="m">16376</span> <span class="m">11968</span> <span class="m">9198</span> <span class="m">13661</span>  <span class="m">7</span> <span class="m">19</span>  <span class="m">0</span> <span class="m">72</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">7</span> <span class="m">19</span> <span class="m">6026188</span>  <span class="m">62840</span>    <span class="m">928</span>  <span class="m">90600</span> <span class="m">13742</span> <span class="m">15552</span> <span class="m">18348</span> <span class="m">18354</span> <span class="m">9982</span> <span class="m">15065</span> <span class="m">12</span> <span class="m">21</span>  <span class="m">0</span> <span class="m">66</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">21</span>  <span class="m">6</span> <span class="m">6036792</span>  <span class="m">70836</span>    <span class="m">744</span>  <span class="m">87876</span> <span class="m">14026</span> <span class="m">18614</span> <span class="m">20084</span> <span class="m">20208</span> <span class="m">12157</span> <span class="m">18162</span>  <span class="m">9</span> <span class="m">24</span>  <span class="m">0</span> <span class="m">65</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span> <span class="m">17</span> <span class="m">6058080</span>  <span class="m">72168</span>   <span class="m">1092</span>  <span class="m">96804</span> <span class="m">13226</span> <span class="m">23642</span> <span class="m">24766</span> <span class="m">23990</span> <span class="m">14056</span> <span class="m">23795</span> <span class="m">11</span> <span class="m">29</span>  <span class="m">0</span> <span class="m">59</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"> <span class="m">4</span> <span class="m">12</span> <span class="m">6071048</span>  <span class="m">76688</span>   <span class="m">1824</span>  <span class="m">93440</span> <span class="m">12736</span> <span class="m">18720</span> <span class="m">15984</span> <span class="m">18800</span> <span class="m">11871</span> <span class="m">22269</span>  <span class="m">9</span> <span class="m">23</span>  <span class="m">0</span> <span class="m">65</span>  <span class="m">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="结论">
+    <a href="#%e7%bb%93%e8%ae%ba" class="header-anchor">#</a>
+    结论
+</h2><p>收工了。结论是8G确实太高了，当交换内存为将近6G时，系统已经达到了几乎一个极限的状态，正常的指令已经卡顿到不能获取CPU去执行。接下来，我要将交换内存变更成了4G，在这一区间，各方面能达到一个均衡的状态，况且5G内存也足够使用了，正常状态下用不了那么多。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ubuntu/">Ubuntu</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简介 Gemini pro 是谷歌最新推出的大模型，最近免费开放了api试用接口，提供了多个平台的sdk。目前在工作中多用于poe，现在每天会限制对答100次，基本上也是够用的，也偶尔会使用bard，但使用上比较麻烦，需要开vpn，如今Gemini pro api可以免费调用，产生了自部署的想法。 经过一番比较，选择了ChatGPT-Next-Web，最近该项目支持上了Gemini pro，项目完善度还是很不错的。 # 准备 申请api密钥 https://makersuite.google.com/app/apikey 一台电脑或者服务器 需要具备docker环境 具备简单的linux命令知识 # 操作环境 机器信息，可通过此链接查询：https://dash.lass.cc/ docker 版本信息：24.0.4 docker compose 版本信息：v2.19.1 # 部署步骤 # 克隆项目 1 git clone https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web.git # 更新docker-compose.xml配置文件 由于官方的docker镜像更新并不是那么及时，我找到了一个同步更新的docker镜像版本，可以临时使用：https://hub.docker.com/r/unserialize/chatgpt-next-web-image ，最后配置文件如下 GOOGLE_API_KEY 是api的密钥 CODE 是chatgpt-next-web部署后的访问密码 1 2 3 4 5 6 7 8 9 10 11 version: &#34;3.9&#34; services: chatgpt-next-web: container_name: chatgpt-next-web image: unserialize/chatgpt-next-web-image:latest ports: - 3000:3000 environment: - GOOGLE_API_KEY=xxxxxxxxxxxxxxxxxx - CODE=password # 运行 1 docker compose up -d 接下来便可以通过 http://ip:3000 使用，如果不出意外，部署成功后便可看如下图">
+<title>自部署gemini pro api</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/self-deploy-gemini-pro-api/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="自部署gemini pro api">
+<meta property='og:description' content="# 简介 Gemini pro 是谷歌最新推出的大模型，最近免费开放了api试用接口，提供了多个平台的sdk。目前在工作中多用于poe，现在每天会限制对答100次，基本上也是够用的，也偶尔会使用bard，但使用上比较麻烦，需要开vpn，如今Gemini pro api可以免费调用，产生了自部署的想法。 经过一番比较，选择了ChatGPT-Next-Web，最近该项目支持上了Gemini pro，项目完善度还是很不错的。 # 准备 申请api密钥 https://makersuite.google.com/app/apikey 一台电脑或者服务器 需要具备docker环境 具备简单的linux命令知识 # 操作环境 机器信息，可通过此链接查询：https://dash.lass.cc/ docker 版本信息：24.0.4 docker compose 版本信息：v2.19.1 # 部署步骤 # 克隆项目 1 git clone https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web.git # 更新docker-compose.xml配置文件 由于官方的docker镜像更新并不是那么及时，我找到了一个同步更新的docker镜像版本，可以临时使用：https://hub.docker.com/r/unserialize/chatgpt-next-web-image ，最后配置文件如下 GOOGLE_API_KEY 是api的密钥 CODE 是chatgpt-next-web部署后的访问密码 1 2 3 4 5 6 7 8 9 10 11 version: &#34;3.9&#34; services: chatgpt-next-web: container_name: chatgpt-next-web image: unserialize/chatgpt-next-web-image:latest ports: - 3000:3000 environment: - GOOGLE_API_KEY=xxxxxxxxxxxxxxxxxx - CODE=password # 运行 1 docker compose up -d 接下来便可以通过 http://ip:3000 使用，如果不出意外，部署成功后便可看如下图">
+<meta property='og:url' content='https://blog.lass.cc/posts/self-deploy-gemini-pro-api/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2023-12-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-12-29T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="自部署gemini pro api">
+<meta name="twitter:description" content="# 简介 Gemini pro 是谷歌最新推出的大模型，最近免费开放了api试用接口，提供了多个平台的sdk。目前在工作中多用于poe，现在每天会限制对答100次，基本上也是够用的，也偶尔会使用bard，但使用上比较麻烦，需要开vpn，如今Gemini pro api可以免费调用，产生了自部署的想法。 经过一番比较，选择了ChatGPT-Next-Web，最近该项目支持上了Gemini pro，项目完善度还是很不错的。 # 准备 申请api密钥 https://makersuite.google.com/app/apikey 一台电脑或者服务器 需要具备docker环境 具备简单的linux命令知识 # 操作环境 机器信息，可通过此链接查询：https://dash.lass.cc/ docker 版本信息：24.0.4 docker compose 版本信息：v2.19.1 # 部署步骤 # 克隆项目 1 git clone https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web.git # 更新docker-compose.xml配置文件 由于官方的docker镜像更新并不是那么及时，我找到了一个同步更新的docker镜像版本，可以临时使用：https://hub.docker.com/r/unserialize/chatgpt-next-web-image ，最后配置文件如下 GOOGLE_API_KEY 是api的密钥 CODE 是chatgpt-next-web部署后的访问密码 1 2 3 4 5 6 7 8 9 10 11 version: &#34;3.9&#34; services: chatgpt-next-web: container_name: chatgpt-next-web image: unserialize/chatgpt-next-web-image:latest ports: - 3000:3000 environment: - GOOGLE_API_KEY=xxxxxxxxxxxxxxxxxx - CODE=password # 运行 1 docker compose up -d 接下来便可以通过 http://ip:3000 使用，如果不出意外，部署成功后便可看如下图">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#准备">准备</a></li>
+    <li><a href="#操作环境">操作环境</a></li>
+    <li><a href="#部署步骤">部署步骤</a>
+      <ol>
+        <li><a href="#克隆项目">克隆项目</a></li>
+        <li><a href="#更新docker-composexml配置文件">更新docker-compose.xml配置文件</a></li>
+        <li><a href="#运行">运行</a></li>
+      </ol>
+    </li>
+    <li><a href="#使用注意事项">使用注意事项</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/self-deploy-gemini-pro-api/">自部署gemini pro api</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 29, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">
+    <a href="#%e7%ae%80%e4%bb%8b" class="header-anchor">#</a>
+    简介
+</h2><p>Gemini pro 是谷歌最新推出的大模型，最近免费开放了api试用接口，提供了多个平台的sdk。目前在工作中多用于poe，现在每天会限制对答100次，基本上也是够用的，也偶尔会使用bard，但使用上比较麻烦，需要开vpn，如今Gemini pro api可以免费调用，产生了自部署的想法。</p>
+<p>经过一番比较，选择了<a class="link" href="https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web"  target="_blank" rel="noopener"
+    >ChatGPT-Next-Web</a>，最近该项目支持上了Gemini pro，项目完善度还是很不错的。</p>
+<h2 id="准备">
+    <a href="#%e5%87%86%e5%a4%87" class="header-anchor">#</a>
+    准备
+</h2><ul>
+<li>申请api密钥</li>
+</ul>
+<p><a class="link" href="https://makersuite.google.com/app/apikey"  target="_blank" rel="noopener"
+    >https://makersuite.google.com/app/apikey</a></p>
+<ul>
+<li>一台电脑或者服务器</li>
+</ul>
+<p>需要具备docker环境</p>
+<ul>
+<li>具备简单的linux命令知识</li>
+</ul>
+<h2 id="操作环境">
+    <a href="#%e6%93%8d%e4%bd%9c%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    操作环境
+</h2><ul>
+<li>
+<p>机器信息，可通过此链接查询：https://dash.lass.cc/</p>
+</li>
+<li>
+<p>docker 版本信息：24.0.4</p>
+</li>
+<li>
+<p>docker compose 版本信息：v2.19.1</p>
+</li>
+</ul>
+<h2 id="部署步骤">
+    <a href="#%e9%83%a8%e7%bd%b2%e6%ad%a5%e9%aa%a4" class="header-anchor">#</a>
+    部署步骤
+</h2><h3 id="克隆项目">
+    <a href="#%e5%85%8b%e9%9a%86%e9%a1%b9%e7%9b%ae" class="header-anchor">#</a>
+    克隆项目
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="更新docker-composexml配置文件">
+    <a href="#%e6%9b%b4%e6%96%b0docker-composexml%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="header-anchor">#</a>
+    更新docker-compose.xml配置文件
+</h3><p>由于官方的docker镜像更新并不是那么及时，我找到了一个同步更新的docker镜像版本，可以临时使用：https://hub.docker.com/r/unserialize/chatgpt-next-web-image ，最后配置文件如下</p>
+<p>GOOGLE_API_KEY 是api的密钥</p>
+<p>CODE 是chatgpt-next-web部署后的访问密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.9&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">chatgpt-next-web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">chatgpt-next-web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">unserialize/chatgpt-next-web-image:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3000</span><span class="p">:</span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">GOOGLE_API_KEY=xxxxxxxxxxxxxxxxxx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">CODE=password</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行">
+    <a href="#%e8%bf%90%e8%a1%8c" class="header-anchor">#</a>
+    运行
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来便可以通过 http://ip:3000 使用，如果不出意外，部署成功后便可看如下图</p>
+<p><img src="http://storage.live.com/items/982E188B469F4EE8!15118:/1.png?authkey=!AAFYjHN9WBCKFoE"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="使用注意事项">
+    <a href="#%e4%bd%bf%e7%94%a8%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor">#</a>
+    使用注意事项
+</h2><ul>
+<li>
+<p>如果部署时设置了CODE，在使用前则需要输入密码</p>
+</li>
+<li>
+<p>在设置下面选择使用Gemini pro模型</p>
+</li>
+</ul>
+<p><img src="http://storage.live.com/items/982E188B469F4EE8!15119:/2.png?authkey=!AAFYjHN9WBCKFoE"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>所有设置以及对话存储在本地</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/ai-agentic-design-patterns-with-autogen/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">利用AutoGen的人工智能智能体设计模式</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/real-chrome-docker/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">真正的Chrome-Docker镜像</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">复盘国密sm4踩坑</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/use-helix-debug-by-golang/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用helix&#43;delve调试golang</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

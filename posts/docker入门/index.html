@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="镜像镜像仓库仓库tar文件tar文件容器容器DockerfileDockerfilerunruncommitcommitbuildbuildpushpushpullpullloadloadsavesaveViewer does not support full SVG 1.1 docker在线版，每次申请可使用4个小时，本文所有的示例都是在它基础上实现。 # 名词解释 # 仓库 Docker Hub是Docker官方维护的一个仓库，用来存储镜像。 # 镜像 类似于已经打包好的代码，如系统安装所需的iso文件。 # 容器 镜像文件运行在容器中，可以理解为一个虚拟机。 # Dockerfile Dockerfile是Docker的配置文件，通过这个配置文件能够获取到相应的镜像。 # tar文件 镜像文件保存后便形成了一个tar文件。 # 基础命令 # pull 1 docker pull mysql 从docker仓库中拉取mysql镜像，默认拉取的是最新版本镜像，在镜像后面加上&quot;:latest&quot;同效果，其他版本镜像一次类推。 # images 1 docker images 查看本地有哪些镜像。 # run 1 docker run -d -it -name mysql-test -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 mysql run指令运行本地的镜像，-d代表后台运行 -it代表代表是可交互，-e代表设置容器中的环境变量，-p代表运行的端口，mysql代表将要运行的镜像。&ndash;name也可以不指定，也会随机生成一个名字。 # ps 1 2 3 4 #列出所有在运行的容器名称 docker ps #列出所有的容器 docker ps -a 使用上述命令可以查看容器是否在运行之中。">
+<title>Docker入门</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/docker%E5%85%A5%E9%97%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="Docker入门">
+<meta property='og:description' content="镜像镜像仓库仓库tar文件tar文件容器容器DockerfileDockerfilerunruncommitcommitbuildbuildpushpushpullpullloadloadsavesaveViewer does not support full SVG 1.1 docker在线版，每次申请可使用4个小时，本文所有的示例都是在它基础上实现。 # 名词解释 # 仓库 Docker Hub是Docker官方维护的一个仓库，用来存储镜像。 # 镜像 类似于已经打包好的代码，如系统安装所需的iso文件。 # 容器 镜像文件运行在容器中，可以理解为一个虚拟机。 # Dockerfile Dockerfile是Docker的配置文件，通过这个配置文件能够获取到相应的镜像。 # tar文件 镜像文件保存后便形成了一个tar文件。 # 基础命令 # pull 1 docker pull mysql 从docker仓库中拉取mysql镜像，默认拉取的是最新版本镜像，在镜像后面加上&quot;:latest&quot;同效果，其他版本镜像一次类推。 # images 1 docker images 查看本地有哪些镜像。 # run 1 docker run -d -it -name mysql-test -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 mysql run指令运行本地的镜像，-d代表后台运行 -it代表代表是可交互，-e代表设置容器中的环境变量，-p代表运行的端口，mysql代表将要运行的镜像。&ndash;name也可以不指定，也会随机生成一个名字。 # ps 1 2 3 4 #列出所有在运行的容器名称 docker ps #列出所有的容器 docker ps -a 使用上述命令可以查看容器是否在运行之中。">
+<meta property='og:url' content='https://blog.lass.cc/posts/docker%E5%85%A5%E9%97%A8/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2021-05-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-05-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Docker入门">
+<meta name="twitter:description" content="镜像镜像仓库仓库tar文件tar文件容器容器DockerfileDockerfilerunruncommitcommitbuildbuildpushpushpullpullloadloadsavesaveViewer does not support full SVG 1.1 docker在线版，每次申请可使用4个小时，本文所有的示例都是在它基础上实现。 # 名词解释 # 仓库 Docker Hub是Docker官方维护的一个仓库，用来存储镜像。 # 镜像 类似于已经打包好的代码，如系统安装所需的iso文件。 # 容器 镜像文件运行在容器中，可以理解为一个虚拟机。 # Dockerfile Dockerfile是Docker的配置文件，通过这个配置文件能够获取到相应的镜像。 # tar文件 镜像文件保存后便形成了一个tar文件。 # 基础命令 # pull 1 docker pull mysql 从docker仓库中拉取mysql镜像，默认拉取的是最新版本镜像，在镜像后面加上&quot;:latest&quot;同效果，其他版本镜像一次类推。 # images 1 docker images 查看本地有哪些镜像。 # run 1 docker run -d -it -name mysql-test -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 mysql run指令运行本地的镜像，-d代表后台运行 -it代表代表是可交互，-e代表设置容器中的环境变量，-p代表运行的端口，mysql代表将要运行的镜像。&ndash;name也可以不指定，也会随机生成一个名字。 # ps 1 2 3 4 #列出所有在运行的容器名称 docker ps #列出所有的容器 docker ps -a 使用上述命令可以查看容器是否在运行之中。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#名词解释">名词解释</a>
+      <ol>
+        <li><a href="#仓库">仓库</a></li>
+        <li><a href="#镜像">镜像</a></li>
+        <li><a href="#容器">容器</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#tar文件">tar文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#基础命令">基础命令</a>
+      <ol>
+        <li><a href="#pull">pull</a></li>
+        <li><a href="#images">images</a></li>
+        <li><a href="#run">run</a></li>
+        <li><a href="#ps">ps</a></li>
+        <li><a href="#exec">exec</a></li>
+        <li><a href="#stop">stop</a></li>
+        <li><a href="#rm">rm</a></li>
+      </ol>
+    </li>
+    <li><a href="#示例">示例</a>
+      <ol>
+        <li><a href="#mysql">mysql</a></li>
+        <li><a href="#nginx">nginx</a></li>
+        <li><a href="#ubuntu">ubuntu</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/docker%E5%85%A5%E9%97%A8/">Docker入门</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 20, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->镜像<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->镜像<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->仓库<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->仓库<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->tar文件<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->tar文件<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->容器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->容器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Dockerfile<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Dockerfile<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->run<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->run<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->commit<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->commit<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->build<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->build<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->push<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->push<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->pull<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->pull<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->load<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->load<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->save<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->save<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Viewer does not support full SVG 1.1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p><a class="link" href="https://labs.play-with-docker.com/"  target="_blank" rel="noopener"
+    >docker在线版</a>，每次申请可使用4个小时，本文所有的示例都是在它基础上实现。</p>
+<h2 id="名词解释">
+    <a href="#%e5%90%8d%e8%af%8d%e8%a7%a3%e9%87%8a" class="header-anchor">#</a>
+    名词解释
+</h2><h3 id="仓库">
+    <a href="#%e4%bb%93%e5%ba%93" class="header-anchor">#</a>
+    仓库
+</h3><p><a class="link" href="https://hub.docker.com/"  target="_blank" rel="noopener"
+    >Docker Hub</a>是Docker官方维护的一个仓库，用来存储镜像。</p>
+<h3 id="镜像">
+    <a href="#%e9%95%9c%e5%83%8f" class="header-anchor">#</a>
+    镜像
+</h3><p>类似于已经打包好的代码，如系统安装所需的iso文件。</p>
+<h3 id="容器">
+    <a href="#%e5%ae%b9%e5%99%a8" class="header-anchor">#</a>
+    容器
+</h3><p>镜像文件运行在容器中，可以理解为一个虚拟机。</p>
+<h3 id="dockerfile">
+    <a href="#dockerfile" class="header-anchor">#</a>
+    Dockerfile
+</h3><p>Dockerfile是Docker的配置文件，通过这个配置文件能够获取到相应的镜像。</p>
+<h3 id="tar文件">
+    <a href="#tar%e6%96%87%e4%bb%b6" class="header-anchor">#</a>
+    tar文件
+</h3><p>镜像文件保存后便形成了一个tar文件。</p>
+<h2 id="基础命令">
+    <a href="#%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4" class="header-anchor">#</a>
+    基础命令
+</h2><h3 id="pull">
+    <a href="#pull" class="header-anchor">#</a>
+    pull
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull mysql
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从docker仓库中拉取mysql镜像，默认拉取的是最新版本镜像，在镜像后面加上&quot;:latest&quot;同效果，其他版本镜像一次类推。</p>
+<h3 id="images">
+    <a href="#images" class="header-anchor">#</a>
+    images
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker images
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看本地有哪些镜像。</p>
+<h3 id="run">
+    <a href="#run" class="header-anchor">#</a>
+    run
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d -it -name mysql-test -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="m">123456</span> -p 3306:3306 mysql
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>run指令运行本地的镜像，-d代表后台运行 -it代表代表是可交互，-e代表设置容器中的环境变量，-p代表运行的端口，mysql代表将要运行的镜像。&ndash;name也可以不指定，也会随机生成一个名字。</p>
+<h3 id="ps">
+    <a href="#ps" class="header-anchor">#</a>
+    ps
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#列出所有在运行的容器名称</span>
+</span></span><span class="line"><span class="cl">docker ps
+</span></span><span class="line"><span class="cl"><span class="c1">#列出所有的容器</span>
+</span></span><span class="line"><span class="cl">docker ps -a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用上述命令可以查看容器是否在运行之中。</p>
+<h3 id="exec">
+    <a href="#exec" class="header-anchor">#</a>
+    exec
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it 593b87f33c7b bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入容器的内部操作，-it代表交互式的，对该容器执行bash命令，593b87f33c7b代表容器号，即CONTAINER ID，镜像通过run命令进行运行状态，会在下面展示完整的ONTAINER ID，也可以通过ps进行查看。</p>
+<p>基础的使用，基本上只涉及到上面几个操作。但是对于镜像的制作还需要一些时间去学习。</p>
+<h3 id="stop">
+    <a href="#stop" class="header-anchor">#</a>
+    stop
+</h3><p>停止一个正在运行的容器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker stop xxxxx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rm">
+    <a href="#rm" class="header-anchor">#</a>
+    rm
+</h3><p>删除容器，需要注意的是，容器的状态需要是停止状态，运行中的容器不可用这条命令删除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker rm xxxxx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="示例">
+    <a href="#%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    示例
+</h2><h3 id="mysql">
+    <a href="#mysql" class="header-anchor">#</a>
+    mysql
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#拉取mysql镜像</span>
+</span></span><span class="line"><span class="cl">docker pull mysql
+</span></span><span class="line"><span class="cl"><span class="c1">#运行mysql镜像 密码为123456</span>
+</span></span><span class="line"><span class="cl">docker run -d -it --name mysql-test -p 3306:3306 -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="m">123456</span> mysql
+</span></span><span class="line"><span class="cl"><span class="c1">#进入运行mysql的容器内部</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it xxxxxx bash
+</span></span><span class="line"><span class="cl"><span class="c1">#登陆mysql</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -p
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述进入mysql的容器中，当存在对汉字操作的时候可能会出现汉字异常无法出现的情况，此时只需要在进入容器的时候制定字符集即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it -e <span class="nv">LANG</span><span class="o">=</span>C.UTF-8 xxxxxx bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="nginx">
+    <a href="#nginx" class="header-anchor">#</a>
+    nginx
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#拉取nginx镜像</span>
+</span></span><span class="line"><span class="cl">docker pull nginx
+</span></span><span class="line"><span class="cl"><span class="c1">#运行nginx镜像</span>
+</span></span><span class="line"><span class="cl">docker run -d --name nginx-test -p 80:80 nginx
+</span></span><span class="line"><span class="cl"><span class="c1">#进入运行nginx的容器内部</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it xxxxxx bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ubuntu">
+    <a href="#ubuntu" class="header-anchor">#</a>
+    ubuntu
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#拉取ubuntu镜像</span>
+</span></span><span class="line"><span class="cl">docker pull ubuntu
+</span></span><span class="line"><span class="cl"><span class="c1">#运行ubuntu镜像</span>
+</span></span><span class="line"><span class="cl">docker run -itd ubuntu
+</span></span><span class="line"><span class="cl"><span class="c1">#进入运行ubuntu镜像容器的内部</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it xxxxxx bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

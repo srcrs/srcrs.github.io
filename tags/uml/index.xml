@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>UML on srcrs</title>
+        <link>https://blog.lass.cc/tags/uml/</link>
+        <description>Recent content in UML on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Thu, 30 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/uml/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>画UML类图</title>
+        <link>https://blog.lass.cc/posts/%E7%94%BBuml%E7%B1%BB%E5%9B%BE/</link>
+        <pubDate>Thu, 30 Jan 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E7%94%BBuml%E7%B1%BB%E5%9B%BE/</guid>
+        <description>&lt;h2 id=&#34;uml的分类&#34;&gt;
+    &lt;a href=&#34;#uml%e7%9a%84%e5%88%86%e7%b1%bb&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    UML的分类
+&lt;/h2&gt;&lt;p&gt;先简单看一下UML图的分类。&lt;/p&gt;
+&lt;h3 id=&#34;结构型的图structure-diagram&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%93%e6%9e%84%e5%9e%8b%e7%9a%84%e5%9b%bestructure-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    结构型的图（Structure Diagram）
+&lt;/h3&gt;&lt;p&gt;是一种偏静态类型的图&lt;/p&gt;
+&lt;h4 id=&#34;类图class-diagram&#34;&gt;
+    &lt;a href=&#34;#%e7%b1%bb%e5%9b%beclass-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    类图（Class Diagram）
+&lt;/h4&gt;&lt;p&gt;用方框来表示类，用一些线来表示他们之间的关系。&lt;/p&gt;
+&lt;h4 id=&#34;对象图object-diagram&#34;&gt;
+    &lt;a href=&#34;#%e5%af%b9%e8%b1%a1%e5%9b%beobject-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    对象图（Object Diagram）
+&lt;/h4&gt;&lt;p&gt;对象是类的实例化，方便表示对象之间的关系。&lt;/p&gt;
+&lt;h4 id=&#34;构件图component-diagram&#34;&gt;
+    &lt;a href=&#34;#%e6%9e%84%e4%bb%b6%e5%9b%becomponent-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    构件图（Component Diagram）
+&lt;/h4&gt;&lt;p&gt;构件图又叫组件图，主要描述一个系统的组成与关系。通常在服务器开发时使用。&lt;/p&gt;
+&lt;h4 id=&#34;部署图deployment-diagram&#34;&gt;
+    &lt;a href=&#34;#%e9%83%a8%e7%bd%b2%e5%9b%bedeployment-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    部署图（Deployment Diagram）
+&lt;/h4&gt;&lt;p&gt;部署图是用来描述系统如何部署、本系统与其他系统是怎样的一种关系。通常在服务器开发时使用。&lt;/p&gt;
+&lt;h4 id=&#34;包图package-diagram&#34;&gt;
+    &lt;a href=&#34;#%e5%8c%85%e5%9b%bepackage-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    包图（Package Diagram）
+&lt;/h4&gt;&lt;p&gt;当类图很多的时候，可以将类放入包中，简化图。&lt;/p&gt;
+&lt;h3 id=&#34;行为型的图behavior-diagram&#34;&gt;
+    &lt;a href=&#34;#%e8%a1%8c%e4%b8%ba%e5%9e%8b%e7%9a%84%e5%9b%bebehavior-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    行为型的图（Behavior Diagram）
+&lt;/h3&gt;&lt;p&gt;是一种偏动态类型的图&lt;/p&gt;
+&lt;h4 id=&#34;活动图activity-diagram&#34;&gt;
+    &lt;a href=&#34;#%e6%b4%bb%e5%8a%a8%e5%9b%beactivity-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    活动图（Activity Diagram）
+&lt;/h4&gt;&lt;p&gt;用圆边框表示一个“活动”，用箭头表示活动的先后顺序，类似于流程图。&lt;/p&gt;
+&lt;h4 id=&#34;状态机图state-machine-diagram&#34;&gt;
+    &lt;a href=&#34;#%e7%8a%b6%e6%80%81%e6%9c%ba%e5%9b%bestate-machine-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    状态机图（State Machine Diagram）
+&lt;/h4&gt;&lt;p&gt;状态机图又叫做转态图，主要用于描述复杂的对象或者模块，内部不同状态的转化过程。&lt;/p&gt;
+&lt;h4 id=&#34;顺序图sequence-diagram&#34;&gt;
+    &lt;a href=&#34;#%e9%a1%ba%e5%ba%8f%e5%9b%besequence-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    顺序图（Sequence Diagram）
+&lt;/h4&gt;&lt;p&gt;可以描述系统的执行过程，常常用来表示系统中类、方法的调用过程。&lt;/p&gt;
+&lt;h4 id=&#34;通信图communication-diagram&#34;&gt;
+    &lt;a href=&#34;#%e9%80%9a%e4%bf%a1%e5%9b%becommunication-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    通信图（Communication Diagram）
+&lt;/h4&gt;&lt;p&gt;通信图是顺序图的另外一种画法。&lt;/p&gt;
+&lt;h4 id=&#34;用例图use-case-diagram&#34;&gt;
+    &lt;a href=&#34;#%e7%94%a8%e4%be%8b%e5%9b%beuse-case-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    用例图（Use Case Diagram）
+&lt;/h4&gt;&lt;p&gt;用例图表达的是什么角色通过软件系统能做什么事情，通常用于软件开发的需求分析阶段。&lt;/p&gt;
+&lt;h4 id=&#34;时序图timing-diagram&#34;&gt;
+    &lt;a href=&#34;#%e6%97%b6%e5%ba%8f%e5%9b%betiming-diagram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    时序图（Timing Diagram）
+&lt;/h4&gt;&lt;p&gt;时序图又叫时间图，表示某东西的状态随时间变化而变化的图，用时间线的方式表示事务状态变化。&lt;/p&gt;
+&lt;h2 id=&#34;uml类图之间的关系&#34;&gt;
+    &lt;a href=&#34;#uml%e7%b1%bb%e5%9b%be%e4%b9%8b%e9%97%b4%e7%9a%84%e5%85%b3%e7%b3%bb&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    UML类图之间的关系
+&lt;/h2&gt;&lt;p&gt;类与类、接口之间的关系有六种。&lt;/p&gt;
+&lt;h3 id=&#34;泛化&#34;&gt;
+    &lt;a href=&#34;#%e6%b3%9b%e5%8c%96&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    泛化
+&lt;/h3&gt;&lt;p&gt;泛化关系实际上就是继承关系，表示一般与特殊的关系，他指定子类如何特化父类的所有特征和行为。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;表示方法：带三角箭头的实线，箭头指向父类&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;代码：&lt;code&gt;extends&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Classname&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ field: type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ method(type): type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;SubClassname&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ field: type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ method(type): type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h3 id=&#34;接口与实现&#34;&gt;
+    &lt;a href=&#34;#%e6%8e%a5%e5%8f%a3%e4%b8%8e%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    接口与实现
+&lt;/h3&gt;&lt;p&gt;是一种类与接口的关系，表示类时接口所有特征和行为的实现。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;表示方法：带三角箭头的虚线，箭头指向接口。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;代码表现：&lt;code&gt;implements&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;«interface»&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Name&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;«interface»&amp;hellip;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Classname&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ field: type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ method(type): type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h3 id=&#34;依赖dependency&#34;&gt;
+    &lt;a href=&#34;#%e4%be%9d%e8%b5%96dependency&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    依赖（Dependency）
+&lt;/h3&gt;&lt;p&gt;是一种使用关系，即一个类的实现需要另一个类的协助。但是需要的需要的那个类只是已局部变量存在，这就叫做依赖&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表示方式：带普通箭头的虚线，指向被被依赖者。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;String&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;StringTools&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ subString(param:String)&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Use&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Use&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h3 id=&#34;关联association&#34;&gt;
+    &lt;a href=&#34;#%e5%85%b3%e8%81%94association&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    关联（Association）
+&lt;/h3&gt;&lt;p&gt;是一种拥有关系，它使一个类知道另一个类的属性和方法。有单向关联和双向关联。关联其实也需要另一个类去协助，主要区别就是需要的那个类是以成员变量的形式存在。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;代码体现：成员变量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;表示方式：单向关联用带普通箭头的实线，指向被拥有者；双向关联用实现表示。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Couse&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Student&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h3 id=&#34;聚合aggregation&#34;&gt;
+    &lt;a href=&#34;#%e8%81%9a%e5%90%88aggregation&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    聚合（Aggregation）
+&lt;/h3&gt;&lt;p&gt;关联又可细化成聚合和组合。&lt;/p&gt;
+&lt;p&gt;是整体与部分的关系，且部分可以离开整体而单独存在。如车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;带空心菱形的实线，菱形指向整体&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Car&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Tyre&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h3 id=&#34;组合composition&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%84%e5%90%88composition&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    组合（Composition）
+&lt;/h3&gt;&lt;p&gt;是整体与部分的关系，但部分不能离开整体而单独存在。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表示方式：带实心菱形的实线，菱形指向整体。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Person&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Head&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h2 id=&#34;访问权限符号表示&#34;&gt;
+    &lt;a href=&#34;#%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90%e7%ac%a6%e5%8f%b7%e8%a1%a8%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    访问权限符号表示
+&lt;/h2&gt;&lt;p&gt;Mark | Express&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;| -&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;| public&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;-protected&#34;&gt;
+    &lt;a href=&#34;#-protected&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    | protected
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;| private
+~ | friendly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;常用的关键字&#34;&gt;
+    &lt;a href=&#34;#%e5%b8%b8%e7%94%a8%e7%9a%84%e5%85%b3%e9%94%ae%e5%ad%97&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    常用的关键字
+&lt;/h2&gt;&lt;p&gt;关键字 | Express&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;| -
+static | 下划线
+abstract | 斜体
+: | 成员类型或方法返回值
+= | 默认值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;以动物关系示例&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%a5%e5%8a%a8%e7%89%a9%e5%85%b3%e7%b3%bb%e7%a4%ba%e4%be%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    以动物关系示例
+&lt;/h2&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Animal&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ drink(water:Water)&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Water&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Use&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Use&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Bird&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ wing: Wing&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Mammal&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Wing&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;chicken&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ method(type): type&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;RoastChiken&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Wolf&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;sheep&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Extends&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Wolves&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Price&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;+ price(): int&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&amp;hellip;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

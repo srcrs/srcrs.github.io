@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 MagicBox在今年迎来了升级，依托于Automa灵活的工作流配置，可以很方便的实现网站的自动化任务。Automa是一个浏览器控制插件，有着众多的组件，基本涵盖了日常的操作，只需要拖拉连线便可将打开网页、点击链接、获取元素的文本等等拼接成一个工作流话不，实现复杂任务的简化执行，但，如果想让其在服务端每日自动执行，不必依赖本地的插件环境，是否可行呢？ 新版MagicBox的主要任务都会使用Automa来实现，实践的过程中是发现了一些问题的，例如登录态、通知、代码处理逻辑不一致等问题，对于迁移使用仍然会有一定的理解难度。 在最新的2.2.2版本中，我们新加了cli命令模式，内置了部分任务标准模版，只需根据命令引导，即可生成专属于自己的任务，极大的简化了使用MagicBox。 # 项目目录解答 项目地址：https://github.com/srcrs/MagicBox 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 MagicBox ├── Dockerfile ├── LICENSE ├── MagicBox.log ├── README.md ├── cmd ├── configs ├── docker-compose.yml ├── examples ├── go.mod ├── go.sum ├── install.sh ├── main.go ├── public ├── script.sh ├── utils └── workerflow examples: 有示例配置文件通过cli命令可以重复使用 configs: 用于放置需要执行的automa配置文件 docker-compose.yml: docker-compose配置文件，实时获取最新的版本 MagicBox.log: 工作流执行后的日志文件 main.go: 工作流解析引擎执行入口 utils、workerflow: 解析引擎相关核心代码逻辑 # 已实现组件 conditions：条件判断 event-click：点击 get-text：获取文本 insert-data：插入变量 loop-data：循环获取数据 new-tab：打开网页 webhook：调用接口 tab-url：获取当前页面url element-scroll：滚动页面到屏幕最下面 delay：流程sleep loop-elements：循环遍历页面元素 forms：设置form表单填写内容 reload-tab：刷新当前页面 close-tab：关闭当前页面 link：获取网页中链接打开页面 active-tab：回到活动tab页中 attribute-value：获取标签成员值 # 内置支持任务 站点 说明 登录授权方式 username password brakUrl cron hostloc_get_integral https://hostloc.">
+<title>MagicBox使用手册</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/how-use-magic-box-v2/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="MagicBox使用手册">
+<meta property='og:description' content="# 简述 MagicBox在今年迎来了升级，依托于Automa灵活的工作流配置，可以很方便的实现网站的自动化任务。Automa是一个浏览器控制插件，有着众多的组件，基本涵盖了日常的操作，只需要拖拉连线便可将打开网页、点击链接、获取元素的文本等等拼接成一个工作流话不，实现复杂任务的简化执行，但，如果想让其在服务端每日自动执行，不必依赖本地的插件环境，是否可行呢？ 新版MagicBox的主要任务都会使用Automa来实现，实践的过程中是发现了一些问题的，例如登录态、通知、代码处理逻辑不一致等问题，对于迁移使用仍然会有一定的理解难度。 在最新的2.2.2版本中，我们新加了cli命令模式，内置了部分任务标准模版，只需根据命令引导，即可生成专属于自己的任务，极大的简化了使用MagicBox。 # 项目目录解答 项目地址：https://github.com/srcrs/MagicBox 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 MagicBox ├── Dockerfile ├── LICENSE ├── MagicBox.log ├── README.md ├── cmd ├── configs ├── docker-compose.yml ├── examples ├── go.mod ├── go.sum ├── install.sh ├── main.go ├── public ├── script.sh ├── utils └── workerflow examples: 有示例配置文件通过cli命令可以重复使用 configs: 用于放置需要执行的automa配置文件 docker-compose.yml: docker-compose配置文件，实时获取最新的版本 MagicBox.log: 工作流执行后的日志文件 main.go: 工作流解析引擎执行入口 utils、workerflow: 解析引擎相关核心代码逻辑 # 已实现组件 conditions：条件判断 event-click：点击 get-text：获取文本 insert-data：插入变量 loop-data：循环获取数据 new-tab：打开网页 webhook：调用接口 tab-url：获取当前页面url element-scroll：滚动页面到屏幕最下面 delay：流程sleep loop-elements：循环遍历页面元素 forms：设置form表单填写内容 reload-tab：刷新当前页面 close-tab：关闭当前页面 link：获取网页中链接打开页面 active-tab：回到活动tab页中 attribute-value：获取标签成员值 # 内置支持任务 站点 说明 登录授权方式 username password brakUrl cron hostloc_get_integral https://hostloc.">
+<meta property='og:url' content='https://blog.lass.cc/posts/how-use-magic-box-v2/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='magic' /><meta property='article:published_time' content='2024-05-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-05-10T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="MagicBox使用手册">
+<meta name="twitter:description" content="# 简述 MagicBox在今年迎来了升级，依托于Automa灵活的工作流配置，可以很方便的实现网站的自动化任务。Automa是一个浏览器控制插件，有着众多的组件，基本涵盖了日常的操作，只需要拖拉连线便可将打开网页、点击链接、获取元素的文本等等拼接成一个工作流话不，实现复杂任务的简化执行，但，如果想让其在服务端每日自动执行，不必依赖本地的插件环境，是否可行呢？ 新版MagicBox的主要任务都会使用Automa来实现，实践的过程中是发现了一些问题的，例如登录态、通知、代码处理逻辑不一致等问题，对于迁移使用仍然会有一定的理解难度。 在最新的2.2.2版本中，我们新加了cli命令模式，内置了部分任务标准模版，只需根据命令引导，即可生成专属于自己的任务，极大的简化了使用MagicBox。 # 项目目录解答 项目地址：https://github.com/srcrs/MagicBox 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 MagicBox ├── Dockerfile ├── LICENSE ├── MagicBox.log ├── README.md ├── cmd ├── configs ├── docker-compose.yml ├── examples ├── go.mod ├── go.sum ├── install.sh ├── main.go ├── public ├── script.sh ├── utils └── workerflow examples: 有示例配置文件通过cli命令可以重复使用 configs: 用于放置需要执行的automa配置文件 docker-compose.yml: docker-compose配置文件，实时获取最新的版本 MagicBox.log: 工作流执行后的日志文件 main.go: 工作流解析引擎执行入口 utils、workerflow: 解析引擎相关核心代码逻辑 # 已实现组件 conditions：条件判断 event-click：点击 get-text：获取文本 insert-data：插入变量 loop-data：循环获取数据 new-tab：打开网页 webhook：调用接口 tab-url：获取当前页面url element-scroll：滚动页面到屏幕最下面 delay：流程sleep loop-elements：循环遍历页面元素 forms：设置form表单填写内容 reload-tab：刷新当前页面 close-tab：关闭当前页面 link：获取网页中链接打开页面 active-tab：回到活动tab页中 attribute-value：获取标签成员值 # 内置支持任务 站点 说明 登录授权方式 username password brakUrl cron hostloc_get_integral https://hostloc.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简述">简述</a></li>
+    <li><a href="#项目目录解答">项目目录解答</a></li>
+    <li><a href="#已实现组件">已实现组件</a></li>
+    <li><a href="#内置支持任务">内置支持任务</a></li>
+    <li><a href="#环境要求">环境要求</a>
+      <ol>
+        <li><a href="#linux">Linux</a>
+          <ol>
+            <li><a href="#docker">Docker</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#使用方法">使用方法</a>
+      <ol>
+        <li><a href="#docker部署">Docker部署</a>
+          <ol>
+            <li><a href="#1克隆仓库">1.克隆仓库</a></li>
+            <li><a href="#2导入配置">2.导入配置</a></li>
+            <li><a href="#3执行部署">3.执行部署</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#使用示例">使用示例</a>
+      <ol>
+        <li><a href="#v2ex_sign">v2ex_sign</a></li>
+        <li><a href="#hostloc_get_integral">hostloc_get_integral</a></li>
+        <li><a href="#jd_apply_refund">jd_apply_refund</a></li>
+        <li><a href="#wxread_task">wxread_task</a></li>
+        <li><a href="#bilibili_task">bilibili_task</a></li>
+      </ol>
+    </li>
+    <li><a href="#开发贡献">开发贡献</a>
+      <ol>
+        <li><a href="#加载cookie">加载cookie</a></li>
+        <li><a href="#定时执行">定时执行</a></li>
+        <li><a href="#用户登录">用户登录</a></li>
+      </ol>
+    </li>
+    <li><a href="#通知方式">通知方式</a>
+      <ol>
+        <li><a href="#bark">Bark</a></li>
+      </ol>
+    </li>
+    <li><a href="#常见问题">常见问题</a>
+      <ol>
+        <li><a href="#打开网站调试提示paused-in-debugger">打开网站调试，提示paused in debugger</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/how-use-magic-box-v2/">MagicBox使用手册</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 10, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="简述">
+    <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    简述
+</h2><p><code>MagicBox</code>在今年迎来了升级，依托于<code>Automa</code>灵活的工作流配置，可以很方便的实现网站的自动化任务。<code>Automa</code>是一个浏览器控制插件，有着众多的组件，基本涵盖了日常的操作，只需要拖拉连线便可将打开网页、点击链接、获取元素的文本等等拼接成一个工作流话不，实现复杂任务的简化执行，但，如果想让其在服务端每日自动执行，不必依赖本地的插件环境，是否可行呢？</p>
+<p>新版<code>MagicBox</code>的主要任务都会使用<code>Automa</code>来实现，实践的过程中是发现了一些问题的，例如登录态、通知、代码处理逻辑不一致等问题，对于迁移使用仍然会有一定的理解难度。</p>
+<p>在最新的2.2.2版本中，我们新加了<code>cli</code>命令模式，内置了部分任务标准模版，只需根据命令引导，即可生成专属于自己的任务，极大的简化了使用<code>MagicBox</code>。</p>
+<h2 id="项目目录解答">
+    <a href="#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95%e8%a7%a3%e7%ad%94" class="header-anchor">#</a>
+    项目目录解答
+</h2><p>项目地址：https://github.com/srcrs/MagicBox</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">MagicBox
+</span></span><span class="line"><span class="cl">├── Dockerfile
+</span></span><span class="line"><span class="cl">├── LICENSE
+</span></span><span class="line"><span class="cl">├── MagicBox.log
+</span></span><span class="line"><span class="cl">├── README.md
+</span></span><span class="line"><span class="cl">├── cmd
+</span></span><span class="line"><span class="cl">├── configs
+</span></span><span class="line"><span class="cl">├── docker-compose.yml
+</span></span><span class="line"><span class="cl">├── examples
+</span></span><span class="line"><span class="cl">├── go.mod
+</span></span><span class="line"><span class="cl">├── go.sum
+</span></span><span class="line"><span class="cl">├── install.sh
+</span></span><span class="line"><span class="cl">├── main.go
+</span></span><span class="line"><span class="cl">├── public
+</span></span><span class="line"><span class="cl">├── script.sh
+</span></span><span class="line"><span class="cl">├── utils
+</span></span><span class="line"><span class="cl">└── workerflow
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>examples: 有示例配置文件通过cli命令可以重复使用</li>
+<li>configs: 用于放置需要执行的automa配置文件</li>
+<li>docker-compose.yml: docker-compose配置文件，实时获取最新的版本</li>
+<li>MagicBox.log: 工作流执行后的日志文件</li>
+<li>main.go: 工作流解析引擎执行入口</li>
+<li>utils、workerflow: 解析引擎相关核心代码逻辑</li>
+</ul>
+<h2 id="已实现组件">
+    <a href="#%e5%b7%b2%e5%ae%9e%e7%8e%b0%e7%bb%84%e4%bb%b6" class="header-anchor">#</a>
+    已实现组件
+</h2><ul>
+<li>conditions：条件判断</li>
+<li>event-click：点击</li>
+<li>get-text：获取文本</li>
+<li>insert-data：插入变量</li>
+<li>loop-data：循环获取数据</li>
+<li>new-tab：打开网页</li>
+<li>webhook：调用接口</li>
+<li>tab-url：获取当前页面url</li>
+<li>element-scroll：滚动页面到屏幕最下面</li>
+<li>delay：流程sleep</li>
+<li>loop-elements：循环遍历页面元素</li>
+<li>forms：设置form表单填写内容</li>
+<li>reload-tab：刷新当前页面</li>
+<li>close-tab：关闭当前页面</li>
+<li>link：获取网页中链接打开页面</li>
+<li>active-tab：回到活动tab页中</li>
+<li>attribute-value：获取标签成员值</li>
+</ul>
+<h2 id="内置支持任务">
+    <a href="#%e5%86%85%e7%bd%ae%e6%94%af%e6%8c%81%e4%bb%bb%e5%8a%a1" class="header-anchor">#</a>
+    内置支持任务
+</h2><ul>
+<li>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>站点</th>
+<th>说明</th>
+<th>登录授权方式</th>
+<th>username</th>
+<th>password</th>
+<th>brakUrl</th>
+<th>cron</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hostloc_get_integral</td>
+<td><a class="link" href="https://hostloc.com/"  target="_blank" rel="noopener"
+    >https://hostloc.com/</a></td>
+<td>每日访问空间刷积分</td>
+<td>账号密码</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>jd_apply_refund</td>
+<td><a class="link" href="https://www.jd.com/"  target="_blank" rel="noopener"
+    >https://www.jd.com/</a></td>
+<td>京东自动申请价格保护</td>
+<td>cookie</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>v2ex_sign</td>
+<td><a class="link" href="https://v2ex.com/"  target="_blank" rel="noopener"
+    >https://v2ex.com/</a></td>
+<td>每日签到</td>
+<td>cookie</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>wxread_task</td>
+<td><a class="link" href="https://weread.qq.com/"  target="_blank" rel="noopener"
+    >https://weread.qq.com/</a></td>
+<td>每日登录阅读，完成读书挑战</td>
+<td>cookie</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>bilibili_task</td>
+<td><a class="link" href="https://www.bilibili.com/"  target="_blank" rel="noopener"
+    >https://www.bilibili.com/</a></td>
+<td>哔哩哔哩每日任务，登录、观看视频</td>
+<td>cookie</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+</ul>
+<h2 id="环境要求">
+    <a href="#%e7%8e%af%e5%a2%83%e8%a6%81%e6%b1%82" class="header-anchor">#</a>
+    环境要求
+</h2><h3 id="linux">
+    <a href="#linux" class="header-anchor">#</a>
+    Linux
+</h3><h4 id="docker">
+    <a href="#docker" class="header-anchor">#</a>
+    Docker
+</h4><p>docker环境安装参考<a class="link" href="https://docs.docker.com/engine/install/debian/"  target="_blank" rel="noopener"
+    >官方教程</a>，一键把docker和docker-compose环境都安装好。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -fsSL https://get.docker.com -o get-docker.sh
+</span></span><span class="line"><span class="cl">sudo sh get-docker.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装好后，示例docker版本信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker --version
+</span></span><span class="line"><span class="cl">Docker version 24.0.4
+</span></span><span class="line"><span class="cl">$ docker compose version
+</span></span><span class="line"><span class="cl">Docker Compose version v2.19.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用方法">
+    <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="header-anchor">#</a>
+    使用方法
+</h2><h3 id="docker部署">
+    <a href="#docker%e9%83%a8%e7%bd%b2" class="header-anchor">#</a>
+    Docker部署
+</h3><h4 id="1克隆仓库">
+    <a href="#1%e5%85%8b%e9%9a%86%e4%bb%93%e5%ba%93" class="header-anchor">#</a>
+    1.克隆仓库
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/srcrs/MagicBox.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>克隆完后，进入到MagicBox文件夹中。</p>
+<h4 id="2导入配置">
+    <a href="#2%e5%af%bc%e5%85%a5%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    2.导入配置
+</h4><p>目前支持两种方式，通过内置任务初始化生成；导入自定义任务（可能存在部分节点未接入问题）。</p>
+<h5 id="使用内置命令初始化配置">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%86%85%e7%bd%ae%e5%91%bd%e4%bb%a4%e5%88%9d%e5%a7%8b%e5%8c%96%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    使用内置命令初始化配置
+</h5><ul>
+<li>帮助命令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#查看目前支持的命令</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server -h
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看目前支持的config命令</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config -h
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看目前支持的初始化任务</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init -h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>可传入参数</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+<th>使用示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>登录用户名</td>
+<td>&ndash;username &ldquo;xxxxxx&rdquo;</td>
+</tr>
+<tr>
+<td>password</td>
+<td>登录密码</td>
+<td>&ndash;password &ldquo;xxxxxxx&rdquo;</td>
+</tr>
+<tr>
+<td>barkUrl</td>
+<td>通知</td>
+<td>&ndash;barkUrl &ldquo;xxxxxxx&rdquo;</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>定时执行</td>
+<td>&ndash;cron &ldquo;12 12 * * *&rdquo;</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>真实案例</li>
+</ul>
+<p>初始化一个v2ex任务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#1.选择初始化v2ex任务，设置定时执行时间和bark通知</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init v2ex_sign --cron <span class="s2">&#34;12 12 * * *&#34;</span> --barkUrl <span class="s2">&#34;https://bark.xxx.com/xxxxxx&#34;</span>
+</span></span><span class="line"><span class="cl">It will close in <span class="m">150</span> seconds
+</span></span><span class="line"><span class="cl">please visit url: http://localhost:9222/devtools/inspector.html?ws<span class="o">=</span>localhost:9222/devtools/page/333BE3874077691C51A4279C7A4E8AB9
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#2.将locahost替换为服务器ip后在浏览器访问，即可远程控制，在150秒内完成登录操作</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#3.150秒后将会检查登录情况，会自动将配置文件添加到configs文件夹中</span>
+</span></span><span class="line"><span class="cl">new config path: configs/v2ex_sign_7656fbd2-78dc-4cff-af18-e56c40b8e527.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>更多请参考：<strong>使用示例</strong></p>
+<h5 id="自定义导入">
+    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e5%af%bc%e5%85%a5" class="header-anchor">#</a>
+    自定义导入
+</h5><p>将automa编写好的配置从插件中导出，再导入至MagicBox中，适合有一定的使用经验。</p>
+<h4 id="3执行部署">
+    <a href="#3%e6%89%a7%e8%a1%8c%e9%83%a8%e7%bd%b2" class="header-anchor">#</a>
+    3.执行部署
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#进入到MagicBox目录</span>
+</span></span><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用示例">
+    <a href="#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    使用示例
+</h2><h3 id="v2ex_sign">
+    <a href="#v2ex_sign" class="header-anchor">#</a>
+    v2ex_sign
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init v2ex_sign --cron <span class="s2">&#34;12 12 * * *&#34;</span> --barkUrl <span class="s2">&#34;https://bark.xxx.com/xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="hostloc_get_integral">
+    <a href="#hostloc_get_integral" class="header-anchor">#</a>
+    hostloc_get_integral
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init hostloc_get_integral --cron <span class="s2">&#34;12 12 * * *&#34;</span> --barkUrl <span class="s2">&#34;https://bark.xxx.com/xxxxxx&#34;</span> --username <span class="s2">&#34;xxxxxxx&#34;</span> --password <span class="s2">&#34;yyyyyyy&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="jd_apply_refund">
+    <a href="#jd_apply_refund" class="header-anchor">#</a>
+    jd_apply_refund
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init jd_apply_refund --cron <span class="s2">&#34;12 12 * * *&#34;</span> --barkUrl <span class="s2">&#34;https://bark.xxx.com/xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="wxread_task">
+    <a href="#wxread_task" class="header-anchor">#</a>
+    wxread_task
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init wxread_task --cron <span class="s2">&#34;12 12 * * *&#34;</span> --barkUrl <span class="s2">&#34;https://bark.xxx.com/xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="bilibili_task">
+    <a href="#bilibili_task" class="header-anchor">#</a>
+    bilibili_task
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$docker</span> compose run --rm -p 9222:9222 server config init bilibili_task --cron <span class="s2">&#34;12 12 * * *&#34;</span> --barkUrl <span class="s2">&#34;https://bark.xxx.com/xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="开发贡献">
+    <a href="#%e5%bc%80%e5%8f%91%e8%b4%a1%e7%8c%ae" class="header-anchor">#</a>
+    开发贡献
+</h2><p>Automa是本地执行，在实际迁移使用时，需要考虑到登录态问题，定时任务、用户名和密码登录等，也有相应的使用规范。</p>
+<h3 id="加载cookie">
+    <a href="#%e5%8a%a0%e8%bd%bdcookie" class="header-anchor">#</a>
+    加载cookie
+</h3><p>使用<code>insert-data</code>组件，选择添加Variable变量，名称为<code>cookies</code>，一般要在页面打开之前将cookie加载进去。</p>
+<h3 id="定时执行">
+    <a href="#%e5%ae%9a%e6%97%b6%e6%89%a7%e8%a1%8c" class="header-anchor">#</a>
+    定时执行
+</h3><p>修改<code>Trigger</code>组件，添加一个<code>Cron job</code>，就可以设置cron定时任务了。MagicBox加载逻辑是，程序首次都会执行一次，后续是根据定时任务的设置执行。</p>
+<h3 id="用户登录">
+    <a href="#%e7%94%a8%e6%88%b7%e7%99%bb%e5%bd%95" class="header-anchor">#</a>
+    用户登录
+</h3><p>使用的组件是<code>Forms</code>，使用<code>Text field</code>填写内容，用户名是<code>username</code>，密码是<code>password</code>。</p>
+<h2 id="通知方式">
+    <a href="#%e9%80%9a%e7%9f%a5%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    通知方式
+</h2><p>automa的<code>HTTP request</code>可以实现接口的调用，正好可以满足通知的需求，但是通知的内容可能会很少，无法做到代码方式灵活。</p>
+<h3 id="bark">
+    <a href="#bark" class="header-anchor">#</a>
+    Bark
+</h3><p>Bark 是一款<code>iOS</code>端的推送服务，通过部署一个<code>Server</code>服务端，可以通过HTTP接口来给<code>iOS</code>设备发送推送通知，代码开源: <a class="link" href="https://github.com/Finb/Bark"  target="_blank" rel="noopener"
+    >https://github.com/Finb/Bark</a></p>
+<p>使用极其简单，只需要下载安装Bark软件即可，获取每个用户唯一key，按照下面格式替换，就得到了你唯一的推送通道了。一般将Bark的链接替换到组件中即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">https://api.day.app/DnzTsd6qDWTdfs9xRGygFtasdnsRCL/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细可参考：<a class="link" href="https://bark.day.app/"  target="_blank" rel="noopener"
+    >Bark官方文档</a></p>
+<h2 id="常见问题">
+    <a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="header-anchor">#</a>
+    常见问题
+</h2><h3 id="打开网站调试提示paused-in-debugger">
+    <a href="#%e6%89%93%e5%bc%80%e7%bd%91%e7%ab%99%e8%b0%83%e8%af%95%e6%8f%90%e7%a4%bapaused-in-debugger" class="header-anchor">#</a>
+    打开网站调试，提示paused in debugger
+</h3><p>网站禁止调试，需要关闭，解决方案地址：https://stackoverflow.com/questions/12833514/paused-in-debugger-in-chrome%EF%BC%9B</p>
+<p>一般关闭图中红圈处即可解决。</p>
+<p><img src="https://i.sstatic.net/qTaMX.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/magic/">Magic</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">双十一京东自动申请价保助手</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-use-magic-box/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MagicBox手册</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-use-magic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Magic手册</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">复盘国密sm4踩坑</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

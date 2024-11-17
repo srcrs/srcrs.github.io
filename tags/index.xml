@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tags on srcrs</title>
+        <link>https://blog.lass.cc/tags/</link>
+        <description>Recent content in Tags on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Index</title>
+        <link>https://blog.lass.cc/tags/index/</link>
+        <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/index/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Other</title>
+        <link>https://blog.lass.cc/tags/other/</link>
+        <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/other/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Sm4</title>
+        <link>https://blog.lass.cc/tags/sm4/</link>
+        <pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/sm4/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Ai</title>
+        <link>https://blog.lass.cc/tags/ai/</link>
+        <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/ai/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Helix</title>
+        <link>https://blog.lass.cc/tags/helix/</link>
+        <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/helix/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Docker</title>
+        <link>https://blog.lass.cc/tags/docker/</link>
+        <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Day</title>
+        <link>https://blog.lass.cc/tags/day/</link>
+        <pubDate>Wed, 24 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/tags/day/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

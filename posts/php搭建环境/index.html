@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 搭建php环境需要用到三个软件 Apache：用作搭建服务器 PHP：用作解析php代码 Mysql：用作数据存储 下载Apache的时候我可是费了老劲了，短短10M我几乎花了五个小时才下载玩。在将PHP加载到Apache中的时候需要需要注意它们的版本，否则将会加载失败，我这里PHP2.2.25和httpd5.4.8、PHP2.4.23和httpd7.4.2是可以匹配成功的（httpd是Apache超文本传输协议(HTTP)服务器的主程序，下载Apache就是它），希望不要再踩坑了。 可以参考学习地址中老师讲的，完美配置。 # 下载 apache有支持https的，给的是不支持的。适用于64位Windows10计算机。 Apache下载地址：点我 PHP下载地址：点我 Mysql下载地址：点我 # 安装 安装就不需要多说了，为了方便以后的配置，建议在D盘目录下建立一个名称为server的文件夹，将三个软件都安装在这个文件夹中 httpd的安装目录为D:\\server\\apache PHP的安装目录为D:\\server\\php7 php是压缩包，不需要安装，只需要将里面的文件放到php7中就可以了 Mysql的安装目录D:\\server\\mysql # 配置 将D:\\server\\apache\\bin配置到环境变量中，mysql因为我是之前就安装了，如果没有环境变量也需要把它的bin目录加载进来。 打开D:\\server\\apache\\conf\\httpd.conf 需要认识几个地方 37行的ServerRoot就是服务的根目录，这里不需要修改。 将220行的#ServerName localhost:80修改成ServerName localhost,这里是服务的名字。 58行的Listen 80这里是服务监听的端口，通常不需要修改。 配置DNS域名解析 打开C:\\Windows\\System32\\drivers\\etc\\hosts，注意要给管理员权限（但是我的给了也不行，后来用vscode才修改成功，今天再一看又可以修改了，迷），在最后一行添加 127.0.0.1 localhost 三项配置 在178行后面添加 1 2 3 4 5 6 #加载PHP LoadModule php7_module &#39;D:/server/php7/php7apache2_4.dll&#39; #将PHP配置文件加载到Apache配置文件 PHPIniDir &#39;D:/server/php7/php.ini&#39; #分配给PHP AddType application/x-httpd-php .php 将D:\\server\\php7\\php.ini-development复制一份，然后将php - 副本.ini-development修改为php.ini # 将MySQL加载到PHP中 这里我就简短的说明一下，因为如果只是学习php语言的话很可能用不到。但是很重要。 在上面推荐的视频中，使用的时php5.4.8版本，有mysql的扩展，但是下载的软件时php7.4.2版本，在这哥版本中已经删掉了php_mysql.dll扩展，但是可以使用php_pdo_mysql.dll来代替。 打开D:\\server\\php7\\php.ini 搜索pdo_mysql,将927行;extension=pdo_mysql修改成extension=pdo_mysql 搜索extension_dir在757行后面添加 1 2 ;增加扩展路径 extension_dir = &#34;D:/server/php7/ext&#34; 至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。">
+<title>PHP搭建环境</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/php%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="PHP搭建环境">
+<meta property='og:description' content="# 简述 搭建php环境需要用到三个软件 Apache：用作搭建服务器 PHP：用作解析php代码 Mysql：用作数据存储 下载Apache的时候我可是费了老劲了，短短10M我几乎花了五个小时才下载玩。在将PHP加载到Apache中的时候需要需要注意它们的版本，否则将会加载失败，我这里PHP2.2.25和httpd5.4.8、PHP2.4.23和httpd7.4.2是可以匹配成功的（httpd是Apache超文本传输协议(HTTP)服务器的主程序，下载Apache就是它），希望不要再踩坑了。 可以参考学习地址中老师讲的，完美配置。 # 下载 apache有支持https的，给的是不支持的。适用于64位Windows10计算机。 Apache下载地址：点我 PHP下载地址：点我 Mysql下载地址：点我 # 安装 安装就不需要多说了，为了方便以后的配置，建议在D盘目录下建立一个名称为server的文件夹，将三个软件都安装在这个文件夹中 httpd的安装目录为D:\\server\\apache PHP的安装目录为D:\\server\\php7 php是压缩包，不需要安装，只需要将里面的文件放到php7中就可以了 Mysql的安装目录D:\\server\\mysql # 配置 将D:\\server\\apache\\bin配置到环境变量中，mysql因为我是之前就安装了，如果没有环境变量也需要把它的bin目录加载进来。 打开D:\\server\\apache\\conf\\httpd.conf 需要认识几个地方 37行的ServerRoot就是服务的根目录，这里不需要修改。 将220行的#ServerName localhost:80修改成ServerName localhost,这里是服务的名字。 58行的Listen 80这里是服务监听的端口，通常不需要修改。 配置DNS域名解析 打开C:\\Windows\\System32\\drivers\\etc\\hosts，注意要给管理员权限（但是我的给了也不行，后来用vscode才修改成功，今天再一看又可以修改了，迷），在最后一行添加 127.0.0.1 localhost 三项配置 在178行后面添加 1 2 3 4 5 6 #加载PHP LoadModule php7_module &#39;D:/server/php7/php7apache2_4.dll&#39; #将PHP配置文件加载到Apache配置文件 PHPIniDir &#39;D:/server/php7/php.ini&#39; #分配给PHP AddType application/x-httpd-php .php 将D:\\server\\php7\\php.ini-development复制一份，然后将php - 副本.ini-development修改为php.ini # 将MySQL加载到PHP中 这里我就简短的说明一下，因为如果只是学习php语言的话很可能用不到。但是很重要。 在上面推荐的视频中，使用的时php5.4.8版本，有mysql的扩展，但是下载的软件时php7.4.2版本，在这哥版本中已经删掉了php_mysql.dll扩展，但是可以使用php_pdo_mysql.dll来代替。 打开D:\\server\\php7\\php.ini 搜索pdo_mysql,将927行;extension=pdo_mysql修改成extension=pdo_mysql 搜索extension_dir在757行后面添加 1 2 ;增加扩展路径 extension_dir = &#34;D:/server/php7/ext&#34; 至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。">
+<meta property='og:url' content='https://blog.lass.cc/posts/php%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='PHP' /><meta property='article:published_time' content='2020-02-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-02-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="PHP搭建环境">
+<meta name="twitter:description" content="# 简述 搭建php环境需要用到三个软件 Apache：用作搭建服务器 PHP：用作解析php代码 Mysql：用作数据存储 下载Apache的时候我可是费了老劲了，短短10M我几乎花了五个小时才下载玩。在将PHP加载到Apache中的时候需要需要注意它们的版本，否则将会加载失败，我这里PHP2.2.25和httpd5.4.8、PHP2.4.23和httpd7.4.2是可以匹配成功的（httpd是Apache超文本传输协议(HTTP)服务器的主程序，下载Apache就是它），希望不要再踩坑了。 可以参考学习地址中老师讲的，完美配置。 # 下载 apache有支持https的，给的是不支持的。适用于64位Windows10计算机。 Apache下载地址：点我 PHP下载地址：点我 Mysql下载地址：点我 # 安装 安装就不需要多说了，为了方便以后的配置，建议在D盘目录下建立一个名称为server的文件夹，将三个软件都安装在这个文件夹中 httpd的安装目录为D:\\server\\apache PHP的安装目录为D:\\server\\php7 php是压缩包，不需要安装，只需要将里面的文件放到php7中就可以了 Mysql的安装目录D:\\server\\mysql # 配置 将D:\\server\\apache\\bin配置到环境变量中，mysql因为我是之前就安装了，如果没有环境变量也需要把它的bin目录加载进来。 打开D:\\server\\apache\\conf\\httpd.conf 需要认识几个地方 37行的ServerRoot就是服务的根目录，这里不需要修改。 将220行的#ServerName localhost:80修改成ServerName localhost,这里是服务的名字。 58行的Listen 80这里是服务监听的端口，通常不需要修改。 配置DNS域名解析 打开C:\\Windows\\System32\\drivers\\etc\\hosts，注意要给管理员权限（但是我的给了也不行，后来用vscode才修改成功，今天再一看又可以修改了，迷），在最后一行添加 127.0.0.1 localhost 三项配置 在178行后面添加 1 2 3 4 5 6 #加载PHP LoadModule php7_module &#39;D:/server/php7/php7apache2_4.dll&#39; #将PHP配置文件加载到Apache配置文件 PHPIniDir &#39;D:/server/php7/php.ini&#39; #分配给PHP AddType application/x-httpd-php .php 将D:\\server\\php7\\php.ini-development复制一份，然后将php - 副本.ini-development修改为php.ini # 将MySQL加载到PHP中 这里我就简短的说明一下，因为如果只是学习php语言的话很可能用不到。但是很重要。 在上面推荐的视频中，使用的时php5.4.8版本，有mysql的扩展，但是下载的软件时php7.4.2版本，在这哥版本中已经删掉了php_mysql.dll扩展，但是可以使用php_pdo_mysql.dll来代替。 打开D:\\server\\php7\\php.ini 搜索pdo_mysql,将927行;extension=pdo_mysql修改成extension=pdo_mysql 搜索extension_dir在757行后面添加 1 2 ;增加扩展路径 extension_dir = &#34;D:/server/php7/ext&#34; 至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简述">简述</a></li>
+    <li><a href="#下载">下载</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#配置">配置</a></li>
+    <li><a href="#将mysql加载到php中">将MySQL加载到PHP中</a></li>
+    <li><a href="#检查">检查</a></li>
+    <li><a href="#测试">测试</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/php%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/">PHP搭建环境</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 13, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="简述">
+    <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    简述
+</h2><p>搭建php环境需要用到三个软件</p>
+<ol>
+<li>Apache：用作搭建服务器</li>
+<li>PHP：用作解析php代码</li>
+<li>Mysql：用作数据存储</li>
+</ol>
+<p>下载Apache的时候我可是费了老劲了，短短10M我几乎花了五个小时才下载玩。在将PHP加载到Apache中的时候需要需要注意它们的版本，否则将会加载失败，我这里<code>PHP2.2.25</code>和<code>httpd5.4.8</code>、<code>PHP2.4.23</code>和<code>httpd7.4.2</code>是可以匹配成功的（httpd是Apache超文本传输协议(HTTP)服务器的主程序，下载Apache就是它），希望不要再踩坑了。</p>
+<p>可以参考<a class="link" href="https://www.bilibili.com/video/av12863134"  target="_blank" rel="noopener"
+    >学习地址</a>中老师讲的，完美配置。</p>
+<h2 id="下载">
+    <a href="#%e4%b8%8b%e8%bd%bd" class="header-anchor">#</a>
+    下载
+</h2><p>apache有支持https的，给的是不支持的。适用于64位Windows10计算机。</p>
+<p>Apache下载地址：<a class="link" href="https://www.lanzous.com/i9g049i"  target="_blank" rel="noopener"
+    >点我</a></p>
+<p>PHP下载地址：<a class="link" href="https://www.lanzous.com/i9ahfbc"  target="_blank" rel="noopener"
+    >点我</a></p>
+<p>Mysql下载地址：<a class="link" href="https://www.lanzous.com/i93viof"  target="_blank" rel="noopener"
+    >点我</a></p>
+<h2 id="安装">
+    <a href="#%e5%ae%89%e8%a3%85" class="header-anchor">#</a>
+    安装
+</h2><p>安装就不需要多说了，为了方便以后的配置，建议在D盘目录下建立一个名称为<code>server</code>的文件夹，将三个软件都安装在这个文件夹中</p>
+<ul>
+<li>
+<p>httpd的安装目录为<code>D:\server\apache</code></p>
+</li>
+<li>
+<p>PHP的安装目录为<code>D:\server\php7</code></p>
+</li>
+</ul>
+<p>php是压缩包，不需要安装，只需要将里面的文件放到php7中就可以了</p>
+<ul>
+<li>Mysql的安装目录<code>D:\server\mysql</code></li>
+</ul>
+<h2 id="配置">
+    <a href="#%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    配置
+</h2><ol>
+<li>
+<p>将<code>D:\server\apache\bin</code>配置到环境变量中，mysql因为我是之前就安装了，如果没有环境变量也需要把它的bin目录加载进来。</p>
+</li>
+<li>
+<p>打开<code>D:\server\apache\conf\httpd.conf</code></p>
+</li>
+</ol>
+<p>需要认识几个地方</p>
+<ol start="3">
+<li>
+<p>37行的<code>ServerRoot</code>就是服务的根目录，这里不需要修改。</p>
+</li>
+<li>
+<p>将220行的<code>#ServerName localhost:80</code>修改成<code>ServerName localhost</code>,这里是服务的名字。</p>
+</li>
+<li>
+<p>58行的<code>Listen 80</code>这里是服务监听的端口，通常不需要修改。</p>
+</li>
+<li>
+<p>配置DNS域名解析</p>
+</li>
+</ol>
+<p>打开<code>C:\Windows\System32\drivers\etc\hosts</code>，注意要给管理员权限（但是我的给了也不行，后来用vscode才修改成功，今天再一看又可以修改了，迷），在最后一行添加</p>
+<p><code>127.0.0.1       localhost</code></p>
+<ol start="7">
+<li>三项配置</li>
+</ol>
+<p>在178行后面添加</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#加载PHP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">LoadModule php7_module &#39;D:/server/php7/php7apache2_4.dll&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#将PHP配置文件加载到Apache配置文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">PHPIniDir &#39;D:/server/php7/php.ini&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#分配给PHP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">AddType application/x-httpd-php .php</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="8">
+<li>将<code>D:\server\php7\php.ini-development</code>复制一份，然后将<code>php - 副本.ini-development</code>修改为<code>php.ini</code></li>
+</ol>
+<h2 id="将mysql加载到php中">
+    <a href="#%e5%b0%86mysql%e5%8a%a0%e8%bd%bd%e5%88%b0php%e4%b8%ad" class="header-anchor">#</a>
+    将MySQL加载到PHP中
+</h2><p>这里我就简短的说明一下，因为如果只是学习php语言的话很可能用不到。但是很重要。</p>
+<p>在上面推荐的视频中，使用的时<code>php5.4.8</code>版本，有mysql的扩展，但是下载的软件时<code>php7.4.2</code>版本，在这哥版本中已经删掉了<code>php_mysql.dll</code>扩展，但是可以使用<code>php_pdo_mysql.dll</code>来代替。</p>
+<ol>
+<li>
+<p>打开<code>D:\server\php7\php.ini</code></p>
+</li>
+<li>
+<p>搜索<code>pdo_mysql</code>,将927行<code>;extension=pdo_mysql</code>修改成<code>extension=pdo_mysql</code></p>
+</li>
+<li>
+<p>搜索<code>extension_dir</code>在757行后面添加</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">;增加扩展路径</span>
+</span></span><span class="line"><span class="cl"><span class="na">extension_dir</span> <span class="o">=</span> <span class="s">&#34;D:/server/php7/ext&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>至此mysql已经加载成功，pdo是一个连接mysql数据库的工具。</p>
+<h2 id="检查">
+    <a href="#%e6%a3%80%e6%9f%a5" class="header-anchor">#</a>
+    检查
+</h2><p>打开CMD命令行，输入<code>httpd -t</code>指令，可以检查是否有语法错误，如果返回</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="s1">&#39;httpd&#39;</span><span class="w"> </span><span class="l">不是内部或外部命令，也不是可运行的程序</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">或批处理文件。</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>说明是没有配置环境变量。</p>
+<p><code>httpd -M</code>可以看哪写模块加载到服务程序中。</p>
+<p>注意每次更改配置文件都要重启一下。</p>
+<h2 id="测试">
+    <a href="#%e6%b5%8b%e8%af%95" class="header-anchor">#</a>
+    测试
+</h2><p>如果前面一切都没有问题，那么现在就可以测试了</p>
+<p>在<code>D:\server\apache\htdocs</code>中新建一个<code>index.php</code>,里面内容为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s1">&#39;hello world&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在浏览器输入<code>http://localhost/index.php</code>正常时可以返回<code>hello world</code>的。不清楚的可以参考上面推荐的视频。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/php/">PHP</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

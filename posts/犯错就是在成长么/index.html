@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一周又过去了，时间过的挺快的，这都已经10月底了，本来计划着这周去故宫逛一逛的，但是北京疫情形势严峻，就作罢了，那就聊聊工作上的事吧。 周一，learder又找我了，说我写的两个SQL已经在慢查里面排头两名了，自己去一分析，还真是，”limit 40000,50“速度很慢，应该是扫描了全表，我的场景是想使用两个索引当作条件，但是mysql的优化器选择的索引，在我看来并不是最优的那一个，导致了运行速度很慢，后来了解到联合索引，这正符合我所使用的场景，加上了之后，速度确实提升了很多。 但这也只是针对结果集比较小的时候，当数量上万的时候，sql仍然会慢，总结有如下几个问题点： 1.在建表的时候未使用自增索引，导致在查查全表的时候，不能用自增id减少结果集。 2.在该需求中采用了不合适的技术方案，其实这一操作，有更好的方式去实现，并不应该在扫表发现问题后再去做这一件事。 后面临时的解决方式是，增加了联合索引，在现阶段还是能用一下的，等结构优化后，再使用新方式。 上周还干了一件大事，用一条sql把holo给打挂了,我们的数据库会有一部分同步到hologres，这时候，我们就可以很轻松的到metabase去查看这部分数据，兼容pgsql，减少因查数据给从库带来压力，而且查询的速度极快，这让我有点肆无忌惮了，各种比较垃圾的sql，从不考虑它的性能，直接用上，展示一部分 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 with a as ( select orderitemid,itemid,skuid,itemname,concat(colorname,sizename) as skuname from order_item_version where bbtbrandname=&#39;happy nocnoc&#39; ), b as ( select orderid,ordertype,stepstatus,createtime from bbt_order where stepstatus=1 and ordertype=25 and createtime&gt;&#39;2021-10-01 00:00:46&#39; ), c as ( select id as orderitemid,orderid from order_item where createtime&gt;&#39;2021-10-01 00:00:46&#39; ), d as ( select itemid,skuid,barcode from supplier_sku_extra_barcode ) select barcode,min(a.">
+<title>犯错就是在成长么</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="犯错就是在成长么">
+<meta property='og:description' content="一周又过去了，时间过的挺快的，这都已经10月底了，本来计划着这周去故宫逛一逛的，但是北京疫情形势严峻，就作罢了，那就聊聊工作上的事吧。 周一，learder又找我了，说我写的两个SQL已经在慢查里面排头两名了，自己去一分析，还真是，”limit 40000,50“速度很慢，应该是扫描了全表，我的场景是想使用两个索引当作条件，但是mysql的优化器选择的索引，在我看来并不是最优的那一个，导致了运行速度很慢，后来了解到联合索引，这正符合我所使用的场景，加上了之后，速度确实提升了很多。 但这也只是针对结果集比较小的时候，当数量上万的时候，sql仍然会慢，总结有如下几个问题点： 1.在建表的时候未使用自增索引，导致在查查全表的时候，不能用自增id减少结果集。 2.在该需求中采用了不合适的技术方案，其实这一操作，有更好的方式去实现，并不应该在扫表发现问题后再去做这一件事。 后面临时的解决方式是，增加了联合索引，在现阶段还是能用一下的，等结构优化后，再使用新方式。 上周还干了一件大事，用一条sql把holo给打挂了,我们的数据库会有一部分同步到hologres，这时候，我们就可以很轻松的到metabase去查看这部分数据，兼容pgsql，减少因查数据给从库带来压力，而且查询的速度极快，这让我有点肆无忌惮了，各种比较垃圾的sql，从不考虑它的性能，直接用上，展示一部分 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 with a as ( select orderitemid,itemid,skuid,itemname,concat(colorname,sizename) as skuname from order_item_version where bbtbrandname=&#39;happy nocnoc&#39; ), b as ( select orderid,ordertype,stepstatus,createtime from bbt_order where stepstatus=1 and ordertype=25 and createtime&gt;&#39;2021-10-01 00:00:46&#39; ), c as ( select id as orderitemid,orderid from order_item where createtime&gt;&#39;2021-10-01 00:00:46&#39; ), d as ( select itemid,skuid,barcode from supplier_sku_extra_barcode ) select barcode,min(a.">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='日记' /><meta property='article:published_time' content='2021-10-31T12:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-31T12:00:00&#43;00:00'/>
+<meta name="twitter:title" content="犯错就是在成长么">
+<meta name="twitter:description" content="一周又过去了，时间过的挺快的，这都已经10月底了，本来计划着这周去故宫逛一逛的，但是北京疫情形势严峻，就作罢了，那就聊聊工作上的事吧。 周一，learder又找我了，说我写的两个SQL已经在慢查里面排头两名了，自己去一分析，还真是，”limit 40000,50“速度很慢，应该是扫描了全表，我的场景是想使用两个索引当作条件，但是mysql的优化器选择的索引，在我看来并不是最优的那一个，导致了运行速度很慢，后来了解到联合索引，这正符合我所使用的场景，加上了之后，速度确实提升了很多。 但这也只是针对结果集比较小的时候，当数量上万的时候，sql仍然会慢，总结有如下几个问题点： 1.在建表的时候未使用自增索引，导致在查查全表的时候，不能用自增id减少结果集。 2.在该需求中采用了不合适的技术方案，其实这一操作，有更好的方式去实现，并不应该在扫表发现问题后再去做这一件事。 后面临时的解决方式是，增加了联合索引，在现阶段还是能用一下的，等结构优化后，再使用新方式。 上周还干了一件大事，用一条sql把holo给打挂了,我们的数据库会有一部分同步到hologres，这时候，我们就可以很轻松的到metabase去查看这部分数据，兼容pgsql，减少因查数据给从库带来压力，而且查询的速度极快，这让我有点肆无忌惮了，各种比较垃圾的sql，从不考虑它的性能，直接用上，展示一部分 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 with a as ( select orderitemid,itemid,skuid,itemname,concat(colorname,sizename) as skuname from order_item_version where bbtbrandname=&#39;happy nocnoc&#39; ), b as ( select orderid,ordertype,stepstatus,createtime from bbt_order where stepstatus=1 and ordertype=25 and createtime&gt;&#39;2021-10-01 00:00:46&#39; ), c as ( select id as orderitemid,orderid from order_item where createtime&gt;&#39;2021-10-01 00:00:46&#39; ), d as ( select itemid,skuid,barcode from supplier_sku_extra_barcode ) select barcode,min(a.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/">犯错就是在成长么</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 31, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>一周又过去了，时间过的挺快的，这都已经10月底了，本来计划着这周去故宫逛一逛的，但是北京疫情形势严峻，就作罢了，那就聊聊工作上的事吧。</p>
+<p>周一，learder又找我了，说我写的两个SQL已经在慢查里面排头两名了，自己去一分析，还真是，”limit 40000,50“速度很慢，应该是扫描了全表，我的场景是想使用两个索引当作条件，但是mysql的优化器选择的索引，在我看来并不是最优的那一个，导致了运行速度很慢，后来了解到联合索引，这正符合我所使用的场景，加上了之后，速度确实提升了很多。
+但这也只是针对结果集比较小的时候，当数量上万的时候，sql仍然会慢，总结有如下几个问题点：</p>
+<ul>
+<li>
+<p>1.在建表的时候未使用自增索引，导致在查查全表的时候，不能用自增id减少结果集。</p>
+</li>
+<li>
+<p>2.在该需求中采用了不合适的技术方案，其实这一操作，有更好的方式去实现，并不应该在扫表发现问题后再去做这一件事。</p>
+</li>
+</ul>
+<p>后面临时的解决方式是，增加了联合索引，在现阶段还是能用一下的，等结构优化后，再使用新方式。</p>
+<p>上周还干了一件大事，用一条sql把holo给打挂了,我们的数据库会有一部分同步到hologres，这时候，我们就可以很轻松的到metabase去查看这部分数据，兼容pgsql，减少因查数据给从库带来压力，而且查询的速度极快，这让我有点肆无忌惮了，各种比较垃圾的sql，从不考虑它的性能，直接用上，展示一部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">with</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">orderitemid</span><span class="p">,</span><span class="n">itemid</span><span class="p">,</span><span class="n">skuid</span><span class="p">,</span><span class="n">itemname</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="n">colorname</span><span class="p">,</span><span class="n">sizename</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">skuname</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">order_item_version</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">bbtbrandname</span><span class="o">=</span><span class="s1">&#39;happy nocnoc&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">b</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">orderid</span><span class="p">,</span><span class="n">ordertype</span><span class="p">,</span><span class="n">stepstatus</span><span class="p">,</span><span class="n">createtime</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bbt_order</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">stepstatus</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">ordertype</span><span class="o">=</span><span class="mi">25</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">createtime</span><span class="o">&gt;</span><span class="s1">&#39;2021-10-01 00:00:46&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">c</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">orderitemid</span><span class="p">,</span><span class="n">orderid</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">order_item</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">createtime</span><span class="o">&gt;</span><span class="s1">&#39;2021-10-01 00:00:46&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">d</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">itemid</span><span class="p">,</span><span class="n">skuid</span><span class="p">,</span><span class="n">barcode</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">supplier_sku_extra_barcode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">barcode</span><span class="p">,</span><span class="k">min</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">itemname</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">itemname</span><span class="p">,</span><span class="k">min</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">skuname</span><span class="p">),</span><span class="k">count</span><span class="p">(</span><span class="n">barcode</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="k">c</span><span class="p">,</span><span class="n">d</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">orderitemid</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">orderitemid</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">orderid</span><span class="o">=</span><span class="k">c</span><span class="p">.</span><span class="n">orderid</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">itemid</span><span class="o">=</span><span class="n">d</span><span class="p">.</span><span class="n">itemid</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">skuid</span><span class="o">=</span><span class="n">d</span><span class="p">.</span><span class="n">skuid</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">barcode</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">with</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">json_array_elements</span><span class="p">(</span><span class="n">jdp_response</span><span class="p">::</span><span class="n">json</span><span class="o">#&gt;</span><span class="s1">&#39;{item_get_response,item,skus,sku}&#39;</span><span class="p">)</span><span class="o">#&gt;&gt;</span><span class="s1">&#39;{outer_id}&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">barcode</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">third_item_tmall</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">tmallitemid</span><span class="o">=</span><span class="s1">&#39;641857610892&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">b</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">barcode</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">supplier_sku_extra_barcode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">barcode</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>当运维大佬发现holo挂的时候，找了很久没有找到问题所在，后来直接去找sql，然后我这两条就直接晾在了大群里，供大家观赏，就很尬。回归到技术本身，第一条sql，实际上有些临时表是不需要的，会多消耗些不必要的资源，因为是holo就没有管。</p>
+<p>最low的是下面那条sql，我猜导致holo挂掉的也是它，因为kill它之后，cpu就回复正常了，我not in结果集了，结果集有多大，200万条数据，典型的没吃过亏啊，记得之前有同事踩过not in的坑，但是那时我还不知道holo是什么，回归到sql语句上，not in那么大一个结果集，这也是极其愚蠢的。</p>
+<p>我把它当成了累不死的牛，可是按讲说，它那么久没查出来结果，不应该终止这次查询吗？而且我也只运行了几次，这次风波却持续了1小时18分，据他们说holo如果这次查询失败，后面会自动再去查询，这我是不信的，上网查找相关的知识，没发现，我能理解的是，这条sql就一直hang在那，一直在运行，直到查询到结果为止。</p>
+<p>对陌生事物保持敬畏。</p>
+<p>再来聊聊生活吧，今天交了4个月暖气费，1600元，可真贵啊，按照地区暖气收费标准，这也是及其不合理的，无形之中，多了一笔较大的开销，可是还有一个月房租压在房东那，也不能做些什么。</p>
+<p>连续带了两周的饭，生活才慢慢有了样子，起得早不一定会很累，做做饭，还是挺有趣的。</p>
+<p>离开家，离开学校，人生孤独是常态。为了家，为了生活，为了追求自己想要的，我拼尽全力，光鲜亮丽也好，一身灰也罢，会犯错，会认识自己，会幻想破灭，会成长。</p>
+<p>接下来，还得继续努力工作，还要加油。还得从生活中再多了解一下自己，接纳自己，继续成长。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%97%A5%E8%AE%B0/">日记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            Last updated on Oct 31, 2021 12:00 UTC
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

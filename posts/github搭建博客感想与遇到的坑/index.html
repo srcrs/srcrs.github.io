@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 世上本没有路，走的人多了，也便成了路。世上还有很多美好的地方，从未踏足，当你选择，抬起右脚的时候，黑暗中，却不知前方是深坑还是平地，硬着头皮踩吧，大不了从头再来。 ::: # 过程 从上周六开始，就在弄这个东西，每天都会去实现一些东西，一路上，虽然走了很多的弯路，但是，现在我的心里还是很高兴的，一步步hexo框架，本地与github相连接，添加一些小功能，换主题，改背景，持续集成CI。。。。一幕幕，说起来都是泪啊，有时候，为了一个很小的问题，我都要去花费很长时间才能解决掉，掉进坑去，再爬起来，掉进坑去，再爬起来。所幸的是，也算是有了一个结果。 # 遇到的一些坑 我是用hexo框架来做的 # 先就拿本地与github相连接来说吧 好多教程上根目录配置文件都是这样的 1 2 3 4 5 deploy: type: git repository: git@github.com:xxx/xxx.github.io.git branch: master xxx代表用户名 是可以不需要密码就可以相互连接的，但是到我这，不行，起初我还不知道ssh有何用啊，就一直以为是ssh的问题，结果就是怎么着也不行，最后改成了这样的才行 1 2 3 4 5 deploy: type: git repository: https://github.com/xxx/xxx.github.io.git branch: master xxx代表用户名 结果一下子就成功了，唉，现在想想，当时是真的傻啊。 # 还有就是添加小功能了 比方说，点击有小爱心了，按照教程完完整整的执行，hexo s一下，怀着兴奋的心情本地一打开，我点点点，啥也没有啊，再刷新一下，还是没有，最后好像不知道是文件放的位置有问题还是js文件已经失效了，最后又弄了好长时间才弄好 # next主题动态背景问题 平常我们见到的都是一动不动的背景，更多的是看网页中的一些内容，突然看见别人有个动态背景的博客，觉得好羡慕啊，自己也要弄一个，怀着这样的心情，就去做了，看了好多网上的都是老版的next主题，与现在的v7版本，有了一些改变，结果就是各种的出错，看了好多都是这样的 1 canvas_nest: true 让把canvas_next后面添加一个true，结果添加上去就开始报错 现在已经变成了这样 1 2 3 4 5 6 7 canvas_nest: enable: true onmobile: true # display on mobile or not color: &#34;0,0,255&#34; # RGB values, use &#39;,&#39; to separate opacity: 0.">
+<title>github搭建博客感想与遇到的坑</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%84%9F%E6%83%B3%E4%B8%8E%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="github搭建博客感想与遇到的坑">
+<meta property='og:description' content=":::tip 世上本没有路，走的人多了，也便成了路。世上还有很多美好的地方，从未踏足，当你选择，抬起右脚的时候，黑暗中，却不知前方是深坑还是平地，硬着头皮踩吧，大不了从头再来。 ::: # 过程 从上周六开始，就在弄这个东西，每天都会去实现一些东西，一路上，虽然走了很多的弯路，但是，现在我的心里还是很高兴的，一步步hexo框架，本地与github相连接，添加一些小功能，换主题，改背景，持续集成CI。。。。一幕幕，说起来都是泪啊，有时候，为了一个很小的问题，我都要去花费很长时间才能解决掉，掉进坑去，再爬起来，掉进坑去，再爬起来。所幸的是，也算是有了一个结果。 # 遇到的一些坑 我是用hexo框架来做的 # 先就拿本地与github相连接来说吧 好多教程上根目录配置文件都是这样的 1 2 3 4 5 deploy: type: git repository: git@github.com:xxx/xxx.github.io.git branch: master xxx代表用户名 是可以不需要密码就可以相互连接的，但是到我这，不行，起初我还不知道ssh有何用啊，就一直以为是ssh的问题，结果就是怎么着也不行，最后改成了这样的才行 1 2 3 4 5 deploy: type: git repository: https://github.com/xxx/xxx.github.io.git branch: master xxx代表用户名 结果一下子就成功了，唉，现在想想，当时是真的傻啊。 # 还有就是添加小功能了 比方说，点击有小爱心了，按照教程完完整整的执行，hexo s一下，怀着兴奋的心情本地一打开，我点点点，啥也没有啊，再刷新一下，还是没有，最后好像不知道是文件放的位置有问题还是js文件已经失效了，最后又弄了好长时间才弄好 # next主题动态背景问题 平常我们见到的都是一动不动的背景，更多的是看网页中的一些内容，突然看见别人有个动态背景的博客，觉得好羡慕啊，自己也要弄一个，怀着这样的心情，就去做了，看了好多网上的都是老版的next主题，与现在的v7版本，有了一些改变，结果就是各种的出错，看了好多都是这样的 1 canvas_nest: true 让把canvas_next后面添加一个true，结果添加上去就开始报错 现在已经变成了这样 1 2 3 4 5 6 7 canvas_nest: enable: true onmobile: true # display on mobile or not color: &#34;0,0,255&#34; # RGB values, use &#39;,&#39; to separate opacity: 0.">
+<meta property='og:url' content='https://blog.lass.cc/posts/github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%84%9F%E6%83%B3%E4%B8%8E%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='感悟' /><meta property='article:published_time' content='2019-05-16T19:44:13&#43;00:00'/><meta property='article:modified_time' content='2019-05-16T19:44:13&#43;00:00'/>
+<meta name="twitter:title" content="github搭建博客感想与遇到的坑">
+<meta name="twitter:description" content=":::tip 世上本没有路，走的人多了，也便成了路。世上还有很多美好的地方，从未踏足，当你选择，抬起右脚的时候，黑暗中，却不知前方是深坑还是平地，硬着头皮踩吧，大不了从头再来。 ::: # 过程 从上周六开始，就在弄这个东西，每天都会去实现一些东西，一路上，虽然走了很多的弯路，但是，现在我的心里还是很高兴的，一步步hexo框架，本地与github相连接，添加一些小功能，换主题，改背景，持续集成CI。。。。一幕幕，说起来都是泪啊，有时候，为了一个很小的问题，我都要去花费很长时间才能解决掉，掉进坑去，再爬起来，掉进坑去，再爬起来。所幸的是，也算是有了一个结果。 # 遇到的一些坑 我是用hexo框架来做的 # 先就拿本地与github相连接来说吧 好多教程上根目录配置文件都是这样的 1 2 3 4 5 deploy: type: git repository: git@github.com:xxx/xxx.github.io.git branch: master xxx代表用户名 是可以不需要密码就可以相互连接的，但是到我这，不行，起初我还不知道ssh有何用啊，就一直以为是ssh的问题，结果就是怎么着也不行，最后改成了这样的才行 1 2 3 4 5 deploy: type: git repository: https://github.com/xxx/xxx.github.io.git branch: master xxx代表用户名 结果一下子就成功了，唉，现在想想，当时是真的傻啊。 # 还有就是添加小功能了 比方说，点击有小爱心了，按照教程完完整整的执行，hexo s一下，怀着兴奋的心情本地一打开，我点点点，啥也没有啊，再刷新一下，还是没有，最后好像不知道是文件放的位置有问题还是js文件已经失效了，最后又弄了好长时间才弄好 # next主题动态背景问题 平常我们见到的都是一动不动的背景，更多的是看网页中的一些内容，突然看见别人有个动态背景的博客，觉得好羡慕啊，自己也要弄一个，怀着这样的心情，就去做了，看了好多网上的都是老版的next主题，与现在的v7版本，有了一些改变，结果就是各种的出错，看了好多都是这样的 1 canvas_nest: true 让把canvas_next后面添加一个true，结果添加上去就开始报错 现在已经变成了这样 1 2 3 4 5 6 7 canvas_nest: enable: true onmobile: true # display on mobile or not color: &#34;0,0,255&#34; # RGB values, use &#39;,&#39; to separate opacity: 0.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#过程">过程</a></li>
+    <li><a href="#遇到的一些坑">遇到的一些坑</a>
+      <ol>
+        <li><a href="#先就拿本地与github相连接来说吧">先就拿本地与github相连接来说吧</a></li>
+        <li><a href="#还有就是添加小功能了">还有就是添加小功能了</a></li>
+        <li><a href="#next主题动态背景问题">next主题动态背景问题</a></li>
+        <li><a href="#源文件保存问题">源文件保存问题</a>
+          <ol>
+            <li><a href="#上传到github上next文件中是空的">上传到github上next文件中是空的</a></li>
+            <li><a href="#动态效果没了">动态效果没了</a></li>
+          </ol>
+        </li>
+        <li><a href="#接下来在说说持续集成ci">接下来在说说持续集成CI</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%84%9F%E6%83%B3%E4%B8%8E%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">github搭建博客感想与遇到的坑</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 16, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+世上本没有路，走的人多了，也便成了路。世上还有很多美好的地方，从未踏足，当你选择，抬起右脚的时候，黑暗中，却不知前方是深坑还是平地，硬着头皮踩吧，大不了从头再来。
+:::</p>
+<!-- raw HTML omitted -->
+<h2 id="过程">
+    <a href="#%e8%bf%87%e7%a8%8b" class="header-anchor">#</a>
+    过程
+</h2><p>从上周六开始，就在弄这个东西，每天都会去实现一些东西，一路上，虽然走了很多的弯路，但是，现在我的心里还是很高兴的，一步步hexo框架，本地与github相连接，添加一些小功能，换主题，改背景，持续集成CI。。。。一幕幕，说起来都是泪啊，有时候，为了一个很小的问题，我都要去花费很长时间才能解决掉，掉进坑去，再爬起来，掉进坑去，再爬起来。所幸的是，也算是有了一个结果。</p>
+<h2 id="遇到的一些坑">
+    <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e4%b8%80%e4%ba%9b%e5%9d%91" class="header-anchor">#</a>
+    遇到的一些坑
+</h2><p>我是用hexo框架来做的</p>
+<h3 id="先就拿本地与github相连接来说吧">
+    <a href="#%e5%85%88%e5%b0%b1%e6%8b%bf%e6%9c%ac%e5%9c%b0%e4%b8%8egithub%e7%9b%b8%e8%bf%9e%e6%8e%a5%e6%9d%a5%e8%af%b4%e5%90%a7" class="header-anchor">#</a>
+    先就拿本地与github相连接来说吧
+</h3><p>好多教程上根目录配置文件都是这样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">git@github.com:xxx/xxx.github.io.git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">xxx代表用户名</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>是可以不需要密码就可以相互连接的，但是到我这，不行，起初我还不知道ssh有何用啊，就一直以为是ssh的问题，结果就是怎么着也不行，最后改成了这样的才行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com/xxx/xxx.github.io.git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">xxx代表用户名</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果一下子就成功了，唉，现在想想，当时是真的傻啊。</p>
+<h3 id="还有就是添加小功能了">
+    <a href="#%e8%bf%98%e6%9c%89%e5%b0%b1%e6%98%af%e6%b7%bb%e5%8a%a0%e5%b0%8f%e5%8a%9f%e8%83%bd%e4%ba%86" class="header-anchor">#</a>
+    还有就是添加小功能了
+</h3><p>比方说，点击有小爱心了，按照教程完完整整的执行，<code>hexo s</code>一下，怀着兴奋的心情本地一打开，我点点点，啥也没有啊，再刷新一下，还是没有，最后好像不知道是文件放的位置有问题还是js文件已经失效了，最后又弄了好长时间才弄好</p>
+<h3 id="next主题动态背景问题">
+    <a href="#next%e4%b8%bb%e9%a2%98%e5%8a%a8%e6%80%81%e8%83%8c%e6%99%af%e9%97%ae%e9%a2%98" class="header-anchor">#</a>
+    next主题动态背景问题
+</h3><p>平常我们见到的都是一动不动的背景，更多的是看网页中的一些内容，突然看见别人有个动态背景的博客，觉得好羡慕啊，自己也要弄一个，怀着这样的心情，就去做了，看了好多网上的都是老版的next主题，与现在的v7版本，有了一些改变，结果就是各种的出错，看了好多都是这样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">canvas_nest</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>让把canvas_next后面添加一个true，结果添加上去就开始报错
+现在已经变成了这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">canvas_nest</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">onmobile</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># display on mobile or not</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0,0,255&#34;</span><span class="w"> </span><span class="c"># RGB values, use &#39;,&#39; to separate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">opacity: 0.5 # the opacity of line</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="l">~1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">zIndex</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w"> </span><span class="c"># z-index property of the background</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="m">99</span><span class="w"> </span><span class="c"># the number of lines</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要把enable后面改成true，但仅仅如此就可以实现动态背景吗？试一下，结果是不行的，我们要这样做</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">在_config.yml中有这么一段：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Dependencies: https://github.com/theme-next/theme-next-canvas-nest</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>说明要想实现，下要下载这个文件的，我们只需要执行以下命令即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">git clone https://github.com/theme-next/theme-next-canvas-nest source/lib/canvas-nest</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>next提供了四种动态背景，其他三种的使用方法大致相同</p>
+<h3 id="源文件保存问题">
+    <a href="#%e6%ba%90%e6%96%87%e4%bb%b6%e4%bf%9d%e5%ad%98%e9%97%ae%e9%a2%98" class="header-anchor">#</a>
+    源文件保存问题
+</h3><p>做完以上之后，我又想到了一个问题，我们的博客源文件不是一直在我们的电脑上，假如有一天，电脑不在身边或者坏了，那么我们该怎么办呢？对，我们要把代码备份起来，很多人的实现方式是在github上再添加一个分支，用于保存源代码。
+好，那我也去这么做吧，<code>git branch hexo</code>创建一个新分支hexo，<code>git checkout hexo</code>将指针指向hexo，<code>git add .</code>暂存所有文件，然后<code>git commit -m &quot;说明此次更改原因&quot;</code>将暂存区内容提交到本地版本库，最后<code>git push origin hexo</code>将所有文件提交到github上，好吧，传是传上去了，那么我拉下来还能不能用呢？
+首先要将hexo分支设置成主分支，<code>git clone github的地址</code>将github保存的源文件克隆下来，执行以下三条指令，<code>npm install hexo</code>,<code>npm install</code>,<code>npm install hexo-deployer-git</code>,这时候再在本地检查一下拉下来的源文件是否是否还是原来的样子，
+三条指令依次执行 <code>heox clean</code>,<code>hexo g</code>,<code>hexo s</code>,这时候本地服务器就已经搭建成功了，再打开一看，咦，我的动态背景消失了，这时候我就知道了，我掉坑
+去了，找了一天还是找我班一个大神解决的。</p>
+<h4 id="上传到github上next文件中是空的">
+    <a href="#%e4%b8%8a%e4%bc%a0%e5%88%b0github%e4%b8%8anext%e6%96%87%e4%bb%b6%e4%b8%ad%e6%98%af%e7%a9%ba%e7%9a%84" class="header-anchor">#</a>
+    上传到github上next文件中是空的
+</h4><p>这个问题是next文件中隐藏了一个<code>.git</code>文件，只要删除就好了</p>
+<h4 id="动态效果没了">
+    <a href="#%e5%8a%a8%e6%80%81%e6%95%88%e6%9e%9c%e6%b2%a1%e4%ba%86" class="header-anchor">#</a>
+    动态效果没了
+</h4><p>这个问题是lib中也会隐藏一个<code>.git</code>文件，下面是路径：根目录名\themes\next\source\lib\canvas-nest，<del>删除就好</del>，不不，还有另外一个问题，很重要，在上面花了很长的时间，<code>.gitignore</code>这个文件里面配置的是，在上传过程中哪些文件需要忽略掉，哪些文件很重要，动态效果没了，就是由这两个问题产生的，这个文件的路径是：根目录名\themes\next，这个是next主题，所以就是next，将里面配置文件保存成如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">.DS_Store</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">.idea/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">*.log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">*.iml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">yarn.lock</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">package-lock.json</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">node_modules/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>其实就是将下面的一大块都删除掉，这时候，我再上传代码到hexo分支时，发现我的动态文件就不会消失了</p>
+<h3 id="接下来在说说持续集成ci">
+    <a href="#%e6%8e%a5%e4%b8%8b%e6%9d%a5%e5%9c%a8%e8%af%b4%e8%af%b4%e6%8c%81%e7%bb%ad%e9%9b%86%e6%88%90ci" class="header-anchor">#</a>
+    接下来在说说持续集成CI
+</h3><p>听到这个名字是不是感觉很高大上，事实上它所实现的，也很能方便我们日常使用博客。假如没有这个东西，我们每次写我们写完博客要怎么操作呢？假如现在是在master分支，好，我现在要使用三条指令将文章更新到github的master分支中，分别是<code>hexo clean</code>,<code>hexo g</code>,<code>hexo d</code>;接下来我还要更新我的hexo源代码分支，需要四条指令<code>git checkout hexo</code>,<code>git add .</code>,<code>git commit -m &quot;更新&quot;</code>,<code>git push origin hexo</code>,整整需要7条指令，那么我们用持续集成CI需要几条呢？3条就够了，<code>git add .</code>,<code>git commit -m &quot;更新&quot;</code>,<code>git push origin hexo</code>，让我们更新博客变得更加的简单了，有了更多的时间花费在如何写博客上，而不是去敲打命令，给大家提供一个网址，那上面讲的持续集成CI还不错，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">https://easyhexo.com/1-Hexo-install-and-config/1-5-continuous-integration.html#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%EF%BC%9F</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行 <code>hexo</code> 时 <code>-bash: hexo: command not found</code> 出现这样的命令怎么办？
+这是环境变量所导致的。
+在你的博客根目录中找到如下类似目录并复制下来E:\github\srcrs.github.io\node_modules\hexo\bin
+打开控制面板\系统和安全\系统\高级系统设置\环境变量
+在xxx的用户变量下和系统变量下
+对path变量进行编辑，新建，将刚才复制的路径添加进去。
+然后再重新bash就可以解决了</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%84%9F%E6%82%9F/">感悟</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
