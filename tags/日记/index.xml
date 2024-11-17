@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>日记 on srcrs</title>
+        <link>https://blog.lass.cc/tags/%E6%97%A5%E8%AE%B0/</link>
+        <description>Recent content in 日记 on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%97%A5%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>你患得患失，太在意从前</title>
+        <link>https://blog.lass.cc/posts/%E4%BD%A0%E6%82%A3%E5%BE%97%E6%82%A3%E5%A4%B1%E5%A4%AA%E5%9C%A8%E6%84%8F%E4%BB%8E%E5%89%8D/</link>
+        <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E4%BD%A0%E6%82%A3%E5%BE%97%E6%82%A3%E5%A4%B1%E5%A4%AA%E5%9C%A8%E6%84%8F%E4%BB%8E%E5%89%8D/</guid>
+        <description>&lt;p&gt;早晨上班，人挤人，窥屏看到在发“能力不行被裁了”，我没想到这一天这么快发生在我身上，虽然我很想逃离现在的生活。&lt;/p&gt;
+&lt;p&gt;上个月11号通知的，目前还是没有找到合适的工作，准确的说上周才开始投简历，去面了一家公司，发生自己准备的极其不充分，问到的知识点不知道该从何说起。&lt;/p&gt;
+&lt;p&gt;“和我们聊聊MySQL吧”
+“&amp;hellip;MySQL是一个关系型数据库”&lt;/p&gt;
+&lt;p&gt;“为什么想从PHP转到Go”
+“&amp;hellip;Go比较简单，年轻”&lt;/p&gt;
+&lt;p&gt;放假这几天用Go写了一些东西，遇到不会的就去查，如 json string map 之间的互转，发送网络请求等，总体感觉下来，Go处理数据要比PHP复杂些，弱类型拿来
+不管三七二十一就用，但在代码规范程度上，Go要好上不少，自动检查包、变量是否有使用，自动格式化代码，用起来还是很好的。&lt;/p&gt;
+&lt;p&gt;越是临近Last Day心里越是焦虑，今天看到同时被裁的同事在朋友圈发 “毕业”快乐^_^ 我大概是发不出来吧。&lt;/p&gt;
+&lt;p&gt;自从来到售后组这边，基本上小半天要去处理线上问题，其余的时间可以沟通、开发、学习，琐琐碎碎的一些事情，很打乱节奏，自己又分不清优先级，天天就是瞎忙，
+在当前公司一年多时间，这是我第一份IT工作，从实习到转正，其实我一直都挺怀疑自己的，交给我的事情，没有往下推进的方向，导致迟迟进行不下去。每天时间也过的很快，
+很累，又不出活。&lt;/p&gt;
+&lt;p&gt;干的活不少，但没有一样是你的。让人看到，也是学问。&lt;/p&gt;
+&lt;p&gt;要开始新一段旅程了，这生活一年多未有太大变化，我什么都没有，连女朋友也没有，也许这并不是坏事。生活压力也没有。回想刚开始工作那段时间，导师还经常和我说，没事要多学点、看点东西，
+起初在看，后来这些时间都用来了工作，毫不起眼的工作，造成了今天这个结果，也是自己没有坚持的恶果。&lt;/p&gt;
+&lt;p&gt;打工人永远都要记住，自我成长要放在首位。&lt;/p&gt;
+&lt;p&gt;最后送自己一句话&lt;/p&gt;
+&lt;p&gt;你患得患失，太在意从前，又要担心将来，有句说的好，昨天是段历史，明天是个谜团，而今天是天赐的礼物像珍惜礼物一样珍惜今天。我们要好好把握今天，因为我们没有任何一个人能够知道，我们是否真的能够拥有昨天，也不要为了过去而后悔，因为后悔也是没有任何意义的。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>2022年终总结</title>
+        <link>https://blog.lass.cc/posts/2022/</link>
+        <pubDate>Mon, 31 Jan 2022 12:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/2022/</guid>
+        <description>&lt;p&gt;今年即将过去了，明天就是2021年农历的最后一天，回到家也有好几天了，看看身边亲人过去一年的变化，庆幸，无一缺席。&lt;/p&gt;
+&lt;p&gt;说是年终总结，也没有具体的规划，想到什么就写什么吧。&lt;/p&gt;
+&lt;p&gt;现在是夜晚10:44分，在北京，也许我正在吃饭的吧。回到家感觉轻松了不少，没有了工作的那些烦恼。&lt;/p&gt;
+&lt;p&gt;2021年3月春分前后去北京找工作，一夜，火车到了北京西站，我再次来到了这个城市。记忆中的地铁票价是2元，早已一去不复返。跟着手机导航几经周转，到达了我父亲在北京的住处，从记忆里台湖到现在北京与河北的边界，十几年，这个城市发生了太多变化。&lt;/p&gt;
+&lt;p&gt;在父亲这边安顿好后，就开始在网上找实习工作，投出的简历也有不少，但其实能够约面试是少数的，专业知识基础薄弱，表达能力差，也碰了很多壁，倒是之前做的一款小工具给我带来了一些机会。&lt;/p&gt;
+&lt;p&gt;记得初次去望京那边找工作，一共是有两场，上午面试完，中午就没回去，等待着下午的面试，中午也没有去吃饭，就找个了空地等着，回想上午的面试，望着穿梭的人群，没有人会停留在原地。&lt;/p&gt;
+&lt;p&gt;机缘巧合之下，来到了现在这家公司实习、转正，非常感谢XHG对我的帮助。&lt;/p&gt;
+&lt;p&gt;实习找好之后，自己去顺义那边，租了850块一个月的房子，在租房这方面也踩了不少的坑，花了些钱，买了些教训（租金、押金、暖气费等）。一天的通勤时间要两个小时，最期待的是地铁能有一个站的位置（不敢奢求有座位），后面在薪水涨了一些之后，就搬到了离公司近一点的地方，通勤时间降到了1个小时，整个人舒服了很多。&lt;/p&gt;
+&lt;p&gt;实习的日子，开始还是比较有激情的，第一次实习，有很多需要学习的东西，无论是做人还是做事，我还差很多，在一些事情上做的很不好。&lt;/p&gt;
+&lt;p&gt;2021年4月底回到了学校，修改毕业论文，处理毕业相关的一些事情。毕业答辩，时间仓促，很多东西都是走一走过场，临别前夕，我们一起吃了最后一顿饭，带上最真诚的祝福，我的学生生涯结束了。&lt;/p&gt;
+&lt;p&gt;2021年5月上旬，学校事情也差不多了，我和LL、LY一起奔向了北京，借着第一次的经验，我们当天找到了房，安顿了下来，我仍在现在的公司实习，他俩也在找工作，我不再是一个人。&lt;/p&gt;
+&lt;p&gt;不知道为什么，我在现在的公司一直提不起自信心，与人交往也稍显别扭，我一直觉得我应该去看一看心理医生。&lt;/p&gt;
+&lt;p&gt;工作上，做了几个月的项目被砍掉，又得从头接触不熟悉的一套东西，而那段时间，是我永远的噩梦，行尸走肉一个月，没日没夜，不知疲倦。&lt;/p&gt;
+&lt;p&gt;十一假期前夕，我再次根许久没联系的女孩，互动多了起来，对她的印象，依然停留在过去某一刻。假期，我们见了面，我幻想中的一天得以实现，很高兴，当然，走的时候也很惨，我哭了一路，我知道，再也没有机会了，幻想破灭了，结束了。&lt;/p&gt;
+&lt;p&gt;未尝不是一个新的开始。&lt;/p&gt;
+&lt;p&gt;我想再讲讲这次回家的感受。疫情原因，从外地回来需要报备，里面工作人员的一句话让我破防了，“从哪里打工回来的？”，有点难受，但也是事实，也让我清醒了些，就算是敲代码的，也是一个打工的。&lt;/p&gt;
+&lt;p&gt;过去的小朋友，一下子就大了，想想自己一惊，也是二十好几的年纪了，难怪。老家的变化相对来说还是比较小的，依然是那条街道，人很多。&lt;/p&gt;
+&lt;p&gt;不要有了一些微许的进步，就觉得很了不起，一定要不忘初心，不把希望寄托在他人，永远记得父辈们受尽的苦头，让我可以享受知识带来的福利。&lt;/p&gt;
+&lt;p&gt;2021值得铭记，2022小朱同学仍然需要加油。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>突然明白的事</title>
+        <link>https://blog.lass.cc/posts/%E7%AA%81%E7%84%B6%E6%98%8E%E7%99%BD%E7%9A%84%E4%BA%8B/</link>
+        <pubDate>Sun, 21 Nov 2021 12:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E7%AA%81%E7%84%B6%E6%98%8E%E7%99%BD%E7%9A%84%E4%BA%8B/</guid>
+        <description>&lt;p&gt;双十一过去了，每周六加班也意味着要结束了，这期间也没感觉到咋累，可能一个人无所挂念，无所事事，一心放在工作上，只是有时候心情不好的时候，会有累的感觉。&lt;/p&gt;
+&lt;p&gt;小帅来北京出差已有十来天了，上周末我们一起聚了一下，游玩故宫，老杨带着他女朋友，小帅带着他同事，我和老刘一块，六人成行。早晨急急忙忙的，把他们都给先坑去了，结果我们是最后才到的。&lt;/p&gt;
+&lt;p&gt;过去只是在午门外面转悠过，没有到里面去，觉得里面挺震撼的，宫殿拔地而起，白色的阶梯很有层次感，中轴线两侧左右对称，很美。和小帅的同事、老杨女朋友都是第一次见面，但是却并没有觉得很尴尬，两个人都是比较放得开的。&lt;/p&gt;
+&lt;p&gt;逛到皇宫后面，知道了什么叫做深宫，建筑明显拥挤了不少，阳光也少了很多，很是憋得慌。高高的墙，像笼子一样将人圈在里面。&lt;/p&gt;
+&lt;p&gt;我其实原本还想再逛一会儿的，但是有几位早上没吃饭肚子饿了，就去吃饭了，这也是游玩我不喜欢和很多人一起的原因，不能够随心所欲的想如何如何。六个人，人均一百，消费到不算高，估计大家也没咋吃饱^_^，五个大老爷们，再来几盘肉也能干完了，想想最后懒得再点了，在这没必要逞强多扔钱在这。本来很久之前就想请几个朋友一块吃吃饭的，趁此机会把帐结了，总觉这次事办的不太漂亮。&lt;/p&gt;
+&lt;p&gt;吃完饭我们就和小帅分开了。今天任务之一是去天安门广场拍个照，起因是表姐发给我的一张照片，小小的我站在广场上，背景是天安门城楼，我不知道那时候几岁，依稀记得我去过，时至今日，我再次有幸来到北京生活工作，我希望能够再在那个位置照一张像，继续我下一阶段的生活。上午太过匆忙没有去，下午老杨、老刘想给我圆这样一个梦，我们又往天安门方向走，找到了大致的位置，再次定格这瞬间，我想下一次，大概是我要离开北京的时候了。&lt;/p&gt;
+&lt;p&gt;老杨新买的耳机有点小毛病，我们接下来又去了苹果店，看新产品，顺带解决耳机的问题。直到现在也没有自己的电脑，来北京都没有带电脑过来，就来仔细看了新的mac pro，其实我的同事就有第一批买新mac pro的，但是不好意思去把玩别人的新东西，只是看了几眼还没有摸过。这次摸了个够。价格让我与它有了距离。&lt;/p&gt;
+&lt;p&gt;天黑了，一天也逛累了，老杨女朋友请我们吃冰淇淋，有十块喝四块两种，我问了下老杨点的是哪个，我也不敢点太贵的，统一即可，得知是十块的，我也就点了个十块的，最后做好之后，我发现她女朋友点的是四块的，我们仨点的都是十块的，我看了好多眼，顿时就不好意思起来，迟迟不想下口吃，也真觉得老杨真是好福气，找到这么好的女孩，懂事。&lt;/p&gt;
+&lt;p&gt;她性格很好，自来熟，虽然只有她一个女生，我们在一起玩也不算尴尬。她偶尔一句老叫交的我很是不好意思，不知道当时啥表情，我突然明白了，这不就是我想找的类型？带我这个衰仔变得阳光起来。&lt;/p&gt;
+&lt;p&gt;时：2021.11.14日&lt;/p&gt;
+&lt;p&gt;这周和老刘去爬长城了，路途不是很顺利，长城距离北京城区这边太远了，我们攻略也做的不足，导致等市郊铁路的时间花费了几个小时，它每天只有那么固定时刻几趟，其他的就跟地铁差不多，刷一卡通就行。&lt;/p&gt;
+&lt;p&gt;感觉开发的很好，建筑也很宏伟，随山体绵延而上，不到一个小时，我们就爬上了北八楼，这里就是最高的，也叫做好汉坡，听一个在这工作的大叔说，这些很多都修复过，古时候是没有水泥的，顿时觉得都是假的^_^，可仔细一想，大概真的也不会像现在看到的这般雄伟。&lt;/p&gt;
+&lt;p&gt;看到有很多带着老人和小孩一起过来玩的，可真让我羡慕，啥时候我也能这样啊，带爸妈一起旅游，期待。&lt;/p&gt;
+&lt;p&gt;魔鬼九月，我不知道那段时间是怎么过来的，只知道那是我最难的时候。其实现在看来所接触的那些东西，并没有什么难的。像小时候从加减法到乘除法，那些所谓的困难、难以理解的东西，终会随着时间慢慢明白，噢，原来如此，当然，这也是要付出一些精力的。&lt;/p&gt;
+&lt;p&gt;熬了过来，我觉得自己成长了，这是好的事，我渐渐接受了自己。我仍堪忧未来，成长受限缓慢，期待明天更好。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>好累啊</title>
+        <link>https://blog.lass.cc/posts/%E5%A5%BD%E7%B4%AF%E5%95%8A/</link>
+        <pubDate>Fri, 05 Nov 2021 12:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E5%A5%BD%E7%B4%AF%E5%95%8A/</guid>
+        <description>&lt;p&gt;好累啊，今天，觉得一天没有干啥，就是很累。&lt;/p&gt;
+&lt;p&gt;听说要对接一个新的店铺，确实是昨天晚上就已经知道了，但是并没有什么动作，巧才才正式了一点。&lt;/p&gt;
+&lt;p&gt;加入到了，还是第一次对接了一个新朋友，虽然也待到了，但有哪些方式也不太清楚，但我的另一个人的好，外面的名字也很好，我们两个人来做气，我们是同届的，但我干活，就像我像个实习生。&lt;/p&gt;
+&lt;p&gt;他能想到很多方面，很细心，具体到对接一个新店铺我们有哪些事，如何把订单拉，推出点，后，库存，在哪，具体点在哪，合理的很清楚，我就傻了傻子的在旁边佩和着^_^，我需要学习的地方。&lt;/p&gt;
+&lt;p&gt;最近我也遇到了语言一个等级的问题（半天），却花了很多时间的寻找问题，最后大佬出马，找到了。返回一个无效的，在中能看到接口返回的，不明白为什么我没有通过结果获得的返回值。&lt;/p&gt;
+&lt;p&gt;处理过程如下： 1.代码12:53上线，13点发现问题，漏掉并重重。 2.发现问题又测了几单，发现问题没有现，和同事同步放题，小眯到15:00 3 . 问题在数据中，开始继续寻找线上，找到原因。 4. 将订单信息下线，试线下线，恢复错误，重新找回。 5. 删除添加代码消息， 6. 回头看上线代码，发现异常，查错7。大介入，线下问题复现，所以很可能遇到问题。&lt;/p&gt;
+&lt;p&gt;过头来想很多的无功，一直在重复那个那个那个人错误，却不能认为到底是部分出的问题，没有相应的低调试工具，导致问题效率极低，从一个考虑到xdebug，着工作效率。&lt;/p&gt;
+&lt;p&gt;bom，这就是这个错误产生的原因。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>犯错就是在成长么</title>
+        <link>https://blog.lass.cc/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/</link>
+        <pubDate>Sun, 31 Oct 2021 12:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/</guid>
+        <description>&lt;p&gt;一周又过去了，时间过的挺快的，这都已经10月底了，本来计划着这周去故宫逛一逛的，但是北京疫情形势严峻，就作罢了，那就聊聊工作上的事吧。&lt;/p&gt;
+&lt;p&gt;周一，learder又找我了，说我写的两个SQL已经在慢查里面排头两名了，自己去一分析，还真是，”limit 40000,50“速度很慢，应该是扫描了全表，我的场景是想使用两个索引当作条件，但是mysql的优化器选择的索引，在我看来并不是最优的那一个，导致了运行速度很慢，后来了解到联合索引，这正符合我所使用的场景，加上了之后，速度确实提升了很多。
+但这也只是针对结果集比较小的时候，当数量上万的时候，sql仍然会慢，总结有如下几个问题点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1.在建表的时候未使用自增索引，导致在查查全表的时候，不能用自增id减少结果集。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2.在该需求中采用了不合适的技术方案，其实这一操作，有更好的方式去实现，并不应该在扫表发现问题后再去做这一件事。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后面临时的解决方式是，增加了联合索引，在现阶段还是能用一下的，等结构优化后，再使用新方式。&lt;/p&gt;
+&lt;p&gt;上周还干了一件大事，用一条sql把holo给打挂了,我们的数据库会有一部分同步到hologres，这时候，我们就可以很轻松的到metabase去查看这部分数据，兼容pgsql，减少因查数据给从库带来压力，而且查询的速度极快，这让我有点肆无忌惮了，各种比较垃圾的sql，从不考虑它的性能，直接用上，展示一部分&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;with&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderitemid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;skuid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;concat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colorname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sizename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;skuname&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;order_item_version&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bbtbrandname&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;happy nocnoc&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ordertype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stepstatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;createtime&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bbt_order&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stepstatus&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ordertype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;createtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;2021-10-01 00:00:46&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderitemid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;order_item&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;createtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;2021-10-01 00:00:46&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;skuid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;supplier_sku_extra_barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;skuname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderitemid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderitemid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;and&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;skuid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;skuid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;group&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;by&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;order&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;by&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;desc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;with&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json_array_elements&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;jdp_response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;#&amp;gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{item_get_response,item,skus,sku}&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;#&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{outer_id}&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;third_item_tmall&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmallitemid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;641857610892&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;supplier_sku_extra_barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;barcode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;not&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当运维大佬发现holo挂的时候，找了很久没有找到问题所在，后来直接去找sql，然后我这两条就直接晾在了大群里，供大家观赏，就很尬。回归到技术本身，第一条sql，实际上有些临时表是不需要的，会多消耗些不必要的资源，因为是holo就没有管。&lt;/p&gt;
+&lt;p&gt;最low的是下面那条sql，我猜导致holo挂掉的也是它，因为kill它之后，cpu就回复正常了，我not in结果集了，结果集有多大，200万条数据，典型的没吃过亏啊，记得之前有同事踩过not in的坑，但是那时我还不知道holo是什么，回归到sql语句上，not in那么大一个结果集，这也是极其愚蠢的。&lt;/p&gt;
+&lt;p&gt;我把它当成了累不死的牛，可是按讲说，它那么久没查出来结果，不应该终止这次查询吗？而且我也只运行了几次，这次风波却持续了1小时18分，据他们说holo如果这次查询失败，后面会自动再去查询，这我是不信的，上网查找相关的知识，没发现，我能理解的是，这条sql就一直hang在那，一直在运行，直到查询到结果为止。&lt;/p&gt;
+&lt;p&gt;对陌生事物保持敬畏。&lt;/p&gt;
+&lt;p&gt;再来聊聊生活吧，今天交了4个月暖气费，1600元，可真贵啊，按照地区暖气收费标准，这也是及其不合理的，无形之中，多了一笔较大的开销，可是还有一个月房租压在房东那，也不能做些什么。&lt;/p&gt;
+&lt;p&gt;连续带了两周的饭，生活才慢慢有了样子，起得早不一定会很累，做做饭，还是挺有趣的。&lt;/p&gt;
+&lt;p&gt;离开家，离开学校，人生孤独是常态。为了家，为了生活，为了追求自己想要的，我拼尽全力，光鲜亮丽也好，一身灰也罢，会犯错，会认识自己，会幻想破灭，会成长。&lt;/p&gt;
+&lt;p&gt;接下来，还得继续努力工作，还要加油。还得从生活中再多了解一下自己，接纳自己，继续成长。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>平凡一天的得与失</title>
+        <link>https://blog.lass.cc/posts/%E5%B9%B3%E5%87%A1%E4%B8%80%E5%A4%A9%E7%9A%84%E5%BE%97%E4%B8%8E%E5%A4%B1/</link>
+        <pubDate>Wed, 20 Oct 2021 12:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E5%B9%B3%E5%87%A1%E4%B8%80%E5%A4%A9%E7%9A%84%E5%BE%97%E4%B8%8E%E5%A4%B1/</guid>
+        <description>&lt;h2 id=&#34;生活&#34;&gt;
+    &lt;a href=&#34;#%e7%94%9f%e6%b4%bb&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    生活
+&lt;/h2&gt;&lt;p&gt;1.早上7:30闹钟响了没有及时起床。&lt;/p&gt;
+&lt;p&gt;2.早上十点有大促没有迟到。&lt;/p&gt;
+&lt;p&gt;3.带的饭忘了带勺子，去楼下烤冷面要了一个。&lt;/p&gt;
+&lt;h2 id=&#34;工作&#34;&gt;
+    &lt;a href=&#34;#%e5%b7%a5%e4%bd%9c&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    工作
+&lt;/h2&gt;&lt;p&gt;1.天猫消息服务突然不能用，查问题未发现对接有何异常，无法解决，已向天猫提交工单，未得到有效结果。根据已有监控，人工重放异常订单。后根据接口拿到售后单数据，判断是否异常，以此去重放，消除了这部分人工精力成本，今天已解决。&lt;/p&gt;
+&lt;p&gt;2.提供运营数据需求所需要的数据，由另一位同事转给我，简单问了下需求，但当时并未说的很明白，导致数据提供的有些偏差，后面需要求他们解释为什么需要这些数据，以及数据范围，并提供文字说明。&lt;/p&gt;
+&lt;p&gt;3.预售活动第一批订单已开始售卖，对应的库存还没想好怎么去做控制。由于大部分都是预售形式售卖，已在metabase中添加每日预售订单数量，预售定金，假设所有支付尾款总销售额，能够及时的看到数据统计。&lt;/p&gt;
+&lt;p&gt;4.售后订单分为售后和售中，售中是可AG自动退款的，但是售后是不可以的，我及时监控到了这类case，和相关负责人进行了反馈，可能他们也不太了解我所说的，我也没有即时输出自己的判断，在昨天这个策略就没有加上，其实这个策略是安全的，每天也有近一二十单，如果通过使用AG自动退款，就能减少一些人力了，今天已通知店长成功加上此策略。&lt;/p&gt;
+&lt;h2 id=&#34;感悟&#34;&gt;
+    &lt;a href=&#34;#%e6%84%9f%e6%82%9f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    感悟
+&lt;/h2&gt;&lt;p&gt;本次天猫消息的丢失，暴漏了售后流程中还存在着许多问题，流程过为单一，太过依靠天猫的订阅消息，导致其服务出现问题时，人工成本会很高，索性监控做的较完备，能够及时的看到漏掉的单子去解决掉。但同时也发现监控出现疏漏的地方，例如天猫退款单已关闭，但是在自有系统中未关闭，这部分没有监控起来，后续会补上这些。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>不好的一天</title>
+        <link>https://blog.lass.cc/posts/%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%80%E5%A4%A9/</link>
+        <pubDate>Mon, 18 Oct 2021 12:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%80%E5%A4%A9/</guid>
+        <description>&lt;p&gt;新的一周又开始了，倒霉的我得要瘸着去上班，周六还是好好的，晚上睡了一觉，不知道做了啥，脚趾头跟骨折了肿了似的，就这么瘸了。&lt;/p&gt;
+&lt;p&gt;第一次上班自己带了饭，突然不和小伙伴们一起去干饭，有点怪怪的，公司的微波炉挺好用的，起初还害怕不会用，中高温热了3分钟，还有一点点部分没有热透，下次要开到4分钟。自己带饭吃起来是真香，也多亏了老刘，但是我下班回来的又很晚，非常烦。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;靠着自己，也终于在这个月，把助学贷款都还完了，延期了两个月，掏了100块利息，也算是自己存下来的吧。这种感觉挺好的。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;熬过了那段最艰难的阶段，突然发现以前那些不能理解的，到真正经历过，才知道。未来加油。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

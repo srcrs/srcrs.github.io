@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>生活 on srcrs</title>
+        <link>https://blog.lass.cc/tags/%E7%94%9F%E6%B4%BB/</link>
+        <description>Recent content in 生活 on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Sat, 09 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>生活的本质</title>
+        <link>https://blog.lass.cc/posts/%E7%94%9F%E6%B4%BB%E7%9A%84%E6%9C%AC%E8%B4%A8/</link>
+        <pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E7%94%9F%E6%B4%BB%E7%9A%84%E6%9C%AC%E8%B4%A8/</guid>
+        <description>&lt;p&gt;1.成功只是一时的，失败却是主旋律，但是如何面对失败，却把人分成了不同的样子，有的人会被失败击垮，有的人能够不断的爬起来继续向前，我想真正的成熟，应该并不是追求完美，而是直面自己的缺憾，这才是生活的本质。&lt;/p&gt;
+&lt;p&gt;2.罗曼罗兰说过的，这个世上只有一种真正的英雄主义，那就是，认清生活的真相，并且仍然热爱它。&lt;/p&gt;
+&lt;p&gt;3.莫泊桑说过，生活可能不像你想象的那么好，但是，也不会你想象中的那么糟，人的脆弱和坚强，都超乎了自己的想象，有时候，可能脆弱的一句话就泪流满面，有时候，你发现自己咬着牙已经走了很长的路。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>为什么活着这么难</title>
+        <link>https://blog.lass.cc/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B4%BB%E7%9D%80%E8%BF%99%E4%B9%88%E9%9A%BE/</link>
+        <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B4%BB%E7%9D%80%E8%BF%99%E4%B9%88%E9%9A%BE/</guid>
+        <description>&lt;p&gt;过去几周，是一个噩梦。&lt;/p&gt;
+&lt;p&gt;闲来无事，打开了日历，中秋节临近，秋分临近，春分前后出家门，那是还是学生，对未来迷茫、憧憬，投简历、找工作，租房，回学校毕业答辩，喝酒，现在，每天与代码打着交道，这确是我曾向往的，遇到的困难也是真实的，索性一路运气好，有贵人相助，自己也挺了下来。&lt;/p&gt;
+&lt;p&gt;可自从转到了新的业务部门，一下子又回到了原来，mb状态持续之久，难以想象。每天就像是行死走肉，事情做不完，做不好，挨骂，失落，敏感，心态崩了，每天赶着最后一趟地铁，回家又不舍睡，直到两三点。别人都说，当你感觉到难的时候，那正是你进步最快的时候，可我却感觉这近一个月，收获不多。&lt;/p&gt;
+&lt;p&gt;新接触一个复杂的东西，还是没有自己的方法论，没有及时和领导交流自己的理解进度，就忙着去做东西了，结果呢就是，一塌糊涂。每天完全听不懂他们在说什么，也插不上嘴，不清楚导致这些问题的原因，当别人都在忙的热火朝天的时候，我无能为力。&lt;/p&gt;
+&lt;p&gt;周五，东西做不完，领导陪着做，直到下1点，暗暗打气，周末两天怎么着也要给它做完，两天进度为0，虽然也没闲着，但就是没做完，周日晚12点，领导发微信询问，其实很早就看到了这条消息，但是我无法回复，无法给一个交代，又干到凌晨两三点，终究是没扛住，睡了，第二天，带着无法描述的心情就去上班了，结果可想而知，谈话，以前只是偷偷的掉眼泪，我再绷不住了，我无法原谅自己，但经过这次谈话心里也好受了不少。&lt;/p&gt;
+&lt;p&gt;又重新开始，每天都发一遍日报、复盘，这也确实是我所欠缺的，像过去一样，开始时热情度高，但随着时间的推移，递减，内容减，文字简，质量减。&lt;/p&gt;
+&lt;p&gt;原本这周觉得比以往轻松了不少，但是周六晚上，突然爆出自己写的业务代码出现了bug，今天几乎又改了一天，总算是弄的差不多了，订单售后相关业务涉及到的问题比较多，总会遇到一些想不到的问题，随时都要去关注解决。&lt;/p&gt;
+&lt;p&gt;遇到事情比较多的时候就会手忙脚乱脚乱的，如果遇到线上问题，更是冷静不下来，以后要以平常心来对待这件事，不要那么慌，不要怕，从入口开始，一步步跟着代码走，直到找到问题的所在。&lt;/p&gt;
+&lt;p&gt;下一步，希望自己能完成下面几个目标&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;遇到bug不要慌，从入口开始一步步分析问题所在。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;做事情之前，先想好怎么做，需要查几个表，思路是什么，还有哪些不明白的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多和同事交流想法，对一件事情的理解。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

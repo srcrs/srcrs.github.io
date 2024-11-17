@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Other on srcrs</title>
+        <link>https://blog.lass.cc/categories/other/</link>
+        <description>Recent content in Other on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/categories/other/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>2024年下半年软件设计师</title>
+        <link>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</link>
+        <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</guid>
+        <description>&lt;h2 id=&#34;上午选择题&#34;&gt;
+    &lt;a href=&#34;#%e4%b8%8a%e5%8d%88%e9%80%89%e6%8b%a9%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    上午选择题
+&lt;/h2&gt;&lt;h3 id=&#34;web端口号&#34;&gt;
+    &lt;a href=&#34;#web%e7%ab%af%e5%8f%a3%e5%8f%b7&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    web端口号
+&lt;/h3&gt;&lt;p&gt;80&lt;/p&gt;
+&lt;h3 id=&#34;路径覆盖和环形复杂度&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e5%be%84%e8%a6%86%e7%9b%96%e5%92%8c%e7%8e%af%e5%bd%a2%e5%a4%8d%e6%9d%82%e5%ba%a6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    路径覆盖和环形复杂度
+&lt;/h3&gt;&lt;p&gt;4、4&lt;/p&gt;
+&lt;h3 id=&#34;十进制5844逻辑地址转换&#34;&gt;
+    &lt;a href=&#34;#%e5%8d%81%e8%bf%9b%e5%88%b65844%e9%80%bb%e8%be%91%e5%9c%b0%e5%9d%80%e8%bd%ac%e6%8d%a2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    十进制5844逻辑地址转换
+&lt;/h3&gt;&lt;p&gt;数字最大的那个&lt;/p&gt;
+&lt;h3 id=&#34;补码11111111的真值是&#34;&gt;
+    &lt;a href=&#34;#%e8%a1%a5%e7%a0%8111111111%e7%9a%84%e7%9c%9f%e5%80%bc%e6%98%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    补码11111111的真值是
+&lt;/h3&gt;&lt;p&gt;-1&lt;/p&gt;
+&lt;h3 id=&#34;磁道序列&#34;&gt;
+    &lt;a href=&#34;#%e7%a3%81%e9%81%93%e5%ba%8f%e5%88%97&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    磁道序列
+&lt;/h3&gt;&lt;p&gt;暂无&lt;/p&gt;
+&lt;h3 id=&#34;python代码的输出结果为&#34;&gt;
+    &lt;a href=&#34;#python%e4%bb%a3%e7%a0%81%e7%9a%84%e8%be%93%e5%87%ba%e7%bb%93%e6%9e%9c%e4%b8%ba&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    python代码的输出结果为
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;arr = [a * a for a in range(5) if a % 2 != 0]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;print(arr)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[1, 9]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;python程序以下哪个语句有误&#34;&gt;
+    &lt;a href=&#34;#python%e7%a8%8b%e5%ba%8f%e4%bb%a5%e4%b8%8b%e5%93%aa%e4%b8%aa%e8%af%ad%e5%8f%a5%e6%9c%89%e8%af%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    python程序以下哪个语句有误
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;del dict[1]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;以下哪个算法是稳定排序&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%a5%e4%b8%8b%e5%93%aa%e4%b8%aa%e7%ae%97%e6%b3%95%e6%98%af%e7%a8%b3%e5%ae%9a%e6%8e%92%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    以下哪个算法是稳定排序
+&lt;/h3&gt;&lt;p&gt;归并排序&lt;/p&gt;
+&lt;h3 id=&#34;非联通28条弧最少有多少个节点&#34;&gt;
+    &lt;a href=&#34;#%e9%9d%9e%e8%81%94%e9%80%9a28%e6%9d%a1%e5%bc%a7%e6%9c%80%e5%b0%91%e6%9c%89%e5%a4%9a%e5%b0%91%e4%b8%aa%e8%8a%82%e7%82%b9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    非联通，28条弧，最少有多少个节点
+&lt;/h3&gt;&lt;p&gt;9&lt;/p&gt;
+&lt;h3 id=&#34;1000个数取前10个用什么排序最快&#34;&gt;
+    &lt;a href=&#34;#1000%e4%b8%aa%e6%95%b0%e5%8f%96%e5%89%8d10%e4%b8%aa%e7%94%a8%e4%bb%80%e4%b9%88%e6%8e%92%e5%ba%8f%e6%9c%80%e5%bf%ab&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    1000个数取前10个用什么排序最快？
+&lt;/h3&gt;&lt;p&gt;堆排序&lt;/p&gt;
+&lt;h3 id=&#34;ip转换mac地址是什么协议&#34;&gt;
+    &lt;a href=&#34;#ip%e8%bd%ac%e6%8d%a2mac%e5%9c%b0%e5%9d%80%e6%98%af%e4%bb%80%e4%b9%88%e5%8d%8f%e8%ae%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    ip转换mac地址是什么协议
+&lt;/h3&gt;&lt;p&gt;ARP&lt;/p&gt;
+&lt;h3 id=&#34;对于16位的数据海明码最小校验位数&#34;&gt;
+    &lt;a href=&#34;#%e5%af%b9%e4%ba%8e16%e4%bd%8d%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%b7%e6%98%8e%e7%a0%81%e6%9c%80%e5%b0%8f%e6%a0%a1%e9%aa%8c%e4%bd%8d%e6%95%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    对于16位的数据，海明码最小校验位数
+&lt;/h3&gt;&lt;p&gt;5&lt;/p&gt;
+&lt;h3 id=&#34;乙侵犯甲公司的&#34;&gt;
+    &lt;a href=&#34;#%e4%b9%99%e4%be%b5%e7%8a%af%e7%94%b2%e5%85%ac%e5%8f%b8%e7%9a%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    乙侵犯甲公司的
+&lt;/h3&gt;&lt;p&gt;著作权&lt;/p&gt;
+&lt;h3 id=&#34;以下er关系依赖哪个是错误的&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%a5%e4%b8%8ber%e5%85%b3%e7%b3%bb%e4%be%9d%e8%b5%96%e5%93%aa%e4%b8%aa%e6%98%af%e9%94%99%e8%af%af%e7%9a%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    以下ER关系依赖哪个是错误的
+&lt;/h3&gt;&lt;h3 id=&#34;在tcpip协议中以下哪个是应用层协议&#34;&gt;
+    &lt;a href=&#34;#%e5%9c%a8tcpip%e5%8d%8f%e8%ae%ae%e4%b8%ad%e4%bb%a5%e4%b8%8b%e5%93%aa%e4%b8%aa%e6%98%af%e5%ba%94%e7%94%a8%e5%b1%82%e5%8d%8f%e8%ae%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    在TCP/IP协议中，以下哪个是应用层协议
+&lt;/h3&gt;&lt;p&gt;DNS&lt;/p&gt;
+&lt;h3 id=&#34;通过邮件附件中文档携带的病毒&#34;&gt;
+    &lt;a href=&#34;#%e9%80%9a%e8%bf%87%e9%82%ae%e4%bb%b6%e9%99%84%e4%bb%b6%e4%b8%ad%e6%96%87%e6%a1%a3%e6%90%ba%e5%b8%a6%e7%9a%84%e7%97%85%e6%af%92&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    通过邮件附件中文档携带的病毒
+&lt;/h3&gt;&lt;p&gt;宏病毒&lt;/p&gt;
+&lt;h3 id=&#34;开发没有人使用的项目可能存在什么风险&#34;&gt;
+    &lt;a href=&#34;#%e5%bc%80%e5%8f%91%e6%b2%a1%e6%9c%89%e4%ba%ba%e4%bd%bf%e7%94%a8%e7%9a%84%e9%a1%b9%e7%9b%ae%e5%8f%af%e8%83%bd%e5%ad%98%e5%9c%a8%e4%bb%80%e4%b9%88%e9%a3%8e%e9%99%a9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    开发没有人使用的项目可能存在什么风险
+&lt;/h3&gt;&lt;p&gt;商业风险&lt;/p&gt;
+&lt;h3 id=&#34;bc的松弛时间fh最早开始时间&#34;&gt;
+    &lt;a href=&#34;#bc%e7%9a%84%e6%9d%be%e5%bc%9b%e6%97%b6%e9%97%b4fh%e6%9c%80%e6%97%a9%e5%bc%80%e5%a7%8b%e6%97%b6%e9%97%b4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    BC的松弛时间，FH最早开始时间
+&lt;/h3&gt;&lt;p&gt;7&lt;/p&gt;
+&lt;h3 id=&#34;构建哈夫曼树以下哪个说法是正确的&#34;&gt;
+    &lt;a href=&#34;#%e6%9e%84%e5%bb%ba%e5%93%88%e5%a4%ab%e6%9b%bc%e6%a0%91%e4%bb%a5%e4%b8%8b%e5%93%aa%e4%b8%aa%e8%af%b4%e6%b3%95%e6%98%af%e6%ad%a3%e7%a1%ae%e7%9a%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    构建哈夫曼树，以下哪个说法是正确的
+&lt;/h3&gt;&lt;p&gt;0.08和0.12在同一层&lt;/p&gt;
+&lt;h3 id=&#34;参数传入树组名实际传入的是树组的&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e6%95%b0%e4%bc%a0%e5%85%a5%e6%a0%91%e7%bb%84%e5%90%8d%e5%ae%9e%e9%99%85%e4%bc%a0%e5%85%a5%e7%9a%84%e6%98%af%e6%a0%91%e7%bb%84%e7%9a%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    参数传入树组名实际传入的是树组的？
+&lt;/h3&gt;&lt;p&gt;第一个元素的地址&lt;/p&gt;
+&lt;h3 id=&#34;对于一个有序序列a120使用折半查找法如果查找的元素是a13查找序列为&#34;&gt;
+    &lt;a href=&#34;#%e5%af%b9%e4%ba%8e%e4%b8%80%e4%b8%aa%e6%9c%89%e5%ba%8f%e5%ba%8f%e5%88%97a120%e4%bd%bf%e7%94%a8%e6%8a%98%e5%8d%8a%e6%9f%a5%e6%89%be%e6%b3%95%e5%a6%82%e6%9e%9c%e6%9f%a5%e6%89%be%e7%9a%84%e5%85%83%e7%b4%a0%e6%98%afa13%e6%9f%a5%e6%89%be%e5%ba%8f%e5%88%97%e4%b8%ba&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    对于一个有序序列A[1&amp;hellip;20]，使用折半查找法，如果查找的元素是A[13]，查找序列为
+&lt;/h3&gt;&lt;p&gt;A[10]、A[15]、A[12]、A[13]&lt;/p&gt;
+&lt;h3 id=&#34;数据库授权&#34;&gt;
+    &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e5%ba%93%e6%8e%88%e6%9d%83&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    数据库授权
+&lt;/h3&gt;&lt;p&gt;Grant&lt;/p&gt;
+&lt;h3 id=&#34;数据库分组&#34;&gt;
+    &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e5%ba%93%e5%88%86%e7%bb%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    数据库分组
+&lt;/h3&gt;&lt;p&gt;Group By&lt;/p&gt;
+&lt;h3 id=&#34;对于链表描述错误的是&#34;&gt;
+    &lt;a href=&#34;#%e5%af%b9%e4%ba%8e%e9%93%be%e8%a1%a8%e6%8f%8f%e8%bf%b0%e9%94%99%e8%af%af%e7%9a%84%e6%98%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    对于链表描述错误的是
+&lt;/h3&gt;&lt;p&gt;链表可以随机访问任意一个元素&lt;/p&gt;
+&lt;h3 id=&#34;下面对于指令周期描述正确的是&#34;&gt;
+    &lt;a href=&#34;#%e4%b8%8b%e9%9d%a2%e5%af%b9%e4%ba%8e%e6%8c%87%e4%bb%a4%e5%91%a8%e6%9c%9f%e6%8f%8f%e8%bf%b0%e6%ad%a3%e7%a1%ae%e7%9a%84%e6%98%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    下面对于指令周期描述正确的是
+&lt;/h3&gt;&lt;p&gt;指令存取以及执行的时间总和&lt;/p&gt;
+&lt;h3 id=&#34;以用户需求为动力的模型&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%a5%e7%94%a8%e6%88%b7%e9%9c%80%e6%b1%82%e4%b8%ba%e5%8a%a8%e5%8a%9b%e7%9a%84%e6%a8%a1%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    以用户需求为动力的模型
+&lt;/h3&gt;&lt;p&gt;喷泉模型&lt;/p&gt;
+&lt;h2 id=&#34;下午案例分析题&#34;&gt;
+    &lt;a href=&#34;#%e4%b8%8b%e5%8d%88%e6%a1%88%e4%be%8b%e5%88%86%e6%9e%90%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    下午案例分析题
+&lt;/h2&gt;&lt;h3 id=&#34;数据流图&#34;&gt;
+    &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e6%b5%81%e5%9b%be&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    数据流图
+&lt;/h3&gt;&lt;h3 id=&#34;c语言二叉排序树&#34;&gt;
+    &lt;a href=&#34;#c%e8%af%ad%e8%a8%80%e4%ba%8c%e5%8f%89%e6%8e%92%e5%ba%8f%e6%a0%91&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    C语言二叉排序树
+&lt;/h3&gt;&lt;p&gt;return flag或者break&lt;/p&gt;
+&lt;h3 id=&#34;er图&#34;&gt;
+    &lt;a href=&#34;#er%e5%9b%be&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    ER图
+&lt;/h3&gt;&lt;h4 id=&#34;请补充ab空以及完整性约束&#34;&gt;
+    &lt;a href=&#34;#%e8%af%b7%e8%a1%a5%e5%85%85ab%e7%a9%ba%e4%bb%a5%e5%8f%8a%e5%ae%8c%e6%95%b4%e6%80%a7%e7%ba%a6%e6%9d%9f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    请补充a、b空以及完整性约束
+&lt;/h4&gt;&lt;p&gt;（a）班列编号
+（b）班列编号&lt;/p&gt;
+&lt;p&gt;订单的主键是xxxx，外键是xxxx&lt;/p&gt;
+&lt;h3 id=&#34;选做题java&#34;&gt;
+    &lt;a href=&#34;#%e9%80%89%e5%81%9a%e9%a2%98java&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    选做题java
+&lt;/h3&gt;&lt;p&gt;(1) String name&lt;/p&gt;
+&lt;p&gt;(2) abstract void draw()&lt;/p&gt;
+&lt;p&gt;(3) abstract xxxx()&lt;/p&gt;
+&lt;p&gt;(4)&lt;/p&gt;
+&lt;p&gt;(5) new CompositeGraphic(&amp;ldquo;任意字符&amp;rdquo;)&lt;/p&gt;
+&lt;p&gt;根据群友回忆，陆续在整理中&amp;hellip;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>helix使用记录</title>
+        <link>https://blog.lass.cc/posts/use-helix/</link>
+        <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/use-helix/</guid>
+        <description>&lt;h2 id=&#34;配置篇&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置篇
+&lt;/h2&gt;&lt;h3 id=&#34;configtoml&#34;&gt;
+    &lt;a href=&#34;#configtoml&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    config.toml
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#主题&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;theme&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;gruvbox&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;editor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#关闭鼠标模式&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;mouse&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;editor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;soft-wrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#根据软件自动换行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;enable&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 设置后可以不现实软换行符号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;wrap-indicator&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;languagestoml&#34;&gt;
+    &lt;a href=&#34;#languagestoml&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    languages.toml
+&lt;/h3&gt;&lt;p&gt;如果对于语言没有特殊要求，安装完lsp后保持默认配置即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;language&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;go&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;auto-format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;formatter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;goimports&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;快捷键篇&#34;&gt;
+    &lt;a href=&#34;#%e5%bf%ab%e6%8d%b7%e9%94%ae%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    快捷键篇
+&lt;/h2&gt;&lt;p&gt;使用命令行的好处就是有快捷键。&lt;/p&gt;
+&lt;h3 id=&#34;移动命令&#34;&gt;
+    &lt;a href=&#34;#%e7%a7%bb%e5%8a%a8%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    移动命令
+&lt;/h3&gt;&lt;p&gt;移动即选择光标贯穿的选区。&lt;/p&gt;
+&lt;p&gt;h j k l 光标单字符选区移动&lt;/p&gt;
+&lt;p&gt;w e b W E B 光标单词移动选区&lt;/p&gt;
+&lt;p&gt;t f T F 光标移动到匹配字符并选择&lt;/p&gt;
+&lt;p&gt;% 全选,光标会移动到文档最后一个字符&lt;/p&gt;
+&lt;p&gt;x 选择当前行，延伸向下选择行&lt;/p&gt;
+&lt;h3 id=&#34;操作命令&#34;&gt;
+    &lt;a href=&#34;#%e6%93%8d%e4%bd%9c%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    操作命令
+&lt;/h3&gt;&lt;p&gt;d 删除&lt;/p&gt;
+&lt;p&gt;c,C 复制/不复制 修改所选的内容&lt;/p&gt;
+&lt;p&gt;| 执行 shell 命令&lt;/p&gt;
+&lt;p&gt;y 复制内容到寄存器&lt;/p&gt;
+&lt;p&gt;p P 在所选内容 后方|前方 粘贴&lt;/p&gt;
+&lt;p&gt;r 替换&lt;/p&gt;
+&lt;p&gt;~ 切换大小写&lt;/p&gt;
+&lt;p&gt;J 合并行&lt;/p&gt;
+&lt;p&gt;Ctrl-c 注释切换&lt;/p&gt;
+&lt;p&gt;&amp;amp; 多光标下对齐选择&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;; 取消选区到光标&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;执行命令&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;insert 插入模式&lt;/p&gt;
+&lt;p&gt;i o a I O A 进入插入模式&lt;/p&gt;
+&lt;p&gt;c 修改选的内容会进入插入模式&lt;/p&gt;
+&lt;p&gt;多光标&lt;/p&gt;
+&lt;p&gt;C
+Alt-C
+这里是大写的 C ,实际按键应为 Alt-Shift-c, 其他的也是一样，注意按键 字母的大小写。&lt;/p&gt;
+&lt;p&gt;Alt-s 多行选区中对非空行的末尾追加光标。
+, 只保留主选区&lt;/p&gt;
+&lt;h3 id=&#34;常用的微模式命令&#34;&gt;
+    &lt;a href=&#34;#%e5%b8%b8%e7%94%a8%e7%9a%84%e5%be%ae%e6%a8%a1%e5%bc%8f%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    常用的微模式命令
+&lt;/h3&gt;&lt;p&gt;Space Mode 目录&lt;/p&gt;
+&lt;p&gt;space f 文件选择器
+space k lsp 提示
+space w 窗口模式
+其他的基本都是常用的 ^_^&lt;/p&gt;
+&lt;p&gt;Goto Mode 跳转&lt;/p&gt;
+&lt;p&gt;gh 行首 gl 行末
+gg 首行 ge 末行
+gc 窗口中间 gt 窗口顶部 gb 窗口中间&lt;/p&gt;
+&lt;p&gt;LSP&lt;/p&gt;
+&lt;p&gt;gd 定义 gy 类型定义 gr 引用 gi 实现
+ga 上次选择的文件
+Match mode 匹配模式&lt;/p&gt;
+&lt;p&gt;ms 用来为选区追加括号引号等符号
+ma 选择定义选区&lt;/p&gt;
+&lt;p&gt;Window mode 窗口&lt;/p&gt;
+&lt;p&gt;space w 或者 ctrl-w 进入模式&lt;/p&gt;
+&lt;p&gt;s 水平底部拆分窗口
+v 垂直向右拆分窗口
+q 关闭窗口
+o 仅保留当前窗口&lt;/p&gt;
+&lt;p&gt;Unimpaired&lt;/p&gt;
+&lt;p&gt;] 向下匹配 [ 向上匹配,然后选择&lt;/p&gt;
+&lt;p&gt;需要 tree-sitter 的 textobject 支持。&lt;/p&gt;
+&lt;p&gt;d diagnostics 错误诊断
+f function 函数
+t type definition 类型定义
+a parameter 参数
+c comment 注释
+p paragraph 段落&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>工作两年了随便聊点什么吧</title>
+        <link>https://blog.lass.cc/posts/work-for-two-years/</link>
+        <pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/work-for-two-years/</guid>
+        <description>&lt;p&gt;毕业满两年了，总想着记录下些什么，想到什么就写什么了。在两家公司工作过，都是互联网岗位，但是不同的行业，在这家公司这个月过后也满一年了，最近几次处理工作上的紧急问题，我第一次感受到自己发生的改变，虽然心里还是很慌张，但是仍然能清晰的按照正确的思路，快速找到问题所在，然后解决，这是一个突破。&lt;/p&gt;
+&lt;p&gt;在大城市，有时候会莫名的感受到孤独感，为了什么，要得到什么，这是个问号，不关心每月工资到账，因为知道，这不会给生活带来什么改变，面对着超高的房价，再看看账户，最后只能是这城市的过客。&lt;/p&gt;
+&lt;p&gt;最近也越来越感受到家人思想的局限性，也有可能是我的局限性，如果法律允许的情况下，希望我能在家里也交一份公积金，顿时就不乐意了，老家在农村已有自建房，十八线开外的县城根本没有买房的必要性，我也不是很相信商品楼的未来，大城市也许会有兜底，但是小县城就难说了。&lt;/p&gt;
+&lt;p&gt;待续&amp;hellip;&amp;hellip;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>记录一下问题排查过程</title>
+        <link>https://blog.lass.cc/posts/solve-test-problem/</link>
+        <pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/solve-test-problem/</guid>
+        <description>&lt;h2 id=&#34;问题描述&#34;&gt;
+    &lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    问题描述：
+&lt;/h2&gt;&lt;p&gt;前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。&lt;/p&gt;
+&lt;h2 id=&#34;问题分析过程&#34;&gt;
+    &lt;a href=&#34;#%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e8%bf%87%e7%a8%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    问题分析过程
+&lt;/h2&gt;&lt;h3 id=&#34;确认问题复现步骤&#34;&gt;
+    &lt;a href=&#34;#%e7%a1%ae%e8%ae%a4%e9%97%ae%e9%a2%98%e5%a4%8d%e7%8e%b0%e6%ad%a5%e9%aa%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    确认问题复现步骤
+&lt;/h3&gt;&lt;p&gt;在本次问题中，可以通过curl请求即可复现。&lt;/p&gt;
+&lt;h3 id=&#34;是否是nginx设置了超时&#34;&gt;
+    &lt;a href=&#34;#%e6%98%af%e5%90%a6%e6%98%afnginx%e8%ae%be%e7%bd%ae%e4%ba%86%e8%b6%85%e6%97%b6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    是否是nginx设置了超时？
+&lt;/h3&gt;&lt;h4 id=&#34;确认部署机器&#34;&gt;
+    &lt;a href=&#34;#%e7%a1%ae%e8%ae%a4%e9%83%a8%e7%bd%b2%e6%9c%ba%e5%99%a8&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    确认部署机器
+&lt;/h4&gt;&lt;p&gt;假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -v &lt;span class=&#34;s1&#34;&gt;&amp;#39;https://api.xxxx.com&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过&lt;code&gt;-v&lt;/code&gt;命令可以，查询到curl请求更详细的过程，格式类似如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*   Trying 198.18.1.220:80...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;* Connected to baidu.com (198.18.1.220) port 80 (#0)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; GET / HTTP/1.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; Host: baidu.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; User-Agent: curl/7.87.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; Accept: */*
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;* Empty reply from server
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;* Closing connection 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl: (52) Empty reply from server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;便得到第一步请求到达了 198.18.1.220 机器，登录进行查看。&lt;/p&gt;
+&lt;h4 id=&#34;确认web服务器是什么查看日志&#34;&gt;
+    &lt;a href=&#34;#%e7%a1%ae%e8%ae%a4web%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%98%af%e4%bb%80%e4%b9%88%e6%9f%a5%e7%9c%8b%e6%97%a5%e5%bf%97&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    确认web服务器是什么查看日志
+&lt;/h4&gt;&lt;p&gt;公司用到最多的是nginx和haproxy，因此直接使用命令可以查到，这二者同时使用存在端口冲突，一般只会一台机器有一个&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ps -ef &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep nginx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ps -ef &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep haproxy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;结果类似如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;root      2662     1  0 07:12 ?        00:00:00 nginx: master process /usr/sbin/nginx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过结果可分析出进程的启动目录，目的是找到日志文件。如果进程中无法分析出，可以进一步通过find命令查看，nginx默认配置文件是&lt;code&gt;nginx.conf&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;find / -name nginx.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在logs目录中找到nginx错误日志error.log，检索接口，看到有超时日志，接着查看配置信息，有30秒超时设置，因此这里是要更改的。&lt;/p&gt;
+&lt;h4 id=&#34;nginx配置更新&#34;&gt;
+    &lt;a href=&#34;#nginx%e9%85%8d%e7%bd%ae%e6%9b%b4%e6%96%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    nginx配置更新
+&lt;/h4&gt;&lt;p&gt;将30秒超时时间更改为300秒后，再次请求接口，仍然大概30秒断开，但是这次并没有错误信息，返回空值。需要继续排查下去。&lt;/p&gt;
+&lt;h3 id=&#34;是否是apigateway层原因&#34;&gt;
+    &lt;a href=&#34;#%e6%98%af%e5%90%a6%e6%98%afapigateway%e5%b1%82%e5%8e%9f%e5%9b%a0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    是否是apigateway层原因
+&lt;/h3&gt;&lt;p&gt;nginx在本次请求链中的作用是反向代理，直接将请求转发到apigateway层，这是一个golang程序，之前有过一些了解，直接找到其日志文件，再次curl进行复现，令我好奇的是，gateway程序有打印正常返回日志，但是却未返回。&lt;/p&gt;
+&lt;p&gt;因此网关层应该是有设置超时时间的。&lt;/p&gt;
+&lt;p&gt;在conf目录中找到了几个配置文件，看了一圈并不能确认哪个是超时字段，只有app.conf中有个ServerTimeout字段设置了20，此时我并不知道他就是beego的默认启动配置文件。抱着实验的想法，将20改成了60，将程序重启，然后就有正常返回了。后面还找了好一会ServerTimeout的初始化位置，后面才知道这里是在框架层做的，所以是找不到的。&lt;/p&gt;
+&lt;p&gt;到此，解决了这个问题。&lt;/p&gt;
+&lt;p&gt;总结改动点：nginx路径超时时间、apigateway网关层超时时间。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>细数我做的一些小工具</title>
+        <link>https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
+        <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
+        <description>&lt;p&gt;这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。&lt;/p&gt;
+&lt;p&gt;从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。&lt;/p&gt;
+&lt;p&gt;当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。&lt;/p&gt;
+&lt;p&gt;接着，我又发现一个好玩的，b站自动做任务的脚本&lt;a class=&#34;link&#34; href=&#34;https://github.com/happy888888/BiliExp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BiliExp&lt;/a&gt;，感到很惊奇，那么我是否可以用Java去实现呢？那么就试一试吧。按照原版Python，我用Java去写，整体逻辑也采用的是他那个， API也是，但是写到最后，我发现有很多的API我并没有使用到，我想要做的只是一些日常任务，并不需要参加活动，评论，抽奖等等。慢慢的，更改代码的逻辑，优化结构，完善功能，一步步走到了今天。我也同样很开心，满足，学到了一些知识和经验。&lt;/p&gt;
+&lt;p&gt;联通手机营业厅签到，我在早前就已经用上了，之前使用的是&lt;a class=&#34;link&#34; href=&#34;https://github.com/QiuYueBaiJXW/CN-Unicom-AutoSign&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CN-Unicom-AutoSign&lt;/a&gt; ，
+本想在其基础上增加新的任务，但是莫名奇妙的会出现一些错误，不了了之；随后我又发现了
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/mixool/HiCnUnicom&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;mixool/HiCnUnicom&lt;/a&gt; 让我感到惊喜，竟然可以使用用户名密码登录，并且有着更多的功能，一看&lt;code&gt;shell&lt;/code&gt;代码看不懂啊，想扩充一些新的功能却不知道该怎么做。&lt;/p&gt;
+&lt;p&gt;两个项目，一个登陆需要去抓包，门槛较高，且功能少；另一个功能多，登陆简单，但代码较复杂。因此，我想实现一个，登陆简单，功能较多，代码结构清晰的版本。我本Java使用较多，但考虑到Cookie不好去管理，最终选用了Python。那就开干了，站在巨人的肩膀干活，在代码中查到了登陆部分手机号和服务密码rsa加密的公钥，最后又在网上参考了这篇文章&lt;a class=&#34;link&#34; href=&#34;http://www.bubuko.com/infodetail-2349299.html?&amp;amp;_=1524316738826&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;rsa字符串格式公钥转换python rsa库可识别的公钥形式&lt;/a&gt;，才得以完成登录部分。做完了之后，才发现已经有一个更完善的版本了，但由于一些原因，作者已不再维护并删库了。&lt;/p&gt;
+&lt;p&gt;这类小工具很有受众，很有意思。学校要求我们用完美校园每天进行健康上报，那么有没有这样的工具自动帮我们签到呢？还真让我找到了，只是最后每个学校需要上报的数据不一样，所以只需要抓包，找到我们学校上报的数据格式就可以了，后来发展到，有人做到能够适配所有学校签到的程序，完美校园也做出了回应，封掉ip，加强身份验证规则，我适配的版本也废弃掉了。&lt;/p&gt;
+&lt;p&gt;任何一个东西的出现都是为了解决需求，人们都朝着懒的方向迈进，然而，这并没有什么不好，历史不就是这样发展的吗？从前的日色变得慢；车，马，邮件都慢；一生只够爱一个人。现在飞机，高铁等交通工具让距离不再遥远。以前邮件需要信使去收送传递，而现在，只需要知道个邮箱就可以让天各一方的人，互相发送电子邮件。现在的人工智能火热，它在未来，会将重新定义我们的生活吗？&lt;/p&gt;
+&lt;p&gt;最后，进行工具汇总：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;b站：&lt;a class=&#34;link&#34; href=&#34;https://github.com/srcrs/BilibiliTask&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BilibiliTask&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;贴吧：&lt;a class=&#34;link&#34; href=&#34;https://github.com/srcrs/TiebaSignIn&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;TiebaSignIn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;联通手厅：&lt;a class=&#34;link&#34; href=&#34;https://github.com/srcrs/UnicomTask&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UnicomTask&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

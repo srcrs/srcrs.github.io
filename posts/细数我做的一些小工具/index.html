@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。 从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。 当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。 接着，我又发现一个好玩的，b站自动做任务的脚本BiliExp，感到很惊奇，那么我是否可以用Java去实现呢？那么就试一试吧。按照原版Python，我用Java去写，整体逻辑也采用的是他那个， API也是，但是写到最后，我发现有很多的API我并没有使用到，我想要做的只是一些日常任务，并不需要参加活动，评论，抽奖等等。慢慢的，更改代码的逻辑，优化结构，完善功能，一步步走到了今天。我也同样很开心，满足，学到了一些知识和经验。 联通手机营业厅签到，我在早前就已经用上了，之前使用的是CN-Unicom-AutoSign ， 本想在其基础上增加新的任务，但是莫名奇妙的会出现一些错误，不了了之；随后我又发现了 mixool/HiCnUnicom 让我感到惊喜，竟然可以使用用户名密码登录，并且有着更多的功能，一看shell代码看不懂啊，想扩充一些新的功能却不知道该怎么做。 两个项目，一个登陆需要去抓包，门槛较高，且功能少；另一个功能多，登陆简单，但代码较复杂。因此，我想实现一个，登陆简单，功能较多，代码结构清晰的版本。我本Java使用较多，但考虑到Cookie不好去管理，最终选用了Python。那就开干了，站在巨人的肩膀干活，在代码中查到了登陆部分手机号和服务密码rsa加密的公钥，最后又在网上参考了这篇文章rsa字符串格式公钥转换python rsa库可识别的公钥形式，才得以完成登录部分。做完了之后，才发现已经有一个更完善的版本了，但由于一些原因，作者已不再维护并删库了。 这类小工具很有受众，很有意思。学校要求我们用完美校园每天进行健康上报，那么有没有这样的工具自动帮我们签到呢？还真让我找到了，只是最后每个学校需要上报的数据不一样，所以只需要抓包，找到我们学校上报的数据格式就可以了，后来发展到，有人做到能够适配所有学校签到的程序，完美校园也做出了回应，封掉ip，加强身份验证规则，我适配的版本也废弃掉了。 任何一个东西的出现都是为了解决需求，人们都朝着懒的方向迈进，然而，这并没有什么不好，历史不就是这样发展的吗？从前的日色变得慢；车，马，邮件都慢；一生只够爱一个人。现在飞机，高铁等交通工具让距离不再遥远。以前邮件需要信使去收送传递，而现在，只需要知道个邮箱就可以让天各一方的人，互相发送电子邮件。现在的人工智能火热，它在未来，会将重新定义我们的生活吗？ 最后，进行工具汇总： b站：BilibiliTask 贴吧：TiebaSignIn 联通手厅：UnicomTask ">
+<title>细数我做的一些小工具</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="细数我做的一些小工具">
+<meta property='og:description' content="这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。 从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。 当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。 接着，我又发现一个好玩的，b站自动做任务的脚本BiliExp，感到很惊奇，那么我是否可以用Java去实现呢？那么就试一试吧。按照原版Python，我用Java去写，整体逻辑也采用的是他那个， API也是，但是写到最后，我发现有很多的API我并没有使用到，我想要做的只是一些日常任务，并不需要参加活动，评论，抽奖等等。慢慢的，更改代码的逻辑，优化结构，完善功能，一步步走到了今天。我也同样很开心，满足，学到了一些知识和经验。 联通手机营业厅签到，我在早前就已经用上了，之前使用的是CN-Unicom-AutoSign ， 本想在其基础上增加新的任务，但是莫名奇妙的会出现一些错误，不了了之；随后我又发现了 mixool/HiCnUnicom 让我感到惊喜，竟然可以使用用户名密码登录，并且有着更多的功能，一看shell代码看不懂啊，想扩充一些新的功能却不知道该怎么做。 两个项目，一个登陆需要去抓包，门槛较高，且功能少；另一个功能多，登陆简单，但代码较复杂。因此，我想实现一个，登陆简单，功能较多，代码结构清晰的版本。我本Java使用较多，但考虑到Cookie不好去管理，最终选用了Python。那就开干了，站在巨人的肩膀干活，在代码中查到了登陆部分手机号和服务密码rsa加密的公钥，最后又在网上参考了这篇文章rsa字符串格式公钥转换python rsa库可识别的公钥形式，才得以完成登录部分。做完了之后，才发现已经有一个更完善的版本了，但由于一些原因，作者已不再维护并删库了。 这类小工具很有受众，很有意思。学校要求我们用完美校园每天进行健康上报，那么有没有这样的工具自动帮我们签到呢？还真让我找到了，只是最后每个学校需要上报的数据不一样，所以只需要抓包，找到我们学校上报的数据格式就可以了，后来发展到，有人做到能够适配所有学校签到的程序，完美校园也做出了回应，封掉ip，加强身份验证规则，我适配的版本也废弃掉了。 任何一个东西的出现都是为了解决需求，人们都朝着懒的方向迈进，然而，这并没有什么不好，历史不就是这样发展的吗？从前的日色变得慢；车，马，邮件都慢；一生只够爱一个人。现在飞机，高铁等交通工具让距离不再遥远。以前邮件需要信使去收送传递，而现在，只需要知道个邮箱就可以让天各一方的人，互相发送电子邮件。现在的人工智能火热，它在未来，会将重新定义我们的生活吗？ 最后，进行工具汇总： b站：BilibiliTask 贴吧：TiebaSignIn 联通手厅：UnicomTask ">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='感悟' /><meta property='article:published_time' content='2021-02-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-02-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="细数我做的一些小工具">
+<meta name="twitter:description" content="这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。 从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。 当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。 接着，我又发现一个好玩的，b站自动做任务的脚本BiliExp，感到很惊奇，那么我是否可以用Java去实现呢？那么就试一试吧。按照原版Python，我用Java去写，整体逻辑也采用的是他那个， API也是，但是写到最后，我发现有很多的API我并没有使用到，我想要做的只是一些日常任务，并不需要参加活动，评论，抽奖等等。慢慢的，更改代码的逻辑，优化结构，完善功能，一步步走到了今天。我也同样很开心，满足，学到了一些知识和经验。 联通手机营业厅签到，我在早前就已经用上了，之前使用的是CN-Unicom-AutoSign ， 本想在其基础上增加新的任务，但是莫名奇妙的会出现一些错误，不了了之；随后我又发现了 mixool/HiCnUnicom 让我感到惊喜，竟然可以使用用户名密码登录，并且有着更多的功能，一看shell代码看不懂啊，想扩充一些新的功能却不知道该怎么做。 两个项目，一个登陆需要去抓包，门槛较高，且功能少；另一个功能多，登陆简单，但代码较复杂。因此，我想实现一个，登陆简单，功能较多，代码结构清晰的版本。我本Java使用较多，但考虑到Cookie不好去管理，最终选用了Python。那就开干了，站在巨人的肩膀干活，在代码中查到了登陆部分手机号和服务密码rsa加密的公钥，最后又在网上参考了这篇文章rsa字符串格式公钥转换python rsa库可识别的公钥形式，才得以完成登录部分。做完了之后，才发现已经有一个更完善的版本了，但由于一些原因，作者已不再维护并删库了。 这类小工具很有受众，很有意思。学校要求我们用完美校园每天进行健康上报，那么有没有这样的工具自动帮我们签到呢？还真让我找到了，只是最后每个学校需要上报的数据不一样，所以只需要抓包，找到我们学校上报的数据格式就可以了，后来发展到，有人做到能够适配所有学校签到的程序，完美校园也做出了回应，封掉ip，加强身份验证规则，我适配的版本也废弃掉了。 任何一个东西的出现都是为了解决需求，人们都朝着懒的方向迈进，然而，这并没有什么不好，历史不就是这样发展的吗？从前的日色变得慢；车，马，邮件都慢；一生只够爱一个人。现在飞机，高铁等交通工具让距离不再遥远。以前邮件需要信使去收送传递，而现在，只需要知道个邮箱就可以让天各一方的人，互相发送电子邮件。现在的人工智能火热，它在未来，会将重新定义我们的生活吗？ 最后，进行工具汇总： b站：BilibiliTask 贴吧：TiebaSignIn 联通手厅：UnicomTask ">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/other/" >
+                Other
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/">细数我做的一些小工具</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 20, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。</p>
+<p>从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。</p>
+<p>当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。</p>
+<p>接着，我又发现一个好玩的，b站自动做任务的脚本<a class="link" href="https://github.com/happy888888/BiliExp"  target="_blank" rel="noopener"
+    >BiliExp</a>，感到很惊奇，那么我是否可以用Java去实现呢？那么就试一试吧。按照原版Python，我用Java去写，整体逻辑也采用的是他那个， API也是，但是写到最后，我发现有很多的API我并没有使用到，我想要做的只是一些日常任务，并不需要参加活动，评论，抽奖等等。慢慢的，更改代码的逻辑，优化结构，完善功能，一步步走到了今天。我也同样很开心，满足，学到了一些知识和经验。</p>
+<p>联通手机营业厅签到，我在早前就已经用上了，之前使用的是<a class="link" href="https://github.com/QiuYueBaiJXW/CN-Unicom-AutoSign"  target="_blank" rel="noopener"
+    >CN-Unicom-AutoSign</a> ，
+本想在其基础上增加新的任务，但是莫名奇妙的会出现一些错误，不了了之；随后我又发现了
+<a class="link" href="https://github.com/mixool/HiCnUnicom"  target="_blank" rel="noopener"
+    >mixool/HiCnUnicom</a> 让我感到惊喜，竟然可以使用用户名密码登录，并且有着更多的功能，一看<code>shell</code>代码看不懂啊，想扩充一些新的功能却不知道该怎么做。</p>
+<p>两个项目，一个登陆需要去抓包，门槛较高，且功能少；另一个功能多，登陆简单，但代码较复杂。因此，我想实现一个，登陆简单，功能较多，代码结构清晰的版本。我本Java使用较多，但考虑到Cookie不好去管理，最终选用了Python。那就开干了，站在巨人的肩膀干活，在代码中查到了登陆部分手机号和服务密码rsa加密的公钥，最后又在网上参考了这篇文章<a class="link" href="http://www.bubuko.com/infodetail-2349299.html?&amp;_=1524316738826"  target="_blank" rel="noopener"
+    >rsa字符串格式公钥转换python rsa库可识别的公钥形式</a>，才得以完成登录部分。做完了之后，才发现已经有一个更完善的版本了，但由于一些原因，作者已不再维护并删库了。</p>
+<p>这类小工具很有受众，很有意思。学校要求我们用完美校园每天进行健康上报，那么有没有这样的工具自动帮我们签到呢？还真让我找到了，只是最后每个学校需要上报的数据不一样，所以只需要抓包，找到我们学校上报的数据格式就可以了，后来发展到，有人做到能够适配所有学校签到的程序，完美校园也做出了回应，封掉ip，加强身份验证规则，我适配的版本也废弃掉了。</p>
+<p>任何一个东西的出现都是为了解决需求，人们都朝着懒的方向迈进，然而，这并没有什么不好，历史不就是这样发展的吗？从前的日色变得慢；车，马，邮件都慢；一生只够爱一个人。现在飞机，高铁等交通工具让距离不再遥远。以前邮件需要信使去收送传递，而现在，只需要知道个邮箱就可以让天各一方的人，互相发送电子邮件。现在的人工智能火热，它在未来，会将重新定义我们的生活吗？</p>
+<p>最后，进行工具汇总：</p>
+<ul>
+<li>b站：<a class="link" href="https://github.com/srcrs/BilibiliTask"  target="_blank" rel="noopener"
+    >BilibiliTask</a></li>
+<li>贴吧：<a class="link" href="https://github.com/srcrs/TiebaSignIn"  target="_blank" rel="noopener"
+    >TiebaSignIn</a></li>
+<li>联通手厅：<a class="link" href="https://github.com/srcrs/UnicomTask"  target="_blank" rel="noopener"
+    >UnicomTask</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%84%9F%E6%82%9F/">感悟</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2024/11/10/ruankao-sd-by-2024/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2024年下半年软件设计师</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/use-helix/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">helix使用记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/work-for-two-years/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">工作两年了随便聊点什么吧</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/solve-test-problem/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">记录一下问题排查过程</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# jdk 将jdk压缩包上传到服务器 可以从官网下载，或者自己备份有。上传后文件名为 1 jdk-8u231-linux-x64.tar.gz 解压 如果什么都不加，默认解压在当前目录下。 1 sudo tar -zxvf jdk-8u231-linux-x64.tar.gz 环境变量配置 在命令行输入此命令，打开环境变量配置文件。 1 sudo vim /etc/profile 下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。 1 2 3 4 JAVA_HOME=/home/ubuntu/jdk1.8.0_231 CLASSPATH=$JAVA_HOME/lib/ PATH=$PATH:$JAVA_HOME/bin export PATH JAVA_HOME CLASSPATH 使配置生效 1 source /etc/profile # mysql 以前那个方法不行了，这次又换了一个。 先运行dpkg -l | grep mysql查看有没有安装mysql，如果有输出就说明安装了，请参考，我的ubuntu18.04彻底删除MySQL数据库这篇文章就能解决你的问题。 # 安装mysql-server 安装MySQLapt install mysql-server 查看是否安装成功netstat -tap | grep mysql,如果看到有mysql就说明安装成功。 输入mysql进入数据库，此时数据库是没有密码的。 # 配置MySQL 输入mysql_secure_installation secure enough. Would you like to setup VALIDATE PASSWORD plugin? # 要安装验证密码插件吗?">
+<title>web服务环境配置</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/web-service-environment-configuration/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="web服务环境配置">
+<meta property='og:description' content="# jdk 将jdk压缩包上传到服务器 可以从官网下载，或者自己备份有。上传后文件名为 1 jdk-8u231-linux-x64.tar.gz 解压 如果什么都不加，默认解压在当前目录下。 1 sudo tar -zxvf jdk-8u231-linux-x64.tar.gz 环境变量配置 在命令行输入此命令，打开环境变量配置文件。 1 sudo vim /etc/profile 下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。 1 2 3 4 JAVA_HOME=/home/ubuntu/jdk1.8.0_231 CLASSPATH=$JAVA_HOME/lib/ PATH=$PATH:$JAVA_HOME/bin export PATH JAVA_HOME CLASSPATH 使配置生效 1 source /etc/profile # mysql 以前那个方法不行了，这次又换了一个。 先运行dpkg -l | grep mysql查看有没有安装mysql，如果有输出就说明安装了，请参考，我的ubuntu18.04彻底删除MySQL数据库这篇文章就能解决你的问题。 # 安装mysql-server 安装MySQLapt install mysql-server 查看是否安装成功netstat -tap | grep mysql,如果看到有mysql就说明安装成功。 输入mysql进入数据库，此时数据库是没有密码的。 # 配置MySQL 输入mysql_secure_installation secure enough. Would you like to setup VALIDATE PASSWORD plugin? # 要安装验证密码插件吗?">
+<meta property='og:url' content='https://blog.lass.cc/posts/web-service-environment-configuration/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ubuntu' /><meta property='article:published_time' content='2020-05-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-05-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="web服务环境配置">
+<meta name="twitter:description" content="# jdk 将jdk压缩包上传到服务器 可以从官网下载，或者自己备份有。上传后文件名为 1 jdk-8u231-linux-x64.tar.gz 解压 如果什么都不加，默认解压在当前目录下。 1 sudo tar -zxvf jdk-8u231-linux-x64.tar.gz 环境变量配置 在命令行输入此命令，打开环境变量配置文件。 1 sudo vim /etc/profile 下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。 1 2 3 4 JAVA_HOME=/home/ubuntu/jdk1.8.0_231 CLASSPATH=$JAVA_HOME/lib/ PATH=$PATH:$JAVA_HOME/bin export PATH JAVA_HOME CLASSPATH 使配置生效 1 source /etc/profile # mysql 以前那个方法不行了，这次又换了一个。 先运行dpkg -l | grep mysql查看有没有安装mysql，如果有输出就说明安装了，请参考，我的ubuntu18.04彻底删除MySQL数据库这篇文章就能解决你的问题。 # 安装mysql-server 安装MySQLapt install mysql-server 查看是否安装成功netstat -tap | grep mysql,如果看到有mysql就说明安装成功。 输入mysql进入数据库，此时数据库是没有密码的。 # 配置MySQL 输入mysql_secure_installation secure enough. Would you like to setup VALIDATE PASSWORD plugin? # 要安装验证密码插件吗?">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#jdk">jdk</a></li>
+    <li><a href="#mysql">mysql</a>
+      <ol>
+        <li><a href="#安装mysql-server">安装mysql-server</a></li>
+        <li><a href="#配置mysql">配置MySQL</a></li>
+        <li><a href="#配置mysql允许远程访问">配置MySQL允许远程访问</a></li>
+        <li><a href="#解决不用密码就能登录">解决不用密码就能登录</a></li>
+        <li><a href="#解决数据库大小写敏感问题">解决数据库大小写敏感问题</a></li>
+      </ol>
+    </li>
+    <li><a href="#tomcat">tomcat</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/web-service-environment-configuration/">web服务环境配置</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 06, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="jdk">
+    <a href="#jdk" class="header-anchor">#</a>
+    jdk
+</h2><ol>
+<li>将jdk压缩包上传到服务器</li>
+</ol>
+<p>可以从官网下载，或者自己备份有。上传后文件名为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">jdk-8u231-linux-x64.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>解压</li>
+</ol>
+<p>如果什么都不加，默认解压在当前目录下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo tar -zxvf jdk-8u231-linux-x64.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>环境变量配置</li>
+</ol>
+<p>在命令行输入此命令，打开环境变量配置文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo vim /etc/profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">JAVA_HOME</span><span class="o">=</span>/home/ubuntu/jdk1.8.0_231
+</span></span><span class="line"><span class="cl"><span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/lib/
+</span></span><span class="line"><span class="cl"><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$JAVA_HOME</span>/bin
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> PATH JAVA_HOME CLASSPATH
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>使配置生效</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="mysql">
+    <a href="#mysql" class="header-anchor">#</a>
+    mysql
+</h2><p>以前那个方法不行了，这次又换了一个。</p>
+<p>先运行<code>dpkg -l | grep mysql</code>查看有没有安装mysql，如果有输出就说明安装了，请参考，我的<a class="link" href="https://srcrs.top/posts/202006191.html"  target="_blank" rel="noopener"
+    >ubuntu18.04彻底删除MySQL数据库</a>这篇文章就能解决你的问题。</p>
+<h3 id="安装mysql-server">
+    <a href="#%e5%ae%89%e8%a3%85mysql-server" class="header-anchor">#</a>
+    安装mysql-server
+</h3><ul>
+<li>
+<p>安装MySQL<code>apt install mysql-server</code></p>
+</li>
+<li>
+<p>查看是否安装成功<code>netstat -tap | grep mysql</code>,如果看到有mysql就说明安装成功。</p>
+</li>
+<li>
+<p>输入<code>mysql</code>进入数据库，此时数据库是没有密码的。</p>
+</li>
+</ul>
+<h3 id="配置mysql">
+    <a href="#%e9%85%8d%e7%bd%aemysql" class="header-anchor">#</a>
+    配置MySQL
+</h3><ul>
+<li>
+<p>输入<code>mysql_secure_installation</code></p>
+</li>
+<li>
+<p>secure enough. Would you like to setup VALIDATE PASSWORD plugin?    # 要安装验证密码插件吗?</p>
+</li>
+<li>
+<p>Press y|Y for Yes, any other key for No: <code>N</code>    # 这里我选择N</p>
+</li>
+<li>
+<p>New password:   # 输入要为root管理员设置的数据库密码</p>
+</li>
+<li>
+<p>Re-enter new password:   # 再次输入密码</p>
+</li>
+<li>
+<p>Remove anonymous users? (Press y|Y for Yes, any other key for No) : <code>y</code>     # 删除匿名账户
+Success.</p>
+</li>
+<li>
+<p>Disallow root login remotely? (Press y|Y for Yes, any other key for No) : <code>N</code>    # 是否禁止root管理员从远程登录？</p>
+</li>
+<li>
+<p>Remove test database and access to it? (Press y|Y for Yes, any other key for No) : <code>y</code>   # 删除test数据库并取消对它的访问权限</p>
+</li>
+<li>
+<p>Reload privilege tables now? (Press y|Y for Yes, any other key for No) : <code>y</code>   # 刷新授权表，让初始化后的设定立即生效</p>
+</li>
+</ul>
+<p>此时mysql就是初步配置好了，但是仍然不够。</p>
+<h3 id="配置mysql允许远程访问">
+    <a href="#%e9%85%8d%e7%bd%aemysql%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae" class="header-anchor">#</a>
+    配置MySQL允许远程访问
+</h3><ul>
+<li>
+<p>编辑配置文件<code>vim /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+</li>
+<li>
+<p>注释<code>bind-address = 127.0.0.1</code></p>
+</li>
+<li>
+<p>按Esc键，输入冒号，再输入wq，即可保存退出。</p>
+</li>
+<li>
+<p>输入<code>mysql -uroot -p</code>加上你设置的密码，就能进入到数据库。</p>
+</li>
+<li>
+<p>进行授权<code>grant all on *.* to root@'%' identified by '你的密码' with grant option;</code></p>
+</li>
+<li>
+<p>刷新权限<code>flush privileges;</code></p>
+</li>
+<li>
+<p>退出<code>exit</code></p>
+</li>
+<li>
+<p>重启MySQL<code>systemctl restart mysql</code></p>
+</li>
+</ul>
+<p>接下来就可以远程访问了。</p>
+<h3 id="解决不用密码就能登录">
+    <a href="#%e8%a7%a3%e5%86%b3%e4%b8%8d%e7%94%a8%e5%af%86%e7%a0%81%e5%b0%b1%e8%83%bd%e7%99%bb%e5%bd%95" class="header-anchor">#</a>
+    解决不用密码就能登录
+</h3><p>到现在发现不用密码也是能登录的，相当与以前设置的密码还没有生效。</p>
+<ul>
+<li>
+<p>进入数据库<code>mysql -uroot -p</code></p>
+</li>
+<li>
+<p>进入mysql<code>use mysql;</code></p>
+</li>
+<li>
+<p>无password版本，即5.7以下包括5.7<code>update user set authentication_string=password(&quot;你的密码&quot;) where user='root';</code></p>
+</li>
+<li>
+<p>大于5.7<code>update user set password=password('你的密码') where user='root';</code></p>
+</li>
+</ul>
+<p>不清楚这两条运行了，也没关系。</p>
+<ul>
+<li>
+<p>update user set plugin=&ldquo;mysql_native_password&rdquo;;</p>
+</li>
+<li>
+<p>刷新<code>flush privileges;</code></p>
+</li>
+<li>
+<p>退出<code>exit</code></p>
+</li>
+<li>
+<p>重启MySQL<code>systemctl restart mysql</code></p>
+</li>
+</ul>
+<h3 id="解决数据库大小写敏感问题">
+    <a href="#%e8%a7%a3%e5%86%b3%e6%95%b0%e6%8d%ae%e5%ba%93%e5%a4%a7%e5%b0%8f%e5%86%99%e6%95%8f%e6%84%9f%e9%97%ae%e9%a2%98" class="header-anchor">#</a>
+    解决数据库大小写敏感问题
+</h3><p>在windows中，数据库的大小写是不敏感的，而在Linux是区分大小写的。</p>
+<p>mysql是通过lower_case_table_names变量来处理大小写问题的。</p>
+<ul>
+<li>
+<p>进入mysql<code>mysql -uroot -p</code>，回车输入你的密码</p>
+</li>
+<li>
+<p>查询大小写变量<code>show variables like '%case%';</code></p>
+</li>
+</ul>
+<p>输入如下内容，该变量值是0，说明对大小写是敏感的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">+------------------------+-------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Variable_name          <span class="p">|</span> Value <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+------------------------+-------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> lower_case_file_system <span class="p">|</span> OFF   <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> lower_case_table_names <span class="p">|</span> <span class="m">0</span>     <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+------------------------+-------+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>退出数据库，进入终端<code>vim /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+</li>
+<li>
+<p>在[mysqld]下面添加<code>lower_case_table_names=1</code></p>
+</li>
+<li>
+<p>保存并退出</p>
+</li>
+<li>
+<p>重启MySQL<code>systemctl restart mysql</code></p>
+</li>
+</ul>
+<p>至此，mysql算是差不多配置完了。如果再出问题，应该就是驱动和数据版本不匹配了。</p>
+<h2 id="tomcat">
+    <a href="#tomcat" class="header-anchor">#</a>
+    tomcat
+</h2><ol>
+<li>下载tomcat</li>
+</ol>
+<p>地址：<a class="link" href="https://tomcat.apache.org/download-90.cgi"  target="_blank" rel="noopener"
+    >tomcat 9.0.34</a></p>
+<ol start="2">
+<li>上传到服务器</li>
+</ol>
+<p>上传后名字为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">apache-tomcat-9.0.34.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>解压</li>
+</ol>
+<p>解压到当前目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo tar -zxvf apache-tomcat-9.0.34.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>赋权限</li>
+</ol>
+<p>我不知有何用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo chmod <span class="m">755</span> -R apache-tomcat-9.0.34
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>修改startup.sh启动脚本</li>
+</ol>
+<p>在apache-tomcat-9.0.34/bin目录中输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo vi startup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在最后一行的前面添加如下内容，路径要符合自己的实际情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/home/ubuntu/jdk1.8.0_231
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JRE_HOME</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/jre
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:%<span class="o">{</span>JAVA_HOME<span class="o">}</span>/lib:%<span class="o">{</span>JRE_HOME<span class="o">}</span>/lib
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#tomcat</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">TOMCAT_HOME</span><span class="o">=</span>/home/ubuntu/apache-tomcat-9.0.34
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>修改shutdown.sh关闭脚本</li>
+</ol>
+<p>在apache-tomcat-9.0.34/bin目录中输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo vi shutdown.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>和上面哪个一样，在最后一行的前面添加如下内容，路径要符合自己的实际情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/home/ubuntu/jdk1.8.0_231
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JRE_HOME</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/jre
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:%<span class="o">{</span>JAVA_HOME<span class="o">}</span>/lib:%<span class="o">{</span>JRE_HOME<span class="o">}</span>/lib
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#tomcat</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">TOMCAT_HOME</span><span class="o">=</span>/home/ubuntu/apache-tomcat-9.0.34
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>启动tomcat</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo ./startup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>提示如下内容则说明启动成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">Using CATALINA_BASE:   /home/ubuntu/apache-tomcat-9.0.34
+</span></span><span class="line"><span class="cl">Using CATALINA_HOME:   /home/ubuntu/apache-tomcat-9.0.34
+</span></span><span class="line"><span class="cl">Using CATALINA_TMPDIR: /home/ubuntu/apache-tomcat-9.0.34/temp
+</span></span><span class="line"><span class="cl">Using JRE_HOME:        /home/ubuntu/jdk1.8.0_231/jre
+</span></span><span class="line"><span class="cl">Using CLASSPATH:       /home/ubuntu/apache-tomcat-9.0.34/bin/bootstrap.jar:/home/ubuntu/apache-tomcat-9.0.34/bin/tomcat-juli.jar
+</span></span><span class="line"><span class="cl">Tomcat started.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor">#</a>
+    参考链接
+</h2><p><a class="link" href="https://www.jianshu.com/p/dfce73d80ffb"  target="_blank" rel="noopener"
+    >Ubuntu18.04安装jdk</a></p>
+<p><a class="link" href="https://blog.csdn.net/mier9042/article/details/106408075/"  target="_blank" rel="noopener"
+    >Ubuntu 18.04安装mysql</a></p>
+<p><a class="link" href="https://blog.csdn.net/weixx3/article/details/80808484"  target="_blank" rel="noopener"
+    >Ubuntu18.04 安装tomcat</a></p>
+<p><a class="link" href="https://blog.csdn.net/zhaopeng_yu/article/details/80785813"  target="_blank" rel="noopener"
+    >Linux下MySQL大小写敏感问题</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ubuntu/">Ubuntu</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

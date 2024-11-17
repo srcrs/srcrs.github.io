@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>问题 on srcrs</title>
+        <link>https://blog.lass.cc/tags/%E9%97%AE%E9%A2%98/</link>
+        <description>Recent content in 问题 on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Thu, 06 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E9%97%AE%E9%A2%98/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ItemBank单选题遇到的问题</title>
+        <link>https://blog.lass.cc/posts/itembank%E5%8D%95%E9%80%89%E9%A2%98%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/itembank%E5%8D%95%E9%80%89%E9%A2%98%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        <description>&lt;h2 id=&#34;问题1&#34;&gt;
+    &lt;a href=&#34;#%e9%97%ae%e9%a2%981&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    问题1
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;选项内容的末尾是字母时，会导致后一个选项生成失败。
+&lt;ul&gt;
+&lt;li&gt;13，14，31，44，54，56，81，107&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;:::tip
+预解决方法：每个选项不都是&lt;code&gt;A.&lt;/code&gt;或者&lt;code&gt;A、&lt;/code&gt;或者别的什么，那么可以把它们的规则添加到正则公式中，就可以解决这个问题了。对于题目也可以把这样类似的添加上去，不可以中用点就可以代替。&lt;code&gt;1.&lt;/code&gt;和
+&lt;code&gt;1、&lt;/code&gt;或者其他都应支持。
+:::&lt;/p&gt;
+&lt;h2 id=&#34;问题2&#34;&gt;
+    &lt;a href=&#34;#%e9%97%ae%e9%a2%982&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    问题2
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;最后一个选项末尾时数字时，会导致下一个题目的ID错误，有可能会造成ID重复；会使本选项缺少数字。
+&lt;ul&gt;
+&lt;li&gt;30，49，72，84，96，102，103&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;:::tip
+预解决方法：在D选项的末尾添加一个空格。不对，并不知道D选项的具体范围，所以找不到D选项的末尾。
+可以这样，会匹配到一个数字点非数字的表达式，虽然不知道D的范围，但是可以找到点具体的位置，只需要知道上一个题号占几位，判断加一之后是否会增加位数，以此来往前推题号，但是这也遇到了一个问题，就是当题号无序的时候，或者变化的不规则，增长速度不一样就会出问题了，例如一下从88变到了103。其实可以规避这样的问题，就是在他们之间取一个最小值，但是当两种事件同时发生的时候，就又会出问题了。暂时先这样解决吧。
+前提是必须要题目必须要有序。！！！不可缺少9，99，999，9999题号的题，升序就行了。
+:::&lt;/p&gt;
+&lt;h2 id=&#34;问题3&#34;&gt;
+    &lt;a href=&#34;#%e9%97%ae%e9%a2%983&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    问题3
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;当题目中包含&lt;code&gt;数字点非数字的时候会出错&lt;/code&gt;，例如&lt;code&gt;202.119.2.X&lt;/code&gt;中的&lt;code&gt;2.X&lt;/code&gt;是符合我的正则表达式的，很尴尬，现在解决不了这样的问题。
+&lt;ul&gt;
+&lt;li&gt;259&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

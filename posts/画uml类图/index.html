@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# UML的分类 先简单看一下UML图的分类。 # 结构型的图（Structure Diagram） 是一种偏静态类型的图 # 类图（Class Diagram） 用方框来表示类，用一些线来表示他们之间的关系。 # 对象图（Object Diagram） 对象是类的实例化，方便表示对象之间的关系。 # 构件图（Component Diagram） 构件图又叫组件图，主要描述一个系统的组成与关系。通常在服务器开发时使用。 # 部署图（Deployment Diagram） 部署图是用来描述系统如何部署、本系统与其他系统是怎样的一种关系。通常在服务器开发时使用。 # 包图（Package Diagram） 当类图很多的时候，可以将类放入包中，简化图。 # 行为型的图（Behavior Diagram） 是一种偏动态类型的图 # 活动图（Activity Diagram） 用圆边框表示一个“活动”，用箭头表示活动的先后顺序，类似于流程图。 # 状态机图（State Machine Diagram） 状态机图又叫做转态图，主要用于描述复杂的对象或者模块，内部不同状态的转化过程。 # 顺序图（Sequence Diagram） 可以描述系统的执行过程，常常用来表示系统中类、方法的调用过程。 # 通信图（Communication Diagram） 通信图是顺序图的另外一种画法。 # 用例图（Use Case Diagram） 用例图表达的是什么角色通过软件系统能做什么事情，通常用于软件开发的需求分析阶段。 # 时序图（Timing Diagram） 时序图又叫时间图，表示某东西的状态随时间变化而变化的图，用时间线的方式表示事务状态变化。 # UML类图之间的关系 类与类、接口之间的关系有六种。 # 泛化 泛化关系实际上就是继承关系，表示一般与特殊的关系，他指定子类如何特化父类的所有特征和行为。 表示方法：带三角箭头的实线，箭头指向父类 代码：extends Classname+ field: type+ method(type): typeSubClassname+ field: type+ method(type): typeExtendsExtends">
+<title>画UML类图</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E7%94%BBuml%E7%B1%BB%E5%9B%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="画UML类图">
+<meta property='og:description' content="# UML的分类 先简单看一下UML图的分类。 # 结构型的图（Structure Diagram） 是一种偏静态类型的图 # 类图（Class Diagram） 用方框来表示类，用一些线来表示他们之间的关系。 # 对象图（Object Diagram） 对象是类的实例化，方便表示对象之间的关系。 # 构件图（Component Diagram） 构件图又叫组件图，主要描述一个系统的组成与关系。通常在服务器开发时使用。 # 部署图（Deployment Diagram） 部署图是用来描述系统如何部署、本系统与其他系统是怎样的一种关系。通常在服务器开发时使用。 # 包图（Package Diagram） 当类图很多的时候，可以将类放入包中，简化图。 # 行为型的图（Behavior Diagram） 是一种偏动态类型的图 # 活动图（Activity Diagram） 用圆边框表示一个“活动”，用箭头表示活动的先后顺序，类似于流程图。 # 状态机图（State Machine Diagram） 状态机图又叫做转态图，主要用于描述复杂的对象或者模块，内部不同状态的转化过程。 # 顺序图（Sequence Diagram） 可以描述系统的执行过程，常常用来表示系统中类、方法的调用过程。 # 通信图（Communication Diagram） 通信图是顺序图的另外一种画法。 # 用例图（Use Case Diagram） 用例图表达的是什么角色通过软件系统能做什么事情，通常用于软件开发的需求分析阶段。 # 时序图（Timing Diagram） 时序图又叫时间图，表示某东西的状态随时间变化而变化的图，用时间线的方式表示事务状态变化。 # UML类图之间的关系 类与类、接口之间的关系有六种。 # 泛化 泛化关系实际上就是继承关系，表示一般与特殊的关系，他指定子类如何特化父类的所有特征和行为。 表示方法：带三角箭头的实线，箭头指向父类 代码：extends Classname+ field: type+ method(type): typeSubClassname+ field: type+ method(type): typeExtendsExtends">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E7%94%BBuml%E7%B1%BB%E5%9B%BE/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='UML' /><meta property='article:published_time' content='2020-01-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-01-30T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="画UML类图">
+<meta name="twitter:description" content="# UML的分类 先简单看一下UML图的分类。 # 结构型的图（Structure Diagram） 是一种偏静态类型的图 # 类图（Class Diagram） 用方框来表示类，用一些线来表示他们之间的关系。 # 对象图（Object Diagram） 对象是类的实例化，方便表示对象之间的关系。 # 构件图（Component Diagram） 构件图又叫组件图，主要描述一个系统的组成与关系。通常在服务器开发时使用。 # 部署图（Deployment Diagram） 部署图是用来描述系统如何部署、本系统与其他系统是怎样的一种关系。通常在服务器开发时使用。 # 包图（Package Diagram） 当类图很多的时候，可以将类放入包中，简化图。 # 行为型的图（Behavior Diagram） 是一种偏动态类型的图 # 活动图（Activity Diagram） 用圆边框表示一个“活动”，用箭头表示活动的先后顺序，类似于流程图。 # 状态机图（State Machine Diagram） 状态机图又叫做转态图，主要用于描述复杂的对象或者模块，内部不同状态的转化过程。 # 顺序图（Sequence Diagram） 可以描述系统的执行过程，常常用来表示系统中类、方法的调用过程。 # 通信图（Communication Diagram） 通信图是顺序图的另外一种画法。 # 用例图（Use Case Diagram） 用例图表达的是什么角色通过软件系统能做什么事情，通常用于软件开发的需求分析阶段。 # 时序图（Timing Diagram） 时序图又叫时间图，表示某东西的状态随时间变化而变化的图，用时间线的方式表示事务状态变化。 # UML类图之间的关系 类与类、接口之间的关系有六种。 # 泛化 泛化关系实际上就是继承关系，表示一般与特殊的关系，他指定子类如何特化父类的所有特征和行为。 表示方法：带三角箭头的实线，箭头指向父类 代码：extends Classname+ field: type+ method(type): typeSubClassname+ field: type+ method(type): typeExtendsExtends">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#uml的分类">UML的分类</a>
+      <ol>
+        <li><a href="#结构型的图structure-diagram">结构型的图（Structure Diagram）</a>
+          <ol>
+            <li><a href="#类图class-diagram">类图（Class Diagram）</a></li>
+            <li><a href="#对象图object-diagram">对象图（Object Diagram）</a></li>
+            <li><a href="#构件图component-diagram">构件图（Component Diagram）</a></li>
+            <li><a href="#部署图deployment-diagram">部署图（Deployment Diagram）</a></li>
+            <li><a href="#包图package-diagram">包图（Package Diagram）</a></li>
+          </ol>
+        </li>
+        <li><a href="#行为型的图behavior-diagram">行为型的图（Behavior Diagram）</a>
+          <ol>
+            <li><a href="#活动图activity-diagram">活动图（Activity Diagram）</a></li>
+            <li><a href="#状态机图state-machine-diagram">状态机图（State Machine Diagram）</a></li>
+            <li><a href="#顺序图sequence-diagram">顺序图（Sequence Diagram）</a></li>
+            <li><a href="#通信图communication-diagram">通信图（Communication Diagram）</a></li>
+            <li><a href="#用例图use-case-diagram">用例图（Use Case Diagram）</a></li>
+            <li><a href="#时序图timing-diagram">时序图（Timing Diagram）</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#uml类图之间的关系">UML类图之间的关系</a>
+      <ol>
+        <li><a href="#泛化">泛化</a></li>
+        <li><a href="#接口与实现">接口与实现</a></li>
+        <li><a href="#依赖dependency">依赖（Dependency）</a></li>
+        <li><a href="#关联association">关联（Association）</a></li>
+        <li><a href="#聚合aggregation">聚合（Aggregation）</a></li>
+        <li><a href="#组合composition">组合（Composition）</a></li>
+      </ol>
+    </li>
+    <li><a href="#访问权限符号表示">访问权限符号表示</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#常用的关键字">常用的关键字</a></li>
+    <li><a href="#以动物关系示例">以动物关系示例</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%94%BBuml%E7%B1%BB%E5%9B%BE/">画UML类图</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 30, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="uml的分类">
+    <a href="#uml%e7%9a%84%e5%88%86%e7%b1%bb" class="header-anchor">#</a>
+    UML的分类
+</h2><p>先简单看一下UML图的分类。</p>
+<h3 id="结构型的图structure-diagram">
+    <a href="#%e7%bb%93%e6%9e%84%e5%9e%8b%e7%9a%84%e5%9b%bestructure-diagram" class="header-anchor">#</a>
+    结构型的图（Structure Diagram）
+</h3><p>是一种偏静态类型的图</p>
+<h4 id="类图class-diagram">
+    <a href="#%e7%b1%bb%e5%9b%beclass-diagram" class="header-anchor">#</a>
+    类图（Class Diagram）
+</h4><p>用方框来表示类，用一些线来表示他们之间的关系。</p>
+<h4 id="对象图object-diagram">
+    <a href="#%e5%af%b9%e8%b1%a1%e5%9b%beobject-diagram" class="header-anchor">#</a>
+    对象图（Object Diagram）
+</h4><p>对象是类的实例化，方便表示对象之间的关系。</p>
+<h4 id="构件图component-diagram">
+    <a href="#%e6%9e%84%e4%bb%b6%e5%9b%becomponent-diagram" class="header-anchor">#</a>
+    构件图（Component Diagram）
+</h4><p>构件图又叫组件图，主要描述一个系统的组成与关系。通常在服务器开发时使用。</p>
+<h4 id="部署图deployment-diagram">
+    <a href="#%e9%83%a8%e7%bd%b2%e5%9b%bedeployment-diagram" class="header-anchor">#</a>
+    部署图（Deployment Diagram）
+</h4><p>部署图是用来描述系统如何部署、本系统与其他系统是怎样的一种关系。通常在服务器开发时使用。</p>
+<h4 id="包图package-diagram">
+    <a href="#%e5%8c%85%e5%9b%bepackage-diagram" class="header-anchor">#</a>
+    包图（Package Diagram）
+</h4><p>当类图很多的时候，可以将类放入包中，简化图。</p>
+<h3 id="行为型的图behavior-diagram">
+    <a href="#%e8%a1%8c%e4%b8%ba%e5%9e%8b%e7%9a%84%e5%9b%bebehavior-diagram" class="header-anchor">#</a>
+    行为型的图（Behavior Diagram）
+</h3><p>是一种偏动态类型的图</p>
+<h4 id="活动图activity-diagram">
+    <a href="#%e6%b4%bb%e5%8a%a8%e5%9b%beactivity-diagram" class="header-anchor">#</a>
+    活动图（Activity Diagram）
+</h4><p>用圆边框表示一个“活动”，用箭头表示活动的先后顺序，类似于流程图。</p>
+<h4 id="状态机图state-machine-diagram">
+    <a href="#%e7%8a%b6%e6%80%81%e6%9c%ba%e5%9b%bestate-machine-diagram" class="header-anchor">#</a>
+    状态机图（State Machine Diagram）
+</h4><p>状态机图又叫做转态图，主要用于描述复杂的对象或者模块，内部不同状态的转化过程。</p>
+<h4 id="顺序图sequence-diagram">
+    <a href="#%e9%a1%ba%e5%ba%8f%e5%9b%besequence-diagram" class="header-anchor">#</a>
+    顺序图（Sequence Diagram）
+</h4><p>可以描述系统的执行过程，常常用来表示系统中类、方法的调用过程。</p>
+<h4 id="通信图communication-diagram">
+    <a href="#%e9%80%9a%e4%bf%a1%e5%9b%becommunication-diagram" class="header-anchor">#</a>
+    通信图（Communication Diagram）
+</h4><p>通信图是顺序图的另外一种画法。</p>
+<h4 id="用例图use-case-diagram">
+    <a href="#%e7%94%a8%e4%be%8b%e5%9b%beuse-case-diagram" class="header-anchor">#</a>
+    用例图（Use Case Diagram）
+</h4><p>用例图表达的是什么角色通过软件系统能做什么事情，通常用于软件开发的需求分析阶段。</p>
+<h4 id="时序图timing-diagram">
+    <a href="#%e6%97%b6%e5%ba%8f%e5%9b%betiming-diagram" class="header-anchor">#</a>
+    时序图（Timing Diagram）
+</h4><p>时序图又叫时间图，表示某东西的状态随时间变化而变化的图，用时间线的方式表示事务状态变化。</p>
+<h2 id="uml类图之间的关系">
+    <a href="#uml%e7%b1%bb%e5%9b%be%e4%b9%8b%e9%97%b4%e7%9a%84%e5%85%b3%e7%b3%bb" class="header-anchor">#</a>
+    UML类图之间的关系
+</h2><p>类与类、接口之间的关系有六种。</p>
+<h3 id="泛化">
+    <a href="#%e6%b3%9b%e5%8c%96" class="header-anchor">#</a>
+    泛化
+</h3><p>泛化关系实际上就是继承关系，表示一般与特殊的关系，他指定子类如何特化父类的所有特征和行为。</p>
+<ul>
+<li>
+<p>表示方法：带三角箭头的实线，箭头指向父类</p>
+</li>
+<li>
+<p>代码：<code>extends</code></p>
+</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Classname<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ field: type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ method(type): type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->SubClassname<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ field: type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ method(type): type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="接口与实现">
+    <a href="#%e6%8e%a5%e5%8f%a3%e4%b8%8e%e5%ae%9e%e7%8e%b0" class="header-anchor">#</a>
+    接口与实现
+</h3><p>是一种类与接口的关系，表示类时接口所有特征和行为的实现。</p>
+<ul>
+<li>
+<p>表示方法：带三角箭头的虚线，箭头指向接口。</p>
+</li>
+<li>
+<p>代码表现：<code>implements</code>。</p>
+</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->«interface»<!-- raw HTML omitted --><!-- raw HTML omitted -->Name<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->«interface»&hellip;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Classname<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ field: type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ method(type): type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="依赖dependency">
+    <a href="#%e4%be%9d%e8%b5%96dependency" class="header-anchor">#</a>
+    依赖（Dependency）
+</h3><p>是一种使用关系，即一个类的实现需要另一个类的协助。但是需要的需要的那个类只是已局部变量存在，这就叫做依赖</p>
+<ul>
+<li>表示方式：带普通箭头的虚线，指向被被依赖者。</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->String<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->StringTools<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ subString(param:String)<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Use<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Use<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="关联association">
+    <a href="#%e5%85%b3%e8%81%94association" class="header-anchor">#</a>
+    关联（Association）
+</h3><p>是一种拥有关系，它使一个类知道另一个类的属性和方法。有单向关联和双向关联。关联其实也需要另一个类去协助，主要区别就是需要的那个类是以成员变量的形式存在。</p>
+<ul>
+<li>
+<p>代码体现：成员变量</p>
+</li>
+<li>
+<p>表示方式：单向关联用带普通箭头的实线，指向被拥有者；双向关联用实现表示。</p>
+</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Couse<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Student<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="聚合aggregation">
+    <a href="#%e8%81%9a%e5%90%88aggregation" class="header-anchor">#</a>
+    聚合（Aggregation）
+</h3><p>关联又可细化成聚合和组合。</p>
+<p>是整体与部分的关系，且部分可以离开整体而单独存在。如车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在。</p>
+<ul>
+<li>带空心菱形的实线，菱形指向整体</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Car<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Tyre<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="组合composition">
+    <a href="#%e7%bb%84%e5%90%88composition" class="header-anchor">#</a>
+    组合（Composition）
+</h3><p>是整体与部分的关系，但部分不能离开整体而单独存在。</p>
+<ul>
+<li>表示方式：带实心菱形的实线，菱形指向整体。</li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Person<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Head<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="访问权限符号表示">
+    <a href="#%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90%e7%ac%a6%e5%8f%b7%e8%a1%a8%e7%a4%ba" class="header-anchor">#</a>
+    访问权限符号表示
+</h2><p>Mark | Express</p>
+<ul>
+<li>| -</li>
+</ul>
+<ul>
+<li>| public</li>
+</ul>
+<h1 id="-protected">
+    <a href="#-protected" class="header-anchor">#</a>
+    | protected
+</h1><ul>
+<li>| private
+~ | friendly</li>
+</ul>
+<h2 id="常用的关键字">
+    <a href="#%e5%b8%b8%e7%94%a8%e7%9a%84%e5%85%b3%e9%94%ae%e5%ad%97" class="header-anchor">#</a>
+    常用的关键字
+</h2><p>关键字 | Express</p>
+<ul>
+<li>| -
+static | 下划线
+abstract | 斜体
+: | 成员类型或方法返回值
+= | 默认值</li>
+</ul>
+<h2 id="以动物关系示例">
+    <a href="#%e4%bb%a5%e5%8a%a8%e7%89%a9%e5%85%b3%e7%b3%bb%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    以动物关系示例
+</h2><p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Animal<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ drink(water:Water)<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Water<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Use<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Use<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Bird<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ wing: Wing<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Mammal<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Wing<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->chicken<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ method(type): type<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->RoastChiken<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Wolf<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->sheep<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Extends<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Wolves<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->&lt;&lt;Interface&gt;&gt;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Price<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->+ price(): int<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->&lt;&lt;Interface&gt;&gt;&hellip;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/uml/">UML</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

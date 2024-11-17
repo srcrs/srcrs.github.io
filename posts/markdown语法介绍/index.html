@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 博客是好不容易弄好了，但是又有一个问题来了，如何写文章放在上面呢，从百度上了解到，需要用到markdown编辑器，这里我就直接用vscode写的，它可以读写.md文档，下面就是markdown的一些语法介绍。 ::: # 标题 1 2 3 4 5 6 # 这个是一级标题 ## 这个是二级标题 ### 这个是三级标题 #### 这个是四级标题 ##### 这个是五级标题 ###### 这个是六级标题 # 这个是一级标题 # 这个是二级标题 # 这个是三级标题 # 这个是四级标题 # 这个是五级标题 # 这个是六级标题 # 字体 1 2 3 4 **字体加粗** *斜体* ***斜体加粗*** ~~字体加删除线~~ 字体加粗 斜体 斜体加粗 字体加删除线 # 引用 1 2 3 &gt;引用内容1 &gt;&gt;&gt;引用内容2 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;引用3 引用内容1 引用内容2 引用3 # 分割线 1 2 3 4 5 三个或三个以上的-或*组成 --- ---- *** **** 这个是效果">
+<title>Markdown语法介绍</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/markdown%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="Markdown语法介绍">
+<meta property='og:description' content=":::tip 博客是好不容易弄好了，但是又有一个问题来了，如何写文章放在上面呢，从百度上了解到，需要用到markdown编辑器，这里我就直接用vscode写的，它可以读写.md文档，下面就是markdown的一些语法介绍。 ::: # 标题 1 2 3 4 5 6 # 这个是一级标题 ## 这个是二级标题 ### 这个是三级标题 #### 这个是四级标题 ##### 这个是五级标题 ###### 这个是六级标题 # 这个是一级标题 # 这个是二级标题 # 这个是三级标题 # 这个是四级标题 # 这个是五级标题 # 这个是六级标题 # 字体 1 2 3 4 **字体加粗** *斜体* ***斜体加粗*** ~~字体加删除线~~ 字体加粗 斜体 斜体加粗 字体加删除线 # 引用 1 2 3 &gt;引用内容1 &gt;&gt;&gt;引用内容2 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;引用3 引用内容1 引用内容2 引用3 # 分割线 1 2 3 4 5 三个或三个以上的-或*组成 --- ---- *** **** 这个是效果">
+<meta property='og:url' content='https://blog.lass.cc/posts/markdown%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Markdown语法' /><meta property='article:published_time' content='2019-05-13T13:36:47&#43;00:00'/><meta property='article:modified_time' content='2019-05-13T13:36:47&#43;00:00'/>
+<meta name="twitter:title" content="Markdown语法介绍">
+<meta name="twitter:description" content=":::tip 博客是好不容易弄好了，但是又有一个问题来了，如何写文章放在上面呢，从百度上了解到，需要用到markdown编辑器，这里我就直接用vscode写的，它可以读写.md文档，下面就是markdown的一些语法介绍。 ::: # 标题 1 2 3 4 5 6 # 这个是一级标题 ## 这个是二级标题 ### 这个是三级标题 #### 这个是四级标题 ##### 这个是五级标题 ###### 这个是六级标题 # 这个是一级标题 # 这个是二级标题 # 这个是三级标题 # 这个是四级标题 # 这个是五级标题 # 这个是六级标题 # 字体 1 2 3 4 **字体加粗** *斜体* ***斜体加粗*** ~~字体加删除线~~ 字体加粗 斜体 斜体加粗 字体加删除线 # 引用 1 2 3 &gt;引用内容1 &gt;&gt;&gt;引用内容2 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;引用3 引用内容1 引用内容2 引用3 # 分割线 1 2 3 4 5 三个或三个以上的-或*组成 --- ---- *** **** 这个是效果">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#标题">标题</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#这个是二级标题">这个是二级标题</a>
+      <ol>
+        <li><a href="#这个是三级标题">这个是三级标题</a>
+          <ol>
+            <li><a href="#这个是四级标题">这个是四级标题</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#字体">字体</a></li>
+    <li><a href="#引用">引用</a></li>
+    <li><a href="#分割线">分割线</a></li>
+    <li><a href="#图片">图片</a></li>
+    <li><a href="#超链接">超链接</a></li>
+    <li><a href="#列表">列表</a></li>
+    <li><a href="#表格">表格</a></li>
+    <li><a href="#代码">代码</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/markdown%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D/">Markdown语法介绍</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 13, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+博客是好不容易弄好了，但是又有一个问题来了，如何写文章放在上面呢，从百度上了解到，需要用到markdown编辑器，这里我就直接用vscode写的，它可以读写.md文档，下面就是markdown的一些语法介绍。
+:::</p>
+<!-- raw HTML omitted -->
+<h2 id="标题">
+    <a href="#%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    标题
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 这个是一级标题
+</span></span><span class="line"><span class="cl">## 这个是二级标题
+</span></span><span class="line"><span class="cl">### 这个是三级标题
+</span></span><span class="line"><span class="cl">#### 这个是四级标题
+</span></span><span class="line"><span class="cl">##### 这个是五级标题
+</span></span><span class="line"><span class="cl">###### 这个是六级标题
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="这个是一级标题">
+    <a href="#%e8%bf%99%e4%b8%aa%e6%98%af%e4%b8%80%e7%ba%a7%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    这个是一级标题
+</h1><h2 id="这个是二级标题">
+    <a href="#%e8%bf%99%e4%b8%aa%e6%98%af%e4%ba%8c%e7%ba%a7%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    这个是二级标题
+</h2><h3 id="这个是三级标题">
+    <a href="#%e8%bf%99%e4%b8%aa%e6%98%af%e4%b8%89%e7%ba%a7%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    这个是三级标题
+</h3><h4 id="这个是四级标题">
+    <a href="#%e8%bf%99%e4%b8%aa%e6%98%af%e5%9b%9b%e7%ba%a7%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    这个是四级标题
+</h4><h5 id="这个是五级标题">
+    <a href="#%e8%bf%99%e4%b8%aa%e6%98%af%e4%ba%94%e7%ba%a7%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    这个是五级标题
+</h5><h6 id="这个是六级标题">
+    <a href="#%e8%bf%99%e4%b8%aa%e6%98%af%e5%85%ad%e7%ba%a7%e6%a0%87%e9%a2%98" class="header-anchor">#</a>
+    这个是六级标题
+</h6><h2 id="字体">
+    <a href="#%e5%ad%97%e4%bd%93" class="header-anchor">#</a>
+    字体
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">**字体加粗**
+</span></span><span class="line"><span class="cl">*斜体*
+</span></span><span class="line"><span class="cl">***斜体加粗***
+</span></span><span class="line"><span class="cl">~~字体加删除线~~
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>字体加粗</strong>
+<em>斜体</em>
+<em><strong>斜体加粗</strong></em>
+<del>字体加删除线</del></p>
+<h2 id="引用">
+    <a href="#%e5%bc%95%e7%94%a8" class="header-anchor">#</a>
+    引用
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;引用内容1
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;引用内容2
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;引用3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>引用内容1</p>
+<blockquote>
+<blockquote>
+<p>引用内容2</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>引用3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="分割线">
+    <a href="#%e5%88%86%e5%89%b2%e7%ba%bf" class="header-anchor">#</a>
+    分割线
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">三个或三个以上的-或*组成
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">----
+</span></span><span class="line"><span class="cl">***
+</span></span><span class="line"><span class="cl">****
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<hr>
+<hr>
+<hr>
+<p>这个是效果</p>
+<h2 id="图片">
+    <a href="#%e5%9b%be%e7%89%87" class="header-anchor">#</a>
+    图片
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">![图片alt](图片地址 &#34;图片title&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3070055457,3478407808&amp;fm=26&amp;gp=0.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="我"
+	
+	
+></p>
+<h2 id="超链接">
+    <a href="#%e8%b6%85%e9%93%be%e6%8e%a5" class="header-anchor">#</a>
+    超链接
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[超链接名](超链接地址 &#34;超链接title&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>超链接title可以添加也可以不添加
+例如<a class="link" href="http://www.baidu.com"  target="_blank" rel="noopener"
+    >百度</a></p>
+<h2 id="列表">
+    <a href="#%e5%88%97%e8%a1%a8" class="header-anchor">#</a>
+    列表
+</h2><ul>
+<li>无序表
+用- + *中的任何一种都可以
+-列表内容    -和内容间要有一个空格</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">- 列表内容1
+</span></span><span class="line"><span class="cl">+ 列表内容2
+</span></span><span class="line"><span class="cl">* 列表内容3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>列表内容1</li>
+</ul>
+<ul>
+<li>列表内容2</li>
+</ul>
+<ul>
+<li>列表内容3</li>
+</ul>
+<ul>
+<li>有序列表
+数字加上一个英文状态下的点就好了
+例：1.列表内容  注意：“1.”和“列表内容间要有空格”</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 列表内容1
+</span></span><span class="line"><span class="cl">2. 列表内容2
+</span></span><span class="line"><span class="cl">3. 列表内容3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>列表内容1</li>
+<li>列表内容2</li>
+<li>列表内容3</li>
+</ol>
+<ul>
+<li>列表嵌套</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">在父层的基础上，子层在开头添加两个空格
+</span></span><span class="line"><span class="cl">无序有序都是适用的
+</span></span><span class="line"><span class="cl">- 列表父
+</span></span><span class="line"><span class="cl">    - 列表子
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>列表父
+<ul>
+<li>列表子</li>
+</ul>
+</li>
+</ul>
+<h2 id="表格">
+    <a href="#%e8%a1%a8%e6%a0%bc" class="header-anchor">#</a>
+    表格
+</h2><ul>
+<li>两种方法
+<ul>
+<li>第一种</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">name | 价格 |  数量  
+</span></span><span class="line"><span class="cl">-|-|-
+</span></span><span class="line"><span class="cl">香蕉 | $1 | 5 |
+</span></span><span class="line"><span class="cl">苹果 | $1 | 6 |
+</span></span><span class="line"><span class="cl">草莓 | $1 | 7 |
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>name</th>
+<th>价格</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>香蕉</td>
+<td>$1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td>$1</td>
+<td>6</td>
+</tr>
+<tr>
+<td>草莓</td>
+<td>$1</td>
+<td>7</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>第二种</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">name | 价格 |  数量  
+</span></span><span class="line"><span class="cl">-:|:-:| -:
+</span></span><span class="line"><span class="cl">香蕉 | $1 | 5 |
+</span></span><span class="line"><span class="cl">苹果 | $1 | 6 |
+</span></span><span class="line"><span class="cl">草莓 | $1 | 7 |
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:right">name</th>
+<th style="text-align:center">价格</th>
+<th style="text-align:right">数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">香蕉</td>
+<td style="text-align:center">$1</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">苹果</td>
+<td style="text-align:center">$1</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td style="text-align:right">草莓</td>
+<td style="text-align:center">$1</td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td style="text-align:right">可以观察一下效果图，冒号在哪边内容就是在表格中的哪一边，当只有-默认是靠左的</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="代码">
+    <a href="#%e4%bb%a3%e7%a0%81" class="header-anchor">#</a>
+    代码
+</h2><p>单行代码用一个两个反引号包括起来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">`代码内容`
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>代码内容</code>
+用一对3个反引号组成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   这是一段代码
+</span></span><span class="line"><span class="cl">   这是另一段代码
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

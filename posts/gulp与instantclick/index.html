@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 最近又在折腾这个博客，虽然快考试了，但是一直也不知道要复习什么，无聊就瞎折腾吧。博客的源文件中的文件中有大量的空白，虽然是一些空格，但是也会占据空间，影响加载速度，本次目的就是为了提高加载速度。 ::: # 为什么我要去掉评论 第一个方面就是要提高加载速度，因为评论功能使用的是第三方的，当页面加载的时候，评论功能也是要加载的，在tools.pingdom.com中测试网站速度的时候，发现评论占据了大量的时间。第二个方面就是，博客中基本上就是我自己看，也很少有其他的人看，所以评论在那里就非常的尴尬，去掉影响也不是很大。 # gulp压缩 gulp是基于流的自动化构建工具，里面包含了众多的插件，使用哪个只要安装就可以使用，最后只要要创建一定的规则就可以使用这些插件。 # 首先我们要先安装的就是gulp 执行npm install gulp # 然后依次执行以下命令 1 2 3 4 5 npm install gulp-htmlclean//在不改变html结构下缩小 npm install gulp-htmlmin//压缩html npm install gulp-clean-css//压缩css npm install gulp-uglify//压缩js npm install gulp-imagemin//压缩图片 网上很多用gulp压缩css插件都用的是gulp-minify-css,这在gulp4.0已经被放弃，所以上使用上面的css压缩插件 # 然后再在博客根目录中创建gulpfile.js文件 这是文件中的内容 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 var gulp = require(&#39;gulp&#39;); var cleancss = require(&#39;gulp-clean-css&#39;); var uglify = require(&#39;gulp-uglify&#39;); var htmlmin = require(&#39;gulp-htmlmin&#39;); var htmlclean = require(&#39;gulp-htmlclean&#39;); var imagemin = require(&#39;gulp-imagemin&#39;); // 压缩 public 目录 html文件 gulp.">
+<title>gulp与InstantClick</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/gulp%E4%B8%8Einstantclick/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="gulp与InstantClick">
+<meta property='og:description' content=":::tip 最近又在折腾这个博客，虽然快考试了，但是一直也不知道要复习什么，无聊就瞎折腾吧。博客的源文件中的文件中有大量的空白，虽然是一些空格，但是也会占据空间，影响加载速度，本次目的就是为了提高加载速度。 ::: # 为什么我要去掉评论 第一个方面就是要提高加载速度，因为评论功能使用的是第三方的，当页面加载的时候，评论功能也是要加载的，在tools.pingdom.com中测试网站速度的时候，发现评论占据了大量的时间。第二个方面就是，博客中基本上就是我自己看，也很少有其他的人看，所以评论在那里就非常的尴尬，去掉影响也不是很大。 # gulp压缩 gulp是基于流的自动化构建工具，里面包含了众多的插件，使用哪个只要安装就可以使用，最后只要要创建一定的规则就可以使用这些插件。 # 首先我们要先安装的就是gulp 执行npm install gulp # 然后依次执行以下命令 1 2 3 4 5 npm install gulp-htmlclean//在不改变html结构下缩小 npm install gulp-htmlmin//压缩html npm install gulp-clean-css//压缩css npm install gulp-uglify//压缩js npm install gulp-imagemin//压缩图片 网上很多用gulp压缩css插件都用的是gulp-minify-css,这在gulp4.0已经被放弃，所以上使用上面的css压缩插件 # 然后再在博客根目录中创建gulpfile.js文件 这是文件中的内容 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 var gulp = require(&#39;gulp&#39;); var cleancss = require(&#39;gulp-clean-css&#39;); var uglify = require(&#39;gulp-uglify&#39;); var htmlmin = require(&#39;gulp-htmlmin&#39;); var htmlclean = require(&#39;gulp-htmlclean&#39;); var imagemin = require(&#39;gulp-imagemin&#39;); // 压缩 public 目录 html文件 gulp.">
+<meta property='og:url' content='https://blog.lass.cc/posts/gulp%E4%B8%8Einstantclick/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='优化' /><meta property='article:published_time' content='2019-06-04T22:01:23&#43;00:00'/><meta property='article:modified_time' content='2019-06-04T22:01:23&#43;00:00'/>
+<meta name="twitter:title" content="gulp与InstantClick">
+<meta name="twitter:description" content=":::tip 最近又在折腾这个博客，虽然快考试了，但是一直也不知道要复习什么，无聊就瞎折腾吧。博客的源文件中的文件中有大量的空白，虽然是一些空格，但是也会占据空间，影响加载速度，本次目的就是为了提高加载速度。 ::: # 为什么我要去掉评论 第一个方面就是要提高加载速度，因为评论功能使用的是第三方的，当页面加载的时候，评论功能也是要加载的，在tools.pingdom.com中测试网站速度的时候，发现评论占据了大量的时间。第二个方面就是，博客中基本上就是我自己看，也很少有其他的人看，所以评论在那里就非常的尴尬，去掉影响也不是很大。 # gulp压缩 gulp是基于流的自动化构建工具，里面包含了众多的插件，使用哪个只要安装就可以使用，最后只要要创建一定的规则就可以使用这些插件。 # 首先我们要先安装的就是gulp 执行npm install gulp # 然后依次执行以下命令 1 2 3 4 5 npm install gulp-htmlclean//在不改变html结构下缩小 npm install gulp-htmlmin//压缩html npm install gulp-clean-css//压缩css npm install gulp-uglify//压缩js npm install gulp-imagemin//压缩图片 网上很多用gulp压缩css插件都用的是gulp-minify-css,这在gulp4.0已经被放弃，所以上使用上面的css压缩插件 # 然后再在博客根目录中创建gulpfile.js文件 这是文件中的内容 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 var gulp = require(&#39;gulp&#39;); var cleancss = require(&#39;gulp-clean-css&#39;); var uglify = require(&#39;gulp-uglify&#39;); var htmlmin = require(&#39;gulp-htmlmin&#39;); var htmlclean = require(&#39;gulp-htmlclean&#39;); var imagemin = require(&#39;gulp-imagemin&#39;); // 压缩 public 目录 html文件 gulp.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#为什么我要去掉评论">为什么我要去掉评论</a></li>
+    <li><a href="#gulp压缩">gulp压缩</a>
+      <ol>
+        <li><a href="#首先我们要先安装的就是gulp">首先我们要先安装的就是gulp</a></li>
+        <li><a href="#然后依次执行以下命令">然后依次执行以下命令</a></li>
+        <li><a href="#然后再在博客根目录中创建gulpfilejs文件">然后再在博客根目录中创建gulpfile.js文件</a></li>
+        <li><a href="#使用方法">使用方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#instantclick是什么">InstantClick是什么</a></li>
+    <li><a href="#instantclick实现方法">InstantClick实现方法</a>
+      <ol>
+        <li><a href="#首先需要下载创建instantclickminjs文件">首先需要下载创建instantclick.min.js文件</a></li>
+        <li><a href="#如何使用instantclick">如何使用InstantClick</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/gulp%E4%B8%8Einstantclick/">gulp与InstantClick</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 04, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+最近又在折腾这个博客，虽然快考试了，但是一直也不知道要复习什么，无聊就瞎折腾吧。博客的源文件中的文件中有大量的空白，虽然是一些空格，但是也会占据空间，影响加载速度，本次目的就是为了提高加载速度。
+:::</p>
+<!-- raw HTML omitted -->
+<h2 id="为什么我要去掉评论">
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e6%88%91%e8%a6%81%e5%8e%bb%e6%8e%89%e8%af%84%e8%ae%ba" class="header-anchor">#</a>
+    为什么我要去掉评论
+</h2><p>第一个方面就是要提高加载速度，因为评论功能使用的是第三方的，当页面加载的时候，评论功能也是要加载的，在<code>tools.pingdom.com</code>中测试网站速度的时候，发现评论占据了大量的时间。第二个方面就是，博客中基本上就是我自己看，也很少有其他的人看，所以评论在那里就非常的尴尬，去掉影响也不是很大。</p>
+<h2 id="gulp压缩">
+    <a href="#gulp%e5%8e%8b%e7%bc%a9" class="header-anchor">#</a>
+    gulp压缩
+</h2><p><code>gulp</code>是基于流的自动化构建工具，里面包含了众多的插件，使用哪个只要安装就可以使用，最后只要要创建一定的规则就可以使用这些插件。</p>
+<h3 id="首先我们要先安装的就是gulp">
+    <a href="#%e9%a6%96%e5%85%88%e6%88%91%e4%bb%ac%e8%a6%81%e5%85%88%e5%ae%89%e8%a3%85%e7%9a%84%e5%b0%b1%e6%98%afgulp" class="header-anchor">#</a>
+    首先我们要先安装的就是gulp
+</h3><p>执行<code>npm install gulp</code></p>
+<h3 id="然后依次执行以下命令">
+    <a href="#%e7%84%b6%e5%90%8e%e4%be%9d%e6%ac%a1%e6%89%a7%e8%a1%8c%e4%bb%a5%e4%b8%8b%e5%91%bd%e4%bb%a4" class="header-anchor">#</a>
+    然后依次执行以下命令
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">npm install gulp-htmlclean//在不改变html结构下缩小</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">npm install gulp-htmlmin//压缩html</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">npm install gulp-clean-css//压缩css</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">npm install gulp-uglify//压缩js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">npm install gulp-imagemin//压缩图片</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>网上很多用gulp压缩css插件都用的是<code>gulp-minify-css</code>,这在<code>gulp4.0</code>已经被放弃，所以上使用上面的css压缩插件</p>
+<h3 id="然后再在博客根目录中创建gulpfilejs文件">
+    <a href="#%e7%84%b6%e5%90%8e%e5%86%8d%e5%9c%a8%e5%8d%9a%e5%ae%a2%e6%a0%b9%e7%9b%ae%e5%bd%95%e4%b8%ad%e5%88%9b%e5%bb%bagulpfilejs%e6%96%87%e4%bb%b6" class="header-anchor">#</a>
+    然后再在博客根目录中创建gulpfile.js文件
+</h3><p>这是文件中的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">var gulp = require(&#39;gulp&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">var cleancss = require(&#39;gulp-clean-css&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">var uglify = require(&#39;gulp-uglify&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">var htmlmin = require(&#39;gulp-htmlmin&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">var htmlclean = require(&#39;gulp-htmlclean&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">var imagemin = require(&#39;gulp-imagemin&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">// 压缩 public 目录 html文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">gulp.task(&#39;minify-html&#39;, function() {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">return gulp.src(&#39;./public/**/*.html&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(htmlclean())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(htmlmin({</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">removeComments</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">minifyJS</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">minifyCSS</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">minifyURLs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="l">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(gulp.dest(&#39;./public&#39;))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="l">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">// 压缩 public 目录 css文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">gulp.task(&#39;minify-css&#39;, function() {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">return gulp.src(&#39;./public/**/*.css&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(cleancss({</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">compatibility</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;ie8&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="l">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(gulp.dest(&#39;./public&#39;));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="l">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">// 压缩 public/js 目录 js文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">gulp.task(&#39;minify-js&#39;, function() {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">return gulp.src(&#39;./public/js/**/*.js&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(uglify())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(gulp.dest(&#39;./public/js&#39;));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="l">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">// 压缩图片</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">gulp.task(&#39;minify-images&#39;, function() {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">return gulp.src(&#39;./public/images/**/*.*&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(imagemin(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[</span><span class="l">imagemin.gifsicle({&#39;optimizationLevel&#39;: 3}),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">imagemin.jpegtran({&#39;progressive&#39;: true}),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">imagemin.optipng({&#39;optimizationLevel&#39;: 7}),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">imagemin.svgo()],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>{<span class="nt">&#39;verbose&#39;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>}<span class="l">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">.pipe(gulp.dest(&#39;./public/images&#39;))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="l">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">// 默认任务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">gulp.task(&#39;default&#39;, gulp.parallel(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s1">&#39;minify-html&#39;</span><span class="p">,</span><span class="s1">&#39;minify-css&#39;</span><span class="p">,</span><span class="s1">&#39;minify-js&#39;</span><span class="p">,</span><span class="s1">&#39;minify-images&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">));</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="使用方法">
+    <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="header-anchor">#</a>
+    使用方法
+</h3><p>顺序不能错了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">hexo clean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">hexo g</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">gulp</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="instantclick是什么">
+    <a href="#instantclick%e6%98%af%e4%bb%80%e4%b9%88" class="header-anchor">#</a>
+    InstantClick是什么
+</h2><p><code>InstantClick</code>在网上都被别人叫做神器，可以假装网站运行的速度很快，当你的鼠标移动到你要点的那个按钮，后台就会自动开启预浏览模式，也就是当鼠标浮动在按钮之上时，你要点击的事件在后台就已经开始运行了(也许都已经运行完成了)，当你再点击的时候速度当然会提升很多。
+具体原理是这样，但是我在使用的时候也没真真切切感觉速度有多么质的飞跃，没啥感觉。
+再练习一下流程图吧。</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Start<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->点击<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->浮动在按钮上<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->页面加载完毕<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->End<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="instantclick实现方法">
+    <a href="#instantclick%e5%ae%9e%e7%8e%b0%e6%96%b9%e6%b3%95" class="header-anchor">#</a>
+    InstantClick实现方法
+</h2><h3 id="首先需要下载创建instantclickminjs文件">
+    <a href="#%e9%a6%96%e5%85%88%e9%9c%80%e8%a6%81%e4%b8%8b%e8%bd%bd%e5%88%9b%e5%bb%bainstantclickminjs%e6%96%87%e4%bb%b6" class="header-anchor">#</a>
+    首先需要下载创建instantclick.min.js文件
+</h3><p><a class="link" href="http://instantclick.io/v3.1.0/instantclick.min.js"  target="_blank" rel="noopener"
+    >instantclick.min.js</a>,直接点击就可以跳转到文件页面，直接点击右键另存为就可以了，或者创建<code>instantclick.min.js</code>文件，把链接中的内容复制下来放到里面也可以。
+把新创建的文件放在<code>themes/next/source/js/src</code>中。</p>
+<h3 id="如何使用instantclick">
+    <a href="#%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8instantclick" class="header-anchor">#</a>
+    如何使用InstantClick
+</h3><p>路径<code>themes/layout/_layout.swig</code>，打开<code>_layout.swig</code>在最下面的<code>body</code>(这里怕乱码就不用标签写了)上面，添加以下代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="l">&lt;script src=&#34;/js/src/instantclick.min.js&#34; data-no-instant&gt;&lt;/script&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">&lt;script data-no-instant&gt;InstantClick.init(true);&lt;/script&gt;//里面是true就是默认所有都不预加载</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">&lt;/body&gt;//不包括</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">&lt;/html&gt;//不包括，只为了好找</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这时候，我们就已经完成了，部署到github上，看看效果吧。
+hexo博客似乎不支持，我原先以为成功了，原来一直都没有，true原来是所有都不预加载。
+备方案：
+直接在原位置引用这段就可以了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">&lt;script src=&#34;//instant.page/1.2.2&#34; type=&#34;module&#34; integrity=&#34;sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU&#34;&gt;&lt;/script&gt;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E4%BC%98%E5%8C%96/">优化</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今天闲来无事，又去看了一下抽奖程序，发现是因为图片的路径没找到，查了一下有很多程序，本地运行可以，在服务器就会出现很多的问题，文件找不到什么的，然后我就把本地的验证图片也放到项目中去，相当于初始化了一下，然后就成功了，不知道为什么。之前说的，因为在外网有可能图片加载不进来的说法是错误的，本地用全局代理，虽然有点慢也是可以的，之前暴力破解，平均好几个小时，只能抽一个号码，太浪费github的资源了（印证了不是自己的不心疼^_^）。好在可以抽奖了，这次运行了11个号码只需要不到十分钟时间，还可以。 好开心，一直都以为需要一个服务器，又能白嫖了^_^。 今天把这个一切都弄好之后，很少出门的我也应允去超市，头发从过年到现在都没剃，也两天没洗了，穿着拖鞋，干活穿的衣服，胡子也没刮，从前最不喜欢穿的校服也穿在身上，也敢出门，在过去这是不可想象的。我觉得代码让我心里很满足，让我不惧怕外界的一切，我想这也是一种成长吧。弄不出来我也会很不高兴，但是过一段时间又忍不住再看看，爱恨交接。 看到github上类似的项目不多，第一个有30多个Star，而我一个也没有，突然之间我也想有Star了，哪怕仅仅是一个，我也想做出让别人认可的，好玩的。 然后我就在平常玩免流的地方，发收集手机号的问卷，太可怜了还没有服务器，觉得平常用的少就没有买，在贴吧也发帖子，不知道到时候能够收集到多少人，此前我已经把全班的联通手机号都加进来了（不知道好不好）。 代码开源，其实原理也很简单，我就是不知道如何识别验证码，起初用Tess4j识别，需要下载相应的数据包，不知道是还需要训练还是因为什么，识别率很低，即使是降噪二值化之后，那么清楚的图片就是识别不出来，后来就放置了一段时间，又捡起来，发现有的用百度API识别验证码，但是只能识别一些不加干扰的验证码，正好降噪二值化就可以去除干扰了，识别率很高，并且一个月有50000次，绝对够用了。 永远相信，美好的事情即将发生。">
+<title>真诚的希望</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E7%9C%9F%E8%AF%9A%E7%9A%84%E5%B8%8C%E6%9C%9B/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="真诚的希望">
+<meta property='og:description' content="今天闲来无事，又去看了一下抽奖程序，发现是因为图片的路径没找到，查了一下有很多程序，本地运行可以，在服务器就会出现很多的问题，文件找不到什么的，然后我就把本地的验证图片也放到项目中去，相当于初始化了一下，然后就成功了，不知道为什么。之前说的，因为在外网有可能图片加载不进来的说法是错误的，本地用全局代理，虽然有点慢也是可以的，之前暴力破解，平均好几个小时，只能抽一个号码，太浪费github的资源了（印证了不是自己的不心疼^_^）。好在可以抽奖了，这次运行了11个号码只需要不到十分钟时间，还可以。 好开心，一直都以为需要一个服务器，又能白嫖了^_^。 今天把这个一切都弄好之后，很少出门的我也应允去超市，头发从过年到现在都没剃，也两天没洗了，穿着拖鞋，干活穿的衣服，胡子也没刮，从前最不喜欢穿的校服也穿在身上，也敢出门，在过去这是不可想象的。我觉得代码让我心里很满足，让我不惧怕外界的一切，我想这也是一种成长吧。弄不出来我也会很不高兴，但是过一段时间又忍不住再看看，爱恨交接。 看到github上类似的项目不多，第一个有30多个Star，而我一个也没有，突然之间我也想有Star了，哪怕仅仅是一个，我也想做出让别人认可的，好玩的。 然后我就在平常玩免流的地方，发收集手机号的问卷，太可怜了还没有服务器，觉得平常用的少就没有买，在贴吧也发帖子，不知道到时候能够收集到多少人，此前我已经把全班的联通手机号都加进来了（不知道好不好）。 代码开源，其实原理也很简单，我就是不知道如何识别验证码，起初用Tess4j识别，需要下载相应的数据包，不知道是还需要训练还是因为什么，识别率很低，即使是降噪二值化之后，那么清楚的图片就是识别不出来，后来就放置了一段时间，又捡起来，发现有的用百度API识别验证码，但是只能识别一些不加干扰的验证码，正好降噪二值化就可以去除干扰了，识别率很高，并且一个月有50000次，绝对够用了。 永远相信，美好的事情即将发生。">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E7%9C%9F%E8%AF%9A%E7%9A%84%E5%B8%8C%E6%9C%9B/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='感悟' /><meta property='article:published_time' content='2020-04-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-04-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="真诚的希望">
+<meta name="twitter:description" content="今天闲来无事，又去看了一下抽奖程序，发现是因为图片的路径没找到，查了一下有很多程序，本地运行可以，在服务器就会出现很多的问题，文件找不到什么的，然后我就把本地的验证图片也放到项目中去，相当于初始化了一下，然后就成功了，不知道为什么。之前说的，因为在外网有可能图片加载不进来的说法是错误的，本地用全局代理，虽然有点慢也是可以的，之前暴力破解，平均好几个小时，只能抽一个号码，太浪费github的资源了（印证了不是自己的不心疼^_^）。好在可以抽奖了，这次运行了11个号码只需要不到十分钟时间，还可以。 好开心，一直都以为需要一个服务器，又能白嫖了^_^。 今天把这个一切都弄好之后，很少出门的我也应允去超市，头发从过年到现在都没剃，也两天没洗了，穿着拖鞋，干活穿的衣服，胡子也没刮，从前最不喜欢穿的校服也穿在身上，也敢出门，在过去这是不可想象的。我觉得代码让我心里很满足，让我不惧怕外界的一切，我想这也是一种成长吧。弄不出来我也会很不高兴，但是过一段时间又忍不住再看看，爱恨交接。 看到github上类似的项目不多，第一个有30多个Star，而我一个也没有，突然之间我也想有Star了，哪怕仅仅是一个，我也想做出让别人认可的，好玩的。 然后我就在平常玩免流的地方，发收集手机号的问卷，太可怜了还没有服务器，觉得平常用的少就没有买，在贴吧也发帖子，不知道到时候能够收集到多少人，此前我已经把全班的联通手机号都加进来了（不知道好不好）。 代码开源，其实原理也很简单，我就是不知道如何识别验证码，起初用Tess4j识别，需要下载相应的数据包，不知道是还需要训练还是因为什么，识别率很低，即使是降噪二值化之后，那么清楚的图片就是识别不出来，后来就放置了一段时间，又捡起来，发现有的用百度API识别验证码，但是只能识别一些不加干扰的验证码，正好降噪二值化就可以去除干扰了，识别率很高，并且一个月有50000次，绝对够用了。 永远相信，美好的事情即将发生。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%9C%9F%E8%AF%9A%E7%9A%84%E5%B8%8C%E6%9C%9B/">真诚的希望</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 09, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>今天闲来无事，又去看了一下抽奖程序，发现是因为图片的路径没找到，查了一下有很多程序，本地运行可以，在服务器就会出现很多的问题，文件找不到什么的，然后我就把本地的验证图片也放到项目中去，相当于初始化了一下，然后就成功了，不知道为什么。之前说的，因为在外网有可能图片加载不进来的说法是错误的，本地用全局代理，虽然有点慢也是可以的，之前暴力破解，平均好几个小时，只能抽一个号码，太浪费github的资源了（印证了不是自己的不心疼^_^）。好在可以抽奖了，这次运行了11个号码只需要不到十分钟时间，还可以。</p>
+<p>好开心，一直都以为需要一个服务器，又能白嫖了^_^。</p>
+<p>今天把这个一切都弄好之后，很少出门的我也应允去超市，头发从过年到现在都没剃，也两天没洗了，穿着拖鞋，干活穿的衣服，胡子也没刮，从前最不喜欢穿的校服也穿在身上，也敢出门，在过去这是不可想象的。我觉得代码让我心里很满足，让我不惧怕外界的一切，我想这也是一种成长吧。弄不出来我也会很不高兴，但是过一段时间又忍不住再看看，爱恨交接。</p>
+<p>看到github上类似的项目不多，第一个有30多个Star，而我一个也没有，突然之间我也想有Star了，哪怕仅仅是一个，我也想做出让别人认可的，好玩的。</p>
+<p>然后我就在平常玩免流的地方，发收集手机号的问卷，太可怜了还没有服务器，觉得平常用的少就没有买，在贴吧也发帖子，不知道到时候能够收集到多少人，此前我已经把全班的联通手机号都加进来了（不知道好不好）。</p>
+<p>代码开源，其实原理也很简单，我就是不知道如何识别验证码，起初用Tess4j识别，需要下载相应的数据包，不知道是还需要训练还是因为什么，识别率很低，即使是降噪二值化之后，那么清楚的图片就是识别不出来，后来就放置了一段时间，又捡起来，发现有的用百度API识别验证码，但是只能识别一些不加干扰的验证码，正好降噪二值化就可以去除干扰了，识别率很高，并且一个月有50000次，绝对够用了。</p>
+<p>永远相信，美好的事情即将发生。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%84%9F%E6%82%9F/">感悟</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 又在琢磨爬虫，我本以为像以前一样，没想到又不知道踩什么坑进去了。 ::: 这一次也是主要利用了三个接口，只需要一个BDUSS就可以了，到期时间在2028年，挺长的。一个是类似于登录的接口，用于拿到tbs，使用签到接口的时候需要用到这个参数，还有一个接口是用于获取贴吧列表的，万事必备。 HttpUrlConnection在安卓网络开发中曾经使用过，仍旧记得volley的post请求携带参数，总是返回参数错误信息，这次仍然使用的是HttpUrlConnection。get请求不必多说，借于前面的经验，我仍然像以前那么携带参数，如下代码所示。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 URL url = new URL(SIGN_URL); HttpURLConnection connection = (HttpURLConnection) url.openConnection(); connection.setRequestMethod(&#34;POST&#34;); connection.setDoOutput(true); connection.setDoInput(true); connection.setUseCaches(false); connection.setRequestProperty(&#34;connection&#34;,&#34;keep-alive&#34;); connection.setRequestProperty(&#34;Content-Type&#34;, &#34;application/x-www-form-urlencoded; charset=UTF-8&#34;); connection.setRequestProperty(&#34;User-Agent&#34;, &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36&#34;); connection.setRequestProperty(&#34;Cookie&#34;, &#34;BDUSS=&#34;+BDUSS);//设置请求头 connection.setRequestProperty(&#34;Content-Type&#34;, &#34;application/json;charset=utf-8&#34;);//设置参数类型是json格式 connection.connect(); String body = &#34;kw=&#34;+name+&#34;&amp;tbs=&#34;+tbs+&#34;&amp;sign=&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!!!&#34;); /** * 说起来都是泪，为什么这种方式不行，还非得弄成get添加参数的形式，唉。 */ // String body = &#34;{\\n&#34; + // &#34; \\&#34;kw\\&#34;: \\&#34;&#34;+name+&#34;\\&#34;\\n&#34; + // &#34; \\&#34;tbs\\&#34;: \\&#34;&#34;+tbs+&#34;\\&#34;\\n&#34; + // &#34; \\&#34;sign\\&#34;: \\&#34;&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!">
+<title>贴吧自动签到</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="贴吧自动签到">
+<meta property='og:description' content=":::tip 又在琢磨爬虫，我本以为像以前一样，没想到又不知道踩什么坑进去了。 ::: 这一次也是主要利用了三个接口，只需要一个BDUSS就可以了，到期时间在2028年，挺长的。一个是类似于登录的接口，用于拿到tbs，使用签到接口的时候需要用到这个参数，还有一个接口是用于获取贴吧列表的，万事必备。 HttpUrlConnection在安卓网络开发中曾经使用过，仍旧记得volley的post请求携带参数，总是返回参数错误信息，这次仍然使用的是HttpUrlConnection。get请求不必多说，借于前面的经验，我仍然像以前那么携带参数，如下代码所示。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 URL url = new URL(SIGN_URL); HttpURLConnection connection = (HttpURLConnection) url.openConnection(); connection.setRequestMethod(&#34;POST&#34;); connection.setDoOutput(true); connection.setDoInput(true); connection.setUseCaches(false); connection.setRequestProperty(&#34;connection&#34;,&#34;keep-alive&#34;); connection.setRequestProperty(&#34;Content-Type&#34;, &#34;application/x-www-form-urlencoded; charset=UTF-8&#34;); connection.setRequestProperty(&#34;User-Agent&#34;, &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36&#34;); connection.setRequestProperty(&#34;Cookie&#34;, &#34;BDUSS=&#34;+BDUSS);//设置请求头 connection.setRequestProperty(&#34;Content-Type&#34;, &#34;application/json;charset=utf-8&#34;);//设置参数类型是json格式 connection.connect(); String body = &#34;kw=&#34;+name+&#34;&amp;tbs=&#34;+tbs+&#34;&amp;sign=&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!!!&#34;); /** * 说起来都是泪，为什么这种方式不行，还非得弄成get添加参数的形式，唉。 */ // String body = &#34;{\\n&#34; + // &#34; \\&#34;kw\\&#34;: \\&#34;&#34;+name+&#34;\\&#34;\\n&#34; + // &#34; \\&#34;tbs\\&#34;: \\&#34;&#34;+tbs+&#34;\\&#34;\\n&#34; + // &#34; \\&#34;sign\\&#34;: \\&#34;&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='爬虫' /><meta property='article:published_time' content='2020-08-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-08-28T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="贴吧自动签到">
+<meta name="twitter:description" content=":::tip 又在琢磨爬虫，我本以为像以前一样，没想到又不知道踩什么坑进去了。 ::: 这一次也是主要利用了三个接口，只需要一个BDUSS就可以了，到期时间在2028年，挺长的。一个是类似于登录的接口，用于拿到tbs，使用签到接口的时候需要用到这个参数，还有一个接口是用于获取贴吧列表的，万事必备。 HttpUrlConnection在安卓网络开发中曾经使用过，仍旧记得volley的post请求携带参数，总是返回参数错误信息，这次仍然使用的是HttpUrlConnection。get请求不必多说，借于前面的经验，我仍然像以前那么携带参数，如下代码所示。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 URL url = new URL(SIGN_URL); HttpURLConnection connection = (HttpURLConnection) url.openConnection(); connection.setRequestMethod(&#34;POST&#34;); connection.setDoOutput(true); connection.setDoInput(true); connection.setUseCaches(false); connection.setRequestProperty(&#34;connection&#34;,&#34;keep-alive&#34;); connection.setRequestProperty(&#34;Content-Type&#34;, &#34;application/x-www-form-urlencoded; charset=UTF-8&#34;); connection.setRequestProperty(&#34;User-Agent&#34;, &#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36&#34;); connection.setRequestProperty(&#34;Cookie&#34;, &#34;BDUSS=&#34;+BDUSS);//设置请求头 connection.setRequestProperty(&#34;Content-Type&#34;, &#34;application/json;charset=utf-8&#34;);//设置参数类型是json格式 connection.connect(); String body = &#34;kw=&#34;+name+&#34;&amp;tbs=&#34;+tbs+&#34;&amp;sign=&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!!!&#34;); /** * 说起来都是泪，为什么这种方式不行，还非得弄成get添加参数的形式，唉。 */ // String body = &#34;{\\n&#34; + // &#34; \\&#34;kw\\&#34;: \\&#34;&#34;+name+&#34;\\&#34;\\n&#34; + // &#34; \\&#34;tbs\\&#34;: \\&#34;&#34;+tbs+&#34;\\&#34;\\n&#34; + // &#34; \\&#34;sign\\&#34;: \\&#34;&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/">贴吧自动签到</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 28, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+又在琢磨爬虫，我本以为像以前一样，没想到又不知道踩什么坑进去了。
+:::</p>
+<!-- raw HTML omitted -->
+<p>这一次也是主要利用了三个接口，只需要一个<code>BDUSS</code>就可以了，到期时间在2028年，挺长的。一个是类似于登录的接口，用于拿到tbs，使用签到接口的时候需要用到这个参数，还有一个接口是用于获取贴吧列表的，万事必备。</p>
+<p><code>HttpUrlConnection</code>在安卓网络开发中曾经使用过，仍旧记得<code>volley</code>的post请求携带参数，总是返回参数错误信息，这次仍然使用的是<code>HttpUrlConnection</code>。get请求不必多说，借于前面的经验，我仍然像以前那么携带参数，如下代码所示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">URL</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">SIGN_URL</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">HttpURLConnection</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpURLConnection</span><span class="p">)</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">openConnection</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setRequestMethod</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setDoOutput</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setDoInput</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setUseCaches</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&#34;connection&#34;</span><span class="p">,</span><span class="s">&#34;keep-alive&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;application/x-www-form-urlencoded; charset=UTF-8&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&#34;User-Agent&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&#34;Cookie&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;BDUSS=&#34;</span><span class="o">+</span><span class="n">BDUSS</span><span class="p">);</span><span class="c1">//设置请求头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;application/json;charset=utf-8&#34;</span><span class="p">);</span><span class="c1">//设置参数类型是json格式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span><span class="p">.</span><span class="na">connect</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;kw=&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;&amp;tbs=&#34;</span><span class="o">+</span><span class="n">tbs</span><span class="o">+</span><span class="s">&#34;&amp;sign=&#34;</span><span class="o">+</span><span class="n">enCodeMd5</span><span class="p">(</span><span class="s">&#34;kw=&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;tbs=&#34;</span><span class="o">+</span><span class="n">tbs</span><span class="o">+</span><span class="s">&#34;tiebaclient!!!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 说起来都是泪，为什么这种方式不行，还非得弄成get添加参数的形式，唉。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//  String body = &#34;{\n&#34; +</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//                &#34;  \&#34;kw\&#34;: \&#34;&#34;+name+&#34;\&#34;\n&#34; +</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//                &#34;  \&#34;tbs\&#34;: \&#34;&#34;+tbs+&#34;\&#34;\n&#34; +</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//                &#34;  \&#34;sign\&#34;: \&#34;&#34;+enCodeMd5(&#34;kw=&#34;+name+&#34;tbs=&#34;+tbs+&#34;tiebaclient!!!&#34;)+&#34;\&#34;\n&#34; +</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//                &#34;}&#34;;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BufferedWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedWriter</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">OutputStreamWriter</span><span class="p">(</span><span class="n">connection</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;UTF-8&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">body</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注释的部分就是以前在安卓中post请求携带参数的格式，我满怀信心的这样写，结果就失败了，总是爆出一个参数错误，找了很久也没有怀疑是这个地方的问题。爬虫仍然是<code>python</code>和<code>php</code>比较多一点，因此，大多数参考他们的经验，<code>python</code>不得不说是真的好，请求参数就像是<code>axios</code>中那么清晰，<code>php</code>写的也很简洁，不过我不太熟悉。</p>
+<p><code>python</code>携带的参数是这样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;BDUSS&#39;</span><span class="p">:</span> <span class="n">bduss</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;_client_type&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;_client_id&#39;</span><span class="p">:</span> <span class="s1">&#39;wappc_1534235498291_488&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;_client_version&#39;</span><span class="p">:</span> <span class="s1">&#39;9.7.8.0&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;_phone_imei&#39;</span><span class="p">:</span> <span class="s1">&#39;000000000000000&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;1008621y&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;page_no&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;page_size&#39;</span><span class="p">:</span> <span class="s1">&#39;200&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="s1">&#39;MI+5&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;net_type&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())),</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;vcode_tag&#39;</span><span class="p">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>php</code>携带参数是这样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$postdata</span><span class="o">=</span><span class="s1">&#39;BDUSS=&#39;</span><span class="o">.</span><span class="nx">urlencode</span><span class="p">(</span><span class="nv">$bduss</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;&amp;_client_version=8.1.0.4&#39;</span><span class="o">.</span><span class="s1">&#39;&amp;page_no=&#39;</span> <span class="o">.</span> <span class="nv">$pageno</span><span class="o">.</span><span class="s1">&#39;&amp;page_size=100&#39;</span><span class="o">.</span><span class="s1">&#39;&amp;sign=&#39;</span><span class="o">.</span><span class="nx">md5</span><span class="p">(</span><span class="s1">&#39;BDUSS=&#39;</span><span class="o">.</span><span class="nv">$bduss</span><span class="o">.</span><span class="s1">&#39;_client_version=8.1.0.4&#39;</span><span class="o">.</span><span class="s1">&#39;page_no=&#39;</span><span class="o">.</span><span class="nv">$pageno</span><span class="o">.</span><span class="s1">&#39;page_size=100&#39;</span><span class="o">.</span><span class="s1">&#39;tiebaclient!!!&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>两个都是<code>post</code>请求，可是<code>php</code>的却像是<code>get</code>请求，我以为只是<code>php</code>特有，没想到<code>java</code>也得那样写才行。我很不明白为什么不行，难道是后端识别的问题？以前明明用着好好的，可是还是出了问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;kw=&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;&amp;tbs=&#34;</span><span class="o">+</span><span class="n">tbs</span><span class="o">+</span><span class="s">&#34;&amp;sign=&#34;</span><span class="o">+</span><span class="n">enCodeMd5</span><span class="p">(</span><span class="s">&#34;kw=&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&#34;tbs=&#34;</span><span class="o">+</span><span class="n">tbs</span><span class="o">+</span><span class="s">&#34;tiebaclient!!!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>不过，最后还是想说，自动签到还是挺爽的。<a class="link" href="https://github.com/srcrs/TiebaSignIn"  target="_blank" rel="noopener"
+    >自动签到地址</a>，欢迎<code>fork</code>。</p>
+<h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor">#</a>
+    参考链接
+</h2><p><a class="link" href="https://www.cnblogs.com/zisexingchen/p/3250970.html"  target="_blank" rel="noopener"
+    >httpUrlConnection参数详解</a></p>
+<p><a class="link" href="https://www.cnblogs.com/tenWood/p/8563617.html"  target="_blank" rel="noopener"
+    >HttpUrlConnection使用详解&ndash;转</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

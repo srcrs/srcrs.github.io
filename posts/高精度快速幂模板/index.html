@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 昨天在做一道题的时候，不只是昨天，现在有很多的题，不只是有一个思路就可以解决这个问题，还要考虑到性能的问题，所以现在做题很累，做着做着就想睡觉，这个想法可以解决，但是遇到数目较大的时候就很慢，甚至出错，自己还是需要加油。 ::: 昨天做的一道题叫做麦森数，这是求一个2^n-1的问题,要说n小的时候还可以计算，也许口算都可以算出来，但是当n=100，n=500,n=1500,要怎么去计算？这是个很有意思的问题。 # 主角登场 # 题目描述 形如2^p-1的素数称为麦森数，这时p一定也是素数。但反过来不一定，即如果p是个素数，2^p-1不一定也是素数。到1998年底，人们已找到了37个麦森数，最大的一个是p=3021377，它有909526位。麦森数有许多重要应用，它与完全数密切相关。 任务：从文件中输入p(1000 &lt; p &lt; 3100000)，计算2^p-1的位数和最后500位数字(用十进制高精度数表示) # 输入格式 文件中只包含一个整数p(1000 &lt; p &lt; 3100000) # 输出格式 第一行：十进制高精度数2^p-1的位数。 第2-11行：十进制高精度数2^p-1的最后500位数字。（每行输出50位，共输出10行，不足500位时高位补0） 不必验证2^p-1与p是否为素数。 # 输入输出样例 输入 1 1279 输出 1 2 3 4 5 6 7 8 9 10 11 386 00000000000000000000000000000000000000000000000000 00000000000000000000000000000000000000000000000000 00000000000000104079321946643990819252403273640855 38615262247266704805319112350403608059673360298012 23944173232418484242161395428100779138356624832346 49081399066056773207629241295093892203457731833496 61583550472959420547689811211693677147548478866962 50138443826029173234888531116082853841658502825560 46662248318909188018470682222031405210266984354887 32958028878050869736186900714720710555703168729087 # 思考过程 拿到这个题，我并没有被吓倒，因为以前做过大数相乘的题，当位数太多的时候，可以使用数组来存储这个数的每一位数，然后模拟计算的过程。 首先要考虑的是怎么运算位数，这个我也想了很久，最后也没有用计数的方式实现出来。有这样一个数学公式n^p=10^q,其中n代表指数函数的底部，p代表指数部分，q代表十进制的位数-1，其实这个公式也很好理解，当左边的数为个位数时，右边的q就是一个小于1的数，当左边的数为三位数时，那么q的范围就是[2,3)，所以这个q只与位数差一，那么可以把等式化简，两边同取以10为底的对数，得到q=log10(n)*p,log在c++的&lt;cmath&gt;库函数中有相应的使用方式，所以位数可以直接使用公式计算出来 再一个就是保存后500位，放入一个长度为500的数组中（为了保险点可以将数组开的大一点），高位在后，低位在前。为什么不按照正常的顺序存储，却要反过来，其实这样做是有着极大的好处的。假如说把高位存在前面，那么当位数需要增加时，高位需要往前进一，可是高位已经到头了，前面没有位置可以放了，所以就必须得把其他数都往后移一位，这样当位数较大的时候，是不是很耗费时间与麻烦。把低位放在前面就可以解决这个麻烦了，数组开大一点，进位只需要往后走就可以了，可以扩充的很大。 存储好了，就要想怎么计算了。刚开始我用方法是每次运算的结果只与一个2相乘，当n=1200的时候，答案还是可以秒出的，但是最大值可是3100000，而我数十万的时候，答案就已经出来的很慢了，提交上去，当然会超时。然后看看题解，发现别人用的思想是一个叫做快速幂的东西，百度一下，找了很久才找到一个ppt，发现这个想法是真的好。 快速幂主要用的思想是这样，2^n=(2^(n-1)^2，画个图吧。其实主要用到的思想还是分治。 开始开始输入底数q,指数p输入底数q,指数p创建数组x,数组y,并初始化创建数组x,数组y,并初始化p!=0?p!=0?p&amp;1!=0?p&amp;1!=0?x与y相乘x与y相乘y与y相乘y与y相乘结果保存在x,x-1并输出结果保存在x,x-1并输出结束结束否否是是否否是是 这个是下面程序运行的一个流程图，对于理解这个思想很重要，x数组是存放最后的输出结果，y数组是每次都是对于上一次结果一个平方，当p等于偶数的时候，肯定最少包含一个偶次方项，等于奇次方项的时候，就要开始合并了，要不然下一次就会超出范围了，反正就是巧得很，最后能算出来结果。 # 代码段 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 #include&lt;iostream&gt; #include&lt;algorithm&gt; #include&lt;cmath&gt; using namespace std; int x[1000];//保存结果 int y[1000];//从2开始后一项等于前一项的平方 int c[1000];//缓存中间结果 void operation(int x[],int y[]) { fill(c,c+1000,0); c[0]=x[0]+y[0];//x[0],y[0],c[0],保存数的位数 if(c[0]&gt;500){//超过500位的部分就不管了 c[0]=500; } for(int i=0;i&lt;x[0];i++){//两个数模拟乘法运算 for(int j=0;j&lt;y[0];j++){ c[i+j+1]+=x[i+1]*y[j+1]; if(c[i+j+1]&gt;=10){ c[i+j+2]+=c[i+j+1]/10; c[i+j+1]%=10; } } } for(int i=0;i&lt;=c[0];i++){ x[i]=c[i]; } } int main() { int p; cin &gt;&gt; p; cout &lt;&lt; (int)(log10(2)*p+1) &lt;&lt; endl;//运用数学公式计算指数函数的位数 fill(x,x+1000,0); fill(y,y+1000,0); x[0]=x[1]=y[0]=1; y[1]=2; while(p!">
+<title>高精度快速幂模板</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E6%9D%BF/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="高精度快速幂模板">
+<meta property='og:description' content=":::tip 昨天在做一道题的时候，不只是昨天，现在有很多的题，不只是有一个思路就可以解决这个问题，还要考虑到性能的问题，所以现在做题很累，做着做着就想睡觉，这个想法可以解决，但是遇到数目较大的时候就很慢，甚至出错，自己还是需要加油。 ::: 昨天做的一道题叫做麦森数，这是求一个2^n-1的问题,要说n小的时候还可以计算，也许口算都可以算出来，但是当n=100，n=500,n=1500,要怎么去计算？这是个很有意思的问题。 # 主角登场 # 题目描述 形如2^p-1的素数称为麦森数，这时p一定也是素数。但反过来不一定，即如果p是个素数，2^p-1不一定也是素数。到1998年底，人们已找到了37个麦森数，最大的一个是p=3021377，它有909526位。麦森数有许多重要应用，它与完全数密切相关。 任务：从文件中输入p(1000 &lt; p &lt; 3100000)，计算2^p-1的位数和最后500位数字(用十进制高精度数表示) # 输入格式 文件中只包含一个整数p(1000 &lt; p &lt; 3100000) # 输出格式 第一行：十进制高精度数2^p-1的位数。 第2-11行：十进制高精度数2^p-1的最后500位数字。（每行输出50位，共输出10行，不足500位时高位补0） 不必验证2^p-1与p是否为素数。 # 输入输出样例 输入 1 1279 输出 1 2 3 4 5 6 7 8 9 10 11 386 00000000000000000000000000000000000000000000000000 00000000000000000000000000000000000000000000000000 00000000000000104079321946643990819252403273640855 38615262247266704805319112350403608059673360298012 23944173232418484242161395428100779138356624832346 49081399066056773207629241295093892203457731833496 61583550472959420547689811211693677147548478866962 50138443826029173234888531116082853841658502825560 46662248318909188018470682222031405210266984354887 32958028878050869736186900714720710555703168729087 # 思考过程 拿到这个题，我并没有被吓倒，因为以前做过大数相乘的题，当位数太多的时候，可以使用数组来存储这个数的每一位数，然后模拟计算的过程。 首先要考虑的是怎么运算位数，这个我也想了很久，最后也没有用计数的方式实现出来。有这样一个数学公式n^p=10^q,其中n代表指数函数的底部，p代表指数部分，q代表十进制的位数-1，其实这个公式也很好理解，当左边的数为个位数时，右边的q就是一个小于1的数，当左边的数为三位数时，那么q的范围就是[2,3)，所以这个q只与位数差一，那么可以把等式化简，两边同取以10为底的对数，得到q=log10(n)*p,log在c++的&lt;cmath&gt;库函数中有相应的使用方式，所以位数可以直接使用公式计算出来 再一个就是保存后500位，放入一个长度为500的数组中（为了保险点可以将数组开的大一点），高位在后，低位在前。为什么不按照正常的顺序存储，却要反过来，其实这样做是有着极大的好处的。假如说把高位存在前面，那么当位数需要增加时，高位需要往前进一，可是高位已经到头了，前面没有位置可以放了，所以就必须得把其他数都往后移一位，这样当位数较大的时候，是不是很耗费时间与麻烦。把低位放在前面就可以解决这个麻烦了，数组开大一点，进位只需要往后走就可以了，可以扩充的很大。 存储好了，就要想怎么计算了。刚开始我用方法是每次运算的结果只与一个2相乘，当n=1200的时候，答案还是可以秒出的，但是最大值可是3100000，而我数十万的时候，答案就已经出来的很慢了，提交上去，当然会超时。然后看看题解，发现别人用的思想是一个叫做快速幂的东西，百度一下，找了很久才找到一个ppt，发现这个想法是真的好。 快速幂主要用的思想是这样，2^n=(2^(n-1)^2，画个图吧。其实主要用到的思想还是分治。 开始开始输入底数q,指数p输入底数q,指数p创建数组x,数组y,并初始化创建数组x,数组y,并初始化p!=0?p!=0?p&amp;1!=0?p&amp;1!=0?x与y相乘x与y相乘y与y相乘y与y相乘结果保存在x,x-1并输出结果保存在x,x-1并输出结束结束否否是是否否是是 这个是下面程序运行的一个流程图，对于理解这个思想很重要，x数组是存放最后的输出结果，y数组是每次都是对于上一次结果一个平方，当p等于偶数的时候，肯定最少包含一个偶次方项，等于奇次方项的时候，就要开始合并了，要不然下一次就会超出范围了，反正就是巧得很，最后能算出来结果。 # 代码段 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 #include&lt;iostream&gt; #include&lt;algorithm&gt; #include&lt;cmath&gt; using namespace std; int x[1000];//保存结果 int y[1000];//从2开始后一项等于前一项的平方 int c[1000];//缓存中间结果 void operation(int x[],int y[]) { fill(c,c+1000,0); c[0]=x[0]+y[0];//x[0],y[0],c[0],保存数的位数 if(c[0]&gt;500){//超过500位的部分就不管了 c[0]=500; } for(int i=0;i&lt;x[0];i++){//两个数模拟乘法运算 for(int j=0;j&lt;y[0];j++){ c[i+j+1]+=x[i+1]*y[j+1]; if(c[i+j+1]&gt;=10){ c[i+j+2]+=c[i+j+1]/10; c[i+j+1]%=10; } } } for(int i=0;i&lt;=c[0];i++){ x[i]=c[i]; } } int main() { int p; cin &gt;&gt; p; cout &lt;&lt; (int)(log10(2)*p+1) &lt;&lt; endl;//运用数学公式计算指数函数的位数 fill(x,x+1000,0); fill(y,y+1000,0); x[0]=x[1]=y[0]=1; y[1]=2; while(p!">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E6%9D%BF/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='高性能' /><meta property='article:published_time' content='2019-08-12T09:26:45&#43;00:00'/><meta property='article:modified_time' content='2019-08-12T09:26:45&#43;00:00'/>
+<meta name="twitter:title" content="高精度快速幂模板">
+<meta name="twitter:description" content=":::tip 昨天在做一道题的时候，不只是昨天，现在有很多的题，不只是有一个思路就可以解决这个问题，还要考虑到性能的问题，所以现在做题很累，做着做着就想睡觉，这个想法可以解决，但是遇到数目较大的时候就很慢，甚至出错，自己还是需要加油。 ::: 昨天做的一道题叫做麦森数，这是求一个2^n-1的问题,要说n小的时候还可以计算，也许口算都可以算出来，但是当n=100，n=500,n=1500,要怎么去计算？这是个很有意思的问题。 # 主角登场 # 题目描述 形如2^p-1的素数称为麦森数，这时p一定也是素数。但反过来不一定，即如果p是个素数，2^p-1不一定也是素数。到1998年底，人们已找到了37个麦森数，最大的一个是p=3021377，它有909526位。麦森数有许多重要应用，它与完全数密切相关。 任务：从文件中输入p(1000 &lt; p &lt; 3100000)，计算2^p-1的位数和最后500位数字(用十进制高精度数表示) # 输入格式 文件中只包含一个整数p(1000 &lt; p &lt; 3100000) # 输出格式 第一行：十进制高精度数2^p-1的位数。 第2-11行：十进制高精度数2^p-1的最后500位数字。（每行输出50位，共输出10行，不足500位时高位补0） 不必验证2^p-1与p是否为素数。 # 输入输出样例 输入 1 1279 输出 1 2 3 4 5 6 7 8 9 10 11 386 00000000000000000000000000000000000000000000000000 00000000000000000000000000000000000000000000000000 00000000000000104079321946643990819252403273640855 38615262247266704805319112350403608059673360298012 23944173232418484242161395428100779138356624832346 49081399066056773207629241295093892203457731833496 61583550472959420547689811211693677147548478866962 50138443826029173234888531116082853841658502825560 46662248318909188018470682222031405210266984354887 32958028878050869736186900714720710555703168729087 # 思考过程 拿到这个题，我并没有被吓倒，因为以前做过大数相乘的题，当位数太多的时候，可以使用数组来存储这个数的每一位数，然后模拟计算的过程。 首先要考虑的是怎么运算位数，这个我也想了很久，最后也没有用计数的方式实现出来。有这样一个数学公式n^p=10^q,其中n代表指数函数的底部，p代表指数部分，q代表十进制的位数-1，其实这个公式也很好理解，当左边的数为个位数时，右边的q就是一个小于1的数，当左边的数为三位数时，那么q的范围就是[2,3)，所以这个q只与位数差一，那么可以把等式化简，两边同取以10为底的对数，得到q=log10(n)*p,log在c++的&lt;cmath&gt;库函数中有相应的使用方式，所以位数可以直接使用公式计算出来 再一个就是保存后500位，放入一个长度为500的数组中（为了保险点可以将数组开的大一点），高位在后，低位在前。为什么不按照正常的顺序存储，却要反过来，其实这样做是有着极大的好处的。假如说把高位存在前面，那么当位数需要增加时，高位需要往前进一，可是高位已经到头了，前面没有位置可以放了，所以就必须得把其他数都往后移一位，这样当位数较大的时候，是不是很耗费时间与麻烦。把低位放在前面就可以解决这个麻烦了，数组开大一点，进位只需要往后走就可以了，可以扩充的很大。 存储好了，就要想怎么计算了。刚开始我用方法是每次运算的结果只与一个2相乘，当n=1200的时候，答案还是可以秒出的，但是最大值可是3100000，而我数十万的时候，答案就已经出来的很慢了，提交上去，当然会超时。然后看看题解，发现别人用的思想是一个叫做快速幂的东西，百度一下，找了很久才找到一个ppt，发现这个想法是真的好。 快速幂主要用的思想是这样，2^n=(2^(n-1)^2，画个图吧。其实主要用到的思想还是分治。 开始开始输入底数q,指数p输入底数q,指数p创建数组x,数组y,并初始化创建数组x,数组y,并初始化p!=0?p!=0?p&amp;1!=0?p&amp;1!=0?x与y相乘x与y相乘y与y相乘y与y相乘结果保存在x,x-1并输出结果保存在x,x-1并输出结束结束否否是是否否是是 这个是下面程序运行的一个流程图，对于理解这个思想很重要，x数组是存放最后的输出结果，y数组是每次都是对于上一次结果一个平方，当p等于偶数的时候，肯定最少包含一个偶次方项，等于奇次方项的时候，就要开始合并了，要不然下一次就会超出范围了，反正就是巧得很，最后能算出来结果。 # 代码段 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 #include&lt;iostream&gt; #include&lt;algorithm&gt; #include&lt;cmath&gt; using namespace std; int x[1000];//保存结果 int y[1000];//从2开始后一项等于前一项的平方 int c[1000];//缓存中间结果 void operation(int x[],int y[]) { fill(c,c+1000,0); c[0]=x[0]+y[0];//x[0],y[0],c[0],保存数的位数 if(c[0]&gt;500){//超过500位的部分就不管了 c[0]=500; } for(int i=0;i&lt;x[0];i++){//两个数模拟乘法运算 for(int j=0;j&lt;y[0];j++){ c[i+j+1]+=x[i+1]*y[j+1]; if(c[i+j+1]&gt;=10){ c[i+j+2]+=c[i+j+1]/10; c[i+j+1]%=10; } } } for(int i=0;i&lt;=c[0];i++){ x[i]=c[i]; } } int main() { int p; cin &gt;&gt; p; cout &lt;&lt; (int)(log10(2)*p+1) &lt;&lt; endl;//运用数学公式计算指数函数的位数 fill(x,x+1000,0); fill(y,y+1000,0); x[0]=x[1]=y[0]=1; y[1]=2; while(p!">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#主角登场">主角登场</a>
+      <ol>
+        <li><a href="#题目描述">题目描述</a></li>
+        <li><a href="#输入格式">输入格式</a></li>
+        <li><a href="#输出格式">输出格式</a></li>
+        <li><a href="#输入输出样例">输入输出样例</a></li>
+      </ol>
+    </li>
+    <li><a href="#思考过程">思考过程</a></li>
+    <li><a href="#代码段">代码段</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E6%9D%BF/">高精度快速幂模板</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 12, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+昨天在做一道题的时候，不只是昨天，现在有很多的题，不只是有一个思路就可以解决这个问题，还要考虑到性能的问题，所以现在做题很累，做着做着就想睡觉，这个想法可以解决，但是遇到数目较大的时候就很慢，甚至出错，自己还是需要加油。
+:::</p>
+<!-- raw HTML omitted -->
+<p>昨天做的一道题叫做麦森数，这是求一个2^n-1的问题,要说n小的时候还可以计算，也许口算都可以算出来，但是当n=100，n=500,n=1500,要怎么去计算？这是个很有意思的问题。</p>
+<h2 id="主角登场">
+    <a href="#%e4%b8%bb%e8%a7%92%e7%99%bb%e5%9c%ba" class="header-anchor">#</a>
+    主角登场
+</h2><h3 id="题目描述">
+    <a href="#%e9%a2%98%e7%9b%ae%e6%8f%8f%e8%bf%b0" class="header-anchor">#</a>
+    题目描述
+</h3><p>形如<code>2^p-1</code>的素数称为麦森数，这时<code>p</code>一定也是素数。但反过来不一定，即如果p是个素数，<code>2^p-1</code>不一定也是素数。到1998年底，人们已找到了37个麦森数，最大的一个是<code>p=3021377</code>，它有<code>909526</code>位。麦森数有许多重要应用，它与完全数密切相关。</p>
+<p>任务：从文件中输入<code>p(1000 &lt; p &lt; 3100000)</code>，计算2^p-1的位数和最后500位数字(用十进制高精度数表示)</p>
+<h3 id="输入格式">
+    <a href="#%e8%be%93%e5%85%a5%e6%a0%bc%e5%bc%8f" class="header-anchor">#</a>
+    输入格式
+</h3><p>文件中只包含一个整数<code>p(1000 &lt; p &lt; 3100000)</code></p>
+<h3 id="输出格式">
+    <a href="#%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f" class="header-anchor">#</a>
+    输出格式
+</h3><p>第一行：十进制高精度数2^p-1的位数。</p>
+<p>第2-11行：十进制高精度数2^p-1的最后500位数字。（每行输出50位，共输出10行，不足500位时高位补0）</p>
+<p>不必验证2^p-1与p是否为素数。</p>
+<h3 id="输入输出样例">
+    <a href="#%e8%be%93%e5%85%a5%e8%be%93%e5%87%ba%e6%a0%b7%e4%be%8b" class="header-anchor">#</a>
+    输入输出样例
+</h3><p><strong>输入</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="m">1279</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="m">386</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">00000000000000000000000000000000000000000000000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">00000000000000000000000000000000000000000000000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">00000000000000104079321946643990819252403273640855</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">38615262247266704805319112350403608059673360298012</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">23944173232418484242161395428100779138356624832346</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">49081399066056773207629241295093892203457731833496</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">61583550472959420547689811211693677147548478866962</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">50138443826029173234888531116082853841658502825560</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">46662248318909188018470682222031405210266984354887</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">32958028878050869736186900714720710555703168729087</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="思考过程">
+    <a href="#%e6%80%9d%e8%80%83%e8%bf%87%e7%a8%8b" class="header-anchor">#</a>
+    思考过程
+</h2><p>拿到这个题，我并没有被吓倒，因为以前做过大数相乘的题，当位数太多的时候，可以使用数组来存储这个数的每一位数，然后模拟计算的过程。</p>
+<p>首先要考虑的是怎么运算位数，这个我也想了很久，最后也没有用计数的方式实现出来。有这样一个数学公式<code>n^p=10^q</code>,其中<code>n</code>代表指数函数的底部，<code>p</code>代表指数部分，<code>q</code>代表十进制的位数-1，其实这个公式也很好理解，当左边的数为个位数时，右边的<code>q</code>就是一个小于1的数，当左边的数为三位数时，那么<code>q</code>的范围就是<code>[2,3)</code>，所以这个<code>q</code>只与位数差一，那么可以把等式化简，两边同取以10为底的对数，得到<code>q=log10(n)*p</code>,<code>log</code>在c++的<code>&lt;cmath&gt;</code>库函数中有相应的使用方式，所以位数可以直接使用公式计算出来</p>
+<p>再一个就是保存后<code>500</code>位，放入一个长度为500的数组中（为了保险点可以将数组开的大一点），高位在后，低位在前。为什么不按照正常的顺序存储，却要反过来，其实这样做是有着极大的好处的。假如说把高位存在前面，那么当位数需要增加时，高位需要往前进一，可是高位已经到头了，前面没有位置可以放了，所以就必须得把其他数都往后移一位，这样当位数较大的时候，是不是很耗费时间与麻烦。把低位放在前面就可以解决这个麻烦了，数组开大一点，进位只需要往后走就可以了，可以扩充的很大。</p>
+<p>存储好了，就要想怎么计算了。刚开始我用方法是每次运算的结果只与一个<code>2</code>相乘，当<code>n=1200</code>的时候，答案还是可以秒出的，但是最大值可是<code>3100000</code>，而我数十万的时候，答案就已经出来的很慢了，提交上去，当然会超时。然后看看题解，发现别人用的思想是一个叫做快速幂的东西，百度一下，找了很久才找到一个ppt，发现这个想法是真的好。</p>
+<p>快速幂主要用的思想是这样，<code>2^n=(2^(n-1)^2</code>，画个图吧。其实主要用到的思想还是分治。</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->开始<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->开始<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->输入底数q,指数p<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->输入底数q,指数p<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->创建数组x,数组y,并初始化<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->创建数组x,数组y,并初始化<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->p!=0?<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->p!=0?<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->p&amp;1!=0?<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->p&amp;1!=0?<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->x与y相乘<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->x与y相乘<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->y与y相乘<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->y与y相乘<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->结果保存在x,x-1并输出<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->结果保存在x,x-1并输出<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->结束<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->结束<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->否<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->否<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->是<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->是<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->否<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->否<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->是<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->是<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>这个是下面程序运行的一个流程图，对于理解这个思想很重要，<code>x</code>数组是存放最后的输出结果，<code>y</code>数组是每次都是对于上一次结果一个平方，当<code>p</code>等于偶数的时候，肯定最少包含一个偶次方项，等于奇次方项的时候，就要开始合并了，要不然下一次就会超出范围了，反正就是巧得很，最后能算出来结果。</p>
+<h2 id="代码段">
+    <a href="#%e4%bb%a3%e7%a0%81%e6%ae%b5" class="header-anchor">#</a>
+    代码段
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include&lt;iostream&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include&lt;algorithm&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include&lt;cmath&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span><span class="c1">//保存结果 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">y</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span><span class="c1">//从2开始后一项等于前一项的平方 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span><span class="c1">//缓存中间结果 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">operation</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">[],</span><span class="kt">int</span> <span class="n">y</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fill</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1000</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="c1">//x[0],y[0],c[0],保存数的位数 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">500</span><span class="p">){</span><span class="c1">//超过500位的部分就不管了 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">500</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="c1">//两个数模拟乘法运算 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">10</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">				<span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">+=</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">%=</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="n">i</span><span class="o">++</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">		<span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">log10</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//运用数学公式计算指数函数的位数 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">fill</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="mi">1000</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fill</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mi">1000</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="n">p</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">&amp;</span><span class="mi">1</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span><span class="c1">//位运算判断奇偶性 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">operation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">;</span><span class="c1">//逻辑除 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">operation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">--</span><span class="p">;</span><span class="c1">//-1 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">500</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">50</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD/">高性能</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

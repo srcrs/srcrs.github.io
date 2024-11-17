@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" # 题意简述 青蛙过河，是一道很好的动态规划题，刚开始看的时候，发现有点读不清题意，看了好久才明白这道题是要干什么，怎么做。 有一条河将石墩A和石墩B隔开，河上有C区和D区，C区里有k个荷叶，D区里有h个石墩，有编号1至n的青蛙在石墩A上，按照一定的规则跳到石墩B上，问最多有多少只青蛙过河。 规则如下： 石墩可以承受任意多只青蛙，荷叶只能承受一只青蛙； 青蛙可以：A→B(表示可以从A跳到B，下同)，A→C，A→D，C→B，D→B，D→C，C→D； 当一个石墩上有多只青蛙时，则上面的青蛙只能跳到比它大1号的青蛙上面。 # 分析过程 开始忘了A也是石墩，就不知道青蛙是按照什么样的顺序过河，最后看到了A也是个石墩，所以青蛙也必须的按照由1到n的顺序过河，即按照编号从小到大。然后我就按照规则2画了一个他们之间可以转移的关系图，试着一步步去走。 用一个二维数组f[h][k]表示在不同的k和h下最多可以过河的青蛙数目，做如下假设分析： 假设h=0,k=0，那么此时只有A→B这条路径可以走，所以f[0][0]=1; 假设h=0,k=1，那么此时1号青蛙可以站到荷叶上，然后2号到B上，这样就有两个青蛙可以过河，所以f[0][1]=2; 假设h=1,k=0，那么这种和只有一个荷叶的情况是一样的，所以f[1][0]=2; 假设h=1，k=1，那么1号青蛙可以到C的第1个荷叶上，2号可以到D区的第一个石墩上，然后第一个荷叶上的1号青蛙可以到达第一个石墩上，然后三号青蛙就可以到达第一个荷叶上，这样4号青蛙就可以到达B石墩上，所以最后就有四个青蛙可以过河，f[1][1]=4; 然后依次的可以假设，但是要注意一个问题，同一个区域的石墩或者荷叶，是默认可以相互跳的，只有知道了这个后面才能够用手算的方式模拟出来。 什么时候可以让青蛙过的最多，那就是尽可能让第一个跳到石墩B上的青蛙编号达到最大。 但是，我也是够笨的，就是这样的列举，也找不到下一步与上一步之间的关系，最后看到了这样的一句话，每次都尽可能大的将第一个石墩上的青蛙数装到最多，然后再将剩余的石墩一个个都尽量装到最多。就是这一个个三个字让我明白了，假如说上一步是2个石墩，那么下一步是3个石墩，当剩余两个石墩上的青蛙数达到最大，可以将这些青蛙都放到这个空的石墩上。然后就又变成两个石墩的问题，可以一步步迭代下去。为什么？当最后一个青蛙只能够往石墩B上走时，这个时候，多出来一个石墩，最后一个青蛙是可以跳到这个石墩上的。 还有一个问题那时候，我没有考虑到，就是当没有石墩时，只有荷叶，那么f[0][k]=k+1。因为最后一个青蛙直接去石墩B上了。 这样这道题就基本已经出来了，最后其实还是可以用一个公式表示出来的，因为下一步都是等于上一步结果的2倍，但是，我用的是dp的方式写的。 # 代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 #include &lt;iostream&gt; using namespace std; int f[10000][10000]; int main() { int h, k; //h代表石墩，k代表荷叶 cin &gt;&gt; h &gt;&gt; k; for (int i = 0; i &lt;= k; i++) { f[0][i] = i + 1; } for (int i = 1; i &lt;= h; i++) { f[i][k] = f[i - 1][k] + f[i - 1][k]; } cout &lt;&lt; f[h][k]; system(&#34;pause&#34;); return 0; } ">
+<title>青蛙过河</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E9%9D%92%E8%9B%99%E8%BF%87%E6%B2%B3/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="青蛙过河">
+<meta property='og:description' content=" # 题意简述 青蛙过河，是一道很好的动态规划题，刚开始看的时候，发现有点读不清题意，看了好久才明白这道题是要干什么，怎么做。 有一条河将石墩A和石墩B隔开，河上有C区和D区，C区里有k个荷叶，D区里有h个石墩，有编号1至n的青蛙在石墩A上，按照一定的规则跳到石墩B上，问最多有多少只青蛙过河。 规则如下： 石墩可以承受任意多只青蛙，荷叶只能承受一只青蛙； 青蛙可以：A→B(表示可以从A跳到B，下同)，A→C，A→D，C→B，D→B，D→C，C→D； 当一个石墩上有多只青蛙时，则上面的青蛙只能跳到比它大1号的青蛙上面。 # 分析过程 开始忘了A也是石墩，就不知道青蛙是按照什么样的顺序过河，最后看到了A也是个石墩，所以青蛙也必须的按照由1到n的顺序过河，即按照编号从小到大。然后我就按照规则2画了一个他们之间可以转移的关系图，试着一步步去走。 用一个二维数组f[h][k]表示在不同的k和h下最多可以过河的青蛙数目，做如下假设分析： 假设h=0,k=0，那么此时只有A→B这条路径可以走，所以f[0][0]=1; 假设h=0,k=1，那么此时1号青蛙可以站到荷叶上，然后2号到B上，这样就有两个青蛙可以过河，所以f[0][1]=2; 假设h=1,k=0，那么这种和只有一个荷叶的情况是一样的，所以f[1][0]=2; 假设h=1，k=1，那么1号青蛙可以到C的第1个荷叶上，2号可以到D区的第一个石墩上，然后第一个荷叶上的1号青蛙可以到达第一个石墩上，然后三号青蛙就可以到达第一个荷叶上，这样4号青蛙就可以到达B石墩上，所以最后就有四个青蛙可以过河，f[1][1]=4; 然后依次的可以假设，但是要注意一个问题，同一个区域的石墩或者荷叶，是默认可以相互跳的，只有知道了这个后面才能够用手算的方式模拟出来。 什么时候可以让青蛙过的最多，那就是尽可能让第一个跳到石墩B上的青蛙编号达到最大。 但是，我也是够笨的，就是这样的列举，也找不到下一步与上一步之间的关系，最后看到了这样的一句话，每次都尽可能大的将第一个石墩上的青蛙数装到最多，然后再将剩余的石墩一个个都尽量装到最多。就是这一个个三个字让我明白了，假如说上一步是2个石墩，那么下一步是3个石墩，当剩余两个石墩上的青蛙数达到最大，可以将这些青蛙都放到这个空的石墩上。然后就又变成两个石墩的问题，可以一步步迭代下去。为什么？当最后一个青蛙只能够往石墩B上走时，这个时候，多出来一个石墩，最后一个青蛙是可以跳到这个石墩上的。 还有一个问题那时候，我没有考虑到，就是当没有石墩时，只有荷叶，那么f[0][k]=k+1。因为最后一个青蛙直接去石墩B上了。 这样这道题就基本已经出来了，最后其实还是可以用一个公式表示出来的，因为下一步都是等于上一步结果的2倍，但是，我用的是dp的方式写的。 # 代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 #include &lt;iostream&gt; using namespace std; int f[10000][10000]; int main() { int h, k; //h代表石墩，k代表荷叶 cin &gt;&gt; h &gt;&gt; k; for (int i = 0; i &lt;= k; i++) { f[0][i] = i + 1; } for (int i = 1; i &lt;= h; i++) { f[i][k] = f[i - 1][k] + f[i - 1][k]; } cout &lt;&lt; f[h][k]; system(&#34;pause&#34;); return 0; } ">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E9%9D%92%E8%9B%99%E8%BF%87%E6%B2%B3/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='动规' /><meta property='article:published_time' content='2019-10-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-10-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="青蛙过河">
+<meta name="twitter:description" content=" # 题意简述 青蛙过河，是一道很好的动态规划题，刚开始看的时候，发现有点读不清题意，看了好久才明白这道题是要干什么，怎么做。 有一条河将石墩A和石墩B隔开，河上有C区和D区，C区里有k个荷叶，D区里有h个石墩，有编号1至n的青蛙在石墩A上，按照一定的规则跳到石墩B上，问最多有多少只青蛙过河。 规则如下： 石墩可以承受任意多只青蛙，荷叶只能承受一只青蛙； 青蛙可以：A→B(表示可以从A跳到B，下同)，A→C，A→D，C→B，D→B，D→C，C→D； 当一个石墩上有多只青蛙时，则上面的青蛙只能跳到比它大1号的青蛙上面。 # 分析过程 开始忘了A也是石墩，就不知道青蛙是按照什么样的顺序过河，最后看到了A也是个石墩，所以青蛙也必须的按照由1到n的顺序过河，即按照编号从小到大。然后我就按照规则2画了一个他们之间可以转移的关系图，试着一步步去走。 用一个二维数组f[h][k]表示在不同的k和h下最多可以过河的青蛙数目，做如下假设分析： 假设h=0,k=0，那么此时只有A→B这条路径可以走，所以f[0][0]=1; 假设h=0,k=1，那么此时1号青蛙可以站到荷叶上，然后2号到B上，这样就有两个青蛙可以过河，所以f[0][1]=2; 假设h=1,k=0，那么这种和只有一个荷叶的情况是一样的，所以f[1][0]=2; 假设h=1，k=1，那么1号青蛙可以到C的第1个荷叶上，2号可以到D区的第一个石墩上，然后第一个荷叶上的1号青蛙可以到达第一个石墩上，然后三号青蛙就可以到达第一个荷叶上，这样4号青蛙就可以到达B石墩上，所以最后就有四个青蛙可以过河，f[1][1]=4; 然后依次的可以假设，但是要注意一个问题，同一个区域的石墩或者荷叶，是默认可以相互跳的，只有知道了这个后面才能够用手算的方式模拟出来。 什么时候可以让青蛙过的最多，那就是尽可能让第一个跳到石墩B上的青蛙编号达到最大。 但是，我也是够笨的，就是这样的列举，也找不到下一步与上一步之间的关系，最后看到了这样的一句话，每次都尽可能大的将第一个石墩上的青蛙数装到最多，然后再将剩余的石墩一个个都尽量装到最多。就是这一个个三个字让我明白了，假如说上一步是2个石墩，那么下一步是3个石墩，当剩余两个石墩上的青蛙数达到最大，可以将这些青蛙都放到这个空的石墩上。然后就又变成两个石墩的问题，可以一步步迭代下去。为什么？当最后一个青蛙只能够往石墩B上走时，这个时候，多出来一个石墩，最后一个青蛙是可以跳到这个石墩上的。 还有一个问题那时候，我没有考虑到，就是当没有石墩时，只有荷叶，那么f[0][k]=k+1。因为最后一个青蛙直接去石墩B上了。 这样这道题就基本已经出来了，最后其实还是可以用一个公式表示出来的，因为下一步都是等于上一步结果的2倍，但是，我用的是dp的方式写的。 # 代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 #include &lt;iostream&gt; using namespace std; int f[10000][10000]; int main() { int h, k; //h代表石墩，k代表荷叶 cin &gt;&gt; h &gt;&gt; k; for (int i = 0; i &lt;= k; i++) { f[0][i] = i + 1; } for (int i = 1; i &lt;= h; i++) { f[i][k] = f[i - 1][k] + f[i - 1][k]; } cout &lt;&lt; f[h][k]; system(&#34;pause&#34;); return 0; } ">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#题意简述">题意简述</a></li>
+    <li><a href="#分析过程">分析过程</a></li>
+    <li><a href="#代码">代码</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E9%9D%92%E8%9B%99%E8%BF%87%E6%B2%B3/">青蛙过河</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 04, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="题意简述">
+    <a href="#%e9%a2%98%e6%84%8f%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    题意简述
+</h2><p>青蛙过河，是一道很好的动态规划题，刚开始看的时候，发现有点读不清题意，看了好久才明白这道题是要干什么，怎么做。</p>
+<p>有一条河将石墩A和石墩B隔开，河上有C区和D区，C区里有k个荷叶，D区里有h个石墩，有编号1至n的青蛙在石墩A上，按照一定的规则跳到石墩B上，问最多有多少只青蛙过河。
+规则如下：</p>
+<ul>
+<li>
+<p>石墩可以承受任意多只青蛙，荷叶只能承受一只青蛙；</p>
+</li>
+<li>
+<p>青蛙可以：A→B(表示可以从A跳到B，下同)，A→C，A→D，C→B，D→B，D→C，C→D；</p>
+</li>
+<li>
+<p>当一个石墩上有多只青蛙时，则上面的青蛙只能跳到比它大1号的青蛙上面。</p>
+</li>
+</ul>
+<h2 id="分析过程">
+    <a href="#%e5%88%86%e6%9e%90%e8%bf%87%e7%a8%8b" class="header-anchor">#</a>
+    分析过程
+</h2><p>开始忘了A也是石墩，就不知道青蛙是按照什么样的顺序过河，最后看到了A也是个石墩，所以青蛙也必须的按照由1到n的顺序过河，即按照编号从小到大。然后我就按照规则<code>2</code>画了一个他们之间可以转移的关系图，试着一步步去走。</p>
+<p>用一个二维数组<code>f[h][k]</code>表示在不同的k和h下最多可以过河的青蛙数目，做如下假设分析：</p>
+<ul>
+<li>
+<p>假设<code>h=0,k=0</code>，那么此时只有<code>A→B</code>这条路径可以走，所以f[0][0]=1;</p>
+</li>
+<li>
+<p>假设<code>h=0,k=1</code>，那么此时1号青蛙可以站到荷叶上，然后2号到B上，这样就有两个青蛙可以过河，所以f[0][1]=2;</p>
+</li>
+<li>
+<p>假设<code>h=1,k=0</code>，那么这种和只有一个荷叶的情况是一样的，所以f[1][0]=2;</p>
+</li>
+<li>
+<p>假设<code>h=1，k=1</code>，那么1号青蛙可以到C的第1个荷叶上，2号可以到D区的第一个石墩上，然后第一个荷叶上的1号青蛙可以到达第一个石墩上，然后三号青蛙就可以到达第一个荷叶上，这样4号青蛙就可以到达B石墩上，所以最后就有四个青蛙可以过河，f[1][1]=4;</p>
+</li>
+</ul>
+<p>然后依次的可以假设，但是要注意一个问题，同一个区域的石墩或者荷叶，是默认可以相互跳的，只有知道了这个后面才能够用手算的方式模拟出来。</p>
+<p>什么时候可以让青蛙过的最多，那就是尽可能让第一个跳到石墩B上的青蛙编号达到最大。</p>
+<p>但是，我也是够笨的，就是这样的列举，也找不到下一步与上一步之间的关系，最后看到了这样的一句话，每次都尽可能大的将第一个石墩上的青蛙数装到最多，然后再将剩余的石墩一个个都尽量装到最多。就是这<code>一个个</code>三个字让我明白了，假如说上一步是<code>2</code>个石墩，那么下一步是<code>3</code>个石墩，当剩余两个石墩上的青蛙数达到最大，可以将这些青蛙都放到这个空的石墩上。然后就又变成两个石墩的问题，可以一步步迭代下去。为什么？当最后一个青蛙只能够往石墩B上走时，这个时候，多出来一个石墩，最后一个青蛙是可以跳到这个石墩上的。</p>
+<p>还有一个问题那时候，我没有考虑到，就是当没有石墩时，只有荷叶，那么<code>f[0][k]=k+1</code>。因为最后一个青蛙直接去石墩B上了。</p>
+<p>这样这道题就基本已经出来了，最后其实还是可以用一个公式表示出来的，因为下一步都是等于上一步结果的<code>2</code>倍，但是，我用的是dp的方式写的。</p>
+<h2 id="代码">
+    <a href="#%e4%bb%a3%e7%a0%81" class="header-anchor">#</a>
+    代码
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">f</span><span class="p">[</span><span class="mi">10000</span><span class="p">][</span><span class="mi">10000</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">h</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="c1">//h代表石墩，k代表荷叶
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">h</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f</span><span class="p">[</span><span class="n">h</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%8A%A8%E8%A7%84/">动规</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

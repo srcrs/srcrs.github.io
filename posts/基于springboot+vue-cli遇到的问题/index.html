@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 做了一个简单的图书管理系统，也就是实现了CRUD，记录一下中间遇到的问题，以及解决的办法。 ::: 前后端分离，但是还没有加入权限认证，也是为加入权限认证做准备吧。 # vue组件之间如何嵌套 在以前的html中，一个页面显示的就是一个页面的内容，例如如果只是改变其中一部分内容，也是要重新写一个页面，引入了vue之后就不是这样了，页面还是那个页面，只是页面中出现的vue组件不同，因而渲染出不同的效果，同一个页面可由多个或者一个vue组件构成。 在路由index.js加入如下内容 1 2 3 4 5 6 7 {path: &#39;/home&#39;, name: &#39;图书管理&#39; , component: Home,redirect: &#39;/viewBook&#39;, children: [ {path: &#39;/viewBook&#39;, name: &#39;查看图书&#39; ,component: ViewBook}, {path: &#39;/addBook&#39;, name: &#39;添加图书&#39; ,component: AddBook}, {path: &#39;/updateBook&#39;, name: &#39;修改图书&#39; ,component: UpdateBook}, ] }, path便代表访问这个页面的路径，component代表父组件的名字，redirect代表重定向，当用户访问这个路径，重定向到viewBook页面，children定义子组件，为数组类型，将在父组件中部分区域出现，其实也就是在父组件中&lt;router-view/&gt;位置出现。 # 如何动态读取路由以列表形式展示并进行路由跳转 有这样一个需求，用了element ui的布局，侧边栏有一级目录，二级目录等等，希望父组件自动添加在一级目录，它的子组件，添加到它的二级目录，其实用手写也是可以的，但是当组件多的时候，这是不方便的，还有就是点侧边栏的目录如何进行页面切换，我也没有搞明白。 这里用到了vue的v-for感觉很好用啊，记得那时候自己纯原生用jsp和jquery可难受，列表可以展示，但是如何选择并请求后端接口，太麻烦。 1 2 3 4 5 6 7 8 &lt;el-aside width=&#34;200px&#34; style=&#34;background-color: rgb(238, 241, 246)&#34;&gt; &lt;el-menu router :default-openeds=&#34;[&#39;0&#39;,&#39;1&#39;]&#34;&gt; &lt;el-submenu v-for=&#34;(item,index1) in $router.">
+<title>基于springboot&#43;vue cli遇到的问题</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="基于springboot+vue cli遇到的问题">
+<meta property='og:description' content=":::tip 做了一个简单的图书管理系统，也就是实现了CRUD，记录一下中间遇到的问题，以及解决的办法。 ::: 前后端分离，但是还没有加入权限认证，也是为加入权限认证做准备吧。 # vue组件之间如何嵌套 在以前的html中，一个页面显示的就是一个页面的内容，例如如果只是改变其中一部分内容，也是要重新写一个页面，引入了vue之后就不是这样了，页面还是那个页面，只是页面中出现的vue组件不同，因而渲染出不同的效果，同一个页面可由多个或者一个vue组件构成。 在路由index.js加入如下内容 1 2 3 4 5 6 7 {path: &#39;/home&#39;, name: &#39;图书管理&#39; , component: Home,redirect: &#39;/viewBook&#39;, children: [ {path: &#39;/viewBook&#39;, name: &#39;查看图书&#39; ,component: ViewBook}, {path: &#39;/addBook&#39;, name: &#39;添加图书&#39; ,component: AddBook}, {path: &#39;/updateBook&#39;, name: &#39;修改图书&#39; ,component: UpdateBook}, ] }, path便代表访问这个页面的路径，component代表父组件的名字，redirect代表重定向，当用户访问这个路径，重定向到viewBook页面，children定义子组件，为数组类型，将在父组件中部分区域出现，其实也就是在父组件中&lt;router-view/&gt;位置出现。 # 如何动态读取路由以列表形式展示并进行路由跳转 有这样一个需求，用了element ui的布局，侧边栏有一级目录，二级目录等等，希望父组件自动添加在一级目录，它的子组件，添加到它的二级目录，其实用手写也是可以的，但是当组件多的时候，这是不方便的，还有就是点侧边栏的目录如何进行页面切换，我也没有搞明白。 这里用到了vue的v-for感觉很好用啊，记得那时候自己纯原生用jsp和jquery可难受，列表可以展示，但是如何选择并请求后端接口，太麻烦。 1 2 3 4 5 6 7 8 &lt;el-aside width=&#34;200px&#34; style=&#34;background-color: rgb(238, 241, 246)&#34;&gt; &lt;el-menu router :default-openeds=&#34;[&#39;0&#39;,&#39;1&#39;]&#34;&gt; &lt;el-submenu v-for=&#34;(item,index1) in $router.">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='web' /><meta property='article:published_time' content='2020-07-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-07-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="基于springboot+vue cli遇到的问题">
+<meta name="twitter:description" content=":::tip 做了一个简单的图书管理系统，也就是实现了CRUD，记录一下中间遇到的问题，以及解决的办法。 ::: 前后端分离，但是还没有加入权限认证，也是为加入权限认证做准备吧。 # vue组件之间如何嵌套 在以前的html中，一个页面显示的就是一个页面的内容，例如如果只是改变其中一部分内容，也是要重新写一个页面，引入了vue之后就不是这样了，页面还是那个页面，只是页面中出现的vue组件不同，因而渲染出不同的效果，同一个页面可由多个或者一个vue组件构成。 在路由index.js加入如下内容 1 2 3 4 5 6 7 {path: &#39;/home&#39;, name: &#39;图书管理&#39; , component: Home,redirect: &#39;/viewBook&#39;, children: [ {path: &#39;/viewBook&#39;, name: &#39;查看图书&#39; ,component: ViewBook}, {path: &#39;/addBook&#39;, name: &#39;添加图书&#39; ,component: AddBook}, {path: &#39;/updateBook&#39;, name: &#39;修改图书&#39; ,component: UpdateBook}, ] }, path便代表访问这个页面的路径，component代表父组件的名字，redirect代表重定向，当用户访问这个路径，重定向到viewBook页面，children定义子组件，为数组类型，将在父组件中部分区域出现，其实也就是在父组件中&lt;router-view/&gt;位置出现。 # 如何动态读取路由以列表形式展示并进行路由跳转 有这样一个需求，用了element ui的布局，侧边栏有一级目录，二级目录等等，希望父组件自动添加在一级目录，它的子组件，添加到它的二级目录，其实用手写也是可以的，但是当组件多的时候，这是不方便的，还有就是点侧边栏的目录如何进行页面切换，我也没有搞明白。 这里用到了vue的v-for感觉很好用啊，记得那时候自己纯原生用jsp和jquery可难受，列表可以展示，但是如何选择并请求后端接口，太麻烦。 1 2 3 4 5 6 7 8 &lt;el-aside width=&#34;200px&#34; style=&#34;background-color: rgb(238, 241, 246)&#34;&gt; &lt;el-menu router :default-openeds=&#34;[&#39;0&#39;,&#39;1&#39;]&#34;&gt; &lt;el-submenu v-for=&#34;(item,index1) in $router.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#vue组件之间如何嵌套">vue组件之间如何嵌套</a></li>
+    <li><a href="#如何动态读取路由以列表形式展示并进行路由跳转">如何动态读取路由以列表形式展示并进行路由跳转</a></li>
+    <li><a href="#前端分页后端如何分页查询">前端分页，后端如何分页查询</a></li>
+    <li><a href="#前后端分离解决跨域问题">前后端分离解决跨域问题</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">基于springboot&#43;vue cli遇到的问题</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 22, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+做了一个简单的图书管理系统，也就是实现了CRUD，记录一下中间遇到的问题，以及解决的办法。
+:::</p>
+<!-- raw HTML omitted -->
+<p>前后端分离，但是还没有加入权限认证，也是为加入权限认证做准备吧。</p>
+<h2 id="vue组件之间如何嵌套">
+    <a href="#vue%e7%bb%84%e4%bb%b6%e4%b9%8b%e9%97%b4%e5%a6%82%e4%bd%95%e5%b5%8c%e5%a5%97" class="header-anchor">#</a>
+    vue组件之间如何嵌套
+</h2><p>在以前的html中，一个页面显示的就是一个页面的内容，例如如果只是改变其中一部分内容，也是要重新写一个页面，引入了vue之后就不是这样了，页面还是那个页面，只是页面中出现的vue组件不同，因而渲染出不同的效果，同一个页面可由多个或者一个vue组件构成。</p>
+<p>在路由index.js加入如下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/home&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;图书管理&#39;</span> <span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="nx">Home</span><span class="p">,</span><span class="nx">redirect</span><span class="o">:</span> <span class="s1">&#39;/viewBook&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/viewBook&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;查看图书&#39;</span> <span class="p">,</span><span class="nx">component</span><span class="o">:</span> <span class="nx">ViewBook</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/addBook&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;添加图书&#39;</span> <span class="p">,</span><span class="nx">component</span><span class="o">:</span> <span class="nx">AddBook</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/updateBook&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;修改图书&#39;</span> <span class="p">,</span><span class="nx">component</span><span class="o">:</span> <span class="nx">UpdateBook</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>path</code>便代表访问这个页面的路径，<code>component</code>代表父组件的名字，<code>redirect</code>代表重定向，当用户访问这个路径，重定向到<code>viewBook</code>页面，<code>children</code>定义子组件，为数组类型，将在父组件中部分区域出现，其实也就是在父组件中<code>&lt;router-view/&gt;</code>位置出现。</p>
+<h2 id="如何动态读取路由以列表形式展示并进行路由跳转">
+    <a href="#%e5%a6%82%e4%bd%95%e5%8a%a8%e6%80%81%e8%af%bb%e5%8f%96%e8%b7%af%e7%94%b1%e4%bb%a5%e5%88%97%e8%a1%a8%e5%bd%a2%e5%bc%8f%e5%b1%95%e7%a4%ba%e5%b9%b6%e8%bf%9b%e8%a1%8c%e8%b7%af%e7%94%b1%e8%b7%b3%e8%bd%ac" class="header-anchor">#</a>
+    如何动态读取路由以列表形式展示并进行路由跳转
+</h2><p>有这样一个需求，用了element ui的布局，侧边栏有一级目录，二级目录等等，希望父组件自动添加在一级目录，它的子组件，添加到它的二级目录，其实用手写也是可以的，但是当组件多的时候，这是不方便的，还有就是点侧边栏的目录如何进行页面切换，我也没有搞明白。</p>
+<p>这里用到了vue的v-for感觉很好用啊，记得那时候自己纯原生用jsp和jquery可难受，列表可以展示，但是如何选择并请求后端接口，太麻烦。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">el</span><span class="o">-</span><span class="nx">aside</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;200px&#34;</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&#34;background-color: rgb(238, 241, 246)&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">el</span><span class="o">-</span><span class="nx">menu</span> <span class="nx">router</span> <span class="o">:</span><span class="k">default</span><span class="o">-</span><span class="nx">openeds</span><span class="o">=</span><span class="s2">&#34;[&#39;0&#39;,&#39;1&#39;]&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">el</span><span class="o">-</span><span class="nx">submenu</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;(item,index1) in $router.options.routes&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="s2">&#34;item.path !== &#39;/&#39;&#34;</span> <span class="o">:</span><span class="nx">index</span><span class="o">=</span><span class="s2">&#34;&#39;&#39;+index1&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">template</span>  <span class="nx">slot</span><span class="o">=</span><span class="s2">&#34;title&#34;</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;el-icon-message&#34;</span><span class="o">&gt;&lt;</span><span class="err">/i&gt;{{item.name}}&lt;/template&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">el</span><span class="o">-</span><span class="nx">menu</span><span class="o">-</span><span class="nx">item</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;(items,index2) in item.children&#34;</span> <span class="o">:</span><span class="nx">index</span><span class="o">=</span><span class="s2">&#34;items.path&#34;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">items</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/el-menu-item&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/el-submenu&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/el-menu&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/el-aside&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>v-for</code>类似<code>c</code>，<code>java</code>的<code>for</code>循环，<code>$router.options.routes</code>取的是路由的列表，但是都是一级目录，<code>v-xxx</code>等等都是写在标签之中，<code>:index</code>是唯一标识一个标签，当用户点击就会跳转到<code>:index</code>的值，如果它是一个路径的话，这也因此就能实现点击进行页面的切换，实际上是<code>vue</code>组件的切换。</p>
+<p><code>(item,index1)</code>第一个值<code>item</code>代表每次循环所取得的数组元素，<code>index1</code>代表数组得下标。</p>
+<h2 id="前端分页后端如何分页查询">
+    <a href="#%e5%89%8d%e7%ab%af%e5%88%86%e9%a1%b5%e5%90%8e%e7%ab%af%e5%a6%82%e4%bd%95%e5%88%86%e9%a1%b5%e6%9f%a5%e8%af%a2" class="header-anchor">#</a>
+    前端分页，后端如何分页查询
+</h2><p>分页在此之前我也没有个概念，只知道把数据库数据部分查出来，或者全部查出来，其实，在此之前老师上课也讲过分页查询，只不过那时候不知道分页查询有什么用。</p>
+<p>在前端需要分页的页面中，需要添加如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">el</span><span class="o">-</span><span class="nx">pagination</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">background</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">layout</span><span class="o">=</span><span class="s2">&#34;prev, pager, next&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">:</span><span class="nx">page</span><span class="o">-</span><span class="nx">size</span><span class="o">=</span><span class="s2">&#34;pageSize&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="nx">current</span><span class="o">-</span><span class="nx">change</span><span class="o">=</span><span class="s2">&#34;page&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">:</span><span class="nx">total</span><span class="o">=</span><span class="s2">&#34;total&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/el-pagination&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>page-size</code>代表每一页有多少个元素，<code>total</code>代表一共有多少个元素，前边的<code>:</code>代表与元素进行绑定，<code>@current-change=&quot;page&quot;</code>代表当分页页面发生变化时，也就是用户点击发生跳转页面，将会触发<code>page</code>方法，可以对里面进行传参，代表跳转到了哪一页，这个很方面。</p>
+<p>page方法是这样的。<code>currentPage</code>便是代表跳转到了哪一页，使用<code>_this</code>原因是因为在<code>axios.get</code>内部有回调函数，如果还是使用this的话，这个this将会指向回调函数，会取不到值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">page</span><span class="p">(</span><span class="nx">currentPage</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">currentPage</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">_this</span><span class="p">.</span><span class="nx">pages</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">_this</span><span class="p">.</span><span class="nx">pages</span> <span class="o">=</span> <span class="p">(</span><span class="nx">currentPage</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;http://47.92.23.236:9090/book/findByPage/&#39;</span><span class="o">+</span><span class="nx">_this</span><span class="p">.</span><span class="nx">pages</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="nx">_this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">_this</span><span class="p">.</span><span class="nx">tableData</span> <span class="o">=</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的axios请求传入了两个参数一个是，需要跳转到哪个页面，页面的大小是多少，只需要进行简单计算起始位置，正好对应了后端limit，起始位置，元素个数。</p>
+<p>后端应该怎么做，接收到请求，拿到两个参数，查询数据库，返回结果，简单写下sql分页查询。这里<code>start</code>便代表开始的位置，<code>size</code>代表页面元素的个数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findByPage&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;book&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    select * from book limit #{start},#{size}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="前后端分离解决跨域问题">
+    <a href="#%e5%89%8d%e5%90%8e%e7%ab%af%e5%88%86%e7%a6%bb%e8%a7%a3%e5%86%b3%e8%b7%a8%e5%9f%9f%e9%97%ae%e9%a2%98" class="header-anchor">#</a>
+    前后端分离解决跨域问题
+</h2><p>也可以在每个<code>controller</code>类上添加注解去解决，但是不如添加一个配置类来的方便。在你的springboot项目中添加如下类。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CorsConfig</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">WebMvcConfigurer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCorsMappings</span><span class="p">(</span><span class="n">CorsRegistry</span><span class="w"> </span><span class="n">registry</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">registry</span><span class="p">.</span><span class="na">addMapping</span><span class="p">(</span><span class="s">&#34;/**&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">allowedOrigins</span><span class="p">(</span><span class="s">&#34;*&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">allowedMethods</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span><span class="s">&#34;HEAD&#34;</span><span class="p">,</span><span class="s">&#34;POST&#34;</span><span class="p">,</span><span class="s">&#34;PUT&#34;</span><span class="p">,</span><span class="s">&#34;DELETE&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">allowCredentials</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">maxAge</span><span class="p">(</span><span class="n">3600</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">allowedHeaders</span><span class="p">(</span><span class="s">&#34;*&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/web/">Web</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

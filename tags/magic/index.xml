@@ -1,0 +1,2210 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Magic on srcrs</title>
+        <link>https://blog.lass.cc/tags/magic/</link>
+        <description>Recent content in Magic on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Fri, 10 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/magic/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MagicBox使用手册</title>
+        <link>https://blog.lass.cc/posts/how-use-magic-box-v2/</link>
+        <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/how-use-magic-box-v2/</guid>
+        <description>&lt;h2 id=&#34;简述&#34;&gt;
+    &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    简述
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;MagicBox&lt;/code&gt;在今年迎来了升级，依托于&lt;code&gt;Automa&lt;/code&gt;灵活的工作流配置，可以很方便的实现网站的自动化任务。&lt;code&gt;Automa&lt;/code&gt;是一个浏览器控制插件，有着众多的组件，基本涵盖了日常的操作，只需要拖拉连线便可将打开网页、点击链接、获取元素的文本等等拼接成一个工作流话不，实现复杂任务的简化执行，但，如果想让其在服务端每日自动执行，不必依赖本地的插件环境，是否可行呢？&lt;/p&gt;
+&lt;p&gt;新版&lt;code&gt;MagicBox&lt;/code&gt;的主要任务都会使用&lt;code&gt;Automa&lt;/code&gt;来实现，实践的过程中是发现了一些问题的，例如登录态、通知、代码处理逻辑不一致等问题，对于迁移使用仍然会有一定的理解难度。&lt;/p&gt;
+&lt;p&gt;在最新的2.2.2版本中，我们新加了&lt;code&gt;cli&lt;/code&gt;命令模式，内置了部分任务标准模版，只需根据命令引导，即可生成专属于自己的任务，极大的简化了使用&lt;code&gt;MagicBox&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;项目目录解答&#34;&gt;
+    &lt;a href=&#34;#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95%e8%a7%a3%e7%ad%94&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    项目目录解答
+&lt;/h2&gt;&lt;p&gt;项目地址：https://github.com/srcrs/MagicBox&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MagicBox
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Dockerfile
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── LICENSE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── MagicBox.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── README.md
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── cmd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── configs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── docker-compose.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── examples
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── go.mod
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── go.sum
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── install.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── main.go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── public
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── script.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── utils
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── workerflow
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;examples: 有示例配置文件通过cli命令可以重复使用&lt;/li&gt;
+&lt;li&gt;configs: 用于放置需要执行的automa配置文件&lt;/li&gt;
+&lt;li&gt;docker-compose.yml: docker-compose配置文件，实时获取最新的版本&lt;/li&gt;
+&lt;li&gt;MagicBox.log: 工作流执行后的日志文件&lt;/li&gt;
+&lt;li&gt;main.go: 工作流解析引擎执行入口&lt;/li&gt;
+&lt;li&gt;utils、workerflow: 解析引擎相关核心代码逻辑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;已实现组件&#34;&gt;
+    &lt;a href=&#34;#%e5%b7%b2%e5%ae%9e%e7%8e%b0%e7%bb%84%e4%bb%b6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    已实现组件
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;conditions：条件判断&lt;/li&gt;
+&lt;li&gt;event-click：点击&lt;/li&gt;
+&lt;li&gt;get-text：获取文本&lt;/li&gt;
+&lt;li&gt;insert-data：插入变量&lt;/li&gt;
+&lt;li&gt;loop-data：循环获取数据&lt;/li&gt;
+&lt;li&gt;new-tab：打开网页&lt;/li&gt;
+&lt;li&gt;webhook：调用接口&lt;/li&gt;
+&lt;li&gt;tab-url：获取当前页面url&lt;/li&gt;
+&lt;li&gt;element-scroll：滚动页面到屏幕最下面&lt;/li&gt;
+&lt;li&gt;delay：流程sleep&lt;/li&gt;
+&lt;li&gt;loop-elements：循环遍历页面元素&lt;/li&gt;
+&lt;li&gt;forms：设置form表单填写内容&lt;/li&gt;
+&lt;li&gt;reload-tab：刷新当前页面&lt;/li&gt;
+&lt;li&gt;close-tab：关闭当前页面&lt;/li&gt;
+&lt;li&gt;link：获取网页中链接打开页面&lt;/li&gt;
+&lt;li&gt;active-tab：回到活动tab页中&lt;/li&gt;
+&lt;li&gt;attribute-value：获取标签成员值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;内置支持任务&#34;&gt;
+    &lt;a href=&#34;#%e5%86%85%e7%bd%ae%e6%94%af%e6%8c%81%e4%bb%bb%e5%8a%a1&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    内置支持任务
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;站点&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;th&gt;登录授权方式&lt;/th&gt;
+&lt;th&gt;username&lt;/th&gt;
+&lt;th&gt;password&lt;/th&gt;
+&lt;th&gt;brakUrl&lt;/th&gt;
+&lt;th&gt;cron&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;hostloc_get_integral&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://hostloc.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://hostloc.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;每日访问空间刷积分&lt;/td&gt;
+&lt;td&gt;账号密码&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;jd_apply_refund&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.jd.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.jd.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;京东自动申请价格保护&lt;/td&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;v2ex_sign&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://v2ex.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://v2ex.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;每日签到&lt;/td&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;wxread_task&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://weread.qq.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://weread.qq.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;每日登录阅读，完成读书挑战&lt;/td&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bilibili_task&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.bilibili.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;哔哩哔哩每日任务，登录、观看视频&lt;/td&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;no&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;环境要求&#34;&gt;
+    &lt;a href=&#34;#%e7%8e%af%e5%a2%83%e8%a6%81%e6%b1%82&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    环境要求
+&lt;/h2&gt;&lt;h3 id=&#34;linux&#34;&gt;
+    &lt;a href=&#34;#linux&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Linux
+&lt;/h3&gt;&lt;h4 id=&#34;docker&#34;&gt;
+    &lt;a href=&#34;#docker&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Docker
+&lt;/h4&gt;&lt;p&gt;docker环境安装参考&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/install/debian/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方教程&lt;/a&gt;，一键把docker和docker-compose环境都安装好。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://get.docker.com -o get-docker.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sh get-docker.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;安装好后，示例docker版本信息。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ docker --version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Docker version 24.0.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ docker compose version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Docker Compose version v2.19.1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;使用方法&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    使用方法
+&lt;/h2&gt;&lt;h3 id=&#34;docker部署&#34;&gt;
+    &lt;a href=&#34;#docker%e9%83%a8%e7%bd%b2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Docker部署
+&lt;/h3&gt;&lt;h4 id=&#34;1克隆仓库&#34;&gt;
+    &lt;a href=&#34;#1%e5%85%8b%e9%9a%86%e4%bb%93%e5%ba%93&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    1.克隆仓库
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/srcrs/MagicBox.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;克隆完后，进入到MagicBox文件夹中。&lt;/p&gt;
+&lt;h4 id=&#34;2导入配置&#34;&gt;
+    &lt;a href=&#34;#2%e5%af%bc%e5%85%a5%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    2.导入配置
+&lt;/h4&gt;&lt;p&gt;目前支持两种方式，通过内置任务初始化生成；导入自定义任务（可能存在部分节点未接入问题）。&lt;/p&gt;
+&lt;h5 id=&#34;使用内置命令初始化配置&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%bf%e7%94%a8%e5%86%85%e7%bd%ae%e5%91%bd%e4%bb%a4%e5%88%9d%e5%a7%8b%e5%8c%96%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    使用内置命令初始化配置
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;帮助命令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看目前支持的命令&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server -h
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看目前支持的config命令&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config -h
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看目前支持的初始化任务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init -h
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;可传入参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;th&gt;使用示例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;username&lt;/td&gt;
+&lt;td&gt;登录用户名&lt;/td&gt;
+&lt;td&gt;&amp;ndash;username &amp;ldquo;xxxxxx&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;password&lt;/td&gt;
+&lt;td&gt;登录密码&lt;/td&gt;
+&lt;td&gt;&amp;ndash;password &amp;ldquo;xxxxxxx&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;barkUrl&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;td&gt;&amp;ndash;barkUrl &amp;ldquo;xxxxxxx&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;定时执行&lt;/td&gt;
+&lt;td&gt;&amp;ndash;cron &amp;ldquo;12 12 * * *&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;真实案例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;初始化一个v2ex任务。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#1.选择初始化v2ex任务，设置定时执行时间和bark通知&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init v2ex_sign --cron &lt;span class=&#34;s2&#34;&gt;&amp;#34;12 12 * * *&amp;#34;&lt;/span&gt; --barkUrl &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bark.xxx.com/xxxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;It will close in &lt;span class=&#34;m&#34;&gt;150&lt;/span&gt; seconds
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;please visit url: http://localhost:9222/devtools/inspector.html?ws&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;localhost:9222/devtools/page/333BE3874077691C51A4279C7A4E8AB9
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#2.将locahost替换为服务器ip后在浏览器访问，即可远程控制，在150秒内完成登录操作&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#3.150秒后将会检查登录情况，会自动将配置文件添加到configs文件夹中&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;new config path: configs/v2ex_sign_7656fbd2-78dc-4cff-af18-e56c40b8e527.json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;更多请参考：&lt;strong&gt;使用示例&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&#34;自定义导入&#34;&gt;
+    &lt;a href=&#34;#%e8%87%aa%e5%ae%9a%e4%b9%89%e5%af%bc%e5%85%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    自定义导入
+&lt;/h5&gt;&lt;p&gt;将automa编写好的配置从插件中导出，再导入至MagicBox中，适合有一定的使用经验。&lt;/p&gt;
+&lt;h4 id=&#34;3执行部署&#34;&gt;
+    &lt;a href=&#34;#3%e6%89%a7%e8%a1%8c%e9%83%a8%e7%bd%b2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    3.执行部署
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#进入到MagicBox目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker compose up -d
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;使用示例&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    使用示例
+&lt;/h2&gt;&lt;h3 id=&#34;v2ex_sign&#34;&gt;
+    &lt;a href=&#34;#v2ex_sign&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    v2ex_sign
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init v2ex_sign --cron &lt;span class=&#34;s2&#34;&gt;&amp;#34;12 12 * * *&amp;#34;&lt;/span&gt; --barkUrl &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bark.xxx.com/xxxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;hostloc_get_integral&#34;&gt;
+    &lt;a href=&#34;#hostloc_get_integral&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    hostloc_get_integral
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init hostloc_get_integral --cron &lt;span class=&#34;s2&#34;&gt;&amp;#34;12 12 * * *&amp;#34;&lt;/span&gt; --barkUrl &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bark.xxx.com/xxxxxx&amp;#34;&lt;/span&gt; --username &lt;span class=&#34;s2&#34;&gt;&amp;#34;xxxxxxx&amp;#34;&lt;/span&gt; --password &lt;span class=&#34;s2&#34;&gt;&amp;#34;yyyyyyy&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;jd_apply_refund&#34;&gt;
+    &lt;a href=&#34;#jd_apply_refund&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    jd_apply_refund
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init jd_apply_refund --cron &lt;span class=&#34;s2&#34;&gt;&amp;#34;12 12 * * *&amp;#34;&lt;/span&gt; --barkUrl &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bark.xxx.com/xxxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;wxread_task&#34;&gt;
+    &lt;a href=&#34;#wxread_task&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    wxread_task
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init wxread_task --cron &lt;span class=&#34;s2&#34;&gt;&amp;#34;12 12 * * *&amp;#34;&lt;/span&gt; --barkUrl &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bark.xxx.com/xxxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;bilibili_task&#34;&gt;
+    &lt;a href=&#34;#bilibili_task&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    bilibili_task
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$docker&lt;/span&gt; compose run --rm -p 9222:9222 server config init bilibili_task --cron &lt;span class=&#34;s2&#34;&gt;&amp;#34;12 12 * * *&amp;#34;&lt;/span&gt; --barkUrl &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bark.xxx.com/xxxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;开发贡献&#34;&gt;
+    &lt;a href=&#34;#%e5%bc%80%e5%8f%91%e8%b4%a1%e7%8c%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    开发贡献
+&lt;/h2&gt;&lt;p&gt;Automa是本地执行，在实际迁移使用时，需要考虑到登录态问题，定时任务、用户名和密码登录等，也有相应的使用规范。&lt;/p&gt;
+&lt;h3 id=&#34;加载cookie&#34;&gt;
+    &lt;a href=&#34;#%e5%8a%a0%e8%bd%bdcookie&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    加载cookie
+&lt;/h3&gt;&lt;p&gt;使用&lt;code&gt;insert-data&lt;/code&gt;组件，选择添加Variable变量，名称为&lt;code&gt;cookies&lt;/code&gt;，一般要在页面打开之前将cookie加载进去。&lt;/p&gt;
+&lt;h3 id=&#34;定时执行&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%9a%e6%97%b6%e6%89%a7%e8%a1%8c&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    定时执行
+&lt;/h3&gt;&lt;p&gt;修改&lt;code&gt;Trigger&lt;/code&gt;组件，添加一个&lt;code&gt;Cron job&lt;/code&gt;，就可以设置cron定时任务了。MagicBox加载逻辑是，程序首次都会执行一次，后续是根据定时任务的设置执行。&lt;/p&gt;
+&lt;h3 id=&#34;用户登录&#34;&gt;
+    &lt;a href=&#34;#%e7%94%a8%e6%88%b7%e7%99%bb%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    用户登录
+&lt;/h3&gt;&lt;p&gt;使用的组件是&lt;code&gt;Forms&lt;/code&gt;，使用&lt;code&gt;Text field&lt;/code&gt;填写内容，用户名是&lt;code&gt;username&lt;/code&gt;，密码是&lt;code&gt;password&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;通知方式&#34;&gt;
+    &lt;a href=&#34;#%e9%80%9a%e7%9f%a5%e6%96%b9%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    通知方式
+&lt;/h2&gt;&lt;p&gt;automa的&lt;code&gt;HTTP request&lt;/code&gt;可以实现接口的调用，正好可以满足通知的需求，但是通知的内容可能会很少，无法做到代码方式灵活。&lt;/p&gt;
+&lt;h3 id=&#34;bark&#34;&gt;
+    &lt;a href=&#34;#bark&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Bark
+&lt;/h3&gt;&lt;p&gt;Bark 是一款&lt;code&gt;iOS&lt;/code&gt;端的推送服务，通过部署一个&lt;code&gt;Server&lt;/code&gt;服务端，可以通过HTTP接口来给&lt;code&gt;iOS&lt;/code&gt;设备发送推送通知，代码开源: &lt;a class=&#34;link&#34; href=&#34;https://github.com/Finb/Bark&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/Finb/Bark&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用极其简单，只需要下载安装Bark软件即可，获取每个用户唯一key，按照下面格式替换，就得到了你唯一的推送通道了。一般将Bark的链接替换到组件中即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://api.day.app/DnzTsd6qDWTdfs9xRGygFtasdnsRCL/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;详细可参考：&lt;a class=&#34;link&#34; href=&#34;https://bark.day.app/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bark官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;常见问题&#34;&gt;
+    &lt;a href=&#34;#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    常见问题
+&lt;/h2&gt;&lt;h3 id=&#34;打开网站调试提示paused-in-debugger&#34;&gt;
+    &lt;a href=&#34;#%e6%89%93%e5%bc%80%e7%bd%91%e7%ab%99%e8%b0%83%e8%af%95%e6%8f%90%e7%a4%bapaused-in-debugger&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    打开网站调试，提示paused in debugger
+&lt;/h3&gt;&lt;p&gt;网站禁止调试，需要关闭，解决方案地址：https://stackoverflow.com/questions/12833514/paused-in-debugger-in-chrome%EF%BC%9B&lt;/p&gt;
+&lt;p&gt;一般关闭图中红圈处即可解决。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.sstatic.net/qTaMX.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>双十一京东自动申请价保助手</title>
+        <link>https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/</link>
+        <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/</guid>
+        <description>&lt;p&gt;京东2023年双十一已于10月23日20点开启，借着宣传下magicbox自动价保。在上周，magicbox已接入了青龙面板，好处是以后改配置相关的内容不需要再登录服务器了，同时也方便了每个任务的执行情况。接下来将以京东价保任务为例将magicbox配置在青龙面板。&lt;/p&gt;
+&lt;h2 id=&#34;环境说明&#34;&gt;
+    &lt;a href=&#34;#%e7%8e%af%e5%a2%83%e8%af%b4%e6%98%8e&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    环境说明
+&lt;/h2&gt;&lt;p&gt;系统版本：debian11&lt;/p&gt;
+&lt;p&gt;docker版本：20.10.5&lt;/p&gt;
+&lt;p&gt;docker-compose版本：1.25.0&lt;/p&gt;
+&lt;h2 id=&#34;安装青龙面板&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85%e9%9d%92%e9%be%99%e9%9d%a2%e6%9d%bf&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    安装青龙面板
+&lt;/h2&gt;&lt;p&gt;1.克隆代码仓库&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/whyour/qinglong.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;进入docker部署目录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; qinglong/docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;修改docker-compose.yml文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;需要修改使用的镜像版本为debian，用于安装chrome环境&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;web&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# alpine 基础镜像版本&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#image: whyour/qinglong:latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# debian-slim 基础镜像版本&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;whyour/qinglong:debian&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;./data:/ql/data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;0.0.0.0:5700:5700&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;environment&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 部署路径非必须，以斜杠开头和结尾，比如 /test/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;QlBaseUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;restart&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;unless-stopped&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;docker部署&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose up -d
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;访问 http://ip:5700 正常可看到下面页面，按照引导正常安装即可，其实只需要设置下密码就行了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1.png&#34;
+	width=&#34;1184&#34;
+	height=&#34;680&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1_hucd38eda13501b81a23d0f91eb04bc61d_61301_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1_hucd38eda13501b81a23d0f91eb04bc61d_61301_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;174&#34;
+		data-flex-basis=&#34;417px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这个是此步骤最终的效果&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2.png&#34;
+	width=&#34;1918&#34;
+	height=&#34;995&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2_hu7448da2eaf6eddfb0df266d25c970e78_87217_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2_hu7448da2eaf6eddfb0df266d25c970e78_87217_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;192&#34;
+		data-flex-basis=&#34;462px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;拉取magicbox代码&#34;&gt;
+    &lt;a href=&#34;#%e6%8b%89%e5%8f%96magicbox%e4%bb%a3%e7%a0%81&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    拉取magicbox代码
+&lt;/h2&gt;&lt;p&gt;接下来在首页创建定时任务，用于拉取代码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务名称：pull MagicBox&lt;/li&gt;
+&lt;li&gt;命令/脚本：git clone &lt;a class=&#34;link&#34; href=&#34;https://github.com/srcrs/MagicBox.git&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/srcrs/MagicBox.git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;定时规则：0 0 * * *&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;添加完成后点击运行，代码便会下载至&lt;strong&gt;脚本管理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;注意若是国内机器需要使用代理。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3.png&#34;
+	width=&#34;1739&#34;
+	height=&#34;275&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3_hu88ef99bc624886c29ad81724d16a0201_51289_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3_hu88ef99bc624886c29ad81724d16a0201_51289_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;632&#34;
+		data-flex-basis=&#34;1517px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;安装chrome环境&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85chrome%e7%8e%af%e5%a2%83&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    安装chrome环境
+&lt;/h2&gt;&lt;p&gt;添加安装chorme环境定时任务，然后手动执行此步骤耗时稍长。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务名称：install chrome&lt;/li&gt;
+&lt;li&gt;命令/脚本：MagicBox/install.sh&lt;/li&gt;
+&lt;li&gt;定时规则：0 0 * * *&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4.png&#34;
+	width=&#34;1736&#34;
+	height=&#34;338&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4_hue0b0b24fb432082b6d72ed701b780d3e_65110_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4_hue0b0b24fb432082b6d72ed701b780d3e_65110_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;513&#34;
+		data-flex-basis=&#34;1232px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;获取京东cookie&#34;&gt;
+    &lt;a href=&#34;#%e8%8e%b7%e5%8f%96%e4%ba%ac%e4%b8%9ccookie&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    获取京东cookie
+&lt;/h2&gt;&lt;h3 id=&#34;方法一青龙面板扫码登录&#34;&gt;
+    &lt;a href=&#34;#%e6%96%b9%e6%b3%95%e4%b8%80%e9%9d%92%e9%be%99%e9%9d%a2%e6%9d%bf%e6%89%ab%e7%a0%81%e7%99%bb%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    方法一：青龙面板扫码登录
+&lt;/h3&gt;&lt;p&gt;此方式需要注意若是在服务器获取，需要保持ip一致，才可登录成功。&lt;/p&gt;
+&lt;p&gt;添加定时任务&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务名称：get jd cookie&lt;/li&gt;
+&lt;li&gt;命令/脚本：MagicBox/MagicBox_amd64_linux jd login&lt;/li&gt;
+&lt;li&gt;定时规则：0 0 * * *&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;添加完成之后，点击执行，打开日志等待二维码出现扫码登录即可，正常会把cookie打印出。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5.png&#34;
+	width=&#34;1735&#34;
+	height=&#34;924&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5_hua499ced321e6552eb6f10770f8713648_141986_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5_hua499ced321e6552eb6f10770f8713648_141986_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;187&#34;
+		data-flex-basis=&#34;450px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6.png&#34;
+	width=&#34;1729&#34;
+	height=&#34;400&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6_hu5f413bc7886a91fcc07600752cd86e09_81559_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6_hu5f413bc7886a91fcc07600752cd86e09_81559_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;432&#34;
+		data-flex-basis=&#34;1037px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;方法二本地获取&#34;&gt;
+    &lt;a href=&#34;#%e6%96%b9%e6%b3%95%e4%ba%8c%e6%9c%ac%e5%9c%b0%e8%8e%b7%e5%8f%96&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    方法二：本地获取
+&lt;/h3&gt;&lt;p&gt;保证本地有chrome环境，克隆项目到本地，并将对应的程序下载保存在项目文件夹中，执行登录即可。&lt;/p&gt;
+&lt;p&gt;在linux系统中正常的文件夹目录示例&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MagicBox
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── LICENSE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── MagicBox.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── README.md
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── MagicBox_amd64_linux
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── configs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── 52pojie.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── bilibili.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── default.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── hostloc.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── jd.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── tieba.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── v2ex.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── youdao.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── docker-compose.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── install.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;方法三使用插件获取cookie&#34;&gt;
+    &lt;a href=&#34;#%e6%96%b9%e6%b3%95%e4%b8%89%e4%bd%bf%e7%94%a8%e6%8f%92%e4%bb%b6%e8%8e%b7%e5%8f%96cookie&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    方法三：使用插件获取cookie
+&lt;/h3&gt;&lt;p&gt;Cookie-Editor&lt;/p&gt;
+&lt;h2 id=&#34;修改京东任务配置&#34;&gt;
+    &lt;a href=&#34;#%e4%bf%ae%e6%94%b9%e4%ba%ac%e4%b8%9c%e4%bb%bb%e5%8a%a1%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    修改京东任务配置
+&lt;/h2&gt;&lt;p&gt;此步骤主要是填写cookie，可以忽略其余的配置。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7.png&#34;
+	width=&#34;1914&#34;
+	height=&#34;759&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7_huc1fa66c738dff7d4cd4d418c6f057259_122988_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7_huc1fa66c738dff7d4cd4d418c6f057259_122988_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;252&#34;
+		data-flex-basis=&#34;605px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;添加京东定时任务&#34;&gt;
+    &lt;a href=&#34;#%e6%b7%bb%e5%8a%a0%e4%ba%ac%e4%b8%9c%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    添加京东定时任务
+&lt;/h2&gt;&lt;p&gt;到了最后一步了，添加自动保价定时任务&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务名称 jd task&lt;/li&gt;
+&lt;li&gt;命令/脚本：MagicBox/MagicBox_amd64_linux jd exec&lt;/li&gt;
+&lt;li&gt;定时规则：10 10 */2 * * *&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;保留jd任务，其余三个为了拉取代码、安装环境、获取cookie的定时任务，可以设置为禁止执行，至此已全部完成。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9.png&#34;
+	width=&#34;1735&#34;
+	height=&#34;481&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9_hu4ff5d65de7580b0e80e15fcd7f057d26_100630_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9_hu4ff5d65de7580b0e80e15fcd7f057d26_100630_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;360&#34;
+		data-flex-basis=&#34;865px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10.jpeg&#34;
+	width=&#34;1170&#34;
+	height=&#34;804&#34;
+	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10_hucafa78a3689bbd211622e2421c47448c_453340_480x0_resize_q75_box.jpeg 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10_hucafa78a3689bbd211622e2421c47448c_453340_1024x0_resize_q75_box.jpeg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;349px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>MagicBox手册</title>
+        <link>https://blog.lass.cc/posts/how-use-magic-box/</link>
+        <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/how-use-magic-box/</guid>
+        <description>&lt;h2 id=&#34;简述&#34;&gt;
+    &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    简述
+&lt;/h2&gt;&lt;p&gt;（新版本v2已不适用）&lt;/p&gt;
+&lt;p&gt;万事总有缘由，MagicBox也是一样，愿如百宝箱，简化世间万物，简而言之就是代替重复性任务。目前实现了doduo日常用的频次较高网站签到，接下来将继续接入更多的签到，代替更多的重复性任务。&lt;/p&gt;
+&lt;p&gt;关于安全性，可能没有比这更高的了，底层直接操作原生chrome浏览器，模拟用户行为，每次使用完自动更新cookie（理论达到续期目的），但同时会对机器的性能要求更高，启动chrome要占用更多的资源。&lt;/p&gt;
+&lt;p&gt;说明：若目前有需要使用贴吧签到功能，可以使用免费授权码（填写到default
+.yml的token变量），目前稳定性测试中，到期时间&lt;code&gt;2023-08-24 22:28:11&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI4ODcyOTEsIm1heF90YXNrcyI6OTksIm1heF91c2VycyI6NTAwfQ.-bHXra6O5177hv0SDL-a2cil8iKevL_fvTRpPJIjvgc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;项目目录解答&#34;&gt;
+    &lt;a href=&#34;#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95%e8%a7%a3%e7%ad%94&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    项目目录解答
+&lt;/h2&gt;&lt;p&gt;项目地址：https://github.com/srcrs/MagicBox&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MagicBox
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── configs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── 52pojie.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── bilibili.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── default.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── hostloc.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── v2ex.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── docker-compose.yml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── LICENSE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── MagicBox.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── README.md
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;configs篇&#34;&gt;
+    &lt;a href=&#34;#configs%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    configs篇
+&lt;/h3&gt;&lt;p&gt;将项目克隆到本地后，会得到类似目录，configs目录中都是配置信息，default.yml配置项目的默认配置，优先级最低；此外不同站点的任务执行配置也是拆分开来的，这里主要考虑到是便于管理，部分任务执行所需信息内容过多，如cookie等，再者支持多用户的使用，内容多了也不便于配置。&lt;/p&gt;
+&lt;p&gt;default.yml支持的配置&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;通知&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;token&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;开启高级权限&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;站点的配置文件，如果不需要此任务直接删除即可，接下来看一个配置示例。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;watchVideo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;thowCoin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;shareVideo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;bilibili&lt;/code&gt;代表目标任务，下面有两个大层级&lt;code&gt;users&lt;/code&gt;和&lt;code&gt;task&lt;/code&gt;，&lt;code&gt;users&lt;/code&gt;下面可以多个用户复制&lt;code&gt;doduo&lt;/code&gt;层级即可，&lt;code&gt;task&lt;/code&gt;代表这些用户需要做哪些任务、推送地址、是否支持并发执行。&lt;code&gt;task&lt;/code&gt;下的配置，支持在用户层级配置，优先级最高。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;thowCoin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;yyyyyy&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;watchVideo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;thowCoin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;shareVideo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxxxx&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;示例表示：需要执行哔哩哔哩任务，默认需要执行观看视频、每日投币5个、分享视频，并设置了推送通知，有两个用户要执行doduo和doduo2，其中doduo执行默认任务，doduo2在此基础上自定义了每日投币1个，以及推送通知。&lt;/p&gt;
+&lt;h3 id=&#34;本地获取cookie&#34;&gt;
+    &lt;a href=&#34;#%e6%9c%ac%e5%9c%b0%e8%8e%b7%e5%8f%96cookie&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    本地获取cookie
+&lt;/h3&gt;&lt;p&gt;二进制文件从Relase进行获取：https://github.com/srcrs/MagicBox/releases ，放置到MagicBox目录内，和configs同目录。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;二进制文件&lt;/th&gt;
+&lt;th&gt;支持平台&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;MagicBox_amd64_darwin&lt;/td&gt;
+&lt;td&gt;mac平台&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MagicBox_amd64_linux&lt;/td&gt;
+&lt;td&gt;linux平台&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MagicBox_amd64_win.exe&lt;/td&gt;
+&lt;td&gt;win平台&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;用于在各个平台本地获取cookie，在任务详细篇再一一介绍。&lt;/p&gt;
+&lt;h3 id=&#34;docker-composeyml&#34;&gt;
+    &lt;a href=&#34;#docker-composeyml&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    docker-compose.yml
+&lt;/h3&gt;&lt;p&gt;docker-compose配置文件，便于重复使用。&lt;/p&gt;
+&lt;h3 id=&#34;任务执行日志&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%bb%e5%8a%a1%e6%89%a7%e8%a1%8c%e6%97%a5%e5%bf%97&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    任务执行日志
+&lt;/h3&gt;&lt;p&gt;存储在MagicBox.log中。&lt;/p&gt;
+&lt;h2 id=&#34;环境说明&#34;&gt;
+    &lt;a href=&#34;#%e7%8e%af%e5%a2%83%e8%af%b4%e6%98%8e&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    环境说明
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;程序底层依赖chrome浏览器，因此若涉及到本地操作需要有该环境&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二进制文件包类别&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;文件名&lt;/th&gt;
+&lt;th&gt;对应平台&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;MagicBox_amd64_darwin&lt;/td&gt;
+&lt;td&gt;mac&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MagicBox_amd64_linux&lt;/td&gt;
+&lt;td&gt;linux&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MagicBox_amd64_win.exe&lt;/td&gt;
+&lt;td&gt;win&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;若是在win平台获取cookie，和其他两个有些不同。在与可执行文件（MagicBox_amd64_win.exe）同目录下，创建exec.bat，内容如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bat&#34; data-lang=&#34;bat&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;start&lt;/span&gt; MagicBox_amd64_win.exe bilibili login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个是bilibili的示例，无win设备，如有更好的办法欢迎推荐。&lt;/p&gt;
+&lt;h2 id=&#34;食用方法&#34;&gt;
+    &lt;a href=&#34;#%e9%a3%9f%e7%94%a8%e6%96%b9%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    食用方法
+&lt;/h2&gt;&lt;h3 id=&#34;自有机器docker部署&#34;&gt;
+    &lt;a href=&#34;#%e8%87%aa%e6%9c%89%e6%9c%ba%e5%99%a8docker%e9%83%a8%e7%bd%b2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    自有机器Docker部署
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;1.克隆仓库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone git@github.com:srcrs/MagicBox.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;2.在configs目录下填写对应任务的配置文件，参考各个任务详细介绍&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3.安装docker环境&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;docker环境安装参考&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/install/debian/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方教程&lt;/a&gt;，一键把docker和docker-compose环境都安装好&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://get.docker.com -o get-docker.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sh get-docker.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;3.执行部署&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例docker版本信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ docker --version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Docker version 24.0.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ docker compose version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Docker Compose version v2.19.1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;部署&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker compose up -d
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;通用获取cookie&#34;&gt;
+    &lt;a href=&#34;#%e9%80%9a%e7%94%a8%e8%8e%b7%e5%8f%96cookie&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    通用获取cookie
+&lt;/h3&gt;&lt;p&gt;支持v0.1.3版本以上&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin chrome login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;win&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_win.exe chrome login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;linux&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_linux chrome login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;支持任务列表&#34;&gt;
+    &lt;a href=&#34;#%e6%94%af%e6%8c%81%e4%bb%bb%e5%8a%a1%e5%88%97%e8%a1%a8&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    支持任务列表
+&lt;/h2&gt;&lt;h3 id=&#34;吾爱破解&#34;&gt;
+    &lt;a href=&#34;#%e5%90%be%e7%88%b1%e7%a0%b4%e8%a7%a3&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    吾爱破解
+&lt;/h3&gt;&lt;p&gt;官方站点：https://www.52pojie.cn/&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;每日签到&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;cookie获取方法&#34;&gt;
+    &lt;a href=&#34;#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    cookie获取方法
+&lt;/h4&gt;&lt;p&gt;吾爱登录有人机验证，使用cookie较为简单，需要在本地电脑获取，确保有chrome浏览器。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据提示快速进行登录以获取cookie&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin 52pojie login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;docker示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker compose run server 52pojie login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;配置文件示例&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;p&gt;文件名：52pojie.yml，示例每天8:41、16:41各执行一次。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;52pojie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxxxxxx&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;yyyyyyyyy&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;checkIn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;52pojie的cookie信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;checkIn&lt;/td&gt;
+&lt;td&gt;是否签到&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;哔哩哔哩&#34;&gt;
+    &lt;a href=&#34;#%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    哔哩哔哩
+&lt;/h3&gt;&lt;p&gt;官方站点：https://www.bilibili.com/&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能-1&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-1&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每日登录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日投币&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日观看视频&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日分享视频&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日直播签到&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;视频选取策略：优先取用户动态列表和综合热门视频。&lt;/p&gt;
+&lt;h4 id=&#34;cookie获取方法-1&#34;&gt;
+    &lt;a href=&#34;#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-1&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    cookie获取方法
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;mac示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;目前支持扫码获取cookie&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin bilibili login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;docker示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker compose run server bilibili login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;配置文件示例-1&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-1&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;p&gt;配置文件名：bilibili.yml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxxxxxxxx&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;watchVideo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;thowCoin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;shareVideo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;bilibili的cookie信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;watchVideo&lt;/td&gt;
+&lt;td&gt;是否每天观看视频&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;thowCoin&lt;/td&gt;
+&lt;td&gt;每天投币数量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;shareVideo&lt;/td&gt;
+&lt;td&gt;是否分享视频&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;全球主机交流论坛&#34;&gt;
+    &lt;a href=&#34;#%e5%85%a8%e7%90%83%e4%b8%bb%e6%9c%ba%e4%ba%a4%e6%b5%81%e8%ae%ba%e5%9d%9b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    全球主机交流论坛
+&lt;/h3&gt;&lt;p&gt;官方站点：https://hostloc.com/&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能-2&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;每日访问空间10次获得积分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;访问策略：选取前两页出现的用户，依次进行访问&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持跳过访问某些用户空间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;准备用户名密码&#34;&gt;
+    &lt;a href=&#34;#%e5%87%86%e5%a4%87%e7%94%a8%e6%88%b7%e5%90%8d%e5%af%86%e7%a0%81&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    准备用户名/密码
+&lt;/h4&gt;&lt;p&gt;可以使用用户名和密码进行登录&lt;/p&gt;
+&lt;h4 id=&#34;配置文件示例-2&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;hostloc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;accessSpace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;filersUser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;xxxxx, yyyyyy, zzzzzzzz&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;username&lt;/td&gt;
+&lt;td&gt;用户名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;password&lt;/td&gt;
+&lt;td&gt;密码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;accessSpace&lt;/td&gt;
+&lt;td&gt;每次执行访问空间次数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;filersUser&lt;/td&gt;
+&lt;td&gt;过滤掉某些用户空间访问（避免每天重复访问）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;v2ex论坛&#34;&gt;
+    &lt;a href=&#34;#v2ex%e8%ae%ba%e5%9d%9b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    v2ex论坛
+&lt;/h3&gt;&lt;p&gt;官方站点：https://v2ex.com/&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能-3&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-3&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;每日签到&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;cookie获取方法-2&#34;&gt;
+    &lt;a href=&#34;#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    cookie获取方法
+&lt;/h4&gt;&lt;p&gt;v2ex登录有图片验证码缓解，将base64打印到控制台，用在线网站可以查看图片信息，例如：https://tool.jisuapi.com/base642pic.html，然后根据提示输入验证码、用户名、密码。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac平台&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin v2ex login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;docker平台&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker compose run server v2ex login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;配置文件示例-3&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-3&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;v2ex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;checkIn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;v2ex的cookie信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;checkIn&lt;/td&gt;
+&lt;td&gt;是否签到&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;贴吧签到受限制&#34;&gt;
+    &lt;a href=&#34;#%e8%b4%b4%e5%90%a7%e7%ad%be%e5%88%b0%e5%8f%97%e9%99%90%e5%88%b6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    贴吧签到（受限制）
+&lt;/h3&gt;&lt;p&gt;官方站点：https://tieba.baidu.com/&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能-4&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每日签到（不限制数量）&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tieba.baidu.com/f/like/level?kw=&amp;amp;ie=utf-8&amp;amp;lv_t=lv_nav_who&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;签到经验获取规则&lt;/a&gt;，本程序模拟pc端签到。此功能需要填写授权码才可进行使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;cookie获取方法-3&#34;&gt;
+    &lt;a href=&#34;#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-3&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    cookie获取方法
+&lt;/h4&gt;&lt;p&gt;由于百度时常会遇到安全验证，因此建议本地获取cookie后进行使用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac平台&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin tieba login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;配置文件示例-4&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;tieba&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;密码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;有道云笔记签到&#34;&gt;
+    &lt;a href=&#34;#%e6%9c%89%e9%81%93%e4%ba%91%e7%ac%94%e8%ae%b0%e7%ad%be%e5%88%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    有道云笔记签到
+&lt;/h3&gt;&lt;p&gt;官方站点：https://note.youdao.com/&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能-5&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;每日签到（获得空间容量）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;cookie获取方法-4&#34;&gt;
+    &lt;a href=&#34;#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    cookie获取方法
+&lt;/h4&gt;&lt;p&gt;使用通用的方法获取，手动进行登录，90秒后将会吧cookie打印在控制台&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac平台&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin chrome login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;配置文件示例-5&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;tieba&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;checkIn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;cookie信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;checkIn&lt;/td&gt;
+&lt;td&gt;是否执行签到&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;京东任务受限制&#34;&gt;
+    &lt;a href=&#34;#%e4%ba%ac%e4%b8%9c%e4%bb%bb%e5%8a%a1%e5%8f%97%e9%99%90%e5%88%b6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    京东任务（受限制）
+&lt;/h3&gt;&lt;p&gt;官方站点：https://www.jd.com/&lt;/p&gt;
+&lt;p&gt;需要在任务执行时填写token才可正常执行。&lt;/p&gt;
+&lt;h4 id=&#34;目前已实现功能-6&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目前已实现功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;自动检测进行价保&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;cookie获取方法-5&#34;&gt;
+    &lt;a href=&#34;#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    cookie获取方法
+&lt;/h4&gt;&lt;p&gt;使用通用的方法获取，手动进行登录，90秒后将会吧cookie打印在控制台&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac平台&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./MagicBox_amd64_darwin chrome login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;配置文件示例-6&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置文件示例
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;jd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;applyMoney&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;multiThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;notify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cookie&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 41 8,16 * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;doduo_refresh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0 */20 * * * *&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;京东cookie在短时间会失效，经过一周的测试，每900s刷新一次，目前cookie仍然是有效的，这个时间应该还可拉的更长。任务执行逻辑是设置两个定时任务，一个进行刷新，一个进行价保（若短时间内多次执行可能会存在风险）。doduo_refresh定时任务，是专门为doduo任务刷新cookie的。&lt;/p&gt;
+&lt;p&gt;变量配置说明&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cookie&lt;/td&gt;
+&lt;td&gt;cookie信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cron&lt;/td&gt;
+&lt;td&gt;cron执行任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;notify&lt;/td&gt;
+&lt;td&gt;通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;multiThread&lt;/td&gt;
+&lt;td&gt;是否支持并发，默认填写false即可&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;applyMoney&lt;/td&gt;
+&lt;td&gt;是否执行价保任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;通知方式&#34;&gt;
+    &lt;a href=&#34;#%e9%80%9a%e7%9f%a5%e6%96%b9%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    通知方式
+&lt;/h2&gt;&lt;p&gt;将通知链接填写到notify变量中即可，推送通道这里理论上都是可以支持的，由于个人精力有限，目前只对接了一部分，未来会随着小伙伴们的喜好进行迭代升级。&lt;/p&gt;
+&lt;h3 id=&#34;bark&#34;&gt;
+    &lt;a href=&#34;#bark&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Bark
+&lt;/h3&gt;&lt;p&gt;Bark 是一款&lt;code&gt;iOS&lt;/code&gt;端的推送服务，通过部署一个&lt;code&gt;Server&lt;/code&gt;服务端，可以通过HTTP接口来给&lt;code&gt;iOS&lt;/code&gt;设备发送推送通知，代码开源: &lt;a class=&#34;link&#34; href=&#34;https://github.com/Finb/Bark&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/Finb/Bark&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用极其简单，只需要下载安装Bark软件即可，获取每个用户唯一key，按照下面格式替换，就得到了你唯一的推送通道了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#DnzTsd6qDWTdfs9xRGygFtasdnsRCL 需要替换的key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bark://api.day.app/DnzTsd6qDWTdfs9xRGygFtasdnsRCL/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;详细可参考：&lt;a class=&#34;link&#34; href=&#34;https://bark.day.app/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bark官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;telegram&#34;&gt;
+    &lt;a href=&#34;#telegram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Telegram
+&lt;/h3&gt;&lt;p&gt;这款软件在国内需要些特殊方式才可正常使用，若以前未使用过建议就不要折腾了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;打开bot的生成链接 &lt;code&gt;https://t.me/botfather&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击 &lt;code&gt;/newbot - create a new bot&lt;/code&gt; 生成新一个的bot，系统会让你给它取一个名字，这里可以随便输入，反正方便记就可以了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;系统会再次让你取一个名字并输入，现在的名字必须以bot结尾，不可以和其他任何bot重名。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一旦你输入的bot名字可用，系统会生成一个token给你，类似于&lt;code&gt;1729581149:BHGYVVjEHsaNjsnT8eQpWyshwr2o4PqU7u8&lt;/code&gt;，请务必保存好此token并且不泄露，这是唯一的用户凭证。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此时，你拥有了一个bot，但是还无法使用，因为你知道它，它不知道你。这时候打开 &lt;code&gt;https://t.me/iamthebot&lt;/code&gt; 这个链接，注意iamthebot为你刚才新建的bot的名字！点击/start进入对话框，发送 &lt;code&gt;@userinfobot&lt;/code&gt; 后并点击它。&lt;code&gt;userinfobot&lt;/code&gt;的对话中，点击或者输入&lt;code&gt;/start&lt;/code&gt;，你将获取一个&lt;code&gt;Id/chat_id&lt;/code&gt;，具体表现为一串数字，比如&lt;code&gt;387980691&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;执行完这些操作之后，这个机器人便已经搭建好了，示例推送格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tgram://1729581149:BHGYVVjEHsaNjsnT8eQpWyshwr2o4PqU7u8/387980691/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;企业微信应用通知&#34;&gt;
+    &lt;a href=&#34;#%e4%bc%81%e4%b8%9a%e5%be%ae%e4%bf%a1%e5%ba%94%e7%94%a8%e9%80%9a%e7%9f%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    企业微信应用通知
+&lt;/h3&gt;&lt;p&gt;示例推送格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;qywx://sdadas:1023837:5DryRSrtLiasdsddsfsfZqPXaQaIajbSfO1trY
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;对上面格式解释&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;值&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;sdadas&lt;/td&gt;
+&lt;td&gt;corpid&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1023837&lt;/td&gt;
+&lt;td&gt;agentid&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5DryRSrtLiasdsddsfsfZqPXaQaIajbSfO1trY&lt;/td&gt;
+&lt;td&gt;corpsecret&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;corpid 和 corpsecret 主要用于获取access_token，可以参考微信文档&lt;a class=&#34;link&#34; href=&#34;https://developer.work.weixin.qq.com/document/path/91039&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;获取access_token&lt;/a&gt;填写内容，agentid是为了能发消息，可以看文档&lt;a class=&#34;link&#34; href=&#34;https://developer.work.weixin.qq.com/document/path/90236&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;发送应用消息&lt;/a&gt;。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>B站自动完成每日任务</title>
+        <link>https://blog.lass.cc/posts/use-bilibili-task-docker/</link>
+        <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/use-bilibili-task-docker/</guid>
+        <description>&lt;h2 id=&#34;介绍&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    介绍
+&lt;/h2&gt;&lt;p&gt;自动完成每日任务，获取经验值，助力快速升级Lv6，只需要Docker环境，初次执行扫码登录一次，cookie信息便保存在本地环境，后续每次执行都会自动更新。&lt;/p&gt;
+&lt;h2 id=&#34;功能&#34;&gt;
+    &lt;a href=&#34;#%e5%8a%9f%e8%83%bd&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    功能
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每日登录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日观看视频&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日投币&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每日分享视频&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;直播每日签到（奖励如下）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;每日签到都会获得两个辣条、3000 用户经验值（年费老爷翻倍）&lt;/li&gt;
+&lt;li&gt;累计签到5、20天可以获得额外奖励：
+累计签 5 天：666 银瓜子，
+累计签 20 天：50 个辣条（将存入您的道具包裹，7 个自然日后失效）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;任务策略&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%bb%e5%8a%a1%e7%ad%96%e7%95%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    任务策略
+&lt;/h2&gt;&lt;p&gt;涉及到视频相关的观看、投币、分享任务，会首先找自己的动态中视频，然后是B站热门视频，按照这样的顺序来完成任务。&lt;/p&gt;
+&lt;h2 id=&#34;前期准备&#34;&gt;
+    &lt;a href=&#34;#%e5%89%8d%e6%9c%9f%e5%87%86%e5%a4%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    前期准备
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;需要具备Linux相关的使用经验&lt;/li&gt;
+&lt;li&gt;Docker和Docker-Compose环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果你是ubuntu/debian环境，可以执行以下命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apt-get install docker.io
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apt-get install docker-compose
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果是国内服务器，还需要配置国内镜像源，方法如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#创建文件夹，如果已存在忽略即可&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /etc/docker/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#创建/更新 /etc/docker/daemon.json 写入以下内容&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;registry-mirrors&amp;#34;&lt;/span&gt;: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://hub-mirror.c.163.com&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://docker.mirrors.ustc.edu.cn&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://registry.docker-cn.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#重新加载配置文件，重启Docker服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl daemon-reload
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl restart docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;食用步骤&#34;&gt;
+    &lt;a href=&#34;#%e9%a3%9f%e7%94%a8%e6%ad%a5%e9%aa%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    食用步骤
+&lt;/h2&gt;&lt;h3 id=&#34;克隆仓库&#34;&gt;
+    &lt;a href=&#34;#%e5%85%8b%e9%9a%86%e4%bb%93%e5%ba%93&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    克隆仓库
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/srcrs/bilibili-task-docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;初次启动&#34;&gt;
+    &lt;a href=&#34;#%e5%88%9d%e6%ac%a1%e5%90%af%e5%8a%a8&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    初次启动
+&lt;/h3&gt;&lt;p&gt;进入 bilibili-task-docker 文件夹，执行以下命令，稍等片刻便会弹出二维码，用哔哩哔哩APP端扫码即可登录，此时便可获取到用户相关信息，保存在&lt;code&gt;cookie.tmp&lt;/code&gt;文件夹中。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bash exec.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;设置定时任务每日执行&#34;&gt;
+    &lt;a href=&#34;#%e8%ae%be%e7%bd%ae%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1%e6%af%8f%e6%97%a5%e6%89%a7%e8%a1%8c&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    设置定时任务每日执行
+&lt;/h3&gt;&lt;p&gt;使用crontab，以达到每日自动执行的目的.&lt;/p&gt;
+&lt;p&gt;首先修改&lt;code&gt;exec.sh&lt;/code&gt;执行脚本，将 &lt;code&gt;/xxxx/yyyy/bilibili-task-docker&lt;/code&gt;替换为你自己的真实目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd /xxxx/yyyy/bilibili-task-docker
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose down
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose up;docker-compose down
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;下面是一些cron示例格式&lt;/p&gt;
+&lt;p&gt;每小时执行一次：10:29、11:29、12:29&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; */1 * * * /xxxx/yyyy/bilibili-task-docker/exec.sh &amp;gt; /xxxx/yyyy/bilibili-task-docker/exec.log 2&amp;gt;&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;每天执行一次：10:29&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; * * * /xxxx/yyyy/bilibili-task-docker/exec.sh &amp;gt; /xxxx/yyyy/bilibili-task-docker/exec.log 2&amp;gt;&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Magic手册</title>
+        <link>https://blog.lass.cc/posts/how-use-magic/</link>
+        <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/how-use-magic/</guid>
+        <description>&lt;h2 id=&#34;产品介绍&#34;&gt;
+    &lt;a href=&#34;#%e4%ba%a7%e5%93%81%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    产品介绍
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://magic.doduo.cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Magic&lt;/a&gt;是一个提供了做监控任务的平台，并且可将结果及时的推送到用户手中，在一些固定性、重复性和监测性任务场景给出了解决方案。&lt;/p&gt;
+&lt;p&gt;个人完全自研开发，进度缓慢，目前实现功能有限，未来将会根据Magic的用户群体需求，进行下一步的迭代升级&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;京东价格监控&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;前期没有付费服务的想法，会对每个用户提供&lt;code&gt;2&lt;/code&gt;个额度的任意挂机任务，是可以满足普通用户的需要的（不排除未来推出更多功能，嘻嘻），进行限额，这主要是为了避免恶意滥用，为了让更多的用户获得更好的体验。&lt;/p&gt;
+&lt;h2 id=&#34;用户注册&#34;&gt;
+    &lt;a href=&#34;#%e7%94%a8%e6%88%b7%e6%b3%a8%e5%86%8c&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    用户注册
+&lt;/h2&gt;&lt;p&gt;本服务只有用户注册后才可使用。&lt;/p&gt;
+&lt;p&gt;进入到&lt;a class=&#34;link&#34; href=&#34;https://magic.doduo.cc/#/register&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Magic注册&lt;/a&gt;页后，页面中又三个输入框&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一行是用户名，需要输入邮箱格式的用户名，目前并不校验其真实性，但是建议使用自己常用邮箱，Magic并不会收集此信息干坏事。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二、三是用户密码，长度为6位以上即可。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;信息输入完后点击&lt;code&gt;Register&lt;/code&gt;即可注册一个账号，当用户名已存在时，将会注册失败。&lt;/p&gt;
+&lt;h2 id=&#34;推送通道&#34;&gt;
+    &lt;a href=&#34;#%e6%8e%a8%e9%80%81%e9%80%9a%e9%81%93&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    推送通道
+&lt;/h2&gt;&lt;p&gt;推送通道这里理论上都是可以支持的，由于个人精力有限，目前只对接了一部分，未来会随着小伙伴们的喜好进行迭代升级。&lt;/p&gt;
+&lt;h3 id=&#34;bark&#34;&gt;
+    &lt;a href=&#34;#bark&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Bark
+&lt;/h3&gt;&lt;p&gt;Bark 是一款&lt;code&gt;iOS&lt;/code&gt;端的推送服务，通过部署一个&lt;code&gt;Server&lt;/code&gt;服务端，可以通过HTTP接口来给&lt;code&gt;iOS&lt;/code&gt;设备发送推送通知，代码开源: &lt;a class=&#34;link&#34; href=&#34;https://github.com/Finb/Bark&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/Finb/Bark&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用极其简单，只需要下载安装Bark软件即可，获取每个用户唯一key，按照下面格式替换，就得到了你唯一的推送通道了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#DnzTsd6qDWTdfs9xRGygFtasdnsRCL 需要替换的key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bark://api.day.app/DnzTsd6qDWTdfs9xRGygFtasdnsRCL/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;详细可参考：&lt;a class=&#34;link&#34; href=&#34;https://bark.day.app/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bark官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;telegram&#34;&gt;
+    &lt;a href=&#34;#telegram&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Telegram
+&lt;/h3&gt;&lt;p&gt;这款软件在国内需要些特殊方式才可正常使用，若以前未使用过建议就不要折腾了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;打开bot的生成链接 &lt;code&gt;https://t.me/botfather&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击 &lt;code&gt;/newbot - create a new bot&lt;/code&gt; 生成新一个的bot，系统会让你给它取一个名字，这里可以随便输入，反正方便记就可以了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;系统会再次让你取一个名字并输入，现在的名字必须以bot结尾，不可以和其他任何bot重名。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一旦你输入的bot名字可用，系统会生成一个token给你，类似于&lt;code&gt;1729581149:BHGYVVjEHsaNjsnT8eQpWyshwr2o4PqU7u8&lt;/code&gt;，请务必保存好此token并且不泄露，这是唯一的用户凭证。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此时，你拥有了一个bot，但是还无法使用，因为你知道它，它不知道你。这时候打开 &lt;code&gt;https://t.me/iamthebot&lt;/code&gt; 这个链接，注意iamthebot为你刚才新建的bot的名字！点击/start进入对话框，发送 &lt;code&gt;@userinfobot&lt;/code&gt; 后并点击它。&lt;code&gt;userinfobot&lt;/code&gt;的对话中，点击或者输入&lt;code&gt;/start&lt;/code&gt;，你将获取一个&lt;code&gt;Id/chat_id&lt;/code&gt;，具体表现为一串数字，比如&lt;code&gt;387980691&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;执行完这些操作之后，这个机器人便已经搭建好了，示例推送格式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tgram://1729581149:BHGYVVjEHsaNjsnT8eQpWyshwr2o4PqU7u8/387980691/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;京东价格监控&#34;&gt;
+    &lt;a href=&#34;#%e4%ba%ac%e4%b8%9c%e4%bb%b7%e6%a0%bc%e7%9b%91%e6%8e%a7&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    京东价格监控
+&lt;/h2&gt;&lt;h3 id=&#34;解决痛点&#34;&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e7%97%9b%e7%82%b9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    解决痛点
+&lt;/h3&gt;&lt;p&gt;源于一次年货节，看中了某件商品，每天都会看几次商品的价格以及优惠信息、促销信息，等遇到一个低价的时候，又担心会不会买贵了？纠结中然后错过了，继续又等低价，结果和上一轮价格相同入手了这款产品。&lt;/p&gt;
+&lt;p&gt;综合起来，能够解决以下几个痛点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;心仪的商品降价了，你却一无所知&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;京东自带的降价提醒，并不会包括优惠信息，你错过了一次好价入手的机会&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;商品购买完成后在保价期内，商品又降价了，你却不不知道&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;使用方法&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    使用方法
+&lt;/h3&gt;&lt;p&gt;用户注册成功后，进入到Magic主页，在左边侧边栏可以看到&lt;code&gt;京东商品监控&lt;/code&gt;，点击跳转到管理页面，在左上角点击&lt;code&gt;Add&lt;/code&gt;即可添加一个监控任务，每个任务有以下几部分组成&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;商品链接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;商品链接支持两种类型：APP端商品分享链接、web端商品链接，示例如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#APP端分享商品链接&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://item.m.jd.com/product/100004423437.html?&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;utm_source&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;iosapp&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;utm_medium&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;appshare&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;utm_campaign&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;t_335139774&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;utm_term&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;CopyURL&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ad_od&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;share&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;utm_user&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;plusmember
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#web端商品链接&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://item.jd.com/100004423437.html
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;购买数量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;购买数量，需要准确输入你要购买几件商品，主要是为了计算优惠信息，单位是件。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;期望价格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你心里预期的价格是多少，这里可以参考支持查询历史价格的网站，单位是元。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;监控计划&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;个人开发维护资源有限，目前只是支持到分钟级别的监控，最快每15分钟监控一次。示例如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#每20分钟执行一次&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;@every 1200s
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#每30分钟执行一次&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;@every 1800s
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#每15分钟执行一次&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;@every 900s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;通知地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以参考&lt;code&gt;推送通道&lt;/code&gt;栏，选择一个你喜欢的方式，示例如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tgram://570552362690:AAHdbaIn3123DL0lHh8bcab-A7O4BpWv9_gvfE/205331237177/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bark://api.day.app/DnzT6qDW123T9xRG123ygFtnsRCL/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;触发推送的条件是：当前商品入手价格 &amp;lt;= 期望价格，这里有一点需要注意的是，推送只认这个条件，满足即推送。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;监控期限&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代表这个监控任务的时效性是多少，单位是天，默认为15天，最长为21天，这主要是为了增长网站活跃度，更新任务，有效期将自动从当前时间开始往后延长。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;监控状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在创建任务时，此值需为&lt;code&gt;1&lt;/code&gt;，代表任务在开启状态。&lt;code&gt;2&lt;/code&gt;代表关闭定时任务。&lt;/p&gt;
+&lt;p&gt;添加完商品监控任务后，便会展示在管理页面中，如果页面信息展示不正确，需要刷新当前页面，任务会在下一个周期开始执行（如1200s后）&lt;/p&gt;
+&lt;h3 id=&#34;管理任务&#34;&gt;
+    &lt;a href=&#34;#%e7%ae%a1%e7%90%86%e4%bb%bb%e5%8a%a1&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    管理任务
+&lt;/h3&gt;&lt;p&gt;提供&lt;code&gt;Edit&lt;/code&gt;和&lt;code&gt;Del&lt;/code&gt;按钮，可实现编辑和删除功能&lt;/p&gt;
+&lt;h3 id=&#34;价格计算策略&#34;&gt;
+    &lt;a href=&#34;#%e4%bb%b7%e6%a0%bc%e8%ae%a1%e7%ae%97%e7%ad%96%e7%95%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    价格计算策略
+&lt;/h3&gt;&lt;p&gt;商品价格的计算并不包含个人优惠信息，是一个人人可入手的价格。会根据商品详情页中展示的商品价格、用户需要购买的商品数量、商品优惠信息等进行数学公式计算。目前已经可以识别以下几种优惠信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每满185元，可减48元现金&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;满4000减300&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;满1件，总价打7折&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;满1000元减100元&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果有更多的商品信息格式，欢迎提供。&lt;/p&gt;
+&lt;h2 id=&#34;联系方式&#34;&gt;
+    &lt;a href=&#34;#%e8%81%94%e7%b3%bb%e6%96%b9%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    联系方式
+&lt;/h2&gt;&lt;p&gt;Email: &lt;a class=&#34;link&#34; href=&#34;mailto:asksowhat@outlook.com&#34; &gt;asksowhat@outlook.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;微信群: &lt;img src=&#34;https://blog.lass.cc/posts/how-use-magic/wechat.jpeg&#34;
+	width=&#34;1056&#34;
+	height=&#34;1371&#34;
+	srcset=&#34;https://blog.lass.cc/posts/how-use-magic/wechat_hu022a214f74bea0e895b3ecc4b9b066ab_219836_480x0_resize_q75_box.jpeg 480w, https://blog.lass.cc/posts/how-use-magic/wechat_hu022a214f74bea0e895b3ecc4b9b066ab_219836_1024x0_resize_q75_box.jpeg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;群链接&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;77&#34;
+		data-flex-basis=&#34;184px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    参考链接
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.myyrh.com/574.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.myyrh.com/574.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Helix on srcrs</title>
+        <link>https://blog.lass.cc/tags/helix/</link>
+        <description>Recent content in Helix on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Sat, 10 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/helix/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>使用helix&#43;delve调试golang</title>
+        <link>https://blog.lass.cc/posts/use-helix-debug-by-golang/</link>
+        <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/use-helix-debug-by-golang/</guid>
+        <description>&lt;p&gt;本教程在macos和debian都可以进行使用，基础环境不再进行额外的叙述。&lt;/p&gt;
+&lt;h2 id=&#34;安装delve&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85delve&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    安装delve
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;delve&lt;/code&gt;是一个专门为Go语言设计的调试器，功能强大且易于使用。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;go install github.com/go-delve/delve/cmd/dlv@latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;安装完后在控制台输入&lt;code&gt;dlv&lt;/code&gt;，查看&lt;code&gt;golang cmd&lt;/code&gt;是否已经加入到PATH中。&lt;/p&gt;
+&lt;h2 id=&#34;打开debug菜单&#34;&gt;
+    &lt;a href=&#34;#%e6%89%93%e5%bc%80debug%e8%8f%9c%e5%8d%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    打开debug菜单
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;&amp;lt;space&amp;gt;-g&lt;/code&gt;这将弹出调试菜单。&lt;/p&gt;
+&lt;h2 id=&#34;选择断点&#34;&gt;
+    &lt;a href=&#34;#%e9%80%89%e6%8b%a9%e6%96%ad%e7%82%b9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    选择断点
+&lt;/h2&gt;&lt;p&gt;将光标移动到需要打断点的地方，&lt;code&gt;b&lt;/code&gt;将会将这行添加到断点地方。&lt;/p&gt;
+&lt;h2 id=&#34;执行程序&#34;&gt;
+    &lt;a href=&#34;#%e6%89%a7%e8%a1%8c%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    执行程序
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;l&lt;/code&gt;将会提示选择程序执行入口，如：&lt;code&gt;main.go&lt;/code&gt;，然后便可以开始进行单步调试&lt;/p&gt;
+&lt;h2 id=&#34;调试命令&#34;&gt;
+    &lt;a href=&#34;#%e8%b0%83%e8%af%95%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    调试命令
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;v&lt;/code&gt;: 查看变量的值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt;: 进入函数内部&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;n&lt;/code&gt;: 单步执行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;c&lt;/code&gt;: 跳到下一个断点处&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;参考&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://overlandandseas.dev/blog/debugging-go-delve-helix/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Debugging Go using Helix and Delve&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>helix使用记录</title>
+        <link>https://blog.lass.cc/posts/use-helix/</link>
+        <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/use-helix/</guid>
+        <description>&lt;h2 id=&#34;配置篇&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    配置篇
+&lt;/h2&gt;&lt;h3 id=&#34;configtoml&#34;&gt;
+    &lt;a href=&#34;#configtoml&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    config.toml
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#主题&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;theme&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;gruvbox&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;editor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#关闭鼠标模式&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;mouse&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;editor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;soft-wrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;#根据软件自动换行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;enable&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 设置后可以不现实软换行符号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;wrap-indicator&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;languagestoml&#34;&gt;
+    &lt;a href=&#34;#languagestoml&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    languages.toml
+&lt;/h3&gt;&lt;p&gt;如果对于语言没有特殊要求，安装完lsp后保持默认配置即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;language&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;go&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;auto-format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;formatter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;goimports&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;快捷键篇&#34;&gt;
+    &lt;a href=&#34;#%e5%bf%ab%e6%8d%b7%e9%94%ae%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    快捷键篇
+&lt;/h2&gt;&lt;p&gt;使用命令行的好处就是有快捷键。&lt;/p&gt;
+&lt;h3 id=&#34;移动命令&#34;&gt;
+    &lt;a href=&#34;#%e7%a7%bb%e5%8a%a8%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    移动命令
+&lt;/h3&gt;&lt;p&gt;移动即选择光标贯穿的选区。&lt;/p&gt;
+&lt;p&gt;h j k l 光标单字符选区移动&lt;/p&gt;
+&lt;p&gt;w e b W E B 光标单词移动选区&lt;/p&gt;
+&lt;p&gt;t f T F 光标移动到匹配字符并选择&lt;/p&gt;
+&lt;p&gt;% 全选,光标会移动到文档最后一个字符&lt;/p&gt;
+&lt;p&gt;x 选择当前行，延伸向下选择行&lt;/p&gt;
+&lt;h3 id=&#34;操作命令&#34;&gt;
+    &lt;a href=&#34;#%e6%93%8d%e4%bd%9c%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    操作命令
+&lt;/h3&gt;&lt;p&gt;d 删除&lt;/p&gt;
+&lt;p&gt;c,C 复制/不复制 修改所选的内容&lt;/p&gt;
+&lt;p&gt;| 执行 shell 命令&lt;/p&gt;
+&lt;p&gt;y 复制内容到寄存器&lt;/p&gt;
+&lt;p&gt;p P 在所选内容 后方|前方 粘贴&lt;/p&gt;
+&lt;p&gt;r 替换&lt;/p&gt;
+&lt;p&gt;~ 切换大小写&lt;/p&gt;
+&lt;p&gt;J 合并行&lt;/p&gt;
+&lt;p&gt;Ctrl-c 注释切换&lt;/p&gt;
+&lt;p&gt;&amp;amp; 多光标下对齐选择&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;; 取消选区到光标&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;执行命令&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;insert 插入模式&lt;/p&gt;
+&lt;p&gt;i o a I O A 进入插入模式&lt;/p&gt;
+&lt;p&gt;c 修改选的内容会进入插入模式&lt;/p&gt;
+&lt;p&gt;多光标&lt;/p&gt;
+&lt;p&gt;C
+Alt-C
+这里是大写的 C ,实际按键应为 Alt-Shift-c, 其他的也是一样，注意按键 字母的大小写。&lt;/p&gt;
+&lt;p&gt;Alt-s 多行选区中对非空行的末尾追加光标。
+, 只保留主选区&lt;/p&gt;
+&lt;h3 id=&#34;常用的微模式命令&#34;&gt;
+    &lt;a href=&#34;#%e5%b8%b8%e7%94%a8%e7%9a%84%e5%be%ae%e6%a8%a1%e5%bc%8f%e5%91%bd%e4%bb%a4&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    常用的微模式命令
+&lt;/h3&gt;&lt;p&gt;Space Mode 目录&lt;/p&gt;
+&lt;p&gt;space f 文件选择器
+space k lsp 提示
+space w 窗口模式
+其他的基本都是常用的 ^_^&lt;/p&gt;
+&lt;p&gt;Goto Mode 跳转&lt;/p&gt;
+&lt;p&gt;gh 行首 gl 行末
+gg 首行 ge 末行
+gc 窗口中间 gt 窗口顶部 gb 窗口中间&lt;/p&gt;
+&lt;p&gt;LSP&lt;/p&gt;
+&lt;p&gt;gd 定义 gy 类型定义 gr 引用 gi 实现
+ga 上次选择的文件
+Match mode 匹配模式&lt;/p&gt;
+&lt;p&gt;ms 用来为选区追加括号引号等符号
+ma 选择定义选区&lt;/p&gt;
+&lt;p&gt;Window mode 窗口&lt;/p&gt;
+&lt;p&gt;space w 或者 ctrl-w 进入模式&lt;/p&gt;
+&lt;p&gt;s 水平底部拆分窗口
+v 垂直向右拆分窗口
+q 关闭窗口
+o 仅保留当前窗口&lt;/p&gt;
+&lt;p&gt;Unimpaired&lt;/p&gt;
+&lt;p&gt;] 向下匹配 [ 向上匹配,然后选择&lt;/p&gt;
+&lt;p&gt;需要 tree-sitter 的 textobject 支持。&lt;/p&gt;
+&lt;p&gt;d diagnostics 错误诊断
+f function 函数
+t type definition 类型定义
+a parameter 参数
+c comment 注释
+p paragraph 段落&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

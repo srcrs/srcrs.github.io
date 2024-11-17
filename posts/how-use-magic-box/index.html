@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 （新版本v2已不适用） 万事总有缘由，MagicBox也是一样，愿如百宝箱，简化世间万物，简而言之就是代替重复性任务。目前实现了doduo日常用的频次较高网站签到，接下来将继续接入更多的签到，代替更多的重复性任务。 关于安全性，可能没有比这更高的了，底层直接操作原生chrome浏览器，模拟用户行为，每次使用完自动更新cookie（理论达到续期目的），但同时会对机器的性能要求更高，启动chrome要占用更多的资源。 说明：若目前有需要使用贴吧签到功能，可以使用免费授权码（填写到default .yml的token变量），目前稳定性测试中，到期时间2023-08-24 22:28:11 1 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI4ODcyOTEsIm1heF90YXNrcyI6OTksIm1heF91c2VycyI6NTAwfQ.-bHXra6O5177hv0SDL-a2cil8iKevL_fvTRpPJIjvgc # 项目目录解答 项目地址：https://github.com/srcrs/MagicBox 1 2 3 4 5 6 7 8 9 10 11 MagicBox ├── configs │\u00a0├── 52pojie.yml │\u00a0├── bilibili.yml │\u00a0├── default.yml │\u00a0├── hostloc.yml │\u00a0└── v2ex.yml ├── docker-compose.yml ├── LICENSE ├── MagicBox.log └── README.md # configs篇 将项目克隆到本地后，会得到类似目录，configs目录中都是配置信息，default.yml配置项目的默认配置，优先级最低；此外不同站点的任务执行配置也是拆分开来的，这里主要考虑到是便于管理，部分任务执行所需信息内容过多，如cookie等，再者支持多用户的使用，内容多了也不便于配置。 default.yml支持的配置 1 2 notify: &#39;通知&#39; token: &#39;开启高级权限&#39; 站点的配置文件，如果不需要此任务直接删除即可，接下来看一个配置示例。 1 2 3 4 5 6 7 8 9 10 11 bilibili: users: doduo: cookie: &#39;&#39; cron: &#39;0 41 8,16 * * *&#39; task: watchVideo: true thowCoin: 5 shareVideo: true notify: &#39;&#39; multiThread: false bilibili代表目标任务，下面有两个大层级users和task，users下面可以多个用户复制doduo层级即可，task代表这些用户需要做哪些任务、推送地址、是否支持并发执行。task下的配置，支持在用户层级配置，优先级最高。">
+<title>MagicBox手册</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/how-use-magic-box/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="MagicBox手册">
+<meta property='og:description' content="# 简述 （新版本v2已不适用） 万事总有缘由，MagicBox也是一样，愿如百宝箱，简化世间万物，简而言之就是代替重复性任务。目前实现了doduo日常用的频次较高网站签到，接下来将继续接入更多的签到，代替更多的重复性任务。 关于安全性，可能没有比这更高的了，底层直接操作原生chrome浏览器，模拟用户行为，每次使用完自动更新cookie（理论达到续期目的），但同时会对机器的性能要求更高，启动chrome要占用更多的资源。 说明：若目前有需要使用贴吧签到功能，可以使用免费授权码（填写到default .yml的token变量），目前稳定性测试中，到期时间2023-08-24 22:28:11 1 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI4ODcyOTEsIm1heF90YXNrcyI6OTksIm1heF91c2VycyI6NTAwfQ.-bHXra6O5177hv0SDL-a2cil8iKevL_fvTRpPJIjvgc # 项目目录解答 项目地址：https://github.com/srcrs/MagicBox 1 2 3 4 5 6 7 8 9 10 11 MagicBox ├── configs │\u00a0├── 52pojie.yml │\u00a0├── bilibili.yml │\u00a0├── default.yml │\u00a0├── hostloc.yml │\u00a0└── v2ex.yml ├── docker-compose.yml ├── LICENSE ├── MagicBox.log └── README.md # configs篇 将项目克隆到本地后，会得到类似目录，configs目录中都是配置信息，default.yml配置项目的默认配置，优先级最低；此外不同站点的任务执行配置也是拆分开来的，这里主要考虑到是便于管理，部分任务执行所需信息内容过多，如cookie等，再者支持多用户的使用，内容多了也不便于配置。 default.yml支持的配置 1 2 notify: &#39;通知&#39; token: &#39;开启高级权限&#39; 站点的配置文件，如果不需要此任务直接删除即可，接下来看一个配置示例。 1 2 3 4 5 6 7 8 9 10 11 bilibili: users: doduo: cookie: &#39;&#39; cron: &#39;0 41 8,16 * * *&#39; task: watchVideo: true thowCoin: 5 shareVideo: true notify: &#39;&#39; multiThread: false bilibili代表目标任务，下面有两个大层级users和task，users下面可以多个用户复制doduo层级即可，task代表这些用户需要做哪些任务、推送地址、是否支持并发执行。task下的配置，支持在用户层级配置，优先级最高。">
+<meta property='og:url' content='https://blog.lass.cc/posts/how-use-magic-box/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='magic' /><meta property='article:published_time' content='2023-07-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="MagicBox手册">
+<meta name="twitter:description" content="# 简述 （新版本v2已不适用） 万事总有缘由，MagicBox也是一样，愿如百宝箱，简化世间万物，简而言之就是代替重复性任务。目前实现了doduo日常用的频次较高网站签到，接下来将继续接入更多的签到，代替更多的重复性任务。 关于安全性，可能没有比这更高的了，底层直接操作原生chrome浏览器，模拟用户行为，每次使用完自动更新cookie（理论达到续期目的），但同时会对机器的性能要求更高，启动chrome要占用更多的资源。 说明：若目前有需要使用贴吧签到功能，可以使用免费授权码（填写到default .yml的token变量），目前稳定性测试中，到期时间2023-08-24 22:28:11 1 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI4ODcyOTEsIm1heF90YXNrcyI6OTksIm1heF91c2VycyI6NTAwfQ.-bHXra6O5177hv0SDL-a2cil8iKevL_fvTRpPJIjvgc # 项目目录解答 项目地址：https://github.com/srcrs/MagicBox 1 2 3 4 5 6 7 8 9 10 11 MagicBox ├── configs │\u00a0├── 52pojie.yml │\u00a0├── bilibili.yml │\u00a0├── default.yml │\u00a0├── hostloc.yml │\u00a0└── v2ex.yml ├── docker-compose.yml ├── LICENSE ├── MagicBox.log └── README.md # configs篇 将项目克隆到本地后，会得到类似目录，configs目录中都是配置信息，default.yml配置项目的默认配置，优先级最低；此外不同站点的任务执行配置也是拆分开来的，这里主要考虑到是便于管理，部分任务执行所需信息内容过多，如cookie等，再者支持多用户的使用，内容多了也不便于配置。 default.yml支持的配置 1 2 notify: &#39;通知&#39; token: &#39;开启高级权限&#39; 站点的配置文件，如果不需要此任务直接删除即可，接下来看一个配置示例。 1 2 3 4 5 6 7 8 9 10 11 bilibili: users: doduo: cookie: &#39;&#39; cron: &#39;0 41 8,16 * * *&#39; task: watchVideo: true thowCoin: 5 shareVideo: true notify: &#39;&#39; multiThread: false bilibili代表目标任务，下面有两个大层级users和task，users下面可以多个用户复制doduo层级即可，task代表这些用户需要做哪些任务、推送地址、是否支持并发执行。task下的配置，支持在用户层级配置，优先级最高。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简述">简述</a></li>
+    <li><a href="#项目目录解答">项目目录解答</a>
+      <ol>
+        <li><a href="#configs篇">configs篇</a></li>
+        <li><a href="#本地获取cookie">本地获取cookie</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+        <li><a href="#任务执行日志">任务执行日志</a></li>
+      </ol>
+    </li>
+    <li><a href="#环境说明">环境说明</a></li>
+    <li><a href="#食用方法">食用方法</a>
+      <ol>
+        <li><a href="#自有机器docker部署">自有机器Docker部署</a></li>
+        <li><a href="#通用获取cookie">通用获取cookie</a></li>
+      </ol>
+    </li>
+    <li><a href="#支持任务列表">支持任务列表</a>
+      <ol>
+        <li><a href="#吾爱破解">吾爱破解</a>
+          <ol>
+            <li><a href="#目前已实现功能">目前已实现功能</a></li>
+            <li><a href="#cookie获取方法">cookie获取方法</a></li>
+            <li><a href="#配置文件示例">配置文件示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#哔哩哔哩">哔哩哔哩</a>
+          <ol>
+            <li><a href="#目前已实现功能-1">目前已实现功能</a></li>
+            <li><a href="#cookie获取方法-1">cookie获取方法</a></li>
+            <li><a href="#配置文件示例-1">配置文件示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#全球主机交流论坛">全球主机交流论坛</a>
+          <ol>
+            <li><a href="#目前已实现功能-2">目前已实现功能</a></li>
+            <li><a href="#准备用户名密码">准备用户名/密码</a></li>
+            <li><a href="#配置文件示例-2">配置文件示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#v2ex论坛">v2ex论坛</a>
+          <ol>
+            <li><a href="#目前已实现功能-3">目前已实现功能</a></li>
+            <li><a href="#cookie获取方法-2">cookie获取方法</a></li>
+            <li><a href="#配置文件示例-3">配置文件示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#贴吧签到受限制">贴吧签到（受限制）</a>
+          <ol>
+            <li><a href="#目前已实现功能-4">目前已实现功能</a></li>
+            <li><a href="#cookie获取方法-3">cookie获取方法</a></li>
+            <li><a href="#配置文件示例-4">配置文件示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#有道云笔记签到">有道云笔记签到</a>
+          <ol>
+            <li><a href="#目前已实现功能-5">目前已实现功能</a></li>
+            <li><a href="#cookie获取方法-4">cookie获取方法</a></li>
+            <li><a href="#配置文件示例-5">配置文件示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#京东任务受限制">京东任务（受限制）</a>
+          <ol>
+            <li><a href="#目前已实现功能-6">目前已实现功能</a></li>
+            <li><a href="#cookie获取方法-5">cookie获取方法</a></li>
+            <li><a href="#配置文件示例-6">配置文件示例</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#通知方式">通知方式</a>
+      <ol>
+        <li><a href="#bark">Bark</a></li>
+        <li><a href="#telegram">Telegram</a></li>
+        <li><a href="#企业微信应用通知">企业微信应用通知</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/how-use-magic-box/">MagicBox手册</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 19, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="简述">
+    <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    简述
+</h2><p>（新版本v2已不适用）</p>
+<p>万事总有缘由，MagicBox也是一样，愿如百宝箱，简化世间万物，简而言之就是代替重复性任务。目前实现了doduo日常用的频次较高网站签到，接下来将继续接入更多的签到，代替更多的重复性任务。</p>
+<p>关于安全性，可能没有比这更高的了，底层直接操作原生chrome浏览器，模拟用户行为，每次使用完自动更新cookie（理论达到续期目的），但同时会对机器的性能要求更高，启动chrome要占用更多的资源。</p>
+<p>说明：若目前有需要使用贴吧签到功能，可以使用免费授权码（填写到default
+.yml的token变量），目前稳定性测试中，到期时间<code>2023-08-24 22:28:11</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI4ODcyOTEsIm1heF90YXNrcyI6OTksIm1heF91c2VycyI6NTAwfQ.-bHXra6O5177hv0SDL-a2cil8iKevL_fvTRpPJIjvgc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="项目目录解答">
+    <a href="#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95%e8%a7%a3%e7%ad%94" class="header-anchor">#</a>
+    项目目录解答
+</h2><p>项目地址：https://github.com/srcrs/MagicBox</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">MagicBox
+</span></span><span class="line"><span class="cl">├── configs
+</span></span><span class="line"><span class="cl">│   ├── 52pojie.yml
+</span></span><span class="line"><span class="cl">│   ├── bilibili.yml
+</span></span><span class="line"><span class="cl">│   ├── default.yml
+</span></span><span class="line"><span class="cl">│   ├── hostloc.yml
+</span></span><span class="line"><span class="cl">│   └── v2ex.yml
+</span></span><span class="line"><span class="cl">├── docker-compose.yml
+</span></span><span class="line"><span class="cl">├── LICENSE
+</span></span><span class="line"><span class="cl">├── MagicBox.log
+</span></span><span class="line"><span class="cl">└── README.md
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="configs篇">
+    <a href="#configs%e7%af%87" class="header-anchor">#</a>
+    configs篇
+</h3><p>将项目克隆到本地后，会得到类似目录，configs目录中都是配置信息，default.yml配置项目的默认配置，优先级最低；此外不同站点的任务执行配置也是拆分开来的，这里主要考虑到是便于管理，部分任务执行所需信息内容过多，如cookie等，再者支持多用户的使用，内容多了也不便于配置。</p>
+<p>default.yml支持的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;通知&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;开启高级权限&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>站点的配置文件，如果不需要此任务直接删除即可，接下来看一个配置示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">bilibili</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">watchVideo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">thowCoin</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shareVideo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>bilibili</code>代表目标任务，下面有两个大层级<code>users</code>和<code>task</code>，<code>users</code>下面可以多个用户复制<code>doduo</code>层级即可，<code>task</code>代表这些用户需要做哪些任务、推送地址、是否支持并发执行。<code>task</code>下的配置，支持在用户层级配置，优先级最高。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">bilibili</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">thowCoin</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;yyyyyy&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">watchVideo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">thowCoin</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shareVideo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;xxxxxx&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>示例表示：需要执行哔哩哔哩任务，默认需要执行观看视频、每日投币5个、分享视频，并设置了推送通知，有两个用户要执行doduo和doduo2，其中doduo执行默认任务，doduo2在此基础上自定义了每日投币1个，以及推送通知。</p>
+<h3 id="本地获取cookie">
+    <a href="#%e6%9c%ac%e5%9c%b0%e8%8e%b7%e5%8f%96cookie" class="header-anchor">#</a>
+    本地获取cookie
+</h3><p>二进制文件从Relase进行获取：https://github.com/srcrs/MagicBox/releases ，放置到MagicBox目录内，和configs同目录。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>二进制文件</th>
+<th>支持平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MagicBox_amd64_darwin</td>
+<td>mac平台</td>
+</tr>
+<tr>
+<td>MagicBox_amd64_linux</td>
+<td>linux平台</td>
+</tr>
+<tr>
+<td>MagicBox_amd64_win.exe</td>
+<td>win平台</td>
+</tr>
+</tbody>
+</table></div>
+<p>用于在各个平台本地获取cookie，在任务详细篇再一一介绍。</p>
+<h3 id="docker-composeyml">
+    <a href="#docker-composeyml" class="header-anchor">#</a>
+    docker-compose.yml
+</h3><p>docker-compose配置文件，便于重复使用。</p>
+<h3 id="任务执行日志">
+    <a href="#%e4%bb%bb%e5%8a%a1%e6%89%a7%e8%a1%8c%e6%97%a5%e5%bf%97" class="header-anchor">#</a>
+    任务执行日志
+</h3><p>存储在MagicBox.log中。</p>
+<h2 id="环境说明">
+    <a href="#%e7%8e%af%e5%a2%83%e8%af%b4%e6%98%8e" class="header-anchor">#</a>
+    环境说明
+</h2><ul>
+<li>
+<p>程序底层依赖chrome浏览器，因此若涉及到本地操作需要有该环境</p>
+</li>
+<li>
+<p>二进制文件包类别</p>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>对应平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MagicBox_amd64_darwin</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>MagicBox_amd64_linux</td>
+<td>linux</td>
+</tr>
+<tr>
+<td>MagicBox_amd64_win.exe</td>
+<td>win</td>
+</tr>
+</tbody>
+</table></div>
+<p>若是在win平台获取cookie，和其他两个有些不同。在与可执行文件（MagicBox_amd64_win.exe）同目录下，创建exec.bat，内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">start</span> MagicBox_amd64_win.exe bilibili login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个是bilibili的示例，无win设备，如有更好的办法欢迎推荐。</p>
+<h2 id="食用方法">
+    <a href="#%e9%a3%9f%e7%94%a8%e6%96%b9%e6%b3%95" class="header-anchor">#</a>
+    食用方法
+</h2><h3 id="自有机器docker部署">
+    <a href="#%e8%87%aa%e6%9c%89%e6%9c%ba%e5%99%a8docker%e9%83%a8%e7%bd%b2" class="header-anchor">#</a>
+    自有机器Docker部署
+</h3><ul>
+<li>1.克隆仓库</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone git@github.com:srcrs/MagicBox.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>2.在configs目录下填写对应任务的配置文件，参考各个任务详细介绍</p>
+</li>
+<li>
+<p>3.安装docker环境</p>
+</li>
+</ul>
+<p>docker环境安装参考<a class="link" href="https://docs.docker.com/engine/install/debian/"  target="_blank" rel="noopener"
+    >官方教程</a>，一键把docker和docker-compose环境都安装好</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -fsSL https://get.docker.com -o get-docker.sh
+</span></span><span class="line"><span class="cl">sudo sh get-docker.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>3.执行部署</li>
+</ul>
+<p>示例docker版本信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker --version
+</span></span><span class="line"><span class="cl">Docker version 24.0.4
+</span></span><span class="line"><span class="cl">$ docker compose version
+</span></span><span class="line"><span class="cl">Docker Compose version v2.19.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>部署</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="通用获取cookie">
+    <a href="#%e9%80%9a%e7%94%a8%e8%8e%b7%e5%8f%96cookie" class="header-anchor">#</a>
+    通用获取cookie
+</h3><p>支持v0.1.3版本以上</p>
+<ul>
+<li>mac</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_darwin chrome login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>win</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_win.exe chrome login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>linux</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_linux chrome login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="支持任务列表">
+    <a href="#%e6%94%af%e6%8c%81%e4%bb%bb%e5%8a%a1%e5%88%97%e8%a1%a8" class="header-anchor">#</a>
+    支持任务列表
+</h2><h3 id="吾爱破解">
+    <a href="#%e5%90%be%e7%88%b1%e7%a0%b4%e8%a7%a3" class="header-anchor">#</a>
+    吾爱破解
+</h3><p>官方站点：https://www.52pojie.cn/</p>
+<h4 id="目前已实现功能">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>每日签到</li>
+</ul>
+<h4 id="cookie获取方法">
+    <a href="#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95" class="header-anchor">#</a>
+    cookie获取方法
+</h4><p>吾爱登录有人机验证，使用cookie较为简单，需要在本地电脑获取，确保有chrome浏览器。</p>
+<ul>
+<li>mac示例</li>
+</ul>
+<p>根据提示快速进行登录以获取cookie</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_darwin 52pojie login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>docker示例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose run server 52pojie login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件示例">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    配置文件示例
+</h4><p>文件名：52pojie.yml，示例每天8:41、16:41各执行一次。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">52pojie</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;xxxxxxxx&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;yyyyyyyyy&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">checkIn</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookie</td>
+<td>52pojie的cookie信息</td>
+</tr>
+<tr>
+<td>checkIn</td>
+<td>是否签到</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="哔哩哔哩">
+    <a href="#%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9" class="header-anchor">#</a>
+    哔哩哔哩
+</h3><p>官方站点：https://www.bilibili.com/</p>
+<h4 id="目前已实现功能-1">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-1" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>
+<p>每日登录</p>
+</li>
+<li>
+<p>每日投币</p>
+</li>
+<li>
+<p>每日观看视频</p>
+</li>
+<li>
+<p>每日分享视频</p>
+</li>
+<li>
+<p>每日直播签到</p>
+</li>
+</ul>
+<p>视频选取策略：优先取用户动态列表和综合热门视频。</p>
+<h4 id="cookie获取方法-1">
+    <a href="#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-1" class="header-anchor">#</a>
+    cookie获取方法
+</h4><ul>
+<li>mac示例</li>
+</ul>
+<p>目前支持扫码获取cookie</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./MagicBox_amd64_darwin bilibili login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>docker示例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose run server bilibili login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件示例-1">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-1" class="header-anchor">#</a>
+    配置文件示例
+</h4><p>配置文件名：bilibili.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">bilibili</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;xxxxxxxxxx&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">watchVideo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">thowCoin</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shareVideo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookie</td>
+<td>bilibili的cookie信息</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>watchVideo</td>
+<td>是否每天观看视频</td>
+</tr>
+<tr>
+<td>thowCoin</td>
+<td>每天投币数量</td>
+</tr>
+<tr>
+<td>shareVideo</td>
+<td>是否分享视频</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="全球主机交流论坛">
+    <a href="#%e5%85%a8%e7%90%83%e4%b8%bb%e6%9c%ba%e4%ba%a4%e6%b5%81%e8%ae%ba%e5%9d%9b" class="header-anchor">#</a>
+    全球主机交流论坛
+</h3><p>官方站点：https://hostloc.com/</p>
+<h4 id="目前已实现功能-2">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-2" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>每日访问空间10次获得积分</li>
+</ul>
+<p>访问策略：选取前两页出现的用户，依次进行访问</p>
+<ul>
+<li>支持跳过访问某些用户空间</li>
+</ul>
+<h4 id="准备用户名密码">
+    <a href="#%e5%87%86%e5%a4%87%e7%94%a8%e6%88%b7%e5%90%8d%e5%af%86%e7%a0%81" class="header-anchor">#</a>
+    准备用户名/密码
+</h4><p>可以使用用户名和密码进行登录</p>
+<h4 id="配置文件示例-2">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-2" class="header-anchor">#</a>
+    配置文件示例
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">hostloc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">accessSpace</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">filersUser</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxxxx, yyyyyy, zzzzzzzz&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>password</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>accessSpace</td>
+<td>每次执行访问空间次数</td>
+</tr>
+<tr>
+<td>filersUser</td>
+<td>过滤掉某些用户空间访问（避免每天重复访问）</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="v2ex论坛">
+    <a href="#v2ex%e8%ae%ba%e5%9d%9b" class="header-anchor">#</a>
+    v2ex论坛
+</h3><p>官方站点：https://v2ex.com/</p>
+<h4 id="目前已实现功能-3">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-3" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>每日签到</li>
+</ul>
+<h4 id="cookie获取方法-2">
+    <a href="#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-2" class="header-anchor">#</a>
+    cookie获取方法
+</h4><p>v2ex登录有图片验证码缓解，将base64打印到控制台，用在线网站可以查看图片信息，例如：https://tool.jisuapi.com/base642pic.html，然后根据提示输入验证码、用户名、密码。</p>
+<ul>
+<li>mac平台</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_darwin v2ex login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>docker平台</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose run server v2ex login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件示例-3">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-3" class="header-anchor">#</a>
+    配置文件示例
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">v2ex</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">checkIn</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookie</td>
+<td>v2ex的cookie信息</td>
+</tr>
+<tr>
+<td>checkIn</td>
+<td>是否签到</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="贴吧签到受限制">
+    <a href="#%e8%b4%b4%e5%90%a7%e7%ad%be%e5%88%b0%e5%8f%97%e9%99%90%e5%88%b6" class="header-anchor">#</a>
+    贴吧签到（受限制）
+</h3><p>官方站点：https://tieba.baidu.com/</p>
+<h4 id="目前已实现功能-4">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-4" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>
+<p>每日签到（不限制数量）</p>
+<p><a class="link" href="https://tieba.baidu.com/f/like/level?kw=&amp;ie=utf-8&amp;lv_t=lv_nav_who"  target="_blank" rel="noopener"
+    >签到经验获取规则</a>，本程序模拟pc端签到。此功能需要填写授权码才可进行使用。</p>
+</li>
+</ul>
+<h4 id="cookie获取方法-3">
+    <a href="#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-3" class="header-anchor">#</a>
+    cookie获取方法
+</h4><p>由于百度时常会遇到安全验证，因此建议本地获取cookie后进行使用。</p>
+<ul>
+<li>mac平台</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_darwin tieba login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件示例-4">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-4" class="header-anchor">#</a>
+    配置文件示例
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">tieba</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookie</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="有道云笔记签到">
+    <a href="#%e6%9c%89%e9%81%93%e4%ba%91%e7%ac%94%e8%ae%b0%e7%ad%be%e5%88%b0" class="header-anchor">#</a>
+    有道云笔记签到
+</h3><p>官方站点：https://note.youdao.com/</p>
+<h4 id="目前已实现功能-5">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-5" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>每日签到（获得空间容量）</li>
+</ul>
+<h4 id="cookie获取方法-4">
+    <a href="#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-4" class="header-anchor">#</a>
+    cookie获取方法
+</h4><p>使用通用的方法获取，手动进行登录，90秒后将会吧cookie打印在控制台</p>
+<ul>
+<li>mac平台</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_darwin chrome login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件示例-5">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-5" class="header-anchor">#</a>
+    配置文件示例
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">tieba</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">checkIn</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookie</td>
+<td>cookie信息</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+<tr>
+<td>checkIn</td>
+<td>是否执行签到</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="京东任务受限制">
+    <a href="#%e4%ba%ac%e4%b8%9c%e4%bb%bb%e5%8a%a1%e5%8f%97%e9%99%90%e5%88%b6" class="header-anchor">#</a>
+    京东任务（受限制）
+</h3><p>官方站点：https://www.jd.com/</p>
+<p>需要在任务执行时填写token才可正常执行。</p>
+<h4 id="目前已实现功能-6">
+    <a href="#%e7%9b%ae%e5%89%8d%e5%b7%b2%e5%ae%9e%e7%8e%b0%e5%8a%9f%e8%83%bd-6" class="header-anchor">#</a>
+    目前已实现功能
+</h4><ul>
+<li>自动检测进行价保</li>
+</ul>
+<h4 id="cookie获取方法-5">
+    <a href="#cookie%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95-5" class="header-anchor">#</a>
+    cookie获取方法
+</h4><p>使用通用的方法获取，手动进行登录，90秒后将会吧cookie打印在控制台</p>
+<ul>
+<li>mac平台</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./MagicBox_amd64_darwin chrome login
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件示例-6">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b-6" class="header-anchor">#</a>
+    配置文件示例
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">jd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">task</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">applyMoney</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">multiThread</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">notify</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cookie</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 41 8,16 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">doduo_refresh</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 */20 * * * *&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>京东cookie在短时间会失效，经过一周的测试，每900s刷新一次，目前cookie仍然是有效的，这个时间应该还可拉的更长。任务执行逻辑是设置两个定时任务，一个进行刷新，一个进行价保（若短时间内多次执行可能会存在风险）。doduo_refresh定时任务，是专门为doduo任务刷新cookie的。</p>
+<p>变量配置说明</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookie</td>
+<td>cookie信息</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>cron执行任务</td>
+</tr>
+<tr>
+<td>notify</td>
+<td>通知</td>
+</tr>
+<tr>
+<td>multiThread</td>
+<td>是否支持并发，默认填写false即可</td>
+</tr>
+<tr>
+<td>applyMoney</td>
+<td>是否执行价保任务</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="通知方式">
+    <a href="#%e9%80%9a%e7%9f%a5%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    通知方式
+</h2><p>将通知链接填写到notify变量中即可，推送通道这里理论上都是可以支持的，由于个人精力有限，目前只对接了一部分，未来会随着小伙伴们的喜好进行迭代升级。</p>
+<h3 id="bark">
+    <a href="#bark" class="header-anchor">#</a>
+    Bark
+</h3><p>Bark 是一款<code>iOS</code>端的推送服务，通过部署一个<code>Server</code>服务端，可以通过HTTP接口来给<code>iOS</code>设备发送推送通知，代码开源: <a class="link" href="https://github.com/Finb/Bark"  target="_blank" rel="noopener"
+    >https://github.com/Finb/Bark</a></p>
+<p>使用极其简单，只需要下载安装Bark软件即可，获取每个用户唯一key，按照下面格式替换，就得到了你唯一的推送通道了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#DnzTsd6qDWTdfs9xRGygFtasdnsRCL 需要替换的key</span>
+</span></span><span class="line"><span class="cl">bark://api.day.app/DnzTsd6qDWTdfs9xRGygFtasdnsRCL/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细可参考：<a class="link" href="https://bark.day.app/"  target="_blank" rel="noopener"
+    >Bark官方文档</a></p>
+<h3 id="telegram">
+    <a href="#telegram" class="header-anchor">#</a>
+    Telegram
+</h3><p>这款软件在国内需要些特殊方式才可正常使用，若以前未使用过建议就不要折腾了。</p>
+<ul>
+<li>
+<p>打开bot的生成链接 <code>https://t.me/botfather</code></p>
+</li>
+<li>
+<p>点击 <code>/newbot - create a new bot</code> 生成新一个的bot，系统会让你给它取一个名字，这里可以随便输入，反正方便记就可以了。</p>
+</li>
+<li>
+<p>系统会再次让你取一个名字并输入，现在的名字必须以bot结尾，不可以和其他任何bot重名。</p>
+</li>
+<li>
+<p>一旦你输入的bot名字可用，系统会生成一个token给你，类似于<code>1729581149:BHGYVVjEHsaNjsnT8eQpWyshwr2o4PqU7u8</code>，请务必保存好此token并且不泄露，这是唯一的用户凭证。</p>
+</li>
+<li>
+<p>此时，你拥有了一个bot，但是还无法使用，因为你知道它，它不知道你。这时候打开 <code>https://t.me/iamthebot</code> 这个链接，注意iamthebot为你刚才新建的bot的名字！点击/start进入对话框，发送 <code>@userinfobot</code> 后并点击它。<code>userinfobot</code>的对话中，点击或者输入<code>/start</code>，你将获取一个<code>Id/chat_id</code>，具体表现为一串数字，比如<code>387980691</code>。</p>
+</li>
+</ul>
+<p>执行完这些操作之后，这个机器人便已经搭建好了，示例推送格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tgram://1729581149:BHGYVVjEHsaNjsnT8eQpWyshwr2o4PqU7u8/387980691/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="企业微信应用通知">
+    <a href="#%e4%bc%81%e4%b8%9a%e5%be%ae%e4%bf%a1%e5%ba%94%e7%94%a8%e9%80%9a%e7%9f%a5" class="header-anchor">#</a>
+    企业微信应用通知
+</h3><p>示例推送格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">qywx://sdadas:1023837:5DryRSrtLiasdsddsfsfZqPXaQaIajbSfO1trY
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对上面格式解释</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sdadas</td>
+<td>corpid</td>
+</tr>
+<tr>
+<td>1023837</td>
+<td>agentid</td>
+</tr>
+<tr>
+<td>5DryRSrtLiasdsddsfsfZqPXaQaIajbSfO1trY</td>
+<td>corpsecret</td>
+</tr>
+</tbody>
+</table></div>
+<p>corpid 和 corpsecret 主要用于获取access_token，可以参考微信文档<a class="link" href="https://developer.work.weixin.qq.com/document/path/91039"  target="_blank" rel="noopener"
+    >获取access_token</a>填写内容，agentid是为了能发消息，可以看文档<a class="link" href="https://developer.work.weixin.qq.com/document/path/90236"  target="_blank" rel="noopener"
+    >发送应用消息</a>。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/magic/">Magic</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/how-use-magic-box-v2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MagicBox使用手册</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">双十一京东自动申请价保助手</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-use-magic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Magic手册</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">复盘国密sm4踩坑</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

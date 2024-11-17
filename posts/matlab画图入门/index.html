@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 由于数学建模的需要，就来学习一下怎么使用MATLAB进行画图。发现用它画的图还挺好看的，二维图形，三维图形，它都能够胜任，而且很美观，下面就是关于一些常见的图形应该怎么画。 ::: # 二维平面图 首先，在做每一个图像之前都要运行一下close all,这个可以关闭所有的图形窗口。 x=linspace(a,b,N); x为变量的名称，linspace是均分计算指令，会将区间[a,b]均分成N个部分，形成一个等差数列，对变量x进行赋值。 然后接下来就要写函数方程，例如y=sin(x),又增加了一个变量y，当x变化时，y也会随之而变化。 接下来就要使用plot这个函数，plot是MATLAB中一维曲线函数，再把之前的变量放入到plot中就可以绘制成一个二维图，例如:plot(x,y); 在[0,2*pi]中画一个sin(x)的图像 1 2 3 x=linspace(0,2*pi,100); y=sin(x); plot(x,y); 在plot中，我们还可以定义曲线的颜色，线型等属性，plot(x,y,'填写线型、标记符、颜色') 线型 说明 标记符 说明 颜色 说明 - 实线 + 加号符 r 红色 &ndash; 双划线 o 空心圆 g 绿色 ： 虚线 * 星号 b 蓝色 -. 点划线 . 实心圆 c 青绿色 x 叉号符 m 洋红色 s 正方形 y 黄色 d 菱形 k 黑色 ^ 上三角 w 白色 v 下三角 &lt; 左三角 &gt; 右三角 p 五角星 h 六边形 给图形添加标题">
+<title>MATLAB画图入门</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="MATLAB画图入门">
+<meta property='og:description' content=":::tip 由于数学建模的需要，就来学习一下怎么使用MATLAB进行画图。发现用它画的图还挺好看的，二维图形，三维图形，它都能够胜任，而且很美观，下面就是关于一些常见的图形应该怎么画。 ::: # 二维平面图 首先，在做每一个图像之前都要运行一下close all,这个可以关闭所有的图形窗口。 x=linspace(a,b,N); x为变量的名称，linspace是均分计算指令，会将区间[a,b]均分成N个部分，形成一个等差数列，对变量x进行赋值。 然后接下来就要写函数方程，例如y=sin(x),又增加了一个变量y，当x变化时，y也会随之而变化。 接下来就要使用plot这个函数，plot是MATLAB中一维曲线函数，再把之前的变量放入到plot中就可以绘制成一个二维图，例如:plot(x,y); 在[0,2*pi]中画一个sin(x)的图像 1 2 3 x=linspace(0,2*pi,100); y=sin(x); plot(x,y); 在plot中，我们还可以定义曲线的颜色，线型等属性，plot(x,y,'填写线型、标记符、颜色') 线型 说明 标记符 说明 颜色 说明 - 实线 + 加号符 r 红色 &ndash; 双划线 o 空心圆 g 绿色 ： 虚线 * 星号 b 蓝色 -. 点划线 . 实心圆 c 青绿色 x 叉号符 m 洋红色 s 正方形 y 黄色 d 菱形 k 黑色 ^ 上三角 w 白色 v 下三角 &lt; 左三角 &gt; 右三角 p 五角星 h 六边形 给图形添加标题">
+<meta property='og:url' content='https://blog.lass.cc/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='画图' /><meta property='article:published_time' content='2019-08-10T12:57:48&#43;00:00'/><meta property='article:modified_time' content='2019-08-10T12:57:48&#43;00:00'/>
+<meta name="twitter:title" content="MATLAB画图入门">
+<meta name="twitter:description" content=":::tip 由于数学建模的需要，就来学习一下怎么使用MATLAB进行画图。发现用它画的图还挺好看的，二维图形，三维图形，它都能够胜任，而且很美观，下面就是关于一些常见的图形应该怎么画。 ::: # 二维平面图 首先，在做每一个图像之前都要运行一下close all,这个可以关闭所有的图形窗口。 x=linspace(a,b,N); x为变量的名称，linspace是均分计算指令，会将区间[a,b]均分成N个部分，形成一个等差数列，对变量x进行赋值。 然后接下来就要写函数方程，例如y=sin(x),又增加了一个变量y，当x变化时，y也会随之而变化。 接下来就要使用plot这个函数，plot是MATLAB中一维曲线函数，再把之前的变量放入到plot中就可以绘制成一个二维图，例如:plot(x,y); 在[0,2*pi]中画一个sin(x)的图像 1 2 3 x=linspace(0,2*pi,100); y=sin(x); plot(x,y); 在plot中，我们还可以定义曲线的颜色，线型等属性，plot(x,y,'填写线型、标记符、颜色') 线型 说明 标记符 说明 颜色 说明 - 实线 + 加号符 r 红色 &ndash; 双划线 o 空心圆 g 绿色 ： 虚线 * 星号 b 蓝色 -. 点划线 . 实心圆 c 青绿色 x 叉号符 m 洋红色 s 正方形 y 黄色 d 菱形 k 黑色 ^ 上三角 w 白色 v 下三角 &lt; 左三角 &gt; 右三角 p 五角星 h 六边形 给图形添加标题">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#二维平面图">二维平面图</a></li>
+    <li><a href="#三维图立体绘图">三维图，立体绘图</a>
+      <ol>
+        <li><a href="#立体网状图">立体网状图</a></li>
+        <li><a href="#立体曲面图">立体曲面图</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/">MATLAB画图入门</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 10, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+由于数学建模的需要，就来学习一下怎么使用<code>MATLAB</code>进行画图。发现用它画的图还挺好看的，二维图形，三维图形，它都能够胜任，而且很美观，下面就是关于一些常见的图形应该怎么画。
+:::</p>
+<!-- raw HTML omitted -->
+<h2 id="二维平面图">
+    <a href="#%e4%ba%8c%e7%bb%b4%e5%b9%b3%e9%9d%a2%e5%9b%be" class="header-anchor">#</a>
+    二维平面图
+</h2><p>首先，在做每一个图像之前都要运行一下<code>close all</code>,这个可以关闭所有的图形窗口。
+x=linspace(a,b,N);
+x为变量的名称，linspace是均分计算指令，会将区间<code>[a,b]</code>均分成N个部分，形成一个等差数列，对变量x进行赋值。
+然后接下来就要写函数方程，例如<code>y=sin(x)</code>,又增加了一个变量y，当x变化时，y也会随之而变化。</p>
+<p>接下来就要使用<code>plot</code>这个函数，<code>plot</code>是<code>MATLAB</code>中一维曲线函数，再把之前的变量放入到<code>plot</code>中就可以绘制成一个二维图，例如:<code>plot(x,y)</code>;</p>
+<p>在[0,2*pi]中画一个sin(x)的图像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,2*pi,100);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=sin(x);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">plot(x,y);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在plot中，我们还可以定义曲线的颜色，线型等属性，<code>plot(x,y,'填写线型、标记符、颜色')</code></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>线型</th>
+<th>说明</th>
+<th>标记符</th>
+<th>说明</th>
+<th>颜色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>实线</td>
+<td>+</td>
+<td>加号符</td>
+<td>r</td>
+<td>红色</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>双划线</td>
+<td>o</td>
+<td>空心圆</td>
+<td>g</td>
+<td>绿色</td>
+</tr>
+<tr>
+<td>：</td>
+<td>虚线</td>
+<td>*</td>
+<td>星号</td>
+<td>b</td>
+<td>蓝色</td>
+</tr>
+<tr>
+<td>-.</td>
+<td>点划线</td>
+<td>.</td>
+<td>实心圆</td>
+<td>c</td>
+<td>青绿色</td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>叉号符</td>
+<td>m</td>
+<td>洋红色</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>s</td>
+<td>正方形</td>
+<td>y</td>
+<td>黄色</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>d</td>
+<td>菱形</td>
+<td>k</td>
+<td>黑色</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>^</td>
+<td>上三角</td>
+<td>w</td>
+<td>白色</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>v</td>
+<td>下三角</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>&lt;</td>
+<td>左三角</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>&gt;</td>
+<td>右三角</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>p</td>
+<td>五角星</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>h</td>
+<td>六边形</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>给图形添加标题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">title(&#39;这里填写标题的名字&#39;)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>给图中的曲线加以说明</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">legend(&#39;说明1&#39;,&#39;说明2&#39;,)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加坐标轴的标签</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">xlabel(&#39;xxx&#39;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">ylabel(&#39;xxx&#39;);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加文本注释</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">text(x,y,&#39;文本内容&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">x，y为文本的的位置坐标</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>特殊坐标轴</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">loglog：两个坐标轴都使用对数刻度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">semilogx：x使用对数刻度，y轴使用普通刻度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">semilogy：y使用对数刻度，x轴使用普通刻度</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>显示与关闭网格线</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">grid on   %显示网格线</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">grid off  %关闭网格线</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>子图在一个图片中画多个图像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">subplot(2,2,1);  %将当前操作的图窗口，分成四部分，对第一部分操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">plot(x1,y1);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">subplot(2,2,2);  %对第二个部分操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">plot(x2,y2);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">subplot(2,2,3);  %对第三部分操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">plot(x3,y3);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">subplot(2,2,4);  %对第四部分操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">plot(x4,y4);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>调整图轴的范围</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">axis([0,6,-1.2,1.2]);  %将数轴的范围改成x从0到6，y从-1.2到1.2;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>用bar制作一个长条图（条形图）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">close all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">x=1:10;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=rand(size(x));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">bar(x,y);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果已经知道资料的误差量，就可以用errorbar来作图（误差棒图）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,2*pi);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=sin(x);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">e=std(y)*ones(size(x));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">errorbar(x,y,e);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于变化剧烈的函数，可以使用fplot来绘制更加精密的图</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">fplot(&#39;sin(x)&#39;,[0.02,0.2]);  %[0.02,0.2]实绘图的范围</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>极坐标图形</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,2*pi);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">r=cos(4*x);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">polar(x,r);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于大量的资料，可以使用hist来显示资料的分情况和统计特性（以资料个数为距离）
+验证高斯乱数分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=randn(5000,1); %产生5000个 m=0，s=1的高斯乱数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">hist(x,20); %20代表长条的个数</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>rose以资料大小视为角度漫，在极坐标图中表示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=randn(1000,1);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">rose(x);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>stairs(x,y)画阶梯图</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,10,50);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=sin(x).*exp(-x/3);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">stairs(x,y);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>stems针状图，常用作绘制数位讯号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,10,50);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=sin(x).*exp(-x/3);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">stem(x,y);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>stairs将资料点视为多边形的顶点,此种方法还必须得弄上颜色</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,10,50);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=sin(x).*exp(-x/3);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">fill(x,y,&#39;b&#39;);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>feather将每一个资料点看作是复数，以箭头画出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,2*pi,20);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=cos(x)+i*sin(x);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">feather(y);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>compass也是以箭头发出，只不过这个是在极坐标之中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(0,2*pi,20);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=cos(x)+i*sin(x);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">compass(y);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三维图立体绘图">
+    <a href="#%e4%b8%89%e7%bb%b4%e5%9b%be%e7%ab%8b%e4%bd%93%e7%bb%98%e5%9b%be" class="header-anchor">#</a>
+    三维图，立体绘图
+</h2><p>mesh可以画出立体网状图，plot可以画立体曲面图，产生的图形会依靠高度有不同的长度。</p>
+<h3 id="立体网状图">
+    <a href="#%e7%ab%8b%e4%bd%93%e7%bd%91%e7%8a%b6%e5%9b%be" class="header-anchor">#</a>
+    立体网状图
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(-2,2,25); % x轴从-2到2，一共分成25个点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=linspace(-2,2,25); % 与x轴同理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="l">xx,yy]=meshgrid(x,y); % x和y都是21*21的矩阵</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">zz=xx.*exp(-xx.^2-yy.^2); % zz也是21*21的矩阵</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">mesh(xx,yy,zz);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="立体曲面图">
+    <a href="#%e7%ab%8b%e4%bd%93%e6%9b%b2%e9%9d%a2%e5%9b%be" class="header-anchor">#</a>
+    立体曲面图
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">x=linspace(-2,2,25); % x轴从-2到2，一共分成25个点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kc">y</span><span class="l">=linspace(-2,2,25); % 与x轴同理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="l">xx,yy]=meshgrid(x,y); % x和y都是21*21的矩阵</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">zz=xx.*exp(-xx.^2-yy.^2); % zz也是21*21的矩阵</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">surf(xx,yy,zz); </span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%94%BB%E5%9B%BE/">画图</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 最近在做一些关于深度优先搜索的题，可让我遭了不少的罪，觉得看着啊，没什么难的，网上教学的都说，深度优先搜索实际上就是一个栈，也的确就是这样。但是当我们实际操作过程中，总会遇到一些问题。 ::: 最早接触的深度优先搜索是一个二叉树。对一个二叉树来说，就是朝着某一个分支方向不断地向下搜索，走到头之后，往上回一步再走另一个方向。但是要真正的理解，并能熟练地运用和实现他并不是那么容易。 做这样类型的题，首先要选好一个合适的存储方式，方便去遍历它。例如一个图的遍历，如果不太大，选择二维数组会比较好一点，但是也要分析具体的情况，是用带记忆化的搜索还是用不带记忆化的搜索，都需要具体的去分析。 其次就是，要很清楚的掌控在搜索的过程中，每个变量发生的变化，哪些变量在更改后，在回溯的过程中还需要再改回去，哪些自己会改回去，这些变量的变化都要非常的清楚，否则遇到这类题将会比较难受。记得那时候，一个for循环里面嵌套着一个递归式子，这种代码我是看不懂的，那个时候两个递归的式子放到一起运行我也是看不懂的，什么时候运行下一段代码，怎么运行，我完全都搞不懂，怎么办呢，不能就这样放弃啊，最后我就在代码中输出一些变量的变换过程，然后在纸上自己画一画，才搞明白，哦，原来是这么回事啊。 学好dfs的关键就是要理解好八皇后这道题，最后会发现很多问题都可以借助八皇后的这一思想来解决，只需要根据题中的内容添加和修改一些代码就可以了。 下面就根据几道题来看看吧。 有一个N*N的棋盘，有N个棋子要放入在棋盘中，但是这些棋子的摆放是有要求的，棋盘中每行、每列有且只有一个，每条对角线(包括两条主对角线的所有平行线)上至多有一个棋子。问N盘N棋子有几种符合要求的摆放方法？ 首先要遇到的问题就是如何存储这个棋盘，棋盘就是一个二维平面图，可以油坐标确定点的位置，所以可以用一个一维数组的下标代表横坐标，该下标所存储的值代表纵坐标，这样就可以优化一下内存。还有就是棋盘中这么多的位置要怎么去填呢？可以一行一行的填，第一行从填在第一列，一直到第N列，找到个符合的位置就继续填第二行，一直填到第N行。 就以4皇后为例 Start12341234123412341234XXXXXXXXXXXXXXXXXXXXXXXXXX 可以从图中看到，当第一行放到第一个位置时，是找不到一个符合的摆放方式的，因此下一步就必须得尝试第一行放在第二列，由于篇幅的原因就不画出来了。从图中也可以看到第一行放到第一个位置，如果这个位置可以放，就可以考虑第二行的棋子该摆放在哪里了，第二行不能放在第一列，也不能放在第二列，但是第三列是可以放的，所以再考虑第三行的棋子该怎么放，结果没有一个棋子可以摆放到符合的位置，所以要返回到第二行，可以尝试放到第二个位置，等等。 代码的主要思想就是这样，下面把核心的代码贴出来 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 bool isok(int row) { for(int x=0;x!=row;x++){ if(c[x]==c[row]||x+c[x]==row+c[row]||x-c[x]==row-c[row]){ return false; } } return true; } void dfs(int n,int row) { if(row==n){ if(t++&lt;3){ for(int i=0;i&lt;n;i++){ cout &lt;&lt; c[i]+1 &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; } return ; } else{ for(int x=0;x!">
+<title>关于深度优先搜索的一些思考</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="关于深度优先搜索的一些思考">
+<meta property='og:description' content=":::tip 最近在做一些关于深度优先搜索的题，可让我遭了不少的罪，觉得看着啊，没什么难的，网上教学的都说，深度优先搜索实际上就是一个栈，也的确就是这样。但是当我们实际操作过程中，总会遇到一些问题。 ::: 最早接触的深度优先搜索是一个二叉树。对一个二叉树来说，就是朝着某一个分支方向不断地向下搜索，走到头之后，往上回一步再走另一个方向。但是要真正的理解，并能熟练地运用和实现他并不是那么容易。 做这样类型的题，首先要选好一个合适的存储方式，方便去遍历它。例如一个图的遍历，如果不太大，选择二维数组会比较好一点，但是也要分析具体的情况，是用带记忆化的搜索还是用不带记忆化的搜索，都需要具体的去分析。 其次就是，要很清楚的掌控在搜索的过程中，每个变量发生的变化，哪些变量在更改后，在回溯的过程中还需要再改回去，哪些自己会改回去，这些变量的变化都要非常的清楚，否则遇到这类题将会比较难受。记得那时候，一个for循环里面嵌套着一个递归式子，这种代码我是看不懂的，那个时候两个递归的式子放到一起运行我也是看不懂的，什么时候运行下一段代码，怎么运行，我完全都搞不懂，怎么办呢，不能就这样放弃啊，最后我就在代码中输出一些变量的变换过程，然后在纸上自己画一画，才搞明白，哦，原来是这么回事啊。 学好dfs的关键就是要理解好八皇后这道题，最后会发现很多问题都可以借助八皇后的这一思想来解决，只需要根据题中的内容添加和修改一些代码就可以了。 下面就根据几道题来看看吧。 有一个N*N的棋盘，有N个棋子要放入在棋盘中，但是这些棋子的摆放是有要求的，棋盘中每行、每列有且只有一个，每条对角线(包括两条主对角线的所有平行线)上至多有一个棋子。问N盘N棋子有几种符合要求的摆放方法？ 首先要遇到的问题就是如何存储这个棋盘，棋盘就是一个二维平面图，可以油坐标确定点的位置，所以可以用一个一维数组的下标代表横坐标，该下标所存储的值代表纵坐标，这样就可以优化一下内存。还有就是棋盘中这么多的位置要怎么去填呢？可以一行一行的填，第一行从填在第一列，一直到第N列，找到个符合的位置就继续填第二行，一直填到第N行。 就以4皇后为例 Start12341234123412341234XXXXXXXXXXXXXXXXXXXXXXXXXX 可以从图中看到，当第一行放到第一个位置时，是找不到一个符合的摆放方式的，因此下一步就必须得尝试第一行放在第二列，由于篇幅的原因就不画出来了。从图中也可以看到第一行放到第一个位置，如果这个位置可以放，就可以考虑第二行的棋子该摆放在哪里了，第二行不能放在第一列，也不能放在第二列，但是第三列是可以放的，所以再考虑第三行的棋子该怎么放，结果没有一个棋子可以摆放到符合的位置，所以要返回到第二行，可以尝试放到第二个位置，等等。 代码的主要思想就是这样，下面把核心的代码贴出来 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 bool isok(int row) { for(int x=0;x!=row;x++){ if(c[x]==c[row]||x+c[x]==row+c[row]||x-c[x]==row-c[row]){ return false; } } return true; } void dfs(int n,int row) { if(row==n){ if(t++&lt;3){ for(int i=0;i&lt;n;i++){ cout &lt;&lt; c[i]+1 &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; } return ; } else{ for(int x=0;x!">
+<meta property='og:url' content='https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='想法' /><meta property='article:published_time' content='2019-07-24T16:09:38&#43;00:00'/><meta property='article:modified_time' content='2019-07-24T16:09:38&#43;00:00'/>
+<meta name="twitter:title" content="关于深度优先搜索的一些思考">
+<meta name="twitter:description" content=":::tip 最近在做一些关于深度优先搜索的题，可让我遭了不少的罪，觉得看着啊，没什么难的，网上教学的都说，深度优先搜索实际上就是一个栈，也的确就是这样。但是当我们实际操作过程中，总会遇到一些问题。 ::: 最早接触的深度优先搜索是一个二叉树。对一个二叉树来说，就是朝着某一个分支方向不断地向下搜索，走到头之后，往上回一步再走另一个方向。但是要真正的理解，并能熟练地运用和实现他并不是那么容易。 做这样类型的题，首先要选好一个合适的存储方式，方便去遍历它。例如一个图的遍历，如果不太大，选择二维数组会比较好一点，但是也要分析具体的情况，是用带记忆化的搜索还是用不带记忆化的搜索，都需要具体的去分析。 其次就是，要很清楚的掌控在搜索的过程中，每个变量发生的变化，哪些变量在更改后，在回溯的过程中还需要再改回去，哪些自己会改回去，这些变量的变化都要非常的清楚，否则遇到这类题将会比较难受。记得那时候，一个for循环里面嵌套着一个递归式子，这种代码我是看不懂的，那个时候两个递归的式子放到一起运行我也是看不懂的，什么时候运行下一段代码，怎么运行，我完全都搞不懂，怎么办呢，不能就这样放弃啊，最后我就在代码中输出一些变量的变换过程，然后在纸上自己画一画，才搞明白，哦，原来是这么回事啊。 学好dfs的关键就是要理解好八皇后这道题，最后会发现很多问题都可以借助八皇后的这一思想来解决，只需要根据题中的内容添加和修改一些代码就可以了。 下面就根据几道题来看看吧。 有一个N*N的棋盘，有N个棋子要放入在棋盘中，但是这些棋子的摆放是有要求的，棋盘中每行、每列有且只有一个，每条对角线(包括两条主对角线的所有平行线)上至多有一个棋子。问N盘N棋子有几种符合要求的摆放方法？ 首先要遇到的问题就是如何存储这个棋盘，棋盘就是一个二维平面图，可以油坐标确定点的位置，所以可以用一个一维数组的下标代表横坐标，该下标所存储的值代表纵坐标，这样就可以优化一下内存。还有就是棋盘中这么多的位置要怎么去填呢？可以一行一行的填，第一行从填在第一列，一直到第N列，找到个符合的位置就继续填第二行，一直填到第N行。 就以4皇后为例 Start12341234123412341234XXXXXXXXXXXXXXXXXXXXXXXXXX 可以从图中看到，当第一行放到第一个位置时，是找不到一个符合的摆放方式的，因此下一步就必须得尝试第一行放在第二列，由于篇幅的原因就不画出来了。从图中也可以看到第一行放到第一个位置，如果这个位置可以放，就可以考虑第二行的棋子该摆放在哪里了，第二行不能放在第一列，也不能放在第二列，但是第三列是可以放的，所以再考虑第三行的棋子该怎么放，结果没有一个棋子可以摆放到符合的位置，所以要返回到第二行，可以尝试放到第二个位置，等等。 代码的主要思想就是这样，下面把核心的代码贴出来 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 bool isok(int row) { for(int x=0;x!=row;x++){ if(c[x]==c[row]||x+c[x]==row+c[row]||x-c[x]==row-c[row]){ return false; } } return true; } void dfs(int n,int row) { if(row==n){ if(t++&lt;3){ for(int i=0;i&lt;n;i++){ cout &lt;&lt; c[i]+1 &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; } return ; } else{ for(int x=0;x!">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">关于深度优先搜索的一些思考</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 24, 2019</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>:::tip
+最近在做一些关于深度优先搜索的题，可让我遭了不少的罪，觉得看着啊，没什么难的，网上教学的都说，深度优先搜索实际上就是一个栈，也的确就是这样。但是当我们实际操作过程中，总会遇到一些问题。
+:::</p>
+<!-- raw HTML omitted -->
+<p>最早接触的深度优先搜索是一个二叉树。对一个二叉树来说，就是朝着某一个分支方向不断地向下搜索，走到头之后，往上回一步再走另一个方向。但是要真正的理解，并能熟练地运用和实现他并不是那么容易。</p>
+<p>做这样类型的题，首先要选好一个合适的存储方式，方便去遍历它。例如一个图的遍历，如果不太大，选择二维数组会比较好一点，但是也要分析具体的情况，是用带记忆化的搜索还是用不带记忆化的搜索，都需要具体的去分析。</p>
+<p>其次就是，要很清楚的掌控在搜索的过程中，每个变量发生的变化，哪些变量在更改后，在回溯的过程中还需要再改回去，哪些自己会改回去，这些变量的变化都要非常的清楚，否则遇到这类题将会比较难受。记得那时候，一个for循环里面嵌套着一个递归式子，这种代码我是看不懂的，那个时候两个递归的式子放到一起运行我也是看不懂的，什么时候运行下一段代码，怎么运行，我完全都搞不懂，怎么办呢，不能就这样放弃啊，最后我就在代码中输出一些变量的变换过程，然后在纸上自己画一画，才搞明白，哦，原来是这么回事啊。</p>
+<p>学好dfs的关键就是要理解好八皇后这道题，最后会发现很多问题都可以借助八皇后的这一思想来解决，只需要根据题中的内容添加和修改一些代码就可以了。</p>
+<p>下面就根据几道题来看看吧。</p>
+<ol>
+<li>有一个N*N的棋盘，有N个棋子要放入在棋盘中，但是这些棋子的摆放是有要求的，棋盘中每行、每列有且只有一个，每条对角线(包括两条主对角线的所有平行线)上至多有一个棋子。问N盘N棋子有几种符合要求的摆放方法？</li>
+</ol>
+<p>首先要遇到的问题就是如何存储这个棋盘，棋盘就是一个二维平面图，可以油坐标确定点的位置，所以可以用一个一维数组的下标代表横坐标，该下标所存储的值代表纵坐标，这样就可以优化一下内存。还有就是棋盘中这么多的位置要怎么去填呢？可以一行一行的填，第一行从填在第一列，一直到第N列，找到个符合的位置就继续填第二行，一直填到第N行。</p>
+<p>就以4皇后为例</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Start<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->X<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>可以从图中看到，当第一行放到第一个位置时，是找不到一个符合的摆放方式的，因此下一步就必须得尝试第一行放在第二列，由于篇幅的原因就不画出来了。从图中也可以看到第一行放到第一个位置，如果这个位置可以放，就可以考虑第二行的棋子该摆放在哪里了，第二行不能放在第一列，也不能放在第二列，但是第三列是可以放的，所以再考虑第三行的棋子该怎么放，结果没有一个棋子可以摆放到符合的位置，所以要返回到第二行，可以尝试放到第二个位置，等等。</p>
+<p>代码的主要思想就是这样，下面把核心的代码贴出来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">isok</span><span class="p">(</span><span class="kt">int</span> <span class="n">row</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">x</span><span class="o">!=</span><span class="n">row</span><span class="p">;</span><span class="n">x</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">==</span><span class="n">c</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">||</span><span class="n">x</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">==</span><span class="n">row</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">||</span><span class="n">x</span><span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">==</span><span class="n">row</span><span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="n">row</span><span class="p">]){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">row</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">row</span><span class="o">==</span><span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">++&lt;</span><span class="mi">3</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">x</span><span class="o">!=</span><span class="n">n</span><span class="p">;</span><span class="n">x</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">c</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">isok</span><span class="p">(</span><span class="n">row</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dfs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>给定一个N*M方格的迷宫，迷宫里有T处障碍，障碍处不可通过。给定起点坐标和终点坐标，问: 每个方格最多经过1次，有多少种从起点坐标到终点坐标的方案。在迷宫中移动有上下左右四种方式，每次只能移动一个方格。数据保证起点上没有障碍。(1&lt;=N,M&lt;=5)</li>
+</ol>
+<p>迷宫问题也是个很有意思的问题，在比赛中也有可能会遇得到，首先这个迷宫也和八皇后的棋盘一样都是一个二维平面图，所以也可以用二维数组来表示，题目中所给的有这样几条要解决的信息</p>
+<p>①障碍处不可通过，遇到障碍点是不可以通过的。
+②每个方格只可以经过一次，也就是前一步经过了这个方格，下一步遇到这个方格就变成障碍了。
+③有上下左右四种移动方式。</p>
+<p>首要要考虑的就是存储了，这里我用的是一个二维数组来表示的，因为N和M的最大值也就是5，其次就是比较好实现上下左右的移动，只需要对下标值进行变动就可以了，还有就是可以很好的判断这个点是不是障碍点，不是障碍点我可以设置为0，是障碍点我可以设置为1，以及当我走过这一个障碍点的时候，就可以将它设置为1。四个方向，只需要一个二维数组保存四个方向的坐标要改变多少，向上走(-1,0),向下走(1,0),向左走(0,-1),向右走(0,1)。
+但是还要主意好边界的问题，不能够越界，下面以此例子画一个图</p>
+<p>输入格式
+第一行N、M和T，N为行，M为列，T为障碍总数。第二行起点坐标SX,SY，终点坐标FX,FY。接下来T行，每行为障碍点的坐标。</p>
+<p>输出格式
+给定起点坐标和终点坐标，问每个方格最多经过1次，从起点坐标到终点坐标的方案总数。</p>
+<p>输入样例
+2 2 1
+1 1 2 2
+1 2</p>
+<p>输出样例
+1</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1,1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->越界了<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2,1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->越界了<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->有障碍<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2,2<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->越界了<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->越界了<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->走过一次<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->成功<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向上走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向上走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向右走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向右走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向下走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向下走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向左走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向左走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向上走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向上走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向左走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向左走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向下走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向下走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向右走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->向右走<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>结果大家可以看到只有一种方案可以成功走到终点，从起点开始，每个点都有四个方向可以走，任何一个方向都可以去尝试，如果成功了就可以往下走，直到走到终点或者结束走不下去，另外还要注意一点，就是一点只能走一次的问题，当走过这个点就要改变这一点的状态，例如没有走过的点设为0，那么走过之后就要改变为1，然后，当从这个点往下要走的点全部走完之后，还要把这一点的状态改变回来，不能迷宫的原始状态。
+上面三个问题其实我已经说过了，怎么解决，下面把核心代码贴在下面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">s</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">dir</span><span class="p">[][</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">}};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">==</span><span class="n">fx</span><span class="o">&amp;&amp;</span><span class="n">n</span><span class="o">==</span><span class="n">fy</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sum</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="n">n</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">n</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">N</span><span class="o">&amp;&amp;</span><span class="n">n</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">M</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="n">n</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">dfs</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">n</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="n">n</span><span class="o">+</span><span class="n">dir</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%83%B3%E6%B3%95/">想法</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

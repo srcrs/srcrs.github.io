@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 推荐一个开源抖音视频去水印工具，该工具支持批量下载和去水印，后端使用python语言实现，接下来说下如何部署使用。 项目地址：https://github.com/imgyh/tiktok 去水印演示demo：https://dy.gyh.im/ # 操作环境 系统：debian10 x64 Docker版本：23.0.5 Docker Compose版本：v2.17.3 git version：2.20.1 网络：美国洛杉矶 详细机器配置可查看：doduo.cc # 安装Docker环境 安装Docker 1 2 apt-get update apt-get install docker.io 安装Docker-compose 1 2 apt-get update apt-get install docker-compose-plugin 若执行慢，需要切换成Docker国内镜像源。 # 将源代码克隆到本地 1 git clone https://github.com/imgyh/tiktok.git 然后进入到tiktok文件夹中继续接下来的操作 # 创建docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 version: &#39;3.1&#39; services: tiktok: image: imgyh/tiktokweb:latest container_name: tiktok restart: always volumes: - $PWD/downloads:/path/to/downloads - $PWD/TikTokCommand.">
+<title>抖音去水印开源工具</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/douyin-remove-watermark/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="抖音去水印开源工具">
+<meta property='og:description' content="# 简述 推荐一个开源抖音视频去水印工具，该工具支持批量下载和去水印，后端使用python语言实现，接下来说下如何部署使用。 项目地址：https://github.com/imgyh/tiktok 去水印演示demo：https://dy.gyh.im/ # 操作环境 系统：debian10 x64 Docker版本：23.0.5 Docker Compose版本：v2.17.3 git version：2.20.1 网络：美国洛杉矶 详细机器配置可查看：doduo.cc # 安装Docker环境 安装Docker 1 2 apt-get update apt-get install docker.io 安装Docker-compose 1 2 apt-get update apt-get install docker-compose-plugin 若执行慢，需要切换成Docker国内镜像源。 # 将源代码克隆到本地 1 git clone https://github.com/imgyh/tiktok.git 然后进入到tiktok文件夹中继续接下来的操作 # 创建docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 version: &#39;3.1&#39; services: tiktok: image: imgyh/tiktokweb:latest container_name: tiktok restart: always volumes: - $PWD/downloads:/path/to/downloads - $PWD/TikTokCommand.">
+<meta property='og:url' content='https://blog.lass.cc/posts/douyin-remove-watermark/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2023-05-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-05-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="抖音去水印开源工具">
+<meta name="twitter:description" content="# 简述 推荐一个开源抖音视频去水印工具，该工具支持批量下载和去水印，后端使用python语言实现，接下来说下如何部署使用。 项目地址：https://github.com/imgyh/tiktok 去水印演示demo：https://dy.gyh.im/ # 操作环境 系统：debian10 x64 Docker版本：23.0.5 Docker Compose版本：v2.17.3 git version：2.20.1 网络：美国洛杉矶 详细机器配置可查看：doduo.cc # 安装Docker环境 安装Docker 1 2 apt-get update apt-get install docker.io 安装Docker-compose 1 2 apt-get update apt-get install docker-compose-plugin 若执行慢，需要切换成Docker国内镜像源。 # 将源代码克隆到本地 1 git clone https://github.com/imgyh/tiktok.git 然后进入到tiktok文件夹中继续接下来的操作 # 创建docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 version: &#39;3.1&#39; services: tiktok: image: imgyh/tiktokweb:latest container_name: tiktok restart: always volumes: - $PWD/downloads:/path/to/downloads - $PWD/TikTokCommand.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简述">简述</a></li>
+    <li><a href="#操作环境">操作环境</a></li>
+    <li><a href="#安装docker环境">安装Docker环境</a></li>
+    <li><a href="#将源代码克隆到本地">将源代码克隆到本地</a></li>
+    <li><a href="#创建docker-composeyml">创建docker-compose.yml</a></li>
+    <li><a href="#启动">启动</a></li>
+    <li><a href="#关于去水印使用">关于去水印使用</a></li>
+    <li><a href="#关于批量视频下载">关于批量视频下载</a>
+      <ol>
+        <li><a href="#docker批量下载方式">Docker批量下载方式</a></li>
+        <li><a href="#windows批量下载方式">windows批量下载方式</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/docker/" >
+                Docker
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/douyin-remove-watermark/">抖音去水印开源工具</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 11, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="简述">
+    <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    简述
+</h2><p>推荐一个开源抖音视频去水印工具，该工具支持批量下载和去水印，后端使用python语言实现，接下来说下如何部署使用。</p>
+<p>项目地址：https://github.com/imgyh/tiktok
+去水印演示demo：https://dy.gyh.im/</p>
+<h2 id="操作环境">
+    <a href="#%e6%93%8d%e4%bd%9c%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    操作环境
+</h2><ul>
+<li>
+<p>系统：debian10 x64</p>
+</li>
+<li>
+<p>Docker版本：23.0.5</p>
+</li>
+<li>
+<p>Docker Compose版本：v2.17.3</p>
+</li>
+<li>
+<p>git version：2.20.1</p>
+</li>
+<li>
+<p>网络：美国洛杉矶</p>
+</li>
+</ul>
+<p>详细机器配置可查看：<a class="link" href="https://dash.doduo.cc/"  target="_blank" rel="noopener"
+    >doduo.cc</a></p>
+<h2 id="安装docker环境">
+    <a href="#%e5%ae%89%e8%a3%85docker%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    安装Docker环境
+</h2><p>安装Docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt-get update
+</span></span><span class="line"><span class="cl">apt-get install docker.io
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装Docker-compose</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt-get update
+</span></span><span class="line"><span class="cl">apt-get install docker-compose-plugin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若执行慢，需要切换成Docker国内镜像源。</p>
+<h2 id="将源代码克隆到本地">
+    <a href="#%e5%b0%86%e6%ba%90%e4%bb%a3%e7%a0%81%e5%85%8b%e9%9a%86%e5%88%b0%e6%9c%ac%e5%9c%b0" class="header-anchor">#</a>
+    将源代码克隆到本地
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/imgyh/tiktok.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后进入到tiktok文件夹中继续接下来的操作</p>
+<h2 id="创建docker-composeyml">
+    <a href="#%e5%88%9b%e5%bb%badocker-composeyml" class="header-anchor">#</a>
+    创建docker-compose.yml
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.1&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tiktok</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">imgyh/tiktokweb:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">tiktok</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">$PWD/downloads:/path/to/downloads</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">$PWD/TikTokCommand.py:/app/TikTokCommand.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">5000</span><span class="p">:</span><span class="m">5000</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="启动">
+    <a href="#%e5%90%af%e5%8a%a8" class="header-anchor">#</a>
+    启动
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>正常情况下，接下来就可以通过ip加端口号访问服务了。</p>
+<h2 id="关于去水印使用">
+    <a href="#%e5%85%b3%e4%ba%8e%e5%8e%bb%e6%b0%b4%e5%8d%b0%e4%bd%bf%e7%94%a8" class="header-anchor">#</a>
+    关于去水印使用
+</h2><p>目前只用过单个视频去水印，还是比较好使的。</p>
+<h2 id="关于批量视频下载">
+    <a href="#%e5%85%b3%e4%ba%8e%e6%89%b9%e9%87%8f%e8%a7%86%e9%a2%91%e4%b8%8b%e8%bd%bd" class="header-anchor">#</a>
+    关于批量视频下载
+</h2><p>批量下载这里也支持不少形式</p>
+<p>例如支持个人主页链接、作品分享链接、抖音直播Web链接、合集链接、音乐(原声)集合链接，下面这个例子是某个用户的作品集合。</p>
+<h3 id="docker批量下载方式">
+    <a href="#docker%e6%89%b9%e9%87%8f%e4%b8%8b%e8%bd%bd%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    Docker批量下载方式
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it tiktok python3 TikTokCommand.py -C True -l https://www.douyin.com/user/MS4wLjABAAAA06y3Ctu8QmuefqvUSU7vr0c_ZQnCqB0eaglgkelLTek -p /path/to/downloads
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="windows批量下载方式">
+    <a href="#windows%e6%89%b9%e9%87%8f%e4%b8%8b%e8%bd%bd%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    windows批量下载方式
+</h3><p>需要在项目地址<a class="link" href="https://github.com/imgyh/tiktok/releases/"  target="_blank" rel="noopener"
+    >releases</a>页，下载可执行文件<code>TikTokCommand.exe</code>。</p>
+<p>下载到当前目录下的download文件夹中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">TikTokCommand.exe -C True -l https://www.douyin.com/user/MS4wLjABAAAA06y3Ctu8QmuefqvUSU7vr0c_ZQnCqB0eaglgkelLTek -p ./download
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor">#</a>
+    参考链接
+</h2><ul>
+<li>
+<p><a class="link" href="https://github.com/imgyh/tiktok"  target="_blank" rel="noopener"
+    >项目地址</a></p>
+</li>
+<li>
+<p><a class="link" href="https://www.imgyh.com/archives/41.html"  target="_blank" rel="noopener"
+    >作者部署教程</a></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/how-use-plik/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">plik自建临时文件系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/easy-to-use-torrent-client/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【exatorrent】好用的web端BT磁力在线播放工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-use-dashdot/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【DashDot】好看的服务器仪表盘</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/a-web-page-monitoring-tool/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">一个网页监控工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/how-to-build-hugo-with-docker/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用Docker搭建Hugo博客</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

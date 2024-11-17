@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Life on srcrs</title>
+        <link>https://blog.lass.cc/categories/life/</link>
+        <description>Recent content in Life on srcrs</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Wed, 24 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/categories/life/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>拥抱变化</title>
+        <link>https://blog.lass.cc/posts/embrace-change/</link>
+        <pubDate>Wed, 24 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/embrace-change/</guid>
+        <description>&lt;p&gt;做了一个梦，梦里的我头秃了，上网查了一下可能是最近压力大了，也确实，最近很内耗，工作和生活都发生了很大的变化。&lt;/p&gt;
+&lt;p&gt;进公司已经两年了，对业务相对比较熟悉了，在忙的时候能一天发布几个版本，对于每天服务几百万用户的系统来说，是有些不可理喻的，在这个过程中需要保持头脑清醒，精神高度集中，要说得到了什么，只能说心态得到了锻炼。两年来自认为做好了本职工作，做到了工作按时完成，生产环境告警、故障不论何时及时打开电脑进行排查，工作空闲时也积极排查系统可能存在的bug，在组内可以说绝无仅有。可两年来待遇并没有得到提升，也可能是打杂的活，随便换一个人都能干吧，这也是焦虑所在，接触不到新的东西了，开会你别想去，只需要像ChatGPT一样干活就好了。只因为是“子”。&lt;/p&gt;
+&lt;p&gt;上周，发现隔壁的同事一个上午都在清理办公桌，中午下班就背着书包挥挥手向周围人告别了，能感受到最近的氛围，这位过去也是加班的常客，最近却很少看到了。紧接着，又听闻总监要离职了，工作了十几年的老程序员，挺唏嘘的，夜晚睡觉前我写下：没有永恒的东西，在变化中适应、成长。我问了自己几个问题，如果你今天就没法干程序员了，你能去做什么；如果今天给你干掉了，你能多久重新找到一份工作；未来五年、十年你想要过什么样的生活，是否是遥不可及的梦。&lt;/p&gt;
+&lt;p&gt;和家人每周末会通一次话，已经成为习惯，最怕其他时间联系，大多数时候意味着发生了不好的事情，从读书住校到现在也有十多年了，一直在心里以为自己还是孩子，在接到这些电话越来越频繁的时候，不免唏嘘，那就是长大了。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>2023挥挥手</title>
+        <link>https://blog.lass.cc/posts/2024/</link>
+        <pubDate>Sun, 18 Feb 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/2024/</guid>
+        <description>&lt;p&gt;比起高铁，还是硬座更加实惠，此刻正坐在回家的列车上。&lt;/p&gt;
+&lt;p&gt;兔年最后一天上班，年终奖给了我惊喜，比起去年涨幅是可观的，领导们在聊到未来规划时，有那么一丝丝荒谬，这有什么规划和计划可言，也并不是我主要负责的业务，仔细想来，这一年确实都在打螺丝了，可替代性是较强的。&lt;/p&gt;
+&lt;p&gt;回顾2021年毕业，2021.03实习，2021.07正式转正，那时候拿到的薪水在一众同学之中是还可以的，适应性差，时间来凑，也坚持了好久，累与成长并行，那时候总会有人引导，赏罚分明，给予机会。&lt;/p&gt;
+&lt;p&gt;时间久了，当知道和同事间收入有差距，心里也很不平衡，渐渐的对工作也失去了信心，就这样结束了第一份工作。（2022.05）&lt;/p&gt;
+&lt;p&gt;后面接下来几个月找工作失利，最终来到了深圳（2022.09），一直到现在。这是两个不同的行业，初次熟悉，很难想象这么大的公司开发流程并不是很规范，是不是同时也意味着有很多事情可以做？从啜之以鼻，到慢慢接受，也躺平了。&lt;/p&gt;
+&lt;p&gt;在个人成长方面，在目前的工作中我觉得是受到限制了的，代码谁都会写，了解需求的具体背景信息，怎么去解决、规划，这很重要，话语权很重要。期望2024年这方面有进步。&lt;/p&gt;
+&lt;p&gt;技术方面，工作中更多的是在承担高级chatgpt角色，长进稍微，目前在代码功底上不满意，陷入了“破窗效应”，在烂的基础上只会更烂。之前接触的很多电商新技术，像消息队列，数据库表设计、查询肉眼可见的退化。总说缺点，其实今年我自己能感觉到关于事情的推进、问题排查，基本都会做到事事有着落，开始主动会查询系统当前的问题，给出我的判断，几次下来，准确性自我感觉还是可以的。&lt;/p&gt;
+&lt;p&gt;收入方面，工作第三个年头，是攒下来一些现金的，但是想要在大城市立足的话，这点收入还远远不足，当前学历如果想要跳入更大的平台，可能会受到限制，承受更大的责任，做出更多的价值，收入才会进一步提升。工作三年，收入不增反减，难顶。&lt;/p&gt;
+&lt;p&gt;个人感情方面，空白&lt;/p&gt;
+&lt;p&gt;今年回家去香港买了点特殊的东西回去，一大盒曲奇饼干，两盒巧克力，两盒蝴蝶酥，一条港烟，算是对于国内来说比较难买到的东西，仅仅这些就已经占了半箱，真难以想象，家族里有个长辈每次过年回家都会带很多海鲜回家，第一次体会到拎回去和网上买寄回去，是不一样的感受，总而一句话：有心了。&lt;/p&gt;
+&lt;p&gt;已经多次一个人去香港了，从开始的莫名恐惧，目前已经能熟练通关了。下一步更远的地方便是出国了吧。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>心情间接性emo</title>
+        <link>https://blog.lass.cc/posts/mood-indirect-emo/</link>
+        <pubDate>Mon, 25 Dec 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/mood-indirect-emo/</guid>
+        <description>&lt;p&gt;&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!15116:/DSC_1036.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;最近深圳天气也变冷了，周末把棉袄翻出来了，发现已经发霉了，发现怎么也洗不掉，就只能在家里穿了。&lt;/p&gt;
+&lt;p&gt;今天莫名的感到emo了，觉得任何事情都没有意义，去年年底那时候还在疫情防控，在元旦前的一周，公司通知不再有早晚餐福利，新年新起点。今天下午拉了一个群，给我们每个人发了100q币的福利，当我把这份喜悦分享给其他人的时候，得知未来不再有每月q币福利。&lt;/p&gt;
+&lt;p&gt;人不患寡而患不均，很多次夜晚加班就感觉是多么不值，自从夜晚不再有早晚餐福利后，这两个时间段便极少去了，虽然会比外面便宜不少，每次都会有羞耻感。如果有下次，绝不去子公司了，根本不是理想中的大厂。&lt;/p&gt;
+&lt;p&gt;工作从实习到现在马上也快满三年了，互联网行业发现并没有什么高级的，相比于传统行业多了更多的内卷与不稳定性，也是拿时间堆出来，真没什么可高级的。&lt;/p&gt;
+&lt;p&gt;谷歌最近发布了Gemini Pro，并且开放了免费的api调用，我有了自部署的想法，终于可以不用翻墙使用大模型了。周末刷了钢铁侠三部曲，主人公的动手能力毋庸置疑，更惊叹于里面人机交互，将人类的想法变成现实，作为技术从业者，大模型以后会更多的场景使用到。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>我的尼康相机</title>
+        <link>https://blog.lass.cc/posts/my-nikon-camera/</link>
+        <pubDate>Sun, 10 Dec 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.lass.cc/posts/my-nikon-camera/</guid>
+        <description>&lt;p&gt;今年双十一买了台相机，初衷是希望自己能多出去走走，来深圳也有一年多了，去了几次海边，就没有什么特别想去的地方了。平常工作较忙，最近一个月周六也都去加班了，真是有些扛不住，现在每周日都会花上半天时间，带着相机去周边走一走，大多数都是一个人，所以时间很自由，任何地点，任何时间。&lt;/p&gt;
+&lt;p&gt;有几次去爬山，去了文谷庄园、文天祥公园，爬上途中可拍的东西还是比较少的，树林较茂密，光线弱，拍的东西比较暗，实际上也没啥好拍的，好不容易登上山顶，一览众山小的情景我的24-50套机也拍不出来，不如手机好用。&lt;/p&gt;
+&lt;p&gt;后面慢慢迷上拍日落，去了深圳湾公园、西湾红树林公园，都是绝佳的好位置，相较于拍一个画面干净的日落，我更愿意站在别人的身后，把他们的背影和落日相结合，假装是我的模特。&lt;/p&gt;
+&lt;p&gt;接下来展示下这一个多月来拍的照片吧&lt;/p&gt;
+&lt;p&gt;这张图片是一次在拍日落时，偷偷站在身后蹭的模特，当时拍出来还是很有感觉的，除了落日色彩差了一些。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14872:/DSC_0564.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;落日，享受此刻。
+&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14882:/DSC_0964.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;欢乐港湾的摩天轮
+&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14878:/DSC_0946.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;欢乐港湾的卡通塑像，天气比较好，拍出来觉得色彩还蛮可以的。
+&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14877:/DSC_0936.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14871:/DSC_0853.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14869:/DSC_0852.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!14870:/DSC_0812.jpeg?authkey=!AAFYjHN9WBCKFoE&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

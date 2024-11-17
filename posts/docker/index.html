@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 起因 在docker swarm部署了简单的web服务，通过每台服务器的ip可访问到该服务，只需在主节点服务器操作即可，直观的感受到扩容和缩容的便捷，可是又产生了两个疑问 当在集群中增加机器后，如何动态的发现这些机器？ 主入口是哪台服务器，如果该服务器挂掉，如何动态切换到正常的机器？ 之前通过nginx实现过负载均衡，但需要手动配置请求打在哪些机器，很自然的我大概明白了服务发现是什么，服务注册是什么，如果nginx能够知道增加的机器信息，就能够实现动态的负载均衡了。 2022.01.16记: 经过，间间断断几周的时间，终于能够在机器上全部用docker搭建动态负载均衡的环境，期间踩了很多的坑，包括对该套体系不熟悉、不断的摸索， # 环境 play-with-k8s 免费的docker机器 # 传统的负载均衡 这里以nginx为例。需要人工配置负载的机器，并且当机器服务不可用时，也不可智能的对节点进行摘除。 # 动态负载均衡 会使用到以下几个工具 consul：用于服务发现、健康检查等 registrator：用于做服务注册，将新服务注册到consul中 consul-temlate：订阅consul，能够根据consul提供的数据，生成新的配置文件 nginx：用于做负载均衡 # 实验一：单机动态负载均衡 # 目录 1 2 3 4 5 . ├── docker-compose.yml └── nginx-consul-template ├── Dockerfile └── nginx.conf.ctmpl # docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 version: &#39;3&#39; services: consul: image: progrium/consul:latest restart: always hostname: consul-master ports: - &#34;8400:8400&#34; - &#34;8500:8500&#34; - &#34;8600:53/udp&#34; command: &#34;-server -bootstrap -ui-dir /ui&#34; registrator: image: gliderlabs/registrator:latest restart: always hostname: registrator-master volumes: - &#34;/var/run/docker.">
+<title>docker实现动态负载均衡</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/docker/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="docker实现动态负载均衡">
+<meta property='og:description' content="# 起因 在docker swarm部署了简单的web服务，通过每台服务器的ip可访问到该服务，只需在主节点服务器操作即可，直观的感受到扩容和缩容的便捷，可是又产生了两个疑问 当在集群中增加机器后，如何动态的发现这些机器？ 主入口是哪台服务器，如果该服务器挂掉，如何动态切换到正常的机器？ 之前通过nginx实现过负载均衡，但需要手动配置请求打在哪些机器，很自然的我大概明白了服务发现是什么，服务注册是什么，如果nginx能够知道增加的机器信息，就能够实现动态的负载均衡了。 2022.01.16记: 经过，间间断断几周的时间，终于能够在机器上全部用docker搭建动态负载均衡的环境，期间踩了很多的坑，包括对该套体系不熟悉、不断的摸索， # 环境 play-with-k8s 免费的docker机器 # 传统的负载均衡 这里以nginx为例。需要人工配置负载的机器，并且当机器服务不可用时，也不可智能的对节点进行摘除。 # 动态负载均衡 会使用到以下几个工具 consul：用于服务发现、健康检查等 registrator：用于做服务注册，将新服务注册到consul中 consul-temlate：订阅consul，能够根据consul提供的数据，生成新的配置文件 nginx：用于做负载均衡 # 实验一：单机动态负载均衡 # 目录 1 2 3 4 5 . ├── docker-compose.yml └── nginx-consul-template ├── Dockerfile └── nginx.conf.ctmpl # docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 version: &#39;3&#39; services: consul: image: progrium/consul:latest restart: always hostname: consul-master ports: - &#34;8400:8400&#34; - &#34;8500:8500&#34; - &#34;8600:53/udp&#34; command: &#34;-server -bootstrap -ui-dir /ui&#34; registrator: image: gliderlabs/registrator:latest restart: always hostname: registrator-master volumes: - &#34;/var/run/docker.">
+<meta property='og:url' content='https://blog.lass.cc/posts/docker/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2021-12-29T12:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-12-29T12:00:00&#43;00:00'/>
+<meta name="twitter:title" content="docker实现动态负载均衡">
+<meta name="twitter:description" content="# 起因 在docker swarm部署了简单的web服务，通过每台服务器的ip可访问到该服务，只需在主节点服务器操作即可，直观的感受到扩容和缩容的便捷，可是又产生了两个疑问 当在集群中增加机器后，如何动态的发现这些机器？ 主入口是哪台服务器，如果该服务器挂掉，如何动态切换到正常的机器？ 之前通过nginx实现过负载均衡，但需要手动配置请求打在哪些机器，很自然的我大概明白了服务发现是什么，服务注册是什么，如果nginx能够知道增加的机器信息，就能够实现动态的负载均衡了。 2022.01.16记: 经过，间间断断几周的时间，终于能够在机器上全部用docker搭建动态负载均衡的环境，期间踩了很多的坑，包括对该套体系不熟悉、不断的摸索， # 环境 play-with-k8s 免费的docker机器 # 传统的负载均衡 这里以nginx为例。需要人工配置负载的机器，并且当机器服务不可用时，也不可智能的对节点进行摘除。 # 动态负载均衡 会使用到以下几个工具 consul：用于服务发现、健康检查等 registrator：用于做服务注册，将新服务注册到consul中 consul-temlate：订阅consul，能够根据consul提供的数据，生成新的配置文件 nginx：用于做负载均衡 # 实验一：单机动态负载均衡 # 目录 1 2 3 4 5 . ├── docker-compose.yml └── nginx-consul-template ├── Dockerfile └── nginx.conf.ctmpl # docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 version: &#39;3&#39; services: consul: image: progrium/consul:latest restart: always hostname: consul-master ports: - &#34;8400:8400&#34; - &#34;8500:8500&#34; - &#34;8600:53/udp&#34; command: &#34;-server -bootstrap -ui-dir /ui&#34; registrator: image: gliderlabs/registrator:latest restart: always hostname: registrator-master volumes: - &#34;/var/run/docker.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#起因">起因</a></li>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#传统的负载均衡">传统的负载均衡</a></li>
+    <li><a href="#动态负载均衡">动态负载均衡</a></li>
+    <li><a href="#实验一单机动态负载均衡">实验一：单机动态负载均衡</a>
+      <ol>
+        <li><a href="#目录">目录</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#nginxconfctmpl">nginx.conf.ctmpl</a></li>
+        <li><a href="#部署">部署</a></li>
+      </ol>
+    </li>
+    <li><a href="#实验二集群动态负载均衡">实验二：集群动态负载均衡</a>
+      <ol>
+        <li><a href="#背景">背景</a></li>
+        <li><a href="#实现方式">实现方式</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/docker/">docker实现动态负载均衡</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 29, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="起因">
+    <a href="#%e8%b5%b7%e5%9b%a0" class="header-anchor">#</a>
+    起因
+</h2><p>在docker swarm部署了简单的web服务，通过每台服务器的ip可访问到该服务，只需在主节点服务器操作即可，直观的感受到扩容和缩容的便捷，可是又产生了两个疑问</p>
+<ul>
+<li>
+<p>当在集群中增加机器后，如何动态的发现这些机器？</p>
+</li>
+<li>
+<p>主入口是哪台服务器，如果该服务器挂掉，如何动态切换到正常的机器？</p>
+</li>
+</ul>
+<p>之前通过nginx实现过负载均衡，但需要手动配置请求打在哪些机器，很自然的我大概明白了服务发现是什么，服务注册是什么，如果nginx能够知道增加的机器信息，就能够实现动态的负载均衡了。</p>
+<p>2022.01.16记: 经过，间间断断几周的时间，终于能够在机器上全部用docker搭建动态负载均衡的环境，期间踩了很多的坑，包括对该套体系不熟悉、不断的摸索，</p>
+<h2 id="环境">
+    <a href="#%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    环境
+</h2><p><a class="link" href="https://labs.play-with-k8s.com/"  target="_blank" rel="noopener"
+    >play-with-k8s</a> 免费的docker机器</p>
+<h2 id="传统的负载均衡">
+    <a href="#%e4%bc%a0%e7%bb%9f%e7%9a%84%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" class="header-anchor">#</a>
+    传统的负载均衡
+</h2><p>这里以nginx为例。需要人工配置负载的机器，并且当机器服务不可用时，也不可智能的对节点进行摘除。</p>
+<p><img src="https://gallery-srcrs.vercel.app/blog/nginx-load-balance.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="nginx-load-balance"
+	
+	
+></p>
+<h2 id="动态负载均衡">
+    <a href="#%e5%8a%a8%e6%80%81%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" class="header-anchor">#</a>
+    动态负载均衡
+</h2><p>会使用到以下几个工具</p>
+<ul>
+<li>
+<p>consul：用于服务发现、健康检查等</p>
+</li>
+<li>
+<p>registrator：用于做服务注册，将新服务注册到consul中</p>
+</li>
+<li>
+<p>consul-temlate：订阅consul，能够根据consul提供的数据，生成新的配置文件</p>
+</li>
+<li>
+<p>nginx：用于做负载均衡</p>
+</li>
+</ul>
+<p><img src="https://gallery-srcrs.vercel.app/blog/dynamic-nginx-load-balance.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="dynamic-nginx-load-balance"
+	
+	
+></p>
+<h2 id="实验一单机动态负载均衡">
+    <a href="#%e5%ae%9e%e9%aa%8c%e4%b8%80%e5%8d%95%e6%9c%ba%e5%8a%a8%e6%80%81%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" class="header-anchor">#</a>
+    实验一：单机动态负载均衡
+</h2><h3 id="目录">
+    <a href="#%e7%9b%ae%e5%bd%95" class="header-anchor">#</a>
+    目录
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── docker-compose.yml
+</span></span><span class="line"><span class="cl">└── nginx-consul-template
+</span></span><span class="line"><span class="cl">    ├── Dockerfile
+</span></span><span class="line"><span class="cl">    └── nginx.conf.ctmpl
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-composeyml">
+    <a href="#docker-composeyml" class="header-anchor">#</a>
+    docker-compose.yml
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">consul</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">progrium/consul:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">consul-master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;8400:8400&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;8500:8500&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;8600:53/udp&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;-server -bootstrap -ui-dir /ui&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">registrator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">gliderlabs/registrator:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">registrator-master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/var/run/docker.sock:/tmp/docker.sock&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;-ip 176.126.78.96 consul://176.126.78.96:8500&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">elb</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l">./nginx-consul-template</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">elb-master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">CONSUL</span><span class="p">:</span><span class="w"> </span><span class="m">176.126.78.96</span><span class="p">:</span><span class="m">8500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;9080:80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">SERVER_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="dockerfile">
+    <a href="#dockerfile" class="header-anchor">#</a>
+    Dockerfile
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">FROM nginx:latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Install Wget</span>
+</span></span><span class="line"><span class="cl">RUN apt-get update <span class="o">&amp;&amp;</span> apt-get -y install wget
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Download and Install Consul Template</span>
+</span></span><span class="line"><span class="cl">ENV CT_URL https://releases.hashicorp.com/consul-template/0.20.0/consul-template_0.20.0_linux_amd64.tgz
+</span></span><span class="line"><span class="cl">RUN wget <span class="nv">$CT_URL</span> <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>tar -zxf consul-template_0.20.0_linux_amd64.tgz -C /usr/bin/ <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>rm consul-template_0.20.0_linux_amd64.tgz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Setup Consul Template Files</span>
+</span></span><span class="line"><span class="cl">RUN mkdir /etc/consul-templates
+</span></span><span class="line"><span class="cl">ENV CT_FILE /etc/consul-templates/nginx.conf.ctmpl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Setup Nginx File</span>
+</span></span><span class="line"><span class="cl">ENV NX_FILE /etc/nginx/conf.d/default.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Default Variables</span>
+</span></span><span class="line"><span class="cl">ENV CONSUL consul:8500
+</span></span><span class="line"><span class="cl">ENV SERVICE consul-8500
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Command will</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. Write Consul Template File</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. Start Nginx</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. Start Consul Template</span>
+</span></span><span class="line"><span class="cl">COPY ./nginx.conf.ctmpl <span class="nv">$CT_FILE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CMD /usr/sbin/nginx -c /etc/nginx/nginx.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">&amp;</span> <span class="nv">CONSUL_TEMPLATE_LOG</span><span class="o">=</span>debug consul-template <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -consul-addr<span class="o">=</span><span class="nv">$CONSUL</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -template <span class="s2">&#34;</span><span class="nv">$CT_FILE</span><span class="s2">:</span><span class="nv">$NX_FILE</span><span class="s2">:nginx -s reload&#34;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="nginxconfctmpl">
+    <a href="#nginxconfctmpl" class="header-anchor">#</a>
+    nginx.conf.ctmpl
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">upstream web <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{{</span>range service <span class="s2">&#34;nginx&#34;</span><span class="o">}}</span>server <span class="o">{{</span>.Address<span class="o">}}</span>:<span class="o">{{</span>.Port<span class="o">}}</span> <span class="nv">max_fails</span><span class="o">=</span><span class="m">3</span> <span class="nv">fail_timeout</span><span class="o">=</span><span class="m">60</span> <span class="nv">weight</span><span class="o">=</span>1<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{{</span><span class="k">else</span><span class="o">}}</span>server 127.0.0.1:65535 down<span class="p">;</span> <span class="c1"># force a 502{{end}}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  listen <span class="m">80</span> default_server<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    proxy_pass http://web<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="部署">
+    <a href="#%e9%83%a8%e7%bd%b2" class="header-anchor">#</a>
+    部署
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问9080端口，可以正确的访问到nginx服务器。</p>
+<p>将web服务调整为3个，继续访问9080端口，发现还是可以正常访问的，可以进入elb进行中，查看nginx配置文件是否真的负载了3个服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker-compose scale <span class="nv">web</span><span class="o">=</span><span class="m">3</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看到服务上所有的镜像，找到文件夹_elb，我的是文件名是test，所以IMAGE是test_elb。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">CONTAINER ID   IMAGE                           COMMAND                  CREATED         STATUS         PORTS                                                                                                                                                               NAMES
+</span></span><span class="line"><span class="cl">3a6587f3798e   nginx:latest                    <span class="s2">&#34;/docker-entrypoint.…&#34;</span>   <span class="m">3</span> minutes ago   Up <span class="m">2</span> minutes   0.0.0.0:49186-&gt;80/tcp, :::49186-&gt;80/tcp                                                                                                                             test_web_2
+</span></span><span class="line"><span class="cl">5edcc0834771   nginx:latest                    <span class="s2">&#34;/docker-entrypoint.…&#34;</span>   <span class="m">3</span> minutes ago   Up <span class="m">2</span> minutes   0.0.0.0:49187-&gt;80/tcp, :::49187-&gt;80/tcp                                                                                                                             test_web_3
+</span></span><span class="line"><span class="cl">3eedbb850feb   nginx:latest                    <span class="s2">&#34;/docker-entrypoint.…&#34;</span>   <span class="m">6</span> minutes ago   Up <span class="m">6</span> minutes   0.0.0.0:49185-&gt;80/tcp, :::49185-&gt;80/tcp                                                                                                                             test_web_1
+</span></span><span class="line"><span class="cl">083fc68e4e1d   progrium/consul:latest          <span class="s2">&#34;/bin/start -server …&#34;</span>   <span class="m">6</span> minutes ago   Up <span class="m">6</span> minutes   53/tcp, 0.0.0.0:8400-&gt;8400/tcp, :::8400-&gt;8400/tcp, 8300-8302/tcp, 8301-8302/udp, 0.0.0.0:8500-&gt;8500/tcp, :::8500-&gt;8500/tcp, 0.0.0.0:8600-&gt;53/udp, :::8600-&gt;53/udp   test_consul_1
+</span></span><span class="line"><span class="cl">af5e05ed3c82   test_elb                        <span class="s2">&#34;/docker-entrypoint.…&#34;</span>   <span class="m">6</span> minutes ago   Up <span class="m">6</span> minutes   0.0.0.0:9080-&gt;80/tcp, :::9080-&gt;80/tcp                                                                                                                               test_elb_1
+</span></span><span class="line"><span class="cl">9bf8c0f6db55   gliderlabs/registrator:latest   <span class="s2">&#34;/bin/registrator -i…&#34;</span>   <span class="m">6</span> minutes ago   Up <span class="m">6</span> minutes                                                                                                                                                                       test_registrator_1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入到镜像为test_elb的容器，查看/etc/nginx/conf.d/default.conf配置文件的内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">upstream web <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  server 176.126.78.96:49185 <span class="nv">max_fails</span><span class="o">=</span><span class="m">3</span> <span class="nv">fail_timeout</span><span class="o">=</span><span class="m">60</span> <span class="nv">weight</span><span class="o">=</span>1<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  server 176.126.78.96:49186 <span class="nv">max_fails</span><span class="o">=</span><span class="m">3</span> <span class="nv">fail_timeout</span><span class="o">=</span><span class="m">60</span> <span class="nv">weight</span><span class="o">=</span>1<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  server 176.126.78.96:49187 <span class="nv">max_fails</span><span class="o">=</span><span class="m">3</span> <span class="nv">fail_timeout</span><span class="o">=</span><span class="m">60</span> <span class="nv">weight</span><span class="o">=</span>1<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  listen <span class="m">80</span> default_server<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    proxy_pass http://web<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在可以转发的web服务数量确实是3个了。</p>
+<h2 id="实验二集群动态负载均衡">
+    <a href="#%e5%ae%9e%e9%aa%8c%e4%ba%8c%e9%9b%86%e7%be%a4%e5%8a%a8%e6%80%81%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" class="header-anchor">#</a>
+    实验二：集群动态负载均衡
+</h2><h3 id="背景">
+    <a href="#%e8%83%8c%e6%99%af" class="header-anchor">#</a>
+    背景
+</h3><p>在企业应用中，通常采用集群的部署方式，保证服务的高可用。</p>
+<h3 id="实现方式">
+    <a href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="header-anchor">#</a>
+    实现方式
+</h3><p>consul部署到两台机器，一主一从，两台nginx服务器将流量转发到三台server机器进行处理。</p>
+<p><img src="https://gallery-srcrs.vercel.app/blog/cluster-elb.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="cluster-elb"
+	
+	
+></p>
+<p>稍后建一个仓库，上面实现代码进行了更新，之前服务名是写死状态，现在可根据使用习惯进行自定义，可配置服务是否需要进行动态负载均衡。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">Docker</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            Last updated on Dec 29, 2021 12:00 UTC
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

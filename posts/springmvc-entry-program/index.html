@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# SpringMVC在三层架构的位置 表现层表现层业务层业务层持久层持久层SpringMVCSpringMVCSpringSpringMyBatisMyBatis浏览器浏览器Servlet,控制器Servlet,控制器Service,业务逻辑处理Service,业务逻辑处理DAO,数据访问层DAO,数据访问层数据库数据库JavaBean,数据模型JavaBean&hellip;JSP,视图JSP,视图ServiceServiceDaoDaoViewer does not support full SVG 1.1 # SpringMVC基于组件方式执行流程 浏览器浏览器前端控制器DIspatcherServlet接受用户请求响应前端控制器DIspatcherServlet&hellip;处理器映射器HandlerMapping处理器映射器 HandlerMapping处理器适配器HandlerAdapter执行Handler处理器适配器HandlerAdapter&hellip;Handler处理器平常也叫做ControllerHandler处理器平常也叫做Controller1.Request请求1.Request请求2.请求查找Handler2.请求查找Handler3.返回一个执行链3.返回一个执行链4.请求适配器执行4&hellip;.5.执行5.执行6.返回ModelAndView6.返回ModelAndView7.返回ModleAndView7&hellip;.8.请求进行视图解析8&hellip;.视图解析器ViewResolver视图解析器 ViewResolver视图jspFreemarkerExcelPdf视图jsp&hellip;9.返回View9&hellip;.10.视图渲染将模型数据填充到Request域10&hellip;.11.Response响应11.Response响应Viewer does not support full SVG 1.1 # 入门程序编写 要求，通过超链接从一个页面跳转到另一个页面 1.首先需要安装好tomcat，IDEA商业版（破解的jar包内带教程），maven。 2.在IDEA中创建一个maven版的web项目 此时项目目录结构为 1 2 3 4 5 6 7 8 9 10 11 . ├── .idea ├── src │ └── main │ └── webapp │ ├── WEB-INF │ │ └── web.xml │ └── index.jsp ├── target ├── pom.xml └── SpringMVC.iml 3.在main目录中创建java文件夹和resources文件夹，在java中可以存放写的业务代码，在resources文件夹中可以存放静态资源文件。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .">
+<title>SpringMVC入门程序</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/springmvc-entry-program/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="SpringMVC入门程序">
+<meta property='og:description' content="# SpringMVC在三层架构的位置 表现层表现层业务层业务层持久层持久层SpringMVCSpringMVCSpringSpringMyBatisMyBatis浏览器浏览器Servlet,控制器Servlet,控制器Service,业务逻辑处理Service,业务逻辑处理DAO,数据访问层DAO,数据访问层数据库数据库JavaBean,数据模型JavaBean&hellip;JSP,视图JSP,视图ServiceServiceDaoDaoViewer does not support full SVG 1.1 # SpringMVC基于组件方式执行流程 浏览器浏览器前端控制器DIspatcherServlet接受用户请求响应前端控制器DIspatcherServlet&hellip;处理器映射器HandlerMapping处理器映射器 HandlerMapping处理器适配器HandlerAdapter执行Handler处理器适配器HandlerAdapter&hellip;Handler处理器平常也叫做ControllerHandler处理器平常也叫做Controller1.Request请求1.Request请求2.请求查找Handler2.请求查找Handler3.返回一个执行链3.返回一个执行链4.请求适配器执行4&hellip;.5.执行5.执行6.返回ModelAndView6.返回ModelAndView7.返回ModleAndView7&hellip;.8.请求进行视图解析8&hellip;.视图解析器ViewResolver视图解析器 ViewResolver视图jspFreemarkerExcelPdf视图jsp&hellip;9.返回View9&hellip;.10.视图渲染将模型数据填充到Request域10&hellip;.11.Response响应11.Response响应Viewer does not support full SVG 1.1 # 入门程序编写 要求，通过超链接从一个页面跳转到另一个页面 1.首先需要安装好tomcat，IDEA商业版（破解的jar包内带教程），maven。 2.在IDEA中创建一个maven版的web项目 此时项目目录结构为 1 2 3 4 5 6 7 8 9 10 11 . ├── .idea ├── src │ └── main │ └── webapp │ ├── WEB-INF │ │ └── web.xml │ └── index.jsp ├── target ├── pom.xml └── SpringMVC.iml 3.在main目录中创建java文件夹和resources文件夹，在java中可以存放写的业务代码，在resources文件夹中可以存放静态资源文件。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .">
+<meta property='og:url' content='https://blog.lass.cc/posts/springmvc-entry-program/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2020-04-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-04-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="SpringMVC入门程序">
+<meta name="twitter:description" content="# SpringMVC在三层架构的位置 表现层表现层业务层业务层持久层持久层SpringMVCSpringMVCSpringSpringMyBatisMyBatis浏览器浏览器Servlet,控制器Servlet,控制器Service,业务逻辑处理Service,业务逻辑处理DAO,数据访问层DAO,数据访问层数据库数据库JavaBean,数据模型JavaBean&hellip;JSP,视图JSP,视图ServiceServiceDaoDaoViewer does not support full SVG 1.1 # SpringMVC基于组件方式执行流程 浏览器浏览器前端控制器DIspatcherServlet接受用户请求响应前端控制器DIspatcherServlet&hellip;处理器映射器HandlerMapping处理器映射器 HandlerMapping处理器适配器HandlerAdapter执行Handler处理器适配器HandlerAdapter&hellip;Handler处理器平常也叫做ControllerHandler处理器平常也叫做Controller1.Request请求1.Request请求2.请求查找Handler2.请求查找Handler3.返回一个执行链3.返回一个执行链4.请求适配器执行4&hellip;.5.执行5.执行6.返回ModelAndView6.返回ModelAndView7.返回ModleAndView7&hellip;.8.请求进行视图解析8&hellip;.视图解析器ViewResolver视图解析器 ViewResolver视图jspFreemarkerExcelPdf视图jsp&hellip;9.返回View9&hellip;.10.视图渲染将模型数据填充到Request域10&hellip;.11.Response响应11.Response响应Viewer does not support full SVG 1.1 # 入门程序编写 要求，通过超链接从一个页面跳转到另一个页面 1.首先需要安装好tomcat，IDEA商业版（破解的jar包内带教程），maven。 2.在IDEA中创建一个maven版的web项目 此时项目目录结构为 1 2 3 4 5 6 7 8 9 10 11 . ├── .idea ├── src │ └── main │ └── webapp │ ├── WEB-INF │ │ └── web.xml │ └── index.jsp ├── target ├── pom.xml └── SpringMVC.iml 3.在main目录中创建java文件夹和resources文件夹，在java中可以存放写的业务代码，在resources文件夹中可以存放静态资源文件。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#springmvc在三层架构的位置">SpringMVC在三层架构的位置</a></li>
+    <li><a href="#springmvc基于组件方式执行流程">SpringMVC基于组件方式执行流程</a></li>
+    <li><a href="#入门程序编写">入门程序编写</a>
+      <ol>
+        <li><a href="#pomxml">pom.xml</a></li>
+        <li><a href="#hellojava">Hello.java</a></li>
+        <li><a href="#springmvcxml">springmvc.xml</a></li>
+        <li><a href="#webxml">web.xml</a></li>
+        <li><a href="#indexjsp">index.jsp</a></li>
+        <li><a href="#successjsp">success.jsp</a></li>
+      </ol>
+    </li>
+    <li><a href="#解决idea控制台中文乱码">解决IDEA控制台中文乱码</a></li>
+    <li><a href="#后话">后话</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/springmvc-entry-program/">SpringMVC入门程序</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 24, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="springmvc在三层架构的位置">
+    <a href="#springmvc%e5%9c%a8%e4%b8%89%e5%b1%82%e6%9e%b6%e6%9e%84%e7%9a%84%e4%bd%8d%e7%bd%ae" class="header-anchor">#</a>
+    SpringMVC在三层架构的位置
+</h2><p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->表现层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->表现层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->业务层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->业务层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->持久层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->持久层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->SpringMVC<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->SpringMVC<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Spring<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Spring<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->MyBatis<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->MyBatis<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->浏览器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->浏览器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Servlet,控制器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Servlet,控制器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Service,业务逻辑处理<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Service,业务逻辑处理<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->DAO,数据访问层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->DAO,数据访问层<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->数据库<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->数据库<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->JavaBean,<!-- raw HTML omitted -->数据模型<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->JavaBean&hellip;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->JSP,视图<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->JSP,视图<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Service<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Service<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Dao<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Dao<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Viewer does not support full SVG 1.1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="springmvc基于组件方式执行流程">
+    <a href="#springmvc%e5%9f%ba%e4%ba%8e%e7%bb%84%e4%bb%b6%e6%96%b9%e5%bc%8f%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b" class="header-anchor">#</a>
+    SpringMVC基于组件方式执行流程
+</h2><p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->浏览器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->浏览器<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->前端控制器<!-- raw HTML omitted -->DIspatcherServlet<!-- raw HTML omitted -->接受用户请求响应<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->前端控制器DIspatcherServlet&hellip;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->处理器映射器<!-- raw HTML omitted -->HandlerMapping<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->处理器映射器
+HandlerMapping<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->处理器适配器<!-- raw HTML omitted -->HandlerAdapter<!-- raw HTML omitted -->执行Handler<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->处理器适配器HandlerAdapter&hellip;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Handler处理器平常也叫做Controller<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Handler处理器平常也叫做Controller<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1.Request请求<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->1.Request请求<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2.请求查找Handler<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->2.请求查找Handler<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3.返回一个执行链<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->3.返回一个执行链<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4.<!-- raw HTML omitted -->请求<!-- raw HTML omitted -->适配<!-- raw HTML omitted -->器执<!-- raw HTML omitted -->行<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->4&hellip;.<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->5.执行<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->5.执行<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->6.返回ModelAndView<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->6.返回ModelAndView<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->7.<!-- raw HTML omitted -->返回<!-- raw HTML omitted -->Modle<!-- raw HTML omitted -->And<!-- raw HTML omitted -->View<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->7&hellip;.<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->8.<!-- raw HTML omitted -->请求<!-- raw HTML omitted -->进行<!-- raw HTML omitted -->视图<!-- raw HTML omitted -->解析<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->8&hellip;.<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->视图解析器<!-- raw HTML omitted -->ViewResolver<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->视图解析器
+ViewResolver<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->视图<!-- raw HTML omitted -->jsp<!-- raw HTML omitted -->Freemarker<!-- raw HTML omitted -->Excel<!-- raw HTML omitted -->Pdf<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->视图jsp&hellip;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->9.<!-- raw HTML omitted -->返回<!-- raw HTML omitted -->View<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->9&hellip;.<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->10.<!-- raw HTML omitted -->视图渲染<!-- raw HTML omitted -->将模型数<!-- raw HTML omitted -->据填充到<!-- raw HTML omitted -->Request域<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->10&hellip;.<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->11.Response响应<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->11.Response响应<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->Viewer does not support full SVG 1.1<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="入门程序编写">
+    <a href="#%e5%85%a5%e9%97%a8%e7%a8%8b%e5%ba%8f%e7%bc%96%e5%86%99" class="header-anchor">#</a>
+    入门程序编写
+</h2><p>要求，通过超链接从一个页面跳转到另一个页面</p>
+<p>1.首先需要安装好tomcat，IDEA商业版（<a class="link" href="https://srcrs.lanzous.com/ibtbrbe"  target="_blank" rel="noopener"
+    >破解的jar包内带教程</a>），maven。</p>
+<p>2.在IDEA中创建一个maven版的web项目</p>
+<p>此时项目目录结构为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── .idea
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   └── main
+</span></span><span class="line"><span class="cl">│       └── webapp
+</span></span><span class="line"><span class="cl">│           ├── WEB-INF
+</span></span><span class="line"><span class="cl">│           │   └── web.xml
+</span></span><span class="line"><span class="cl">│           └── index.jsp 
+</span></span><span class="line"><span class="cl">├── target
+</span></span><span class="line"><span class="cl">├── pom.xml
+</span></span><span class="line"><span class="cl">└── SpringMVC.iml 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.在main目录中创建java文件夹和resources文件夹，在java中可以存放写的业务代码，在resources文件夹中可以存放静态资源文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── .idea
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   ├── main
+</span></span><span class="line"><span class="cl">|   ├── java
+</span></span><span class="line"><span class="cl">|   |   └── cn
+</span></span><span class="line"><span class="cl">|   |       └── demo
+</span></span><span class="line"><span class="cl">|   |           └── controller
+</span></span><span class="line"><span class="cl">|   |               └── Hello.java
+</span></span><span class="line"><span class="cl">|   ├── resources
+</span></span><span class="line"><span class="cl">|   |   └── springmvc.xml
+</span></span><span class="line"><span class="cl">│   └── webapp
+</span></span><span class="line"><span class="cl">│       ├── WEB-INF
+</span></span><span class="line"><span class="cl">|       |   ├── pages
+</span></span><span class="line"><span class="cl">|       |   |   └── success.jsp
+</span></span><span class="line"><span class="cl">│       │   └── web.xml
+</span></span><span class="line"><span class="cl">│       └── index.jsp 
+</span></span><span class="line"><span class="cl">├── target
+</span></span><span class="line"><span class="cl">├── pom.xml
+</span></span><span class="line"><span class="cl">└── SpringMVC.iml 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建这么多的文件夹与文件</p>
+<h3 id="pomxml">
+    <a href="#pomxml" class="header-anchor">#</a>
+    pom.xml
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 版本统一，在properties标签中添加如下内容--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;properties&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;spring.version&gt;</span>5.2.4.RELEASE<span class="nt">&lt;/spring.version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/properties&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 在dependencies添加相应jar包的依赖--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-web --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-web<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>${spring.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-webmvc<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>${spring.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>javax.servlet-api<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>4.0.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>javax.servlet.jsp<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>javax.servlet.jsp-api<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>2.3.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-context --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>${spring.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-core --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-core<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>${spring.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-beans --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-beans<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>${spring.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>SpringMVC只是Spring的一个模块，还得需要Spring的支持，其次web，mvc，jsp，servlet包都需要加上。</p>
+<h3 id="hellojava">
+    <a href="#hellojava" class="header-anchor">#</a>
+    Hello.java
+</h3><p>这是一段简单的业务代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Hello</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/sayhello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">sayHello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Hello World&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;你好&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;success&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>:::tip
+@Controller 将Hello类交给Spring管理</p>
+<p>@RequestMapping(path = &ldquo;/hello&rdquo;) 映射路径，可以访问到这个类。</p>
+<p>@RequestMapping(path = &ldquo;/sayhello&rdquo;) 映射路径，可以访问到这个方法。
+:::</p>
+<ul>
+<li>注解如何生效？</li>
+</ul>
+<p>在Spring中如果想使用注解，让Spring管理对象，得需要一个xml得配置项，这里得自己创建。</p>
+<ul>
+<li>
+<p>方法如何被执行？</p>
+</li>
+<li>
+<p>如何知道有success.jsp?并跳转到它？</p>
+</li>
+</ul>
+<p>这就得需要视图解析器了。</p>
+<h3 id="springmvcxml">
+    <a href="#springmvcxml" class="header-anchor">#</a>
+    springmvc.xml
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">xmlns:mvc=</span><span class="s">&#34;http://www.springframework.org/schema/mvc&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span></span></span><span class="line"><span class="cl"><span class="s">       http://www.springframework.org/schema/beans/spring-beans.xsd
+</span></span></span><span class="line"><span class="cl"><span class="s">       http://www.springframework.org/schema/mvc
+</span></span></span><span class="line"><span class="cl"><span class="s">       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+</span></span></span><span class="line"><span class="cl"><span class="s">       http://www.springframework.org/schema/context
+</span></span></span><span class="line"><span class="cl"><span class="s">       http://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 开启注解扫描 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;cn.demo.controller&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 视图解析器对象--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;internalResourceViewResolver&#34;</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value=</span><span class="s">&#34;/WEB-INF/pages/&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value=</span><span class="s">&#34;.jsp&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/bean&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 开启SpringMVC注解支持 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;mvc:annotation-driven/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/beans&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注解扫描，后面的<code>cn.demo.controller</code>是扫描的范围，只有在这个范围内写了注解才能被解析到。</p>
+<p>视图解析器，可以找到相应的jsp文件。</p>
+<h3 id="webxml">
+    <a href="#webxml" class="header-anchor">#</a>
+    web.xml
+</h3><p>看前面的SpringMVC组件执行流程，浏览器首先就应该改和前端控制器打交道，前端控制器也是首脑。入口是Servlet。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 前端控制器 --&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;servlet&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;servlet-name&gt;</span>dispatcherServlet<span class="nt">&lt;/servlet-name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="nt">&lt;/servlet-class&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 将xml配置文件加载进来 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;init-param&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;param-value&gt;</span>classpath:springmvc.xml<span class="nt">&lt;/param-value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/init-param&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- Servlet默认第一次发请求时创建，修改为启动即被创建 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/servlet&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- 在任何路径的请求都将被Servlet拦截 --&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;servlet-mapping&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;servlet-name&gt;</span>dispatcherServlet<span class="nt">&lt;/servlet-name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;url-pattern&gt;</span>/<span class="nt">&lt;/url-pattern&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/servlet-mapping&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="indexjsp">
+    <a href="#indexjsp" class="header-anchor">#</a>
+    index.jsp
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">&lt;head&gt;
+</span></span><span class="line"><span class="cl">    &lt;title&gt;Title&lt;/title&gt;
+</span></span><span class="line"><span class="cl">&lt;/head&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   &lt;h2&gt;首页&lt;/h2&gt;
+</span></span><span class="line"><span class="cl">   &lt;a href=&#34;hello/sayhello&#34;&gt;入门&lt;/a&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>点击入门将触发Hello类中的sayhello方法。</p>
+<h3 id="successjsp">
+    <a href="#successjsp" class="header-anchor">#</a>
+    success.jsp
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">&lt;head&gt;
+</span></span><span class="line"><span class="cl">    &lt;title&gt;Title&lt;/title&gt;
+</span></span><span class="line"><span class="cl">&lt;/head&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">   &lt;h3&gt;成功！！！&lt;/h3&gt;
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>跳转成功后的页面。</p>
+<p>下面配置好tomcat就可以正常运行了。</p>
+<h2 id="解决idea控制台中文乱码">
+    <a href="#%e8%a7%a3%e5%86%b3idea%e6%8e%a7%e5%88%b6%e5%8f%b0%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81" class="header-anchor">#</a>
+    解决IDEA控制台中文乱码
+</h2><p>在<code>IDEA</code>控制台中，<code>Tomcat</code>打印的<code>log</code>中文是乱码，看到控制台就是<code>UTF-8</code>格式，<code>Tomcat</code>默认也是<code>UTF-8</code>格式，不知道为啥，最后打开<code>Tomcat</code>的安装目录中<code>\conf\logging.properties</code>文件，找到<code>java.util.logging.ConsoleHandler.encoding = UTF-8</code>，将其后面的<code>UTF-8</code>修改为<code>GBK</code>即可。</p>
+<h2 id="后话">
+    <a href="#%e5%90%8e%e8%af%9d" class="header-anchor">#</a>
+    后话
+</h2><p>整体的思路就是，在pom.xml中配置好所需要jar包，，然后在web.xml中配置前端控制器（DispatcherServlet），创建业务类，交给Spring管理，注解如何生效？创建Spring的xml配置，通过context:component-scan扫描所在范围内的java文件中的注解，使Spring可以管理这个类，@RequestMapping可以映射到相应的方法使之执行。跳转页面，方法返回一个字符串，视图解析器就可以根据这个字符串找到相应的jsp文件，但是需要指定这个jsp文件在哪里。</p>
+<h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor">#</a>
+    参考链接
+</h2><p><a class="link" href="https://blog.csdn.net/wimxv/article/details/105547820"  target="_blank" rel="noopener"
+    >idea tomcat控制台乱码问题，终于解决了</a></p>
+<p><a class="link" href="https://www.bilibili.com/video/BV1Sb411s7qa?"  target="_blank" rel="noopener"
+    >SpringMVC课程</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/spring/">Spring</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
