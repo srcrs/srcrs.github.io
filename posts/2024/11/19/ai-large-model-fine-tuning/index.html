@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载安装包 1 wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh 进行安装 1 bash Anaconda3-2023.07-1-Linux-x86_64.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create -name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git cd LLaMA-Factory pip install -e &#34;.[torch,metrics]&#34; # awq量化环境 1 pip insyall autoawq # 设置torch版本 这是在Qwen2.">
+<title>ai大模型微调</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="ai大模型微调">
+<meta property='og:description' content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载安装包 1 wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh 进行安装 1 bash Anaconda3-2023.07-1-Linux-x86_64.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create -name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git cd LLaMA-Factory pip install -e &#34;.[torch,metrics]&#34; # awq量化环境 1 pip insyall autoawq # 设置torch版本 这是在Qwen2.">
+<meta property='og:url' content='https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2024-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-11-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ai大模型微调">
+<meta name="twitter:description" content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载安装包 1 wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh 进行安装 1 bash Anaconda3-2023.07-1-Linux-x86_64.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create -name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git cd LLaMA-Factory pip install -e &#34;.[torch,metrics]&#34; # awq量化环境 1 pip insyall autoawq # 设置torch版本 这是在Qwen2.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua421331f9503b20345ff4003897f92c8_4750_300x0_resize_q75_h2_box_2.webp" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#环境">环境</a>
+      <ol>
+        <li><a href="#机器配置">机器配置</a></li>
+        <li><a href="#环境构建">环境构建</a>
+          <ol>
+            <li><a href="#conda安装并初始化环境">conda安装并初始化环境</a></li>
+            <li><a href="#llama-factory环境构建">LLaMA-Factory环境构建</a></li>
+            <li><a href="#awq量化环境">awq量化环境</a></li>
+            <li><a href="#设置torch版本">设置torch版本</a></li>
+            <li><a href="#核心依赖包版本">核心依赖包版本</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#开始微调步骤">开始微调步骤</a>
+      <ol>
+        <li><a href="#选择并下载基座模型">选择并下载基座模型</a>
+          <ol>
+            <li><a href="#检查环境">检查环境</a></li>
+          </ol>
+        </li>
+        <li><a href="#编辑llama-factory训练参数">编辑LLaMA-Factory训练参数</a>
+          <ol>
+            <li><a href="#模型配置">模型配置</a></li>
+            <li><a href="#方法配置">方法配置</a></li>
+            <li><a href="#数据集配置">数据集配置</a></li>
+            <li><a href="#输出配置">输出配置</a></li>
+            <li><a href="#训练配置">训练配置</a></li>
+            <li><a href="#评估配置">评估配置</a></li>
+            <li><a href="#执行微调">执行微调</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#微调领域大模型">微调领域大模型</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/2024/11/19/ai-large-model-fine-tuning/">ai大模型微调</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 19, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。</p>
+<h2 id="前言">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-anchor">#</a>
+    前言
+</h2><p>公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。</p>
+<p>本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。</p>
+<h2 id="环境">
+    <a href="#%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    环境
+</h2><h3 id="机器配置">
+    <a href="#%e6%9c%ba%e5%99%a8%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    机器配置
+</h3><ul>
+<li>操作系统：Tlinux 3.2</li>
+<li>CPU：32核</li>
+<li>内存：64G</li>
+<li>硬盘：500G</li>
+<li>显卡：L20 1/3卡，显存14G</li>
+</ul>
+<h3 id="环境构建">
+    <a href="#%e7%8e%af%e5%a2%83%e6%9e%84%e5%bb%ba" class="header-anchor">#</a>
+    环境构建
+</h3><p>使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境</p>
+<h4 id="conda安装并初始化环境">
+    <a href="#conda%e5%ae%89%e8%a3%85%e5%b9%b6%e5%88%9d%e5%a7%8b%e5%8c%96%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    conda安装并初始化环境
+</h4><ol>
+<li>下载安装包</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>进行安装</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash Anaconda3-2023.07-1-Linux-x86_64.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>创建一个新的环境</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#默认创建到安装目录下</span>
+</span></span><span class="line"><span class="cl">conda create -name llama-factory <span class="nv">python</span><span class="o">=</span>3.11
+</span></span><span class="line"><span class="cl"><span class="c1">#在指定目录下安装</span>
+</span></span><span class="line"><span class="cl">conda create -p /data/anaconda3/envs/llama-factory <span class="nv">python</span><span class="o">=</span>3.11
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>激活环境（进入环境）</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">conda activate llama-factory
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="llama-factory环境构建">
+    <a href="#llama-factory%e7%8e%af%e5%a2%83%e6%9e%84%e5%bb%ba" class="header-anchor">#</a>
+    LLaMA-Factory环境构建
+</h4><p>进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone --depth <span class="m">1</span> https://github.com/hiyouga/LLaMA-Factory.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> LLaMA-Factory
+</span></span><span class="line"><span class="cl">pip install -e <span class="s2">&#34;.[torch,metrics]&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="awq量化环境">
+    <a href="#awq%e9%87%8f%e5%8c%96%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    awq量化环境
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip insyall autoawq
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="设置torch版本">
+    <a href="#%e8%ae%be%e7%bd%aetorch%e7%89%88%e6%9c%ac" class="header-anchor">#</a>
+    设置torch版本
+</h4><p>这是在Qwen2.5需要进行的，详情可以见这篇<a class="link" href="https://stackoverflow.com/questions/78501569/attributeerror-module-torch-utils-pytree-has-no-attribute-register-pytree-n"  target="_blank" rel="noopener"
+    >文章</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install <span class="nv">torch</span><span class="o">==</span>2.2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="核心依赖包版本">
+    <a href="#%e6%a0%b8%e5%bf%83%e4%be%9d%e8%b5%96%e5%8c%85%e7%89%88%e6%9c%ac" class="header-anchor">#</a>
+    核心依赖包版本
+</h4><ul>
+<li>transformers==4.46.1</li>
+<li>torch==2.2</li>
+</ul>
+<h2 id="开始微调步骤">
+    <a href="#%e5%bc%80%e5%a7%8b%e5%be%ae%e8%b0%83%e6%ad%a5%e9%aa%a4" class="header-anchor">#</a>
+    开始微调步骤
+</h2><h3 id="选择并下载基座模型">
+    <a href="#%e9%80%89%e6%8b%a9%e5%b9%b6%e4%b8%8b%e8%bd%bd%e5%9f%ba%e5%ba%a7%e6%a8%a1%e5%9e%8b" class="header-anchor">#</a>
+    选择并下载基座模型
+</h3><p>速度和资源的要求，选择Qwen/Qwen2.5-3B-Instruct-AWQ较为平衡，然后进行下载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#模型下载</span>
+</span></span><span class="line"><span class="cl">from modelscope import snapshot_download
+</span></span><span class="line"><span class="cl"><span class="nv">model_dir</span> <span class="o">=</span> snapshot_download<span class="o">(</span><span class="s1">&#39;/data/models/Qwen/Qwen2.5-3B-Instruct-AWQ&#39;</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="检查环境">
+    <a href="#%e6%a3%80%e6%9f%a5%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
+    检查环境
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+</span></span><span class="line"><span class="cl"><span class="n">model_name</span> <span class="o">=</span> <span class="s2">&#34;Qwen/Qwen2.5-3B-Instruct-AWQ&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">torch_dtype</span><span class="o">=</span><span class="s2">&#34;auto&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">device_map</span><span class="o">=</span><span class="s2">&#34;auto&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">prompt</span> <span class="o">=</span> <span class="s2">&#34;Give me a short introduction to large language model.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;system&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;You are Qwen, created by Alibaba Cloud. You are a helpful assistant.&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">messages</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tokenize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add_generation_prompt</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model_inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">([</span><span class="n">text</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&#34;pt&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">**</span><span class="n">model_inputs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">512</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">generated_ids</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output_ids</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">input_ids</span><span class="p">):]</span> <span class="k">for</span> <span class="n">input_ids</span><span class="p">,</span> <span class="n">output_ids</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">model_inputs</span><span class="o">.</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">generated_ids</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">generated_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行这段代码，如果能够正常输出说明环境没问题。</p>
+<h3 id="编辑llama-factory训练参数">
+    <a href="#%e7%bc%96%e8%be%91llama-factory%e8%ae%ad%e7%bb%83%e5%8f%82%e6%95%b0" class="header-anchor">#</a>
+    编辑LLaMA-Factory训练参数
+</h3><p>examples下面有很多示例的训练参数，参考编写Qwen2.5的微调配置</p>
+<p>examples/train_lora/qwen2.5_3b_lora_sft.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">### model</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l">/data/models/Qwen/Qwen2.5-3B-Instruct-AWQ</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">### method</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">sft</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">do_train</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">finetuning_type</span><span class="p">:</span><span class="w"> </span><span class="l">lora</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">lora_target</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">### dataset</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l">identity,alpaca_en_demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">qwen</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cutoff_len</span><span class="p">:</span><span class="w"> </span><span class="m">2048</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">max_samples</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">overwrite_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">preprocessing_num_workers</span><span class="p">:</span><span class="w"> </span><span class="m">16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">### output</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l">/data/saves/qwen2.5-3b/lora/sft</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">logging_steps</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">save_steps</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">plot_loss</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">overwrite_output_dir</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">### train</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">per_device_train_batch_size</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">num_train_epochs</span><span class="p">:</span><span class="w"> </span><span class="m">3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">lr_scheduler_type</span><span class="p">:</span><span class="w"> </span><span class="l">cosine</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">warmup_ratio</span><span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">bf16</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">ddp_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">180000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">### eval</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">val_size</span><span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">per_device_eval_batch_size</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">eval_strategy</span><span class="p">:</span><span class="w"> </span><span class="l">steps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">eval_steps</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个配置文件包括了模型、方法、数据集、输出、训练、评估等等配置，如无特别需要保持默认即可。</p>
+<h4 id="模型配置">
+    <a href="#%e6%a8%a1%e5%9e%8b%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    模型配置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#指定模型路径，可以填写绝对路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l">/data/models/Qwen/Qwen2.5-3B-Instruct-AWQ</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="方法配置">
+    <a href="#%e6%96%b9%e6%b3%95%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    方法配置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">sft</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">do_train</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">finetuning_type</span><span class="p">:</span><span class="w"> </span><span class="l">lora</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">lora_target</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>stage: sft</code>：表示当前的训练阶段是 SFT（Supervised Fine-Tuning） 阶段，意味着模型将在特定的标注数据集上进行监督学习。</li>
+<li><code>do_train: true</code>：表示进行训练。</li>
+<li><code>finetuning_type: lora</code>：指定了微调的类型是 LoRA（Low-Rank Adapter），意味着通过低秩适配器层来进行微调，而不是全量训练整个模型。</li>
+<li><code>lora_target: all</code>：表示在模型的所有层上应用 LoRA 微调。你也可以选择特定的层，如 attention 或 ffn，但这里设置为 all，意味着所有的层都会应用 LoRA。</li>
+</ul>
+<h4 id="数据集配置">
+    <a href="#%e6%95%b0%e6%8d%ae%e9%9b%86%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    数据集配置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l">identity,alpaca_en_demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">qwen</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cutoff_len</span><span class="p">:</span><span class="w"> </span><span class="m">2048</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">max_samples</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">overwrite_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">preprocessing_num_workers</span><span class="p">:</span><span class="w"> </span><span class="m">16</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>dataset: identity,alpaca_en_demo</code>：指定了要使用的数据集，这里列出了两个数据集：identity 和 alpaca_en_demo。你需要确保这两个数据集已经准备好并且路径正确。identity 可能是一个自定义数据集，alpaca_en_demo 是一个英文数据集。</li>
+<li><code>template: qwen</code>：指定了数据集的模板，这个模板通常用于数据预处理过程，它可能包括对文本的格式化或特殊的标注。</li>
+<li><code>cutoff_len: 2048</code>：指定了最大输入长度（单位为token）。如果输入文本超过这个长度，它将会被截断。这个长度与模型的最大接受长度有关，通常需要根据具体模型的设置调整。</li>
+<li><code>max_samples: 1000</code>：指定了使用的数据集样本的最大数量，这里设置为1000，意味着将只使用最多1000个样本进行训练。</li>
+<li><code>overwrite_cache: true</code>：如果缓存目录存在，则覆盖缓存。这个选项通常用于确保每次训练时使用最新的数据。</li>
+<li><code>preprocessing_num_workers: 16</code>：指定了数据预处理时使用的工作线程数，16个线程可以加速数据加载和预处理过程。</li>
+</ul>
+<h4 id="输出配置">
+    <a href="#%e8%be%93%e5%87%ba%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    输出配置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l">/data/saves/qwen2-7b/lora/sft</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">logging_steps</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">save_steps</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">plot_loss</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">overwrite_output_dir</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>output_dir: /data/saves/qwen2-3b/lora/sft</code>：指定了训练过程中保存模型和日志的输出目录。在此路径下，将保存微调后的模型、检查点等文件。</li>
+<li><code>logging_steps: 10</code>：每10步记录一次日志。</li>
+<li><code>save_steps: 500</code>：每500步保存一次模型检查点。这样你可以在训练过程中定期保存模型的状态，避免意外中断时丢失训练进度。</li>
+<li><code>plot_loss: true</code>：在训练过程中，启用损失值可视化（例如通过TensorBoard或其他工具）。这有助于监控训练过程中模型的表现。</li>
+<li><code>overwrite_output_dir: true</code>：如果输出目录已存在，则覆盖它。确保训练过程中不会因为目录存在而出现错误。</li>
+</ul>
+<h4 id="训练配置">
+    <a href="#%e8%ae%ad%e7%bb%83%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    训练配置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">per_device_train_batch_size</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="m">1.0e-4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">num_train_epochs</span><span class="p">:</span><span class="w"> </span><span class="m">3.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">lr_scheduler_type</span><span class="p">:</span><span class="w"> </span><span class="l">cosine</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">warmup_ratio</span><span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">bf16</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">ddp_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">180000000</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>per_device_train_batch_size: 1</code>：每个设备的训练批次大小设置为1。这通常与GPU的显存大小相关，如果显存较小，批次大小可以设置为1。</li>
+<li><code>gradient_accumulation_steps: 2</code>：梯度累积的步数。如果批次大小设置为1，但需要更多的梯度累积，可以通过此设置实现。</li>
+<li><code>learning_rate: 1.0e-4</code>：设置学习率为 0.0001，这是训练时调整权重的步长。</li>
+<li><code>num_train_epochs: 3.0</code>：训练的总周期数，这里设置为3轮。通常需要根据训练集大小和收敛速度来调整这个值。</li>
+<li><code>lr_scheduler_type: cosine</code>：学习率调度器类型，使用 cosine 调度策略，通常能在训练后期逐渐减小学习率。</li>
+<li><code>warmup_ratio: 0.1</code>：学习率的预热比例，设置为 0.1 表示前10%的训练步骤中，学习率将逐步增加到初始值。</li>
+<li><code>bf16: true</code>：启用 bfloat16 精度进行训练，以减少显存消耗并加速训练。这通常需要支持 bfloat16 的硬件（如TPU）。</li>
+<li><code>ddp_timeout: 180000000</code>：设置 Distributed Data Parallel（DDP） 模式下的超时。这个值通常是为了防止分布式训练过程中发生超时错误。</li>
+</ul>
+<h4 id="评估配置">
+    <a href="#%e8%af%84%e4%bc%b0%e9%85%8d%e7%bd%ae" class="header-anchor">#</a>
+    评估配置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">val_size</span><span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">per_device_eval_batch_size</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">eval_strategy</span><span class="p">:</span><span class="w"> </span><span class="l">steps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">eval_steps</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>val_size: 0.1</code>：指定验证集的大小为训练数据的 10%，即从训练数据集中划分出10%作为验证集。</li>
+<li><code>per_device_eval_batch_size: 1</code>：评估时每个设备的批次大小为1。</li>
+<li><code>eval_strategy: steps</code>：评估策略设置为按步数评估，即每训练一定步数后进行评估。</li>
+<li><code>eval_steps: 500</code>：每500步进行一次评估。</li>
+</ul>
+<h4 id="执行微调">
+    <a href="#%e6%89%a7%e8%a1%8c%e5%be%ae%e8%b0%83" class="header-anchor">#</a>
+    执行微调
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">llamafactory-cli train examples/train_lora/qwen2.5_3b_lora_sft.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="微调领域大模型">
+    <a href="#%e5%be%ae%e8%b0%83%e9%a2%86%e5%9f%9f%e5%a4%a7%e6%a8%a1%e5%9e%8b" class="header-anchor">#</a>
+    微调领域大模型
+</h2><h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor">#</a>
+    参考
+</h2><ul>
+<li>
+<p><a class="link" href="https://github.com/hiyouga/LLaMA-Factory"  target="_blank" rel="noopener"
+    >LLaMA-Factory</a></p>
+</li>
+<li>
+<p><a class="link" href="https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-AWQ"  target="_blank" rel="noopener"
+    >Qwen/Qwen2.5-3B-Instruct-AWQ</a></p>
+</li>
+<li>
+<p><a class="link" href="https://blog.csdn.net/weixin_41046245/article/details/143768282"  target="_blank" rel="noopener"
+    >llama factory lora 微调 qwen2.5 7B Instruct模型</a></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai/">Ai</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/ai-agentic-design-patterns-with-autogen/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">利用AutoGen的人工智能智能体设计模式</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">复盘国密sm4踩坑</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/use-helix-debug-by-golang/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用helix&#43;delve调试golang</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/light-weight-devops/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">基于git的轻量级docker镜像版本发布</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

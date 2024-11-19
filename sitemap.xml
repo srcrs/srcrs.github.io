@@ -3,15 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.lass.cc/</loc>
-    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</loc>
-    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+    <loc>https://blog.lass.cc/tags/ai/</loc>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/</loc>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.lass.cc/categories/</loc>
-    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.lass.cc/tags/index/</loc>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.lass.cc/categories/note/</loc>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.lass.cc/posts/</loc>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.lass.cc/tags/</loc>
+    <lastmod>2024-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</loc>
     <lastmod>2024-11-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.lass.cc/tags/other/</loc>
@@ -20,23 +35,11 @@
     <loc>https://blog.lass.cc/categories/other/</loc>
     <lastmod>2024-11-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.lass.cc/posts/</loc>
-    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.lass.cc/tags/</loc>
-    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.lass.cc/categories/note/</loc>
-    <lastmod>2024-10-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.lass.cc/tags/sm4/</loc>
     <lastmod>2024-10-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.lass.cc/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</loc>
     <lastmod>2024-10-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.lass.cc/tags/ai/</loc>
-    <lastmod>2024-10-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.lass.cc/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/</loc>
     <lastmod>2024-10-01T00:00:00+00:00</lastmod>
