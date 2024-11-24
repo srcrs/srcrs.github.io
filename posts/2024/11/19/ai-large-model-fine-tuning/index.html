@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载安装包 1 wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh 进行安装 1 bash Anaconda3-2023.07-1-Linux-x86_64.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create -name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git cd LLaMA-Factory pip install -e &#34;.[torch,metrics]&#34; # awq量化环境 1 pip insyall autoawq # 设置torch版本 这是在Qwen2.">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载并进行安装 1 2 3 4 mkdir -p ~/miniconda3 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 rm ~/miniconda3/miniconda.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create --name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.">
 <title>ai大模型微调</title>
 
 <link rel='canonical' href='https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="ai大模型微调">
-<meta property='og:description' content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载安装包 1 wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh 进行安装 1 bash Anaconda3-2023.07-1-Linux-x86_64.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create -name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git cd LLaMA-Factory pip install -e &#34;.[torch,metrics]&#34; # awq量化环境 1 pip insyall autoawq # 设置torch版本 这是在Qwen2.">
+<meta property='og:description' content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载并进行安装 1 2 3 4 mkdir -p ~/miniconda3 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 rm ~/miniconda3/miniconda.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create --name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.">
 <meta property='og:url' content='https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2024-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-11-19T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="ai大模型微调">
-<meta name="twitter:description" content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载安装包 1 wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh 进行安装 1 bash Anaconda3-2023.07-1-Linux-x86_64.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create -name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git cd LLaMA-Factory pip install -e &#34;.[torch,metrics]&#34; # awq量化环境 1 pip insyall autoawq # 设置torch版本 这是在Qwen2.">
+<meta name="twitter:description" content="深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。 # 前言 公司目前又一站式大模型精调平台，用起来很方便，准备好数据，只需要在平台上点击就可以完成基座模型的微调。所谓微调，就是让模型学习某个特定领域的知识，在特定的场景中能够发挥更大的作用。有时候我在想，如果脱离了这个平台，能否利用手头的资源自己搭建一个微调环境呢？本文便是摸索过程的记录下的，希望能给未来研究者一些帮助。 本次我将以Qwen2.5基座模型进行微调，显卡资源是白嫖公司的英伟达L20，在TLinux系统服务器上完成全部的操作。 # 环境 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 环境构建 使用LLaMA-Factory进行微调，在安装包时遇到了包冲突问题，故使用conda初始化一个干净环境 # conda安装并初始化环境 下载并进行安装 1 2 3 4 mkdir -p ~/miniconda3 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 rm ~/miniconda3/miniconda.sh 创建一个新的环境 1 2 3 4 #默认创建到安装目录下 conda create --name llama-factory python=3.11 #在指定目录下安装 conda create -p /data/anaconda3/envs/llama-factory python=3.11 激活环境（进入环境） 1 conda activate llama-factory # LLaMA-Factory环境构建 进入llama-factory环境后，便可以着手构建LLaMa-Factory环境，通过conda的新环境是不会遇到冲突问题的。 1 2 3 git clone --depth 1 https://github.">
     <link rel="shortcut icon" href="/favicon.svg" />
 
   
@@ -414,28 +414,23 @@
     <a href="#conda%e5%ae%89%e8%a3%85%e5%b9%b6%e5%88%9d%e5%a7%8b%e5%8c%96%e7%8e%af%e5%a2%83" class="header-anchor">#</a>
     conda安装并初始化环境
 </h4><ol>
-<li>下载安装包</li>
+<li>下载并进行安装</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://repo.anaconda.com/archive/Anaconda3-2023.07-1-Linux-x86_64.sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p ~/miniconda3
+</span></span><span class="line"><span class="cl">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+</span></span><span class="line"><span class="cl">bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+</span></span><span class="line"><span class="cl">rm ~/miniconda3/miniconda.sh
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
-<li>进行安装</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash Anaconda3-2023.07-1-Linux-x86_64.sh
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
 <li>创建一个新的环境</li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -447,12 +442,12 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#默认创建到安装目录下</span>
-</span></span><span class="line"><span class="cl">conda create -name llama-factory <span class="nv">python</span><span class="o">=</span>3.11
+</span></span><span class="line"><span class="cl">conda create --name llama-factory <span class="nv">python</span><span class="o">=</span>3.11
 </span></span><span class="line"><span class="cl"><span class="c1">#在指定目录下安装</span>
 </span></span><span class="line"><span class="cl">conda create -p /data/anaconda3/envs/llama-factory <span class="nv">python</span><span class="o">=</span>3.11
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ol start="4">
+</div><ol start="3">
 <li>激活环境（进入环境）</li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -863,6 +858,10 @@
 <li>
 <p><a class="link" href="https://blog.csdn.net/weixin_41046245/article/details/143768282"  target="_blank" rel="noopener"
     >llama factory lora 微调 qwen2.5 7B Instruct模型</a></p>
+</li>
+<li>
+<p><a class="link" href="https://docs.anaconda.com/miniconda/install/#quick-command-line-install"  target="_blank" rel="noopener"
+    >miniconda install</a></p>
 </li>
 </ul>
 

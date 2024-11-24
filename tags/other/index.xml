@@ -136,6 +136,10 @@
     &lt;a href=&#34;#%e5%af%b9%e4%ba%8e%e9%93%be%e8%a1%a8%e6%8f%8f%e8%bf%b0%e9%94%99%e8%af%af%e7%9a%84%e6%98%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     对于链表描述错误的是
 &lt;/h3&gt;&lt;p&gt;链表可以随机访问任意一个元素&lt;/p&gt;
+&lt;h3 id=&#34;risc和cisc对比-cisc不包括的是&#34;&gt;
+    &lt;a href=&#34;#risc%e5%92%8ccisc%e5%af%b9%e6%af%94-cisc%e4%b8%8d%e5%8c%85%e6%8b%ac%e7%9a%84%e6%98%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    RISC和CISC对比， CISC不包括的是
+&lt;/h3&gt;&lt;p&gt;指令长度固定&lt;/p&gt;
 &lt;h3 id=&#34;下面对于指令周期描述正确的是&#34;&gt;
     &lt;a href=&#34;#%e4%b8%8b%e9%9d%a2%e5%af%b9%e4%ba%8e%e6%8c%87%e4%bb%a4%e5%91%a8%e6%9c%9f%e6%8f%8f%e8%bf%b0%e6%ad%a3%e7%a1%ae%e7%9a%84%e6%98%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     下面对于指令周期描述正确的是
