@@ -482,7 +482,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip insyall autoawq
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install autoawq
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="设置torch版本">
@@ -515,13 +515,21 @@
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install modelscope
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#模型下载</span>
-</span></span><span class="line"><span class="cl">from modelscope import snapshot_download
-</span></span><span class="line"><span class="cl"><span class="nv">model_dir</span> <span class="o">=</span> snapshot_download<span class="o">(</span><span class="s1">&#39;/data/models/Qwen/Qwen2.5-3B-Instruct-AWQ&#39;</span><span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#模型下载</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">modelscope</span> <span class="kn">import</span> <span class="n">snapshot_download</span>
+</span></span><span class="line"><span class="cl"><span class="n">model_dir</span> <span class="o">=</span> <span class="n">snapshot_download</span><span class="p">(</span><span class="s1">&#39;/data/models/Qwen/Qwen2.5-3B-Instruct-AWQ&#39;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="检查环境">
