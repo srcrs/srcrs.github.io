@@ -546,7 +546,7 @@ print(reply)&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;接下来便可以通过 http://ip:3000 使用，如果不出意外，部署成功后便可看如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!15118:/1.png?authkey=!AAFYjHN9WBCKFoE&#34;
+&lt;p&gt;&lt;img src=&#34;http://45.151.133.24:25244/d/blog/self-deploy-gemini-pro-api/1.png&#34;
 	
 	
 	
@@ -565,7 +565,7 @@ print(reply)&lt;/p&gt;
 &lt;p&gt;在设置下面选择使用Gemini pro模型&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://storage.live.com/items/982E188B469F4EE8!15119:/2.png?authkey=!AAFYjHN9WBCKFoE&#34;
+&lt;p&gt;&lt;img src=&#34;http://45.151.133.24:25244/d/blog/self-deploy-gemini-pro-api/2.png&#34;
 	
 	
 	
