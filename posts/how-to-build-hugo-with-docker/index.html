@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录说明 # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.cc #博客源代码目录 mkdir src #头像文件目录 mkdir assets/img #静态文件目录 mkdir static # 获取主题示例 博客Github地址：hugo-theme-stack 进入 doduo.cc/src ，执行以下命令 1 2 3 4 5 #克隆主题源代码 git clone https://github.">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录示例 1 2 3 4 5 6 7 8 9 10 11 12 . ├── docker-compose.yml ├── Dockerfile ├── LICENSE ├── README.md └── src ├── assets ├── config.yaml ├── content ├── resources ├── static └── themes # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.">
 <title>使用Docker搭建Hugo博客</title>
 
 <link rel='canonical' href='https://blog.lass.cc/posts/how-to-build-hugo-with-docker/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="使用Docker搭建Hugo博客">
-<meta property='og:description' content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录说明 # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.cc #博客源代码目录 mkdir src #头像文件目录 mkdir assets/img #静态文件目录 mkdir static # 获取主题示例 博客Github地址：hugo-theme-stack 进入 doduo.cc/src ，执行以下命令 1 2 3 4 5 #克隆主题源代码 git clone https://github.">
+<meta property='og:description' content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录示例 1 2 3 4 5 6 7 8 9 10 11 12 . ├── docker-compose.yml ├── Dockerfile ├── LICENSE ├── README.md └── src ├── assets ├── config.yaml ├── content ├── resources ├── static └── themes # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.">
 <meta property='og:url' content='https://blog.lass.cc/posts/how-to-build-hugo-with-docker/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='hugo' /><meta property='article:published_time' content='2022-12-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-08T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="使用Docker搭建Hugo博客">
-<meta name="twitter:description" content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录说明 # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.cc #博客源代码目录 mkdir src #头像文件目录 mkdir assets/img #静态文件目录 mkdir static # 获取主题示例 博客Github地址：hugo-theme-stack 进入 doduo.cc/src ，执行以下命令 1 2 3 4 5 #克隆主题源代码 git clone https://github.">
+<meta name="twitter:description" content="# 环境 # 系统软件环境 Server: Debian 11 Docker: 20.10.5 # 环境安装 1 2 3 4 5 6 #更新包 apt-get install update #安装Docker apt-get install docker.io -y #安装Docker-Compose apt-get install docker-compose 注：需具备Linux系统简单操作能力，需会使用Docker基本命令 # 简述 陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。 # 目录示例 1 2 3 4 5 6 7 8 9 10 11 12 . ├── docker-compose.yml ├── Dockerfile ├── LICENSE ├── README.md └── src ├── assets ├── config.yaml ├── content ├── resources ├── static └── themes # 实操 # 创建相关的目录 1 2 3 4 5 6 7 8 #博客根目录 mkdir doduo.">
     <link rel="shortcut icon" href="/favicon.svg" />
 
   
@@ -278,7 +278,7 @@
       </ol>
     </li>
     <li><a href="#简述">简述</a></li>
-    <li><a href="#目录说明">目录说明</a></li>
+    <li><a href="#目录示例">目录示例</a></li>
     <li><a href="#实操">实操</a>
       <ol>
         <li><a href="#创建相关的目录">创建相关的目录</a></li>
@@ -409,10 +409,40 @@
     <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
     简述
 </h2><p>陆续也使用过一些博客程序，例如Hexo、Vuepress等，发现Hugo的一个主题各方面很符合审美，因此准备将博客迁移。</p>
-<h2 id="目录说明">
-    <a href="#%e7%9b%ae%e5%bd%95%e8%af%b4%e6%98%8e" class="header-anchor">#</a>
-    目录说明
-</h2><h2 id="实操">
+<h2 id="目录示例">
+    <a href="#%e7%9b%ae%e5%bd%95%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    目录示例
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── docker-compose.yml
+</span></span><span class="line"><span class="cl">├── Dockerfile
+</span></span><span class="line"><span class="cl">├── LICENSE
+</span></span><span class="line"><span class="cl">├── README.md
+</span></span><span class="line"><span class="cl">└── src
+</span></span><span class="line"><span class="cl">    ├── assets
+</span></span><span class="line"><span class="cl">    ├── config.yaml
+</span></span><span class="line"><span class="cl">    ├── content
+</span></span><span class="line"><span class="cl">    ├── resources
+</span></span><span class="line"><span class="cl">    ├── static
+</span></span><span class="line"><span class="cl">    └── themes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="实操">
     <a href="#%e5%ae%9e%e6%93%8d" class="header-anchor">#</a>
     实操
 </h2><h3 id="创建相关的目录">
