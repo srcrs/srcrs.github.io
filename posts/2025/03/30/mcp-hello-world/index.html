@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# MCP和Function Call对比 在本次文章开始写之前，要搞明白Function Call和MCP的区别。 graph TD A[用户输入] --&gt; B[大模型判断意图] B --&gt; C{是否需要调用函数?} C --&gt;|是| D[生成结构化函数调用请求&lt;br&gt;（如JSON参数）] C --&gt;|否| E[直接生成回答] D --&gt; F[开发者解析并执行函数] F --&gt; G[获取函数执行结果] G --&gt; H[将结果反馈给大模型] H --&gt; I[生成最终回答] I --&gt; J[输出给用户] graph LR A[用户请求] --&gt; B[大模型] B --&gt; C[MCP服务器] C --&gt; D{路由判断} D --&gt;|工具调用| E[执行外部工具] D --&gt;|数据查询| F[访问数据库] E --&gt; C{{MCP服务器}} F --&gt; C C --&gt; B[大模型] B --&gt; G[生成回答] 对比维度 Function Call MCP (Managed Context Protocol) 协议层级 特定厂商（如OpenAI）的功能实现 通用协议标准（类似USB-C接口规范） 标准化程度 依赖厂商定义，灵活性高但碎片化 强制遵循JSON-RPC 2.">
+<title>mcp大模型的通用工具调用协议</title>
+
+<link rel='canonical' href='https://blog.lass.cc/posts/2025/03/30/mcp-hello-world/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="mcp大模型的通用工具调用协议">
+<meta property='og:description' content="# MCP和Function Call对比 在本次文章开始写之前，要搞明白Function Call和MCP的区别。 graph TD A[用户输入] --&gt; B[大模型判断意图] B --&gt; C{是否需要调用函数?} C --&gt;|是| D[生成结构化函数调用请求&lt;br&gt;（如JSON参数）] C --&gt;|否| E[直接生成回答] D --&gt; F[开发者解析并执行函数] F --&gt; G[获取函数执行结果] G --&gt; H[将结果反馈给大模型] H --&gt; I[生成最终回答] I --&gt; J[输出给用户] graph LR A[用户请求] --&gt; B[大模型] B --&gt; C[MCP服务器] C --&gt; D{路由判断} D --&gt;|工具调用| E[执行外部工具] D --&gt;|数据查询| F[访问数据库] E --&gt; C{{MCP服务器}} F --&gt; C C --&gt; B[大模型] B --&gt; G[生成回答] 对比维度 Function Call MCP (Managed Context Protocol) 协议层级 特定厂商（如OpenAI）的功能实现 通用协议标准（类似USB-C接口规范） 标准化程度 依赖厂商定义，灵活性高但碎片化 强制遵循JSON-RPC 2.">
+<meta property='og:url' content='https://blog.lass.cc/posts/2025/03/30/mcp-hello-world/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2025-03-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-30T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="mcp大模型的通用工具调用协议">
+<meta name="twitter:description" content="# MCP和Function Call对比 在本次文章开始写之前，要搞明白Function Call和MCP的区别。 graph TD A[用户输入] --&gt; B[大模型判断意图] B --&gt; C{是否需要调用函数?} C --&gt;|是| D[生成结构化函数调用请求&lt;br&gt;（如JSON参数）] C --&gt;|否| E[直接生成回答] D --&gt; F[开发者解析并执行函数] F --&gt; G[获取函数执行结果] G --&gt; H[将结果反馈给大模型] H --&gt; I[生成最终回答] I --&gt; J[输出给用户] graph LR A[用户请求] --&gt; B[大模型] B --&gt; C[MCP服务器] C --&gt; D{路由判断} D --&gt;|工具调用| E[执行外部工具] D --&gt;|数据查询| F[访问数据库] E --&gt; C{{MCP服务器}} F --&gt; C C --&gt; B[大模型] B --&gt; G[生成回答] 对比维度 Function Call MCP (Managed Context Protocol) 协议层级 特定厂商（如OpenAI）的功能实现 通用协议标准（类似USB-C接口规范） 标准化程度 依赖厂商定义，灵活性高但碎片化 强制遵循JSON-RPC 2.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu546579717b7fab0b18401baea9cc125e_15933_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.lass.cc/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mcp和function-call对比">MCP和Function Call对比</a></li>
+    <li><a href="#测试代码">测试代码</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/2025/03/30/mcp-hello-world/">mcp大模型的通用工具调用协议</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 30, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="mcp和function-call对比">
+    <a href="#mcp%e5%92%8cfunction-call%e5%af%b9%e6%af%94" class="header-anchor">#</a>
+    MCP和Function Call对比
+</h2><p>在本次文章开始写之前，要搞明白<code>Function Call</code>和<code>MCP</code>的区别。</p>
+<pre class="mermaid">
+  graph TD
+    A[用户输入] --&gt; B[大模型判断意图]
+    B --&gt; C{是否需要调用函数?}
+    C --&gt;|是| D[生成结构化函数调用请求&lt;br&gt;（如JSON参数）]
+    C --&gt;|否| E[直接生成回答]
+    D --&gt; F[开发者解析并执行函数]
+    F --&gt; G[获取函数执行结果]
+    G --&gt; H[将结果反馈给大模型]
+    H --&gt; I[生成最终回答]
+    I --&gt; J[输出给用户]
+</pre>
+
+<pre class="mermaid">
+  graph LR
+    A[用户请求] --&gt; B[大模型]
+    B --&gt; C[MCP服务器]
+    C --&gt; D{路由判断}
+    D --&gt;|工具调用| E[执行外部工具]
+    D --&gt;|数据查询| F[访问数据库]
+    E --&gt; C{{MCP服务器}}
+    F --&gt; C
+    C --&gt; B[大模型]
+    B --&gt; G[生成回答]
+</pre>
+
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>Function Call</th>
+<th>MCP (Managed Context Protocol)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协议层级</td>
+<td>特定厂商（如OpenAI）的功能实现</td>
+<td>通用协议标准（类似USB-C接口规范）</td>
+</tr>
+<tr>
+<td>标准化程度</td>
+<td>依赖厂商定义，灵活性高但碎片化</td>
+<td>强制遵循JSON-RPC 2.0标准，统一性强</td>
+</tr>
+<tr>
+<td>核心功能</td>
+<td>单次函数调用（如天气查询）</td>
+<td>上下文管理+工具动态接入（如多工具协作）</td>
+</tr>
+<tr>
+<td>控制权归属</td>
+<td>大模型主导调用逻辑</td>
+<td>应用层通过MCP服务器管理工具与数据源</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>简单API调用（如发送邮件、查询数据库）</td>
+<td>企业级复杂系统集成（如医疗数据中台）</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>需手动注册函数</td>
+<td>支持动态加载工具和知识库</td>
+</tr>
+</tbody>
+</table></div>
+<p>对比下来，MCP是在大模型和工具之间定义了标准化的协议，只需要和MCP服务器交互即可。那么现在任何大模型都遵循该协议吗？</p>
+<p>为此，查看了代码在执行中给大模型实际的数据，可以看到，这只是一段prompt，任何大模型只要能遵循指令，即可实现mcp的调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;|im_start|&gt;system
+</span></span><span class="line"><span class="cl">You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Tools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">You may call one or more functions to assist with the user query.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">You are provided with function signatures within &lt;tools&gt;&lt;/tools&gt; XML tags:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;tools&gt;
+</span></span><span class="line"><span class="cl">{\&#34;type\&#34;: \&#34;function\&#34;, \&#34;function\&#34;: {\&#34;name\&#34;:\&#34;calculate\&#34;,\&#34;description\&#34;:\&#34;Perform basic arithmetic operations\&#34;,\&#34;parameters\&#34;:{\&#34;type\&#34;:\&#34;object\&#34;,\&#34;required\&#34;:[\&#34;operation\&#34;,\&#34;x\&#34;,\&#34;y\&#34;],\&#34;properties\&#34;:{\&#34;operation\&#34;:{\&#34;type\&#34;:\&#34;string\&#34;,\&#34;description\&#34;:\&#34;The operation to perform (add, subtract, multiply, divide)\&#34;,\&#34;enum\&#34;:[\&#34;add\&#34;,\&#34;subtract\&#34;,\&#34;multiply\&#34;,\&#34;divide\&#34;]},\&#34;x\&#34;:{\&#34;type\&#34;:\&#34;number\&#34;,\&#34;description\&#34;:\&#34;First number\&#34;},\&#34;y\&#34;:{\&#34;type\&#34;:\&#34;number\&#34;,\&#34;description\&#34;:\&#34;Second number\&#34;}}}}}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;/tools&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">For each function call, return a json object with function name and arguments within &lt;tool_call&gt;&lt;/tool_call&gt; XML tags:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;tool_call&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{\&#34;name\&#34;: &lt;function-name&gt;, \&#34;arguments\&#34;: &lt;args-json-object&gt;}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;/tool_call&gt;&lt;|im_end|&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;|im_start|&gt;user
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">我今天买了一斤苹果和一斤梨，苹果是5块一斤，梨是3块一斤，我一共花了多少钱？&lt;|im_end|&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;|im_start|&gt;assistant
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试代码">
+    <a href="#%e6%b5%8b%e8%af%95%e4%bb%a3%e7%a0%81" class="header-anchor">#</a>
+    测试代码
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/cloudwego/eino/components/tool&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/cloudwego/eino/compose&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/cloudwego/eino/flow/agent/react&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/cloudwego/eino/schema&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/mark3labs/mcp-go/client&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/mark3labs/mcp-go/mcp&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/mark3labs/mcp-go/server&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/cloudwego/eino-ext/components/model/ollama&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">mcpp</span> <span class="s">&#34;github.com/cloudwego/eino-ext/components/tool/mcp&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nf">startMCPServer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">mcpTools</span> <span class="o">:=</span> <span class="nf">getMCPTool</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">chatModel</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ollama</span><span class="p">.</span><span class="nf">NewChatModel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ollama</span><span class="p">.</span><span class="nx">ChatModelConfig</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">BaseURL</span><span class="p">:</span> <span class="s">&#34;http://localhost:11434&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Model</span><span class="p">:</span>   <span class="s">&#34;qwen2.5:7b&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;NewChatModel failed, err=%v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">agent</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">react</span><span class="p">.</span><span class="nf">NewAgent</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">react</span><span class="p">.</span><span class="nx">AgentConfig</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Model</span><span class="p">:</span>       <span class="nx">chatModel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ToolsConfig</span><span class="p">:</span> <span class="nx">compose</span><span class="p">.</span><span class="nx">ToolsNodeConfig</span><span class="p">{</span><span class="nx">Tools</span><span class="p">:</span> <span class="nx">mcpTools</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">rsp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">agent</span><span class="p">.</span><span class="nf">Generate</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">[]</span><span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Message</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">Role</span><span class="p">:</span>    <span class="nx">schema</span><span class="p">.</span><span class="nx">User</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">Content</span><span class="p">:</span> <span class="s">&#34;我今天买了一斤苹果和一斤梨，苹果是5块一斤，梨是3块一斤，我一共花了多少钱？&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">rsp</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">getMCPTool</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">[]</span><span class="nx">tool</span><span class="p">.</span><span class="nx">BaseTool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">cli</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">NewSSEMCPClient</span><span class="p">(</span><span class="s">&#34;http://localhost:12345/sse&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">err</span> <span class="p">=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">initRequest</span> <span class="o">:=</span> <span class="nx">mcp</span><span class="p">.</span><span class="nx">InitializeRequest</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">initRequest</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">ProtocolVersion</span> <span class="p">=</span> <span class="nx">mcp</span><span class="p">.</span><span class="nx">LATEST_PROTOCOL_VERSION</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">initRequest</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">ClientInfo</span> <span class="p">=</span> <span class="nx">mcp</span><span class="p">.</span><span class="nx">Implementation</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Name</span><span class="p">:</span>    <span class="s">&#34;example-client&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Version</span><span class="p">:</span> <span class="s">&#34;1.0.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">cli</span><span class="p">.</span><span class="nf">Initialize</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">initRequest</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">tools</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mcpp</span><span class="p">.</span><span class="nf">GetTools</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">mcpp</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Cli</span><span class="p">:</span> <span class="nx">cli</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="nx">tools</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">startMCPServer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">svr</span> <span class="o">:=</span> <span class="nx">server</span><span class="p">.</span><span class="nf">NewMCPServer</span><span class="p">(</span><span class="s">&#34;demo&#34;</span><span class="p">,</span> <span class="nx">mcp</span><span class="p">.</span><span class="nx">LATEST_PROTOCOL_VERSION</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">svr</span><span class="p">.</span><span class="nf">AddTool</span><span class="p">(</span><span class="nx">mcp</span><span class="p">.</span><span class="nf">NewTool</span><span class="p">(</span><span class="s">&#34;calculate&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mcp</span><span class="p">.</span><span class="nf">WithDescription</span><span class="p">(</span><span class="s">&#34;Perform basic arithmetic operations&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mcp</span><span class="p">.</span><span class="nf">WithString</span><span class="p">(</span><span class="s">&#34;operation&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Required</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Description</span><span class="p">(</span><span class="s">&#34;The operation to perform (add, subtract, multiply, divide)&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Enum</span><span class="p">(</span><span class="s">&#34;add&#34;</span><span class="p">,</span> <span class="s">&#34;subtract&#34;</span><span class="p">,</span> <span class="s">&#34;multiply&#34;</span><span class="p">,</span> <span class="s">&#34;divide&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mcp</span><span class="p">.</span><span class="nf">WithNumber</span><span class="p">(</span><span class="s">&#34;x&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Required</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Description</span><span class="p">(</span><span class="s">&#34;First number&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mcp</span><span class="p">.</span><span class="nf">WithNumber</span><span class="p">(</span><span class="s">&#34;y&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Required</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">mcp</span><span class="p">.</span><span class="nf">Description</span><span class="p">(</span><span class="s">&#34;Second number&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"> <span class="p">),</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">request</span> <span class="nx">mcp</span><span class="p">.</span><span class="nx">CallToolRequest</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">mcp</span><span class="p">.</span><span class="nx">CallToolResult</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Received request:&#34;</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">op</span> <span class="o">:=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">Arguments</span><span class="p">[</span><span class="s">&#34;operation&#34;</span><span class="p">].(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">x</span> <span class="o">:=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">Arguments</span><span class="p">[</span><span class="s">&#34;x&#34;</span><span class="p">].(</span><span class="kt">float64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">y</span> <span class="o">:=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Params</span><span class="p">.</span><span class="nx">Arguments</span><span class="p">[</span><span class="s">&#34;y&#34;</span><span class="p">].(</span><span class="kt">float64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">result</span> <span class="kt">float64</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="nx">op</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="s">&#34;add&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">result</span> <span class="p">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="s">&#34;subtract&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">result</span> <span class="p">=</span> <span class="nx">x</span> <span class="o">-</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="s">&#34;multiply&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">result</span> <span class="p">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="s">&#34;divide&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="nx">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">mcp</span><span class="p">.</span><span class="nf">NewToolResultText</span><span class="p">(</span><span class="s">&#34;Cannot divide by zero&#34;</span><span class="p">),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">result</span> <span class="p">=</span> <span class="nx">x</span> <span class="o">/</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Calculated result: %.2f&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">mcp</span><span class="p">.</span><span class="nf">NewToolResultText</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%.2f&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"> <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">e</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">err</span> <span class="o">:=</span> <span class="nx">server</span><span class="p">.</span><span class="nf">NewSSEServer</span><span class="p">(</span><span class="nx">svr</span><span class="p">,</span> <span class="nx">server</span><span class="p">.</span><span class="nf">WithBaseURL</span><span class="p">(</span><span class="s">&#34;http://localhost:12345&#34;</span><span class="p">)).</span><span class="nf">Start</span><span class="p">(</span><span class="s">&#34;localhost:12345&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行代码，可以看到是有工具调用的。依托于该基础代码，未来可以封装更多的工具。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">nil</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Received</span> <span class="n">request</span><span class="p">:</span> <span class="p">{{</span><span class="n">tools</span><span class="o">/</span><span class="n">call</span> <span class="p">{</span><span class="o">&lt;</span><span class="n">nil</span><span class="o">&gt;</span><span class="p">}}</span> <span class="p">{</span><span class="n">calculate</span> <span class="n">map</span><span class="p">[</span><span class="n">operation</span><span class="p">:</span><span class="n">add</span> <span class="n">x</span><span class="p">:</span><span class="mi">5</span> <span class="n">y</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">nil</span><span class="o">&gt;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2025</span><span class="o">/</span><span class="mi">03</span><span class="o">/</span><span class="mi">30</span> <span class="mi">19</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">20</span> <span class="n">Calculated</span> <span class="n">result</span><span class="p">:</span> <span class="mf">8.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">assistant</span><span class="p">:</span> <span class="err">苹果和梨的单价相加就是总价，所以您一共花了</span><span class="mi">8</span><span class="err">元钱。</span>
+</span></span><span class="line"><span class="cl"><span class="n">finish_reason</span><span class="p">:</span> <span class="n">stop</span> <span class="o">&lt;</span><span class="n">nil</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结尾抛出一个问题，大模型的输入输出是有上限的，当工具达到几百个时，大模型会能正确找到函数吗，如何解决？</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai/">Ai</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2025/03/29/flux-forge-gguf-by-linux/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux部署Flux的GGUF量化版</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/11/19/ai-large-model-fine-tuning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ai大模型微调</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/ai-agentic-design-patterns-with-autogen/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">利用AutoGen的人工智能智能体设计模式</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">复盘国密sm4踩坑</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+    </body>
+</html>
