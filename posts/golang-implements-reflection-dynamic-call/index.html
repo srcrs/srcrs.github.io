@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 目录 1 2 3 4 5 6 7 8 9 10 11 your_project ├── go.mod ├── invoker │ └── invoker.go ├── main.go ├── packageA │ └── packageA.go ├── packageB │ └── packageB.go └── registry └── registry.go # 具体代码 go.mod 1 2 3 module your_project go 1.18 invoker.go 1 2 3 4 5 package invoker type Invoker interface { Invoke(args ...interface{}) (interface{}, error) } main.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 package main import ( &#34;fmt&#34; _ &#34;your_project/packageA&#34; _ &#34;your_project/packageB&#34; &#34;your_project/registry&#34; ) func main() { for _, v := range registry.">
 <title>golang实现反射动态调用</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/golang-implements-reflection-dynamic-call/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/golang-implements-reflection-dynamic-call/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="golang实现反射动态调用">
 <meta property='og:description' content="# 目录 1 2 3 4 5 6 7 8 9 10 11 your_project ├── go.mod ├── invoker │ └── invoker.go ├── main.go ├── packageA │ └── packageA.go ├── packageB │ └── packageB.go └── registry └── registry.go # 具体代码 go.mod 1 2 3 module your_project go 1.18 invoker.go 1 2 3 4 5 package invoker type Invoker interface { Invoke(args ...interface{}) (interface{}, error) } main.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 package main import ( &#34;fmt&#34; _ &#34;your_project/packageA&#34; _ &#34;your_project/packageB&#34; &#34;your_project/registry&#34; ) func main() { for _, v := range registry.">
-<meta property='og:url' content='https://blog.lass.cc/posts/golang-implements-reflection-dynamic-call/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/golang-implements-reflection-dynamic-call/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='golang' /><meta property='article:published_time' content='2023-07-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-17T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="golang实现反射动态调用">

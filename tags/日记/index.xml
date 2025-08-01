@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>日记 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E6%97%A5%E8%AE%B0/</link>
+        <link>https://srcrs.github.io/tags/%E6%97%A5%E8%AE%B0/</link>
         <description>Recent content in 日记 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%97%A5%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E6%97%A5%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>你患得患失，太在意从前</title>
-        <link>https://blog.lass.cc/posts/%E4%BD%A0%E6%82%A3%E5%BE%97%E6%82%A3%E5%A4%B1%E5%A4%AA%E5%9C%A8%E6%84%8F%E4%BB%8E%E5%89%8D/</link>
+        <link>https://srcrs.github.io/posts/%E4%BD%A0%E6%82%A3%E5%BE%97%E6%82%A3%E5%A4%B1%E5%A4%AA%E5%9C%A8%E6%84%8F%E4%BB%8E%E5%89%8D/</link>
         <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E4%BD%A0%E6%82%A3%E5%BE%97%E6%82%A3%E5%A4%B1%E5%A4%AA%E5%9C%A8%E6%84%8F%E4%BB%8E%E5%89%8D/</guid>
+        <guid>https://srcrs.github.io/posts/%E4%BD%A0%E6%82%A3%E5%BE%97%E6%82%A3%E5%A4%B1%E5%A4%AA%E5%9C%A8%E6%84%8F%E4%BB%8E%E5%89%8D/</guid>
         <description>&lt;p&gt;早晨上班，人挤人，窥屏看到在发“能力不行被裁了”，我没想到这一天这么快发生在我身上，虽然我很想逃离现在的生活。&lt;/p&gt;
 &lt;p&gt;上个月11号通知的，目前还是没有找到合适的工作，准确的说上周才开始投简历，去面了一家公司，发生自己准备的极其不充分，问到的知识点不知道该从何说起。&lt;/p&gt;
 &lt;p&gt;“和我们聊聊MySQL吧”
@@ -34,10 +34,10 @@
         </item>
         <item>
         <title>2022年终总结</title>
-        <link>https://blog.lass.cc/posts/2022/</link>
+        <link>https://srcrs.github.io/posts/2022/</link>
         <pubDate>Mon, 31 Jan 2022 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2022/</guid>
+        <guid>https://srcrs.github.io/posts/2022/</guid>
         <description>&lt;p&gt;今年即将过去了，明天就是2021年农历的最后一天，回到家也有好几天了，看看身边亲人过去一年的变化，庆幸，无一缺席。&lt;/p&gt;
 &lt;p&gt;说是年终总结，也没有具体的规划，想到什么就写什么吧。&lt;/p&gt;
 &lt;p&gt;现在是夜晚10:44分，在北京，也许我正在吃饭的吧。回到家感觉轻松了不少，没有了工作的那些烦恼。&lt;/p&gt;
@@ -61,10 +61,10 @@
         </item>
         <item>
         <title>突然明白的事</title>
-        <link>https://blog.lass.cc/posts/%E7%AA%81%E7%84%B6%E6%98%8E%E7%99%BD%E7%9A%84%E4%BA%8B/</link>
+        <link>https://srcrs.github.io/posts/%E7%AA%81%E7%84%B6%E6%98%8E%E7%99%BD%E7%9A%84%E4%BA%8B/</link>
         <pubDate>Sun, 21 Nov 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%AA%81%E7%84%B6%E6%98%8E%E7%99%BD%E7%9A%84%E4%BA%8B/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%AA%81%E7%84%B6%E6%98%8E%E7%99%BD%E7%9A%84%E4%BA%8B/</guid>
         <description>&lt;p&gt;双十一过去了，每周六加班也意味着要结束了，这期间也没感觉到咋累，可能一个人无所挂念，无所事事，一心放在工作上，只是有时候心情不好的时候，会有累的感觉。&lt;/p&gt;
 &lt;p&gt;小帅来北京出差已有十来天了，上周末我们一起聚了一下，游玩故宫，老杨带着他女朋友，小帅带着他同事，我和老刘一块，六人成行。早晨急急忙忙的，把他们都给先坑去了，结果我们是最后才到的。&lt;/p&gt;
 &lt;p&gt;过去只是在午门外面转悠过，没有到里面去，觉得里面挺震撼的，宫殿拔地而起，白色的阶梯很有层次感，中轴线两侧左右对称，很美。和小帅的同事、老杨女朋友都是第一次见面，但是却并没有觉得很尴尬，两个人都是比较放得开的。&lt;/p&gt;
@@ -84,10 +84,10 @@
         </item>
         <item>
         <title>好累啊</title>
-        <link>https://blog.lass.cc/posts/%E5%A5%BD%E7%B4%AF%E5%95%8A/</link>
+        <link>https://srcrs.github.io/posts/%E5%A5%BD%E7%B4%AF%E5%95%8A/</link>
         <pubDate>Fri, 05 Nov 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%A5%BD%E7%B4%AF%E5%95%8A/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%A5%BD%E7%B4%AF%E5%95%8A/</guid>
         <description>&lt;p&gt;好累啊，今天，觉得一天没有干啥，就是很累。&lt;/p&gt;
 &lt;p&gt;听说要对接一个新的店铺，确实是昨天晚上就已经知道了，但是并没有什么动作，巧才才正式了一点。&lt;/p&gt;
 &lt;p&gt;加入到了，还是第一次对接了一个新朋友，虽然也待到了，但有哪些方式也不太清楚，但我的另一个人的好，外面的名字也很好，我们两个人来做气，我们是同届的，但我干活，就像我像个实习生。&lt;/p&gt;
@@ -100,10 +100,10 @@
         </item>
         <item>
         <title>犯错就是在成长么</title>
-        <link>https://blog.lass.cc/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/</link>
+        <link>https://srcrs.github.io/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/</link>
         <pubDate>Sun, 31 Oct 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%8A%AF%E9%94%99%E5%B0%B1%E6%98%AF%E5%9C%A8%E6%88%90%E9%95%BF%E4%B9%88/</guid>
         <description>&lt;p&gt;一周又过去了，时间过的挺快的，这都已经10月底了，本来计划着这周去故宫逛一逛的，但是北京疫情形势严峻，就作罢了，那就聊聊工作上的事吧。&lt;/p&gt;
 &lt;p&gt;周一，learder又找我了，说我写的两个SQL已经在慢查里面排头两名了，自己去一分析，还真是，”limit 40000,50“速度很慢，应该是扫描了全表，我的场景是想使用两个索引当作条件，但是mysql的优化器选择的索引，在我看来并不是最优的那一个，导致了运行速度很慢，后来了解到联合索引，这正符合我所使用的场景，加上了之后，速度确实提升了很多。
 但这也只是针对结果集比较小的时候，当数量上万的时候，sql仍然会慢，总结有如下几个问题点：&lt;/p&gt;
@@ -201,10 +201,10 @@
         </item>
         <item>
         <title>平凡一天的得与失</title>
-        <link>https://blog.lass.cc/posts/%E5%B9%B3%E5%87%A1%E4%B8%80%E5%A4%A9%E7%9A%84%E5%BE%97%E4%B8%8E%E5%A4%B1/</link>
+        <link>https://srcrs.github.io/posts/%E5%B9%B3%E5%87%A1%E4%B8%80%E5%A4%A9%E7%9A%84%E5%BE%97%E4%B8%8E%E5%A4%B1/</link>
         <pubDate>Wed, 20 Oct 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%B9%B3%E5%87%A1%E4%B8%80%E5%A4%A9%E7%9A%84%E5%BE%97%E4%B8%8E%E5%A4%B1/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%B9%B3%E5%87%A1%E4%B8%80%E5%A4%A9%E7%9A%84%E5%BE%97%E4%B8%8E%E5%A4%B1/</guid>
         <description>&lt;h2 id=&#34;生活&#34;&gt;
     &lt;a href=&#34;#%e7%94%9f%e6%b4%bb&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     生活
@@ -226,10 +226,10 @@
         </item>
         <item>
         <title>不好的一天</title>
-        <link>https://blog.lass.cc/posts/%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%80%E5%A4%A9/</link>
+        <link>https://srcrs.github.io/posts/%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%80%E5%A4%A9/</link>
         <pubDate>Mon, 18 Oct 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%80%E5%A4%A9/</guid>
+        <guid>https://srcrs.github.io/posts/%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%80%E5%A4%A9/</guid>
         <description>&lt;p&gt;新的一周又开始了，倒霉的我得要瘸着去上班，周六还是好好的，晚上睡了一觉，不知道做了啥，脚趾头跟骨折了肿了似的，就这么瘸了。&lt;/p&gt;
 &lt;p&gt;第一次上班自己带了饭，突然不和小伙伴们一起去干饭，有点怪怪的，公司的微波炉挺好用的，起初还害怕不会用，中高温热了3分钟，还有一点点部分没有热透，下次要开到4分钟。自己带饭吃起来是真香，也多亏了老刘，但是我下班回来的又很晚，非常烦。&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;

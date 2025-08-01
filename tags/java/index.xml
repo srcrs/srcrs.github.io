@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Java on srcrs</title>
-        <link>https://blog.lass.cc/tags/java/</link>
+        <link>https://srcrs.github.io/tags/java/</link>
         <description>Recent content in Java on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Java异常体系</title>
-        <link>https://blog.lass.cc/posts/java%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB/</link>
+        <link>https://srcrs.github.io/posts/java%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB/</link>
         <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/java%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB/</guid>
+        <guid>https://srcrs.github.io/posts/java%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB/</guid>
         <description>&lt;p&gt;&lt;code&gt;Java&lt;/code&gt;语言的特点有不下十种，例如：面向对象、安全性、健壮性、可移植性性等等，其中&lt;code&gt;Java&lt;/code&gt;的异常体系保证了&lt;code&gt;Java&lt;/code&gt;语言的健壮性。&lt;/p&gt;
 &lt;h2 id=&#34;java异常体系图&#34;&gt;
     &lt;a href=&#34;#java%e5%bc%82%e5%b8%b8%e4%bd%93%e7%b3%bb%e5%9b%be&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -122,10 +122,10 @@
         </item>
         <item>
         <title>java日志框架（下）</title>
-        <link>https://blog.lass.cc/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8B/</link>
+        <link>https://srcrs.github.io/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8B/</link>
         <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8B/</guid>
+        <guid>https://srcrs.github.io/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8B/</guid>
         <description>&lt;h2 id=&#34;学习目标&#34;&gt;
     &lt;a href=&#34;#%e5%ad%a6%e4%b9%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     学习目标
@@ -1538,10 +1538,10 @@
         </item>
         <item>
         <title>java日志框架（上）</title>
-        <link>https://blog.lass.cc/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8A/</link>
+        <link>https://srcrs.github.io/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8A/</link>
         <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8A/</guid>
+        <guid>https://srcrs.github.io/posts/java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B8%8A/</guid>
         <description>&lt;h2 id=&#34;学习目标&#34;&gt;
     &lt;a href=&#34;#%e5%ad%a6%e4%b9%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     学习目标
@@ -2707,10 +2707,10 @@
         </item>
         <item>
         <title>类初始化和实例初始化</title>
-        <link>https://blog.lass.cc/posts/%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
+        <link>https://srcrs.github.io/posts/%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
         <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
         <description>&lt;p&gt;一道题测试java学的咋样。此前就已经看过这道题，但是刚看了一下还是不会，走马观花，不得其理。&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h2 id=&#34;题目&#34;&gt;
@@ -2936,10 +2936,10 @@
         </item>
         <item>
         <title>看了一点SpringBoot的思考</title>
-        <link>https://blog.lass.cc/posts/%E7%9C%8B%E4%BA%86%E4%B8%80%E7%82%B9springboot%E7%9A%84%E6%80%9D%E8%80%83/</link>
+        <link>https://srcrs.github.io/posts/%E7%9C%8B%E4%BA%86%E4%B8%80%E7%82%B9springboot%E7%9A%84%E6%80%9D%E8%80%83/</link>
         <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%9C%8B%E4%BA%86%E4%B8%80%E7%82%B9springboot%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%9C%8B%E4%BA%86%E4%B8%80%E7%82%B9springboot%E7%9A%84%E6%80%9D%E8%80%83/</guid>
         <description>&lt;p&gt;:::tip
 先开始就准备看SpringBoot的，但是看到介绍说需要先了解Spring要不然可能会看不懂，所以就简单过了一遍Spring，直到今天才开始看SpringBoot，仅仅看了一点，我就感到惊喜不已。
 :::&lt;/p&gt;
@@ -3275,10 +3275,10 @@ getAnnotation();
         </item>
         <item>
         <title>java创建对象的五种方式</title>
-        <link>https://blog.lass.cc/posts/java%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/</link>
+        <link>https://srcrs.github.io/posts/java%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/</link>
         <pubDate>Sun, 01 Dec 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/java%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/</guid>
+        <guid>https://srcrs.github.io/posts/java%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%94%E7%A7%8D%E6%96%B9%E5%BC%8F/</guid>
         <description>&lt;h2 id=&#34;静态编译编码方式&#34;&gt;
     &lt;a href=&#34;#%e9%9d%99%e6%80%81%e7%bc%96%e8%af%91%e7%bc%96%e7%a0%81%e6%96%b9%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     静态编译&amp;amp;编码方式
@@ -3536,10 +3536,10 @@ getAnnotation();
         </item>
         <item>
         <title>java连接数据库</title>
-        <link>https://blog.lass.cc/posts/java%E7%A8%8B%E5%BA%8F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+        <link>https://srcrs.github.io/posts/java%E7%A8%8B%E5%BA%8F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
         <pubDate>Tue, 15 Oct 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/java%E7%A8%8B%E5%BA%8F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+        <guid>https://srcrs.github.io/posts/java%E7%A8%8B%E5%BA%8F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
         <description>&lt;h2 id=&#34;思路&#34;&gt;
     &lt;a href=&#34;#%e6%80%9d%e8%b7%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     思路

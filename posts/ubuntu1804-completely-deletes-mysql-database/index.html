@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从接触MySQL数据库开始，不可避免的一个问题就是数据库彻底删除，windows上，卸载了之后，可能要到ProgramData里面有没有看看是否有mysql文件夹，找到删除，Program Files，Program Files(x86)也是如此，然后再到注册表搜索一下mysql，找到也要删除，如果这些文件存在的话，很有可能会影响下一次的安装。 如果服务器是在阿里云买的，可能会预安装MySQL，我也不会使用，所以就删除了，要不然安装的MySQL会出问题。 只要按照以下的顺序，一步步运行，应该是是可以完全删除的。 查看MySQL依赖项dpkg --list|grep mysql sudo apt-get remove mysql-common sudo apt-get autoremove --purge mysql-server-5.7 清除残留数据dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P 再次查看MySQL剩余依赖项dpkg --list|grep mysql 继续删除依赖项sudo apt-get autoremove --purge mysql-apt-config 到此可以在运行第一条命令，如果没有输出应该就是删除成功了。 关于服务器的配置，可以参考，我的这篇文章web服务环境配置，我今天试的也是也没有问题的。 # 参考连接 Ubuntu18.04彻底删除MySQL数据库">
 <title>ubuntu18.04彻底删除MySQL数据库</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/ubuntu1804-completely-deletes-mysql-database/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/ubuntu1804-completely-deletes-mysql-database/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="ubuntu18.04彻底删除MySQL数据库">
 <meta property='og:description' content="从接触MySQL数据库开始，不可避免的一个问题就是数据库彻底删除，windows上，卸载了之后，可能要到ProgramData里面有没有看看是否有mysql文件夹，找到删除，Program Files，Program Files(x86)也是如此，然后再到注册表搜索一下mysql，找到也要删除，如果这些文件存在的话，很有可能会影响下一次的安装。 如果服务器是在阿里云买的，可能会预安装MySQL，我也不会使用，所以就删除了，要不然安装的MySQL会出问题。 只要按照以下的顺序，一步步运行，应该是是可以完全删除的。 查看MySQL依赖项dpkg --list|grep mysql sudo apt-get remove mysql-common sudo apt-get autoremove --purge mysql-server-5.7 清除残留数据dpkg -l|grep ^rc|awk '{print$2}'|sudo xargs dpkg -P 再次查看MySQL剩余依赖项dpkg --list|grep mysql 继续删除依赖项sudo apt-get autoremove --purge mysql-apt-config 到此可以在运行第一条命令，如果没有输出应该就是删除成功了。 关于服务器的配置，可以参考，我的这篇文章web服务环境配置，我今天试的也是也没有问题的。 # 参考连接 Ubuntu18.04彻底删除MySQL数据库">
-<meta property='og:url' content='https://blog.lass.cc/posts/ubuntu1804-completely-deletes-mysql-database/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/ubuntu1804-completely-deletes-mysql-database/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='mysql' /><meta property='article:published_time' content='2020-06-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-06-19T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="ubuntu18.04彻底删除MySQL数据库">

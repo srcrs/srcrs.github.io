@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# jdk 将jdk压缩包上传到服务器 可以从官网下载，或者自己备份有。上传后文件名为 1 jdk-8u231-linux-x64.tar.gz 解压 如果什么都不加，默认解压在当前目录下。 1 sudo tar -zxvf jdk-8u231-linux-x64.tar.gz 环境变量配置 在命令行输入此命令，打开环境变量配置文件。 1 sudo vim /etc/profile 下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。 1 2 3 4 JAVA_HOME=/home/ubuntu/jdk1.8.0_231 CLASSPATH=$JAVA_HOME/lib/ PATH=$PATH:$JAVA_HOME/bin export PATH JAVA_HOME CLASSPATH 使配置生效 1 source /etc/profile # mysql 以前那个方法不行了，这次又换了一个。 先运行dpkg -l | grep mysql查看有没有安装mysql，如果有输出就说明安装了，请参考，我的ubuntu18.04彻底删除MySQL数据库这篇文章就能解决你的问题。 # 安装mysql-server 安装MySQLapt install mysql-server 查看是否安装成功netstat -tap | grep mysql,如果看到有mysql就说明安装成功。 输入mysql进入数据库，此时数据库是没有密码的。 # 配置MySQL 输入mysql_secure_installation secure enough. Would you like to setup VALIDATE PASSWORD plugin? # 要安装验证密码插件吗?">
 <title>web服务环境配置</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/web-service-environment-configuration/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/web-service-environment-configuration/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="web服务环境配置">
 <meta property='og:description' content="# jdk 将jdk压缩包上传到服务器 可以从官网下载，或者自己备份有。上传后文件名为 1 jdk-8u231-linux-x64.tar.gz 解压 如果什么都不加，默认解压在当前目录下。 1 sudo tar -zxvf jdk-8u231-linux-x64.tar.gz 环境变量配置 在命令行输入此命令，打开环境变量配置文件。 1 sudo vim /etc/profile 下面的只需要改一下JAVA_HOME，推荐使用xftp查看路径，快捷高效。 1 2 3 4 JAVA_HOME=/home/ubuntu/jdk1.8.0_231 CLASSPATH=$JAVA_HOME/lib/ PATH=$PATH:$JAVA_HOME/bin export PATH JAVA_HOME CLASSPATH 使配置生效 1 source /etc/profile # mysql 以前那个方法不行了，这次又换了一个。 先运行dpkg -l | grep mysql查看有没有安装mysql，如果有输出就说明安装了，请参考，我的ubuntu18.04彻底删除MySQL数据库这篇文章就能解决你的问题。 # 安装mysql-server 安装MySQLapt install mysql-server 查看是否安装成功netstat -tap | grep mysql,如果看到有mysql就说明安装成功。 输入mysql进入数据库，此时数据库是没有密码的。 # 配置MySQL 输入mysql_secure_installation secure enough. Would you like to setup VALIDATE PASSWORD plugin? # 要安装验证密码插件吗?">
-<meta property='og:url' content='https://blog.lass.cc/posts/web-service-environment-configuration/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/web-service-environment-configuration/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ubuntu' /><meta property='article:published_time' content='2020-05-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-05-06T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="web服务环境配置">

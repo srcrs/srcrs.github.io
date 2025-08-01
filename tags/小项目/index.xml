@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>小项目 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%B0%8F%E9%A1%B9%E7%9B%AE/</link>
+        <link>https://srcrs.github.io/tags/%E5%B0%8F%E9%A1%B9%E7%9B%AE/</link>
         <description>Recent content in 小项目 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%B0%8F%E9%A1%B9%E7%9B%AE/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%B0%8F%E9%A1%B9%E7%9B%AE/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>题库自动生成器</title>
-        <link>https://blog.lass.cc/posts/%E9%A2%98%E5%BA%93%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%99%A8/</link>
+        <link>https://srcrs.github.io/posts/%E9%A2%98%E5%BA%93%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%99%A8/</link>
         <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E9%A2%98%E5%BA%93%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%99%A8/</guid>
+        <guid>https://srcrs.github.io/posts/%E9%A2%98%E5%BA%93%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%99%A8/</guid>
         <description>&lt;p&gt;:::tip
 想做一个将文本处理的脚本，每次期末复习的效果感觉有点不好，在高中的时候，每天做题，感觉这样的效果会比较好一点。所以就想着能不能将期末的复习题文档转换成题库的形式。
 :::&lt;/p&gt;

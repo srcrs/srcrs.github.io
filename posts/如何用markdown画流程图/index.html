@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 在写博客中发现了一个问题，发现很多问题的解决思路都使用都是用文字来表达的，但是文字的缺点就是太抽象，不容易理解，所以就想着用别的方法来改善表达的方式，这时候我想到了流程图，而强大的Markdown也可以做流程图。 ::: 此种方法只针对next主题用户，其他主题没用过，不提供方法。 # 首先需要安装安装插件 1 npm install hexo-filter-mermaid-diagrams 在你的博客目录下，用git执行这条命令。 然后就只需要在themes/next/_config.yml主题的配置文件中将 1 2 mermaid: enable: true mermaid开启即可 # 在markdown使用mermaid 1 2 3 4 5 ···mermaid graph 流程图的方向 流程图的内容 ··· 使用的时候，需要将点换成反引号，下面都同理 # 流程图的方向 TB和TD 表示从上到下 BT和DT 表示从下到上 RL 表示从右到左 LR 表示从左到右 示例 1 2 3 4 ···mermaid graph LR A --&gt; B ··· 效果 graph LR A --&gt; B # 流程图的基本图形 示例 1 2 3 4 5 6 7 8 ···mermaid graph LR id[带文本的矩形] id4(带文本的不对称的矩形) id3&gt;带文本的不对称的矩形] id1{带文本的菱形} id2((带文本的圆形)) ··· 效果">
 <title>如何用Markdown画流程图</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/%E5%A6%82%E4%BD%95%E7%94%A8markdown%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8markdown%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="如何用Markdown画流程图">
 <meta property='og:description' content=":::tip 在写博客中发现了一个问题，发现很多问题的解决思路都使用都是用文字来表达的，但是文字的缺点就是太抽象，不容易理解，所以就想着用别的方法来改善表达的方式，这时候我想到了流程图，而强大的Markdown也可以做流程图。 ::: 此种方法只针对next主题用户，其他主题没用过，不提供方法。 # 首先需要安装安装插件 1 npm install hexo-filter-mermaid-diagrams 在你的博客目录下，用git执行这条命令。 然后就只需要在themes/next/_config.yml主题的配置文件中将 1 2 mermaid: enable: true mermaid开启即可 # 在markdown使用mermaid 1 2 3 4 5 ···mermaid graph 流程图的方向 流程图的内容 ··· 使用的时候，需要将点换成反引号，下面都同理 # 流程图的方向 TB和TD 表示从上到下 BT和DT 表示从下到上 RL 表示从右到左 LR 表示从左到右 示例 1 2 3 4 ···mermaid graph LR A --&gt; B ··· 效果 graph LR A --&gt; B # 流程图的基本图形 示例 1 2 3 4 5 6 7 8 ···mermaid graph LR id[带文本的矩形] id4(带文本的不对称的矩形) id3&gt;带文本的不对称的矩形] id1{带文本的菱形} id2((带文本的圆形)) ··· 效果">
-<meta property='og:url' content='https://blog.lass.cc/posts/%E5%A6%82%E4%BD%95%E7%94%A8markdown%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8markdown%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Markdown语法' /><meta property='article:published_time' content='2019-05-28T22:24:44&#43;00:00'/><meta property='article:modified_time' content='2019-05-28T22:24:44&#43;00:00'/>
 <meta name="twitter:title" content="如何用Markdown画流程图">

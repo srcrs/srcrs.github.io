@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Docker on srcrs</title>
-        <link>https://blog.lass.cc/tags/docker/</link>
+        <link>https://srcrs.github.io/tags/docker/</link>
         <description>Recent content in Docker on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 27 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 27 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>利用AutoGen的人工智能智能体设计模式</title>
-        <link>https://blog.lass.cc/posts/ai-agentic-design-patterns-with-autogen/</link>
+        <link>https://srcrs.github.io/posts/ai-agentic-design-patterns-with-autogen/</link>
         <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/ai-agentic-design-patterns-with-autogen/</guid>
+        <guid>https://srcrs.github.io/posts/ai-agentic-design-patterns-with-autogen/</guid>
         <description>&lt;h2 id=&#34;部署环境&#34;&gt;
     &lt;a href=&#34;#%e9%83%a8%e7%bd%b2%e7%8e%af%e5%a2%83&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     部署环境
@@ -447,10 +447,10 @@ print(reply)&lt;/p&gt;
         </item>
         <item>
         <title>自部署gemini pro api</title>
-        <link>https://blog.lass.cc/posts/self-deploy-gemini-pro-api/</link>
+        <link>https://srcrs.github.io/posts/self-deploy-gemini-pro-api/</link>
         <pubDate>Fri, 29 Dec 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/self-deploy-gemini-pro-api/</guid>
+        <guid>https://srcrs.github.io/posts/self-deploy-gemini-pro-api/</guid>
         <description>&lt;h2 id=&#34;简介&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e4%bb%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简介
@@ -580,10 +580,10 @@ print(reply)&lt;/p&gt;
         </item>
         <item>
         <title>plik自建临时文件系统</title>
-        <link>https://blog.lass.cc/posts/how-use-plik/</link>
+        <link>https://srcrs.github.io/posts/how-use-plik/</link>
         <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/how-use-plik/</guid>
+        <guid>https://srcrs.github.io/posts/how-use-plik/</guid>
         <description>&lt;p&gt;&lt;code&gt;plik&lt;/code&gt;自建临时文件存储系统，如果你的信息很重要，又需要将其分享给他人，plik是个不错的选择。&lt;/p&gt;
 &lt;p&gt;代码仓库：https://github.com/root-gg/plik&lt;/p&gt;
 &lt;p&gt;官方demo：https://plik.root.gg&lt;/p&gt;
@@ -708,10 +708,10 @@ print(reply)&lt;/p&gt;
         </item>
         <item>
         <title>抖音去水印开源工具</title>
-        <link>https://blog.lass.cc/posts/douyin-remove-watermark/</link>
+        <link>https://srcrs.github.io/posts/douyin-remove-watermark/</link>
         <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/douyin-remove-watermark/</guid>
+        <guid>https://srcrs.github.io/posts/douyin-remove-watermark/</guid>
         <description>&lt;h2 id=&#34;简述&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简述
@@ -874,10 +874,10 @@ print(reply)&lt;/p&gt;
         </item>
         <item>
         <title>【exatorrent】好用的web端BT磁力在线播放工具</title>
-        <link>https://blog.lass.cc/posts/easy-to-use-torrent-client/</link>
+        <link>https://srcrs.github.io/posts/easy-to-use-torrent-client/</link>
         <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/easy-to-use-torrent-client/</guid>
+        <guid>https://srcrs.github.io/posts/easy-to-use-torrent-client/</guid>
         <description>&lt;h2 id=&#34;简述&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简述
@@ -889,10 +889,10 @@ print(reply)&lt;/p&gt;
     &gt;varbhat&lt;/a&gt;开源的作品，后端使用&lt;code&gt;Go&lt;/code&gt;语言实现，可以托管到本地或者云端，支持单用户模式和多用户模式，可以实现磁力文件的下载和在线播放。提供&lt;code&gt;Docker&lt;/code&gt;部署方式。&lt;/p&gt;
 &lt;p&gt;项目地址：&lt;a class=&#34;link&#34; href=&#34;https://github.com/varbhat/exatorrent&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;exatorrent&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/easy-to-use-torrent-client/view.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/easy-to-use-torrent-client/view.png&#34;
 	width=&#34;634&#34;
 	height=&#34;623&#34;
-	srcset=&#34;https://blog.lass.cc/posts/easy-to-use-torrent-client/view_hu5a402de915bf6df1f7421f436bf5167e_38919_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/easy-to-use-torrent-client/view_hu5a402de915bf6df1f7421f436bf5167e_38919_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/easy-to-use-torrent-client/view_hu5a402de915bf6df1f7421f436bf5167e_38919_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/easy-to-use-torrent-client/view_hu5a402de915bf6df1f7421f436bf5167e_38919_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1000,10 +1000,10 @@ print(reply)&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;将其放到搜索框中，点击&lt;code&gt;Add&lt;/code&gt;，即可添加下载，添加完之后就可以进入 &lt;code&gt;Torrents -&amp;gt; View -&amp;gt; File Progress -&amp;gt; 找到要播放的视频点击&lt;/code&gt;，若是没有下载完的播放，可以选择 &lt;code&gt;Use Stream API&lt;/code&gt; 就可以实现在线播放了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/easy-to-use-torrent-client/view2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/easy-to-use-torrent-client/view2.png&#34;
 	width=&#34;652&#34;
 	height=&#34;616&#34;
-	srcset=&#34;https://blog.lass.cc/posts/easy-to-use-torrent-client/view2_huc16c1164691d108ec278202393135b45_53917_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/easy-to-use-torrent-client/view2_huc16c1164691d108ec278202393135b45_53917_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/easy-to-use-torrent-client/view2_huc16c1164691d108ec278202393135b45_53917_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/easy-to-use-torrent-client/view2_huc16c1164691d108ec278202393135b45_53917_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1037,20 +1037,20 @@ print(reply)&lt;/p&gt;
         </item>
         <item>
         <title>【DashDot】好看的服务器仪表盘</title>
-        <link>https://blog.lass.cc/posts/how-use-dashdot/</link>
+        <link>https://srcrs.github.io/posts/how-use-dashdot/</link>
         <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/how-use-dashdot/</guid>
+        <guid>https://srcrs.github.io/posts/how-use-dashdot/</guid>
         <description>&lt;h2 id=&#34;dashdot介绍&#34;&gt;
     &lt;a href=&#34;#dashdot%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     DashDot介绍
 &lt;/h2&gt;&lt;p&gt;DashDot是一个服务器仪表盘，可以实时展示服务器运行状况，系统版本、CPU、硬盘、内存和网络等信息，有着非常漂亮界面。提供Docker部署方式，占用资源少，能够在性能较低的VPS上运行。&lt;/p&gt;
 &lt;p&gt;演示：&lt;a class=&#34;link&#34; href=&#34;https://dash.doduo.cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://dash.doduo.cc&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/how-use-dashdot/dashdot-view.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/how-use-dashdot/dashdot-view.png&#34;
 	width=&#34;1915&#34;
 	height=&#34;999&#34;
-	srcset=&#34;https://blog.lass.cc/posts/how-use-dashdot/dashdot-view_hu9555e66beb1ea5e8dbb2e100ddd70c81_640124_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/how-use-dashdot/dashdot-view_hu9555e66beb1ea5e8dbb2e100ddd70c81_640124_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/how-use-dashdot/dashdot-view_hu9555e66beb1ea5e8dbb2e100ddd70c81_640124_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/how-use-dashdot/dashdot-view_hu9555e66beb1ea5e8dbb2e100ddd70c81_640124_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;dashdot-view&#34;
@@ -1237,10 +1237,10 @@ print(reply)&lt;/p&gt;
         </item>
         <item>
         <title>真正的Chrome-Docker镜像</title>
-        <link>https://blog.lass.cc/posts/real-chrome-docker/</link>
+        <link>https://srcrs.github.io/posts/real-chrome-docker/</link>
         <pubDate>Fri, 07 Apr 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/real-chrome-docker/</guid>
+        <guid>https://srcrs.github.io/posts/real-chrome-docker/</guid>
         <description>&lt;p&gt;最近在下班后学习用代码操作浏览器，遇到一个需要在浏览器播放视频的场景，在本地调试完成后，将代码放到服务器运行，发现在一段时间后，便卡在了某个地方，由于代码打印日志的不充分，并无法知道具体的位置。&lt;/p&gt;
 &lt;p&gt;添加相关节点的日志打印，发现是卡在了播放视频的节点，很好奇，由于是无头模式并不能观察到页面的状态，随之调整代码，将视频页的html源码输出到文件，确实和本地拿到的页面数据是不相同的，提示“暂不支持HTML5视频播放，请升级浏览器”，浏览器还不能播放视频？&lt;/p&gt;
 &lt;p&gt;找到源镜像文件，发现了下面这一段代码&lt;/p&gt;

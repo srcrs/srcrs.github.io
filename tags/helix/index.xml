@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Helix on srcrs</title>
-        <link>https://blog.lass.cc/tags/helix/</link>
+        <link>https://srcrs.github.io/tags/helix/</link>
         <description>Recent content in Helix on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 10 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/helix/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 10 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/helix/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>使用helix&#43;delve调试golang</title>
-        <link>https://blog.lass.cc/posts/use-helix-debug-by-golang/</link>
+        <link>https://srcrs.github.io/posts/use-helix-debug-by-golang/</link>
         <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/use-helix-debug-by-golang/</guid>
+        <guid>https://srcrs.github.io/posts/use-helix-debug-by-golang/</guid>
         <description>&lt;p&gt;本教程在macos和debian都可以进行使用，基础环境不再进行额外的叙述。&lt;/p&gt;
 &lt;h2 id=&#34;安装delve&#34;&gt;
     &lt;a href=&#34;#%e5%ae%89%e8%a3%85delve&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -58,10 +58,10 @@
         </item>
         <item>
         <title>helix使用记录</title>
-        <link>https://blog.lass.cc/posts/use-helix/</link>
+        <link>https://srcrs.github.io/posts/use-helix/</link>
         <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/use-helix/</guid>
+        <guid>https://srcrs.github.io/posts/use-helix/</guid>
         <description>&lt;h2 id=&#34;配置篇&#34;&gt;
     &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     配置篇

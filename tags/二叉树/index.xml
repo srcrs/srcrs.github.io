@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>二叉树 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+        <link>https://srcrs.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
         <description>Recent content in 二叉树 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 31 Aug 2019 15:58:25 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 31 Aug 2019 15:58:25 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>树状数组</title>
-        <link>https://blog.lass.cc/posts/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/</link>
+        <link>https://srcrs.github.io/posts/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/</link>
         <pubDate>Sat, 31 Aug 2019 15:58:25 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/</guid>
+        <guid>https://srcrs.github.io/posts/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/</guid>
         <description>&lt;p&gt;:::tip
 今天想学一学树状树了，老是看见别人在说可以用树状数组来解题，但是因为不知道是个什么东西，就没有太过关注，今天不知道蹦到哪根经了，所以这篇就来了。
 :::&lt;/p&gt;

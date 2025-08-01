@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 背景 js、css、图片等静态资源在每次网络请求占用不少时间，考虑使用cdn进行加速，找到了jsdelivr，它可以自动加速github资源的访问，并且可以免费使用，只需要很简单的操作就可以在vuepress用上。 # 操作方法 下面例子，我只对图片、js、css进行了加速。在config.js中插入如下代码即可。 1 2 3 4 5 6 7 8 9 10 11 12 13 //加速静态资源 configureWebpack: () =&gt; { return { output: { publicPath: &#39;https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/&#39; }, resolve: { alias: { &#39;docs&#39;: path.resolve(__dirname, &#39;./docs&#39;), } } } } # 解释 https://cdn.jsdelivr.net 代表网站根目录 gh 代表github，应该也可以对其他代码托管网站加速资源访问 srcrs 代表github用户名 srcrs.github.io 代表仓库名 gh-pages 代表仓库中的哪个分支 docs/ 代表具体的目录 # 结果 静态资源加速效果明显，体验更加好了，又能愉快的看博客、写博客了。 # 后续 pwa会导致博客内容更新速度很慢，上传了很久都没有弹出更新按钮，故在删除这一功能。">
 <title>加速博客静态资源加载</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="加速博客静态资源加载">
 <meta property='og:description' content="# 背景 js、css、图片等静态资源在每次网络请求占用不少时间，考虑使用cdn进行加速，找到了jsdelivr，它可以自动加速github资源的访问，并且可以免费使用，只需要很简单的操作就可以在vuepress用上。 # 操作方法 下面例子，我只对图片、js、css进行了加速。在config.js中插入如下代码即可。 1 2 3 4 5 6 7 8 9 10 11 12 13 //加速静态资源 configureWebpack: () =&gt; { return { output: { publicPath: &#39;https://cdn.jsdelivr.net/gh/srcrs/srcrs.github.io@gh-pages/docs/&#39; }, resolve: { alias: { &#39;docs&#39;: path.resolve(__dirname, &#39;./docs&#39;), } } } } # 解释 https://cdn.jsdelivr.net 代表网站根目录 gh 代表github，应该也可以对其他代码托管网站加速资源访问 srcrs 代表github用户名 srcrs.github.io 代表仓库名 gh-pages 代表仓库中的哪个分支 docs/ 代表具体的目录 # 结果 静态资源加速效果明显，体验更加好了，又能愉快的看博客、写博客了。 # 后续 pwa会导致博客内容更新速度很慢，上传了很久都没有弹出更新按钮，故在删除这一功能。">
-<meta property='og:url' content='https://blog.lass.cc/posts/%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='cdn' /><meta property='article:published_time' content='2021-05-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-05-12T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="加速博客静态资源加载">

@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 前序 AI画图风靡一时，极客精神必须要自建。 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 CPU：32 核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 基础环境配置 # 1.安装conda conda初始化一个干净的python环境，创建install_conda.sh 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 # 创建指定目录 mkdir -p ~/miniconda3 # 下载安装脚本到目标目录 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh # 执行静默安装（-b: 静默模式，-u: 更新现有安装，-p: 指定路径） bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 # 删除安装脚本（可选） rm ~/miniconda3/miniconda.sh # 编辑用户配置文件（如.bashrc或.zshrc） echo &#39;export PATH=&#34;$HOME/miniconda3/bin:$PATH&#34;&#39; &gt;&gt; ~/.">
 <title>Linux部署Flux的GGUF量化版</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/2025/03/29/flux-forge-gguf-by-linux/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/2025/03/29/flux-forge-gguf-by-linux/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="Linux部署Flux的GGUF量化版">
 <meta property='og:description' content="# 前序 AI画图风靡一时，极客精神必须要自建。 # 机器配置 操作系统：Tlinux 3.2 CPU：32核 CPU：32 核 内存：64G 硬盘：500G 显卡：L20 1/3卡，显存14G # 基础环境配置 # 1.安装conda conda初始化一个干净的python环境，创建install_conda.sh 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 # 创建指定目录 mkdir -p ~/miniconda3 # 下载安装脚本到目标目录 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh # 执行静默安装（-b: 静默模式，-u: 更新现有安装，-p: 指定路径） bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 # 删除安装脚本（可选） rm ~/miniconda3/miniconda.sh # 编辑用户配置文件（如.bashrc或.zshrc） echo &#39;export PATH=&#34;$HOME/miniconda3/bin:$PATH&#34;&#39; &gt;&gt; ~/.">
-<meta property='og:url' content='https://blog.lass.cc/posts/2025/03/29/flux-forge-gguf-by-linux/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/2025/03/29/flux-forge-gguf-by-linux/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2025-03-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-29T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Linux部署Flux的GGUF量化版">

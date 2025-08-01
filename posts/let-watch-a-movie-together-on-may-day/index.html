@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 在前面已经给大家推荐过【exatorrent】好用的web端BT磁力在线播放工具，这个工具将会把电影下载到本地磁盘，当种子热度不好的时候，下载完再看不会有卡顿的情况。 那时候就在想，有没有一款工具不用下载就可以立即观看电影的工具，就是它了——TorrServer，实际使用起来也是很好的，只有在观看电影时才会占用一些资源，而且只是缓存电影当前这一小部分，当观看结束后资源会自动释放。 # TorrServer介绍 TorrServer是由YouROK开源的作品，后端使用Go语言实现，可以在本地使用或者托管到云端，页面较为简单，支持设置访问密码，实现磁力电影的在线播放。 项目地址：TorrServer # 操作环境 系统：debian10 x64 Docker版本：26.1.1 Docker-Compose版本：v2.27.0 网络：美国洛杉矶 详细机器配置可查看：dash # 部署 # 安装docker 1 2 3 4 5 curl -fsSL https://get.docker.com -o get-docker.sh chmod +x get-docker.sh ./get-docker.sh # 创建docker-compose.yml 创建一个空文件夹，如TorrServer，创建docker-compose.yml文件 1 2 3 4 5 mkdir TorrServer cd TorrServer touch docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 version: &#39;3.3&#39; services: torrserver: image: ghcr.">
 <title>【TorrServer】五一没去处那就一起来看电影吧【磁力在线播放器】</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/let-watch-a-movie-together-on-may-day/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/let-watch-a-movie-together-on-may-day/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="【TorrServer】五一没去处那就一起来看电影吧【磁力在线播放器】">
 <meta property='og:description' content="# 简述 在前面已经给大家推荐过【exatorrent】好用的web端BT磁力在线播放工具，这个工具将会把电影下载到本地磁盘，当种子热度不好的时候，下载完再看不会有卡顿的情况。 那时候就在想，有没有一款工具不用下载就可以立即观看电影的工具，就是它了——TorrServer，实际使用起来也是很好的，只有在观看电影时才会占用一些资源，而且只是缓存电影当前这一小部分，当观看结束后资源会自动释放。 # TorrServer介绍 TorrServer是由YouROK开源的作品，后端使用Go语言实现，可以在本地使用或者托管到云端，页面较为简单，支持设置访问密码，实现磁力电影的在线播放。 项目地址：TorrServer # 操作环境 系统：debian10 x64 Docker版本：26.1.1 Docker-Compose版本：v2.27.0 网络：美国洛杉矶 详细机器配置可查看：dash # 部署 # 安装docker 1 2 3 4 5 curl -fsSL https://get.docker.com -o get-docker.sh chmod +x get-docker.sh ./get-docker.sh # 创建docker-compose.yml 创建一个空文件夹，如TorrServer，创建docker-compose.yml文件 1 2 3 4 5 mkdir TorrServer cd TorrServer touch docker-compose.yml 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 version: &#39;3.3&#39; services: torrserver: image: ghcr.">
-<meta property='og:url' content='https://blog.lass.cc/posts/let-watch-a-movie-together-on-may-day/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/let-watch-a-movie-together-on-may-day/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='torrent' /><meta property='article:published_time' content='2024-05-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-05-02T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="【TorrServer】五一没去处那就一起来看电影吧【磁力在线播放器】">

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>云函数 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E4%BA%91%E5%87%BD%E6%95%B0/</link>
+        <link>https://srcrs.github.io/tags/%E4%BA%91%E5%87%BD%E6%95%B0/</link>
         <description>Recent content in 云函数 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E4%BA%91%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E4%BA%91%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>关于serverless的坑</title>
-        <link>https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8Eserverless%E7%9A%84%E5%9D%91/</link>
+        <link>https://srcrs.github.io/posts/%E5%85%B3%E4%BA%8Eserverless%E7%9A%84%E5%9D%91/</link>
         <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8Eserverless%E7%9A%84%E5%9D%91/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%85%B3%E4%BA%8Eserverless%E7%9A%84%E5%9D%91/</guid>
         <description>&lt;p&gt;Github Actions的服务器在国外，访问国内的资源可能会受到影响。联通签到脚本的会经常性的出现“接口防刷策略”，导致奖励领取失败，一直也不知道是什么原因，在本地测试运行时，却没有出现状况，猜测是由于网络的问题。&lt;/p&gt;
 &lt;p&gt;因此，就在寻找Github Actions的替代品，单独为此去购买服务器不太值得，本地化每天还需手动运行，现今，各大厂商的云函数具有免费额度，仅仅需将程序适配，是用来跑脚本的不二之选。&lt;/p&gt;
 &lt;p&gt;云函数，宣传的是所谓无服务器架构，创建web项目无需关注环境问题，开发者可将更多的时间着眼于业务的实现，将整个项目化解为一个个小的函数，再拼接到一起，项目就做成了。&lt;/p&gt;

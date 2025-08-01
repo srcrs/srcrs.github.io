@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>日志 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E6%97%A5%E5%BF%97/</link>
+        <link>https://srcrs.github.io/tags/%E6%97%A5%E5%BF%97/</link>
         <description>Recent content in 日志 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%97%A5%E5%BF%97/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E6%97%A5%E5%BF%97/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>线上和测试环境查日志总结</title>
-        <link>https://blog.lass.cc/posts/%E7%BA%BF%E4%B8%8A%E5%92%8C%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%9F%A5%E6%97%A5%E5%BF%97%E6%80%BB%E7%BB%93/</link>
+        <link>https://srcrs.github.io/posts/%E7%BA%BF%E4%B8%8A%E5%92%8C%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%9F%A5%E6%97%A5%E5%BF%97%E6%80%BB%E7%BB%93/</link>
         <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%BA%BF%E4%B8%8A%E5%92%8C%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%9F%A5%E6%97%A5%E5%BF%97%E6%80%BB%E7%BB%93/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%BA%BF%E4%B8%8A%E5%92%8C%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%9F%A5%E6%97%A5%E5%BF%97%E6%80%BB%E7%BB%93/</guid>
         <description>&lt;p&gt;在写代码的过程中，发现很多的时间都会耗费在寻找错误，debug太慢，导致效率不高。&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h2 id=&#34;简述&#34;&gt;

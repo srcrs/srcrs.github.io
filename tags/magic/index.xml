@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Magic on srcrs</title>
-        <link>https://blog.lass.cc/tags/magic/</link>
+        <link>https://srcrs.github.io/tags/magic/</link>
         <description>Recent content in Magic on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 10 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/magic/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/magic/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>MagicBox使用手册</title>
-        <link>https://blog.lass.cc/posts/how-use-magic-box-v2/</link>
+        <link>https://srcrs.github.io/posts/how-use-magic-box-v2/</link>
         <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/how-use-magic-box-v2/</guid>
+        <guid>https://srcrs.github.io/posts/how-use-magic-box-v2/</guid>
         <description>&lt;h2 id=&#34;简述&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简述
@@ -450,10 +450,10 @@
         </item>
         <item>
         <title>双十一京东自动申请价保助手</title>
-        <link>https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/</link>
+        <link>https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/</link>
         <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/</guid>
+        <guid>https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/</guid>
         <description>&lt;p&gt;京东2023年双十一已于10月23日20点开启，借着宣传下magicbox自动价保。在上周，magicbox已接入了青龙面板，好处是以后改配置相关的内容不需要再登录服务器了，同时也方便了每个任务的执行情况。接下来将以京东价保任务为例将magicbox配置在青龙面板。&lt;/p&gt;
 &lt;h2 id=&#34;环境说明&#34;&gt;
     &lt;a href=&#34;#%e7%8e%af%e5%a2%83%e8%af%b4%e6%98%8e&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -536,10 +536,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;访问 http://ip:5700 正常可看到下面页面，按照引导正常安装即可，其实只需要设置下密码就行了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1.png&#34;
 	width=&#34;1184&#34;
 	height=&#34;680&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1_hucd38eda13501b81a23d0f91eb04bc61d_61301_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1_hucd38eda13501b81a23d0f91eb04bc61d_61301_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1_hucd38eda13501b81a23d0f91eb04bc61d_61301_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/1_hucd38eda13501b81a23d0f91eb04bc61d_61301_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -549,10 +549,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;这个是此步骤最终的效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2.png&#34;
 	width=&#34;1918&#34;
 	height=&#34;995&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2_hu7448da2eaf6eddfb0df266d25c970e78_87217_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2_hu7448da2eaf6eddfb0df266d25c970e78_87217_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2_hu7448da2eaf6eddfb0df266d25c970e78_87217_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/2_hu7448da2eaf6eddfb0df266d25c970e78_87217_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -573,10 +573,10 @@
 &lt;/ul&gt;
 &lt;p&gt;添加完成后点击运行，代码便会下载至&lt;strong&gt;脚本管理&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;注意若是国内机器需要使用代理。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3.png&#34;
 	width=&#34;1739&#34;
 	height=&#34;275&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3_hu88ef99bc624886c29ad81724d16a0201_51289_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3_hu88ef99bc624886c29ad81724d16a0201_51289_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3_hu88ef99bc624886c29ad81724d16a0201_51289_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/3_hu88ef99bc624886c29ad81724d16a0201_51289_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -594,10 +594,10 @@
 &lt;li&gt;命令/脚本：MagicBox/install.sh&lt;/li&gt;
 &lt;li&gt;定时规则：0 0 * * *&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4.png&#34;
 	width=&#34;1736&#34;
 	height=&#34;338&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4_hue0b0b24fb432082b6d72ed701b780d3e_65110_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4_hue0b0b24fb432082b6d72ed701b780d3e_65110_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4_hue0b0b24fb432082b6d72ed701b780d3e_65110_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/4_hue0b0b24fb432082b6d72ed701b780d3e_65110_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -620,10 +620,10 @@
 &lt;li&gt;定时规则：0 0 * * *&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;添加完成之后，点击执行，打开日志等待二维码出现扫码登录即可，正常会把cookie打印出。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5.png&#34;
 	width=&#34;1735&#34;
 	height=&#34;924&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5_hua499ced321e6552eb6f10770f8713648_141986_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5_hua499ced321e6552eb6f10770f8713648_141986_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5_hua499ced321e6552eb6f10770f8713648_141986_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/5_hua499ced321e6552eb6f10770f8713648_141986_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -632,10 +632,10 @@
 		data-flex-basis=&#34;450px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6.png&#34;
 	width=&#34;1729&#34;
 	height=&#34;400&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6_hu5f413bc7886a91fcc07600752cd86e09_81559_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6_hu5f413bc7886a91fcc07600752cd86e09_81559_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6_hu5f413bc7886a91fcc07600752cd86e09_81559_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/6_hu5f413bc7886a91fcc07600752cd86e09_81559_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -695,10 +695,10 @@
     &lt;a href=&#34;#%e4%bf%ae%e6%94%b9%e4%ba%ac%e4%b8%9c%e4%bb%bb%e5%8a%a1%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     修改京东任务配置
 &lt;/h2&gt;&lt;p&gt;此步骤主要是填写cookie，可以忽略其余的配置。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7.png&#34;
 	width=&#34;1914&#34;
 	height=&#34;759&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7_huc1fa66c738dff7d4cd4d418c6f057259_122988_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7_huc1fa66c738dff7d4cd4d418c6f057259_122988_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7_huc1fa66c738dff7d4cd4d418c6f057259_122988_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/7_huc1fa66c738dff7d4cd4d418c6f057259_122988_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -717,10 +717,10 @@
 &lt;li&gt;定时规则：10 10 */2 * * *&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;保留jd任务，其余三个为了拉取代码、安装环境、获取cookie的定时任务，可以设置为禁止执行，至此已全部完成。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9.png&#34;
 	width=&#34;1735&#34;
 	height=&#34;481&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9_hu4ff5d65de7580b0e80e15fcd7f057d26_100630_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9_hu4ff5d65de7580b0e80e15fcd7f057d26_100630_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9_hu4ff5d65de7580b0e80e15fcd7f057d26_100630_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/9_hu4ff5d65de7580b0e80e15fcd7f057d26_100630_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -729,10 +729,10 @@
 		data-flex-basis=&#34;865px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10.jpeg&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10.jpeg&#34;
 	width=&#34;1170&#34;
 	height=&#34;804&#34;
-	srcset=&#34;https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10_hucafa78a3689bbd211622e2421c47448c_453340_480x0_resize_q75_box.jpeg 480w, https://blog.lass.cc/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10_hucafa78a3689bbd211622e2421c47448c_453340_1024x0_resize_q75_box.jpeg 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10_hucafa78a3689bbd211622e2421c47448c_453340_480x0_resize_q75_box.jpeg 480w, https://srcrs.github.io/posts/double-eleven-jd-automatically-applies-for-price-insurance-assistant/10_hucafa78a3689bbd211622e2421c47448c_453340_1024x0_resize_q75_box.jpeg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -745,10 +745,10 @@
         </item>
         <item>
         <title>MagicBox手册</title>
-        <link>https://blog.lass.cc/posts/how-use-magic-box/</link>
+        <link>https://srcrs.github.io/posts/how-use-magic-box/</link>
         <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/how-use-magic-box/</guid>
+        <guid>https://srcrs.github.io/posts/how-use-magic-box/</guid>
         <description>&lt;h2 id=&#34;简述&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简述
@@ -1810,10 +1810,10 @@
         </item>
         <item>
         <title>B站自动完成每日任务</title>
-        <link>https://blog.lass.cc/posts/use-bilibili-task-docker/</link>
+        <link>https://srcrs.github.io/posts/use-bilibili-task-docker/</link>
         <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/use-bilibili-task-docker/</guid>
+        <guid>https://srcrs.github.io/posts/use-bilibili-task-docker/</guid>
         <description>&lt;h2 id=&#34;介绍&#34;&gt;
     &lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     介绍
@@ -1975,10 +1975,10 @@
         </item>
         <item>
         <title>Magic手册</title>
-        <link>https://blog.lass.cc/posts/how-use-magic/</link>
+        <link>https://srcrs.github.io/posts/how-use-magic/</link>
         <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/how-use-magic/</guid>
+        <guid>https://srcrs.github.io/posts/how-use-magic/</guid>
         <description>&lt;h2 id=&#34;产品介绍&#34;&gt;
     &lt;a href=&#34;#%e4%ba%a7%e5%93%81%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     产品介绍
@@ -2182,10 +2182,10 @@
     &lt;a href=&#34;#%e8%81%94%e7%b3%bb%e6%96%b9%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     联系方式
 &lt;/h2&gt;&lt;p&gt;Email: &lt;a class=&#34;link&#34; href=&#34;mailto:asksowhat@outlook.com&#34; &gt;asksowhat@outlook.com&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;微信群: &lt;img src=&#34;https://blog.lass.cc/posts/how-use-magic/wechat.jpeg&#34;
+&lt;p&gt;微信群: &lt;img src=&#34;https://srcrs.github.io/posts/how-use-magic/wechat.jpeg&#34;
 	width=&#34;1056&#34;
 	height=&#34;1371&#34;
-	srcset=&#34;https://blog.lass.cc/posts/how-use-magic/wechat_hu022a214f74bea0e895b3ecc4b9b066ab_219836_480x0_resize_q75_box.jpeg 480w, https://blog.lass.cc/posts/how-use-magic/wechat_hu022a214f74bea0e895b3ecc4b9b066ab_219836_1024x0_resize_q75_box.jpeg 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/how-use-magic/wechat_hu022a214f74bea0e895b3ecc4b9b066ab_219836_480x0_resize_q75_box.jpeg 480w, https://srcrs.github.io/posts/how-use-magic/wechat_hu022a214f74bea0e895b3ecc4b9b066ab_219836_1024x0_resize_q75_box.jpeg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;群链接&#34;

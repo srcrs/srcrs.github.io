@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Linux on srcrs</title>
-        <link>https://blog.lass.cc/tags/linux/</link>
+        <link>https://srcrs.github.io/tags/linux/</link>
         <description>Recent content in Linux on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 20 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 20 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Linux操作系统之用户管理</title>
-        <link>https://blog.lass.cc/posts/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</link>
+        <link>https://srcrs.github.io/posts/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</link>
         <pubDate>Thu, 20 May 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://srcrs.github.io/posts/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</guid>
         <description>&lt;p&gt;Linux是一个多用户多任务的操作系统，在过去只使用过root账号，它是一个特殊的账号，在Linux系统中具有最高的权限。其他的用户都需要通过root账号去管理。&lt;/p&gt;
 &lt;h2 id=&#34;用户组&#34;&gt;
     &lt;a href=&#34;#%e7%94%a8%e6%88%b7%e7%bb%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>疑问 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E7%96%91%E9%97%AE/</link>
+        <link>https://srcrs.github.io/tags/%E7%96%91%E9%97%AE/</link>
         <description>Recent content in 疑问 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 27 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E7%96%91%E9%97%AE/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 27 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E7%96%91%E9%97%AE/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>流水线执行方式</title>
-        <link>https://blog.lass.cc/posts/%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F/</link>
+        <link>https://srcrs.github.io/posts/%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F/</link>
         <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F/</guid>
+        <guid>https://srcrs.github.io/posts/%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F/</guid>
         <description>&lt;p&gt;:::tip
 流水线执行方式对比的是串行执行方式，串行执行方式比较简单，一个指令执行完下一个指令才可以执行，流水线执行方式有点颠覆我以前的想法。
 :::&lt;/p&gt;

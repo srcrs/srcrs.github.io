@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Token on srcrs</title>
-        <link>https://blog.lass.cc/tags/token/</link>
+        <link>https://srcrs.github.io/tags/token/</link>
         <description>Recent content in Token on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/token/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/token/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>保存登录状态</title>
-        <link>https://blog.lass.cc/posts/save-login-status/</link>
+        <link>https://srcrs.github.io/posts/save-login-status/</link>
         <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/save-login-status/</guid>
+        <guid>https://srcrs.github.io/posts/save-login-status/</guid>
         <description>&lt;p&gt;:::tip
 &lt;code&gt;http&lt;/code&gt;请求是无状态的，也就是请求一次的状态并不会保存下来，有的网站的一些操作权限只支持登录的用户，以前做的登录就是请求一次&lt;code&gt;API&lt;/code&gt;，验证有没有这个用户，就假装登陆了。如何授权并保持这样的登录状态呢？
 :::&lt;/p&gt;

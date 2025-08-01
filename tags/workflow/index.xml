@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Workflow on srcrs</title>
-        <link>https://blog.lass.cc/tags/workflow/</link>
+        <link>https://srcrs.github.io/tags/workflow/</link>
         <description>Recent content in Workflow on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 30 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/workflow/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 30 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/workflow/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>工作流实践中的一些思考</title>
-        <link>https://blog.lass.cc/posts/some-thoughts-on-workflow-practice/</link>
+        <link>https://srcrs.github.io/posts/some-thoughts-on-workflow-practice/</link>
         <pubDate>Tue, 30 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/some-thoughts-on-workflow-practice/</guid>
+        <guid>https://srcrs.github.io/posts/some-thoughts-on-workflow-practice/</guid>
         <description>&lt;p&gt;最近迷上了用工作流解决问题，比如之前做的一些网站签到程序，都准备用工作流来平替，目前看来能适用绝大部分场景，打开网页，点击按钮，获取元素值，每一步都是明确的，仅仅替换变量即可，将整个流程拼接起来，就完成了一个自定义网站的签到任务。&lt;/p&gt;
 &lt;p&gt;工作中用到的场景也比较多，作为开发在某些时候确实少了很多事情，我想聊聊在使用中的感受。&lt;/p&gt;
 &lt;ul&gt;

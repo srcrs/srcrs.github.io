@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" # 什么是hash？ hash也被称作散列、哈希，其基本原理是将任意长度的输入，通过hash函数映射成固定长度的输出，开发中使用MD5、SHA都是经典hash算法。常被用来验证数据是否被篡改。 # hash算法使用场景 # 哈希函数 在哈希函数中可以使用哈希算法对key值进行散列，根据hash值确定该key的散列表存储位置，需要注意散列表的平均性。 # 唯一标识 在绝大部分情况下，hash算法针对不同的二进制内容生成的hash值是不一样的，但由于hash会导致hash碰撞（冲突），因此可能存在hash值相同，而二进制内容不同的情况发生，这点需要注意。 # 数据校验 当一个软件打包完成后，使用hash算法，便可得到该软件包的二进制值，可以用来判断软件包是否被篡改。但此校验并无完全正确，存在出错的可能。 # 安全加密 由于哈希具有不可逆性，黑客原则上是无法通过hash值反解其原本内容；相同的二进制内容，hash值相同。针对这两点特性，可以将其应用在敏感数据的安全性方面，如用户的密码存储等。当二进制内容过于简单时，黑客很可能会通过爆破方式进行破解，可引入“盐”，简单说就是一串用户自定义内容，防止黑客很容易破解。 # 分布式 ">
 <title>hash算法与一致性hash算法</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/hash-algorithm-and-consistent-hash-algorithm/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/hash-algorithm-and-consistent-hash-algorithm/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="hash算法与一致性hash算法">
 <meta property='og:description' content=" # 什么是hash？ hash也被称作散列、哈希，其基本原理是将任意长度的输入，通过hash函数映射成固定长度的输出，开发中使用MD5、SHA都是经典hash算法。常被用来验证数据是否被篡改。 # hash算法使用场景 # 哈希函数 在哈希函数中可以使用哈希算法对key值进行散列，根据hash值确定该key的散列表存储位置，需要注意散列表的平均性。 # 唯一标识 在绝大部分情况下，hash算法针对不同的二进制内容生成的hash值是不一样的，但由于hash会导致hash碰撞（冲突），因此可能存在hash值相同，而二进制内容不同的情况发生，这点需要注意。 # 数据校验 当一个软件打包完成后，使用hash算法，便可得到该软件包的二进制值，可以用来判断软件包是否被篡改。但此校验并无完全正确，存在出错的可能。 # 安全加密 由于哈希具有不可逆性，黑客原则上是无法通过hash值反解其原本内容；相同的二进制内容，hash值相同。针对这两点特性，可以将其应用在敏感数据的安全性方面，如用户的密码存储等。当二进制内容过于简单时，黑客很可能会通过爆破方式进行破解，可引入“盐”，简单说就是一串用户自定义内容，防止黑客很容易破解。 # 分布式 ">
-<meta property='og:url' content='https://blog.lass.cc/posts/hash-algorithm-and-consistent-hash-algorithm/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/hash-algorithm-and-consistent-hash-algorithm/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='hash' /><meta property='article:published_time' content='2023-01-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-01-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="hash算法与一致性hash算法">

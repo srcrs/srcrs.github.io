@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 实现数据库的动态完整性，能够避免一些不必要的错误。例如当一个人的学号修改了，则相应的选课表等基本表的学号也要修改。 ::: # 示例1 设计一个触发器当进行Teacher表更新元组时，使其工资只能升不能降。 1 2 3 4 5 6 7 8 9 10 11 12 13 create trigger teacher_chgsal #定义触发器的名字 before updata of salary #触发条件 on teacher #对应的表 referencing new x, old y #定义变量 for each row when(x.salary &lt; y.salary) begin raise_application_reeor(-20003,&#39;invalid salary on updata&#39;); #Oracle报错函数 end; # 示例2 假设student(S#,Sname,SumCourse),SumCourse为该同学已学习的课程的门数，初始值为0，以后没选秀一门课都要对其增1。设计一个触发器自动完成上述功能。 1 2 3 4 5 6 7 8 9 10 11 12 13 create trigger sumc after insert #触发条件 on sc #对应的表 referencing new newi #定义变量 for each row begin update student set SumCourse = SumCourse + 1 where S# = :newi.">
 <title>SQL触发器</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/sql-trigger/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/sql-trigger/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="SQL触发器">
 <meta property='og:description' content=":::tip 实现数据库的动态完整性，能够避免一些不必要的错误。例如当一个人的学号修改了，则相应的选课表等基本表的学号也要修改。 ::: # 示例1 设计一个触发器当进行Teacher表更新元组时，使其工资只能升不能降。 1 2 3 4 5 6 7 8 9 10 11 12 13 create trigger teacher_chgsal #定义触发器的名字 before updata of salary #触发条件 on teacher #对应的表 referencing new x, old y #定义变量 for each row when(x.salary &lt; y.salary) begin raise_application_reeor(-20003,&#39;invalid salary on updata&#39;); #Oracle报错函数 end; # 示例2 假设student(S#,Sname,SumCourse),SumCourse为该同学已学习的课程的门数，初始值为0，以后没选秀一门课都要对其增1。设计一个触发器自动完成上述功能。 1 2 3 4 5 6 7 8 9 10 11 12 13 create trigger sumc after insert #触发条件 on sc #对应的表 referencing new newi #定义变量 for each row begin update student set SumCourse = SumCourse + 1 where S# = :newi.">
-<meta property='og:url' content='https://blog.lass.cc/posts/sql-trigger/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/sql-trigger/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='数据库' /><meta property='article:published_time' content='2020-03-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-03-28T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="SQL触发器">

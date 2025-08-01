@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Other on srcrs</title>
-        <link>https://blog.lass.cc/categories/other/</link>
+        <link>https://srcrs.github.io/categories/other/</link>
         <description>Recent content in Other on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/categories/other/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/categories/other/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>2024年下半年软件设计师</title>
-        <link>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</link>
+        <link>https://srcrs.github.io/posts/2024/11/10/ruankao-sd-by-2024/</link>
         <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</guid>
+        <guid>https://srcrs.github.io/posts/2024/11/10/ruankao-sd-by-2024/</guid>
         <description>&lt;h2 id=&#34;上午选择题&#34;&gt;
     &lt;a href=&#34;#%e4%b8%8a%e5%8d%88%e9%80%89%e6%8b%a9%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     上午选择题
@@ -180,10 +180,10 @@
         </item>
         <item>
         <title>helix使用记录</title>
-        <link>https://blog.lass.cc/posts/use-helix/</link>
+        <link>https://srcrs.github.io/posts/use-helix/</link>
         <pubDate>Tue, 18 Jun 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/use-helix/</guid>
+        <guid>https://srcrs.github.io/posts/use-helix/</guid>
         <description>&lt;h2 id=&#34;配置篇&#34;&gt;
     &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e7%af%87&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     配置篇
@@ -316,10 +316,10 @@ p paragraph 段落&lt;/p&gt;
         </item>
         <item>
         <title>工作两年了随便聊点什么吧</title>
-        <link>https://blog.lass.cc/posts/work-for-two-years/</link>
+        <link>https://srcrs.github.io/posts/work-for-two-years/</link>
         <pubDate>Sun, 06 Aug 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/work-for-two-years/</guid>
+        <guid>https://srcrs.github.io/posts/work-for-two-years/</guid>
         <description>&lt;p&gt;毕业满两年了，总想着记录下些什么，想到什么就写什么了。在两家公司工作过，都是互联网岗位，但是不同的行业，在这家公司这个月过后也满一年了，最近几次处理工作上的紧急问题，我第一次感受到自己发生的改变，虽然心里还是很慌张，但是仍然能清晰的按照正确的思路，快速找到问题所在，然后解决，这是一个突破。&lt;/p&gt;
 &lt;p&gt;在大城市，有时候会莫名的感受到孤独感，为了什么，要得到什么，这是个问号，不关心每月工资到账，因为知道，这不会给生活带来什么改变，面对着超高的房价，再看看账户，最后只能是这城市的过客。&lt;/p&gt;
 &lt;p&gt;最近也越来越感受到家人思想的局限性，也有可能是我的局限性，如果法律允许的情况下，希望我能在家里也交一份公积金，顿时就不乐意了，老家在农村已有自建房，十八线开外的县城根本没有买房的必要性，我也不是很相信商品楼的未来，大城市也许会有兜底，但是小县城就难说了。&lt;/p&gt;
@@ -328,10 +328,10 @@ p paragraph 段落&lt;/p&gt;
         </item>
         <item>
         <title>记录一下问题排查过程</title>
-        <link>https://blog.lass.cc/posts/solve-test-problem/</link>
+        <link>https://srcrs.github.io/posts/solve-test-problem/</link>
         <pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/solve-test-problem/</guid>
+        <guid>https://srcrs.github.io/posts/solve-test-problem/</guid>
         <description>&lt;h2 id=&#34;问题描述&#34;&gt;
     &lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     问题描述：
@@ -435,10 +435,10 @@ p paragraph 段落&lt;/p&gt;
         </item>
         <item>
         <title>细数我做的一些小工具</title>
-        <link>https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
+        <link>https://srcrs.github.io/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
         <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
         <description>&lt;p&gt;这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。&lt;/p&gt;
 &lt;p&gt;从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。&lt;/p&gt;
 &lt;p&gt;当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。&lt;/p&gt;

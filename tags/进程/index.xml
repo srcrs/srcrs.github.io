@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>进程 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E8%BF%9B%E7%A8%8B/</link>
+        <link>https://srcrs.github.io/tags/%E8%BF%9B%E7%A8%8B/</link>
         <description>Recent content in 进程 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 01 Jun 2019 14:54:18 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E8%BF%9B%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 01 Jun 2019 14:54:18 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E8%BF%9B%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>进程同步之生产者与消费者关系</title>
-        <link>https://blog.lass.cc/posts/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E5%85%B3%E7%B3%BB/</link>
+        <link>https://srcrs.github.io/posts/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E5%85%B3%E7%B3%BB/</link>
         <pubDate>Sat, 01 Jun 2019 14:54:18 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E5%85%B3%E7%B3%BB/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E5%85%B3%E7%B3%BB/</guid>
         <description>&lt;p&gt;:::tip
 社会发展到今天，电子产品一天也离不开我们的生活。通常程序(APP)是不可以并发运行的，如果并发运行将会因为程序执行速度的不同，结果就不可控制了，但是日常生活中我们常需要程序一起运行，例如我想听歌，还想查看网页，进程概念由此而生。
 :::&lt;/p&gt;

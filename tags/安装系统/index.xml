@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>安装系统 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/</link>
+        <link>https://srcrs.github.io/tags/%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/</link>
         <description>Recent content in 安装系统 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 07 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 07 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>安装系统</title>
-        <link>https://blog.lass.cc/posts/install-the-system/</link>
+        <link>https://srcrs.github.io/posts/install-the-system/</link>
         <pubDate>Sun, 07 Jul 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/install-the-system/</guid>
+        <guid>https://srcrs.github.io/posts/install-the-system/</guid>
         <description>&lt;p&gt;目前我用过安装系统的方法只有两种，一种是PE盘安装，另一种是启动盘安装。&lt;/p&gt;
 &lt;p&gt;安装一个新系统不外乎有这么几个步骤。&lt;/p&gt;
 &lt;p&gt;①设置U盘为第一启动项。&lt;/p&gt;

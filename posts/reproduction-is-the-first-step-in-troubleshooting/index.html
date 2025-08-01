@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="上周四，在新公司第一次凌晨2点回家。 源于一个已经跑了一年多的故障，起初以为是一个很简单的bug，没想到却查了那么久。周四下午14点上班后就开始排查，最开始的思路就是倒推，因为是线上环境，我们的日志并没有全量打印，查了几个小时，并没有找到合理的逻辑证据链。 “想办法在测试环境复现吧”，这个方向在排查受阻时就已经尝试过了，再次回到这里实属无奈，找了几个case，完全按照着一样的路径，并没有办法复现，耐心逐渐消失；又回到根据日志倒退的排查思路，没有痕迹，排查陷入僵局。 又分析了一下这些用户共同的行为特征，确实找到了共性，有两个困难点：1.没有办法复现，2.没有日志支撑。最后我们找到了这其实就是问题之一，这是后话了。 快下班了，要给领导一个交代了，解释完全说不通，挨叼回来后，又有几个同事加入了进来，不得不说真的很专业，很细心，但可能是对于我们业务的不熟悉，完全按照我们以前的排查思路，数小时后，无果。 这次问题其实是有两个，事情开始有了解决的眉目是源于其中一个问题能够稳定的复现，代码逻辑没人看得懂没关系，疯狂加日志、复现，终找到了问题所在。此时已经凌晨2点了，还有另外一个问题没有被解决。 走在回家的路上，突然意识到这两个问题是有关联的，便想着问题原因、复现步骤、解决办法，到家后又花了两个小时，最后一个问题也可以稳定的复现了，上班后很快就打了补丁解决了。 最后一个问题复现困难在于特殊条件限制、并发才会触发，普通正常逻辑是没有问题的，因为这个问题涉及到我写的一段代码，还和领导争论了一会，避免引火上身。 异常逻辑，不应该直接if忽略，请慷慨的打印错误日志吧。">
 <title>复现是排查问题的第一步</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/reproduction-is-the-first-step-in-troubleshooting/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/reproduction-is-the-first-step-in-troubleshooting/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="复现是排查问题的第一步">
 <meta property='og:description' content="上周四，在新公司第一次凌晨2点回家。 源于一个已经跑了一年多的故障，起初以为是一个很简单的bug，没想到却查了那么久。周四下午14点上班后就开始排查，最开始的思路就是倒推，因为是线上环境，我们的日志并没有全量打印，查了几个小时，并没有找到合理的逻辑证据链。 “想办法在测试环境复现吧”，这个方向在排查受阻时就已经尝试过了，再次回到这里实属无奈，找了几个case，完全按照着一样的路径，并没有办法复现，耐心逐渐消失；又回到根据日志倒退的排查思路，没有痕迹，排查陷入僵局。 又分析了一下这些用户共同的行为特征，确实找到了共性，有两个困难点：1.没有办法复现，2.没有日志支撑。最后我们找到了这其实就是问题之一，这是后话了。 快下班了，要给领导一个交代了，解释完全说不通，挨叼回来后，又有几个同事加入了进来，不得不说真的很专业，很细心，但可能是对于我们业务的不熟悉，完全按照我们以前的排查思路，数小时后，无果。 这次问题其实是有两个，事情开始有了解决的眉目是源于其中一个问题能够稳定的复现，代码逻辑没人看得懂没关系，疯狂加日志、复现，终找到了问题所在。此时已经凌晨2点了，还有另外一个问题没有被解决。 走在回家的路上，突然意识到这两个问题是有关联的，便想着问题原因、复现步骤、解决办法，到家后又花了两个小时，最后一个问题也可以稳定的复现了，上班后很快就打了补丁解决了。 最后一个问题复现困难在于特殊条件限制、并发才会触发，普通正常逻辑是没有问题的，因为这个问题涉及到我写的一段代码，还和领导争论了一会，避免引火上身。 异常逻辑，不应该直接if忽略，请慷慨的打印错误日志吧。">
-<meta property='og:url' content='https://blog.lass.cc/posts/reproduction-is-the-first-step-in-troubleshooting/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/reproduction-is-the-first-step-in-troubleshooting/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='work' /><meta property='article:published_time' content='2024-06-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-06-04T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="复现是排查问题的第一步">

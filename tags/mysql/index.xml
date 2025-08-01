@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Mysql on srcrs</title>
-        <link>https://blog.lass.cc/tags/mysql/</link>
+        <link>https://srcrs.github.io/tags/mysql/</link>
         <description>Recent content in Mysql on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/mysql/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>MySQL服务器集群的简单实现</title>
-        <link>https://blog.lass.cc/posts/mysql%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link>
+        <link>https://srcrs.github.io/posts/mysql%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link>
         <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/mysql%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid>
+        <guid>https://srcrs.github.io/posts/mysql%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid>
         <description>&lt;h2 id=&#34;起因&#34;&gt;
     &lt;a href=&#34;#%e8%b5%b7%e5%9b%a0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     起因
@@ -545,10 +545,10 @@
         </item>
         <item>
         <title>MySQL服务器集群的简单实现</title>
-        <link>https://blog.lass.cc/posts/simple-implementation-of-mysql-server-cluster/</link>
+        <link>https://srcrs.github.io/posts/simple-implementation-of-mysql-server-cluster/</link>
         <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/simple-implementation-of-mysql-server-cluster/</guid>
+        <guid>https://srcrs.github.io/posts/simple-implementation-of-mysql-server-cluster/</guid>
         <description>&lt;h2 id=&#34;起因&#34;&gt;
     &lt;a href=&#34;#%e8%b5%b7%e5%9b%a0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     起因
@@ -1082,10 +1082,10 @@
         </item>
         <item>
         <title>ubuntu18.04彻底删除MySQL数据库</title>
-        <link>https://blog.lass.cc/posts/ubuntu1804-completely-deletes-mysql-database/</link>
+        <link>https://srcrs.github.io/posts/ubuntu1804-completely-deletes-mysql-database/</link>
         <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/ubuntu1804-completely-deletes-mysql-database/</guid>
+        <guid>https://srcrs.github.io/posts/ubuntu1804-completely-deletes-mysql-database/</guid>
         <description>&lt;p&gt;从接触MySQL数据库开始，不可避免的一个问题就是数据库彻底删除，windows上，卸载了之后，可能要到ProgramData里面有没有看看是否有mysql文件夹，找到删除，Program Files，Program Files(x86)也是如此，然后再到注册表搜索一下mysql，找到也要删除，如果这些文件存在的话，很有可能会影响下一次的安装。&lt;/p&gt;
 &lt;p&gt;如果服务器是在阿里云买的，可能会预安装MySQL，我也不会使用，所以就删除了，要不然安装的MySQL会出问题。&lt;/p&gt;
 &lt;p&gt;只要按照以下的顺序，一步步运行，应该是是可以完全删除的。&lt;/p&gt;

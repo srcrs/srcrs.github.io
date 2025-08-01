@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="github actions（以下简称gc）太牛了，还支持定时执行，正和我意，脚本不用我每天都去提交触发一次，到达某个时间就会执行的，真良心。 但是需要注意这个自动执行的时区，默认是国际标准时间，与国内相差有16个小时，可以在网上找时间换算器，以免出错。 还有需要注意的是，它这个定时执行，并不像手机闹钟一样，设置完立马就生效，例如现在12:00，现在设置个12:02的闹钟，时间到了闹钟就响了\u200b。但是gc却有所区别，我开是这样做的时候，总是不会自动触发，我想是不是配置错了，后来发现也不是的。我把定时改成了每5分钟执行一次，但是到第一个五分钟并没有执行，而是在第二个五分钟开始执行，我就知道了，它这个定时任务并不是立即生效的，或者说也有可能需要等待一个周期。 然后我就放心大胆的调成了8 16 * * *\u200b，这个是cron表达式，分别对应，分，时，天，月，年，*表达的意思是“任意”，“每”的意思，我上面那个则是每天在国际标准时间16:08执行，对应到国内则是零点8分，观察了两天都是没有问题的，以后就撒手不管了。">
 <title>github actions定时执行</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="github actions定时执行">
 <meta property='og:description' content="github actions（以下简称gc）太牛了，还支持定时执行，正和我意，脚本不用我每天都去提交触发一次，到达某个时间就会执行的，真良心。 但是需要注意这个自动执行的时区，默认是国际标准时间，与国内相差有16个小时，可以在网上找时间换算器，以免出错。 还有需要注意的是，它这个定时执行，并不像手机闹钟一样，设置完立马就生效，例如现在12:00，现在设置个12:02的闹钟，时间到了闹钟就响了\u200b。但是gc却有所区别，我开是这样做的时候，总是不会自动触发，我想是不是配置错了，后来发现也不是的。我把定时改成了每5分钟执行一次，但是到第一个五分钟并没有执行，而是在第二个五分钟开始执行，我就知道了，它这个定时任务并不是立即生效的，或者说也有可能需要等待一个周期。 然后我就放心大胆的调成了8 16 * * *\u200b，这个是cron表达式，分别对应，分，时，天，月，年，*表达的意思是“任意”，“每”的意思，我上面那个则是每天在国际标准时间16:08执行，对应到国内则是零点8分，观察了两天都是没有问题的，以后就撒手不管了。">
-<meta property='og:url' content='https://blog.lass.cc/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='爬虫' /><meta property='article:published_time' content='2020-03-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-03-18T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="github actions定时执行">

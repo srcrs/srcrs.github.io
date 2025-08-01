@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Spring on srcrs</title>
-        <link>https://blog.lass.cc/tags/spring/</link>
+        <link>https://srcrs.github.io/tags/spring/</link>
         <description>Recent content in Spring on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 26 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/spring/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>请求参数绑定与常用注解</title>
-        <link>https://blog.lass.cc/posts/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/</link>
+        <link>https://srcrs.github.io/posts/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/</link>
         <pubDate>Sun, 26 Apr 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/</guid>
         <description>&lt;p&gt;:::tip
 注解太多了，记不清楚，有的地方得看过几遍才知道讲的是什么，对于有些东西只是知道个大概，加深一下印象。
 :::&lt;/p&gt;
@@ -532,10 +532,10 @@
         </item>
         <item>
         <title>SpringMVC入门程序</title>
-        <link>https://blog.lass.cc/posts/springmvc-entry-program/</link>
+        <link>https://srcrs.github.io/posts/springmvc-entry-program/</link>
         <pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/springmvc-entry-program/</guid>
+        <guid>https://srcrs.github.io/posts/springmvc-entry-program/</guid>
         <description>&lt;h2 id=&#34;springmvc在三层架构的位置&#34;&gt;
     &lt;a href=&#34;#springmvc%e5%9c%a8%e4%b8%89%e5%b1%82%e6%9e%b6%e6%9e%84%e7%9a%84%e4%bd%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     SpringMVC在三层架构的位置

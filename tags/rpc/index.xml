@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Rpc on srcrs</title>
-        <link>https://blog.lass.cc/tags/rpc/</link>
+        <link>https://srcrs.github.io/tags/rpc/</link>
         <description>Recent content in Rpc on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/rpc/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/rpc/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>RPC基础篇</title>
-        <link>https://blog.lass.cc/posts/basic-rpc/</link>
+        <link>https://srcrs.github.io/posts/basic-rpc/</link>
         <pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/basic-rpc/</guid>
+        <guid>https://srcrs.github.io/posts/basic-rpc/</guid>
         <description>&lt;h2 id=&#34;什么是rpc&#34;&gt;
     &lt;a href=&#34;#%e4%bb%80%e4%b9%88%e6%98%afrpc&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     什么是RPC

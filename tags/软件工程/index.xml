@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>软件工程 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
+        <link>https://srcrs.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
         <description>Recent content in 软件工程 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 28 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 28 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>软件工程复习题</title>
-        <link>https://blog.lass.cc/posts/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0%E9%A2%98/</link>
+        <link>https://srcrs.github.io/posts/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0%E9%A2%98/</link>
         <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0%E9%A2%98/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%A4%8D%E4%B9%A0%E9%A2%98/</guid>
         <description>&lt;h2 id=&#34;一单选择&#34;&gt;
     &lt;a href=&#34;#%e4%b8%80%e5%8d%95%e9%80%89%e6%8b%a9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     一、单选择
@@ -433,10 +433,10 @@
         </item>
         <item>
         <title>软件开发模型</title>
-        <link>https://blog.lass.cc/posts/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/</link>
+        <link>https://srcrs.github.io/posts/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/</link>
         <pubDate>Tue, 07 Apr 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/</guid>
         <description>&lt;p&gt;:::tip
 遇到关于软件开发过程模型的题，老是分不清它们各自的特点，加深一下记忆。
 :::&lt;/p&gt;
@@ -652,10 +652,10 @@
         </item>
         <item>
         <title>耦合与内聚</title>
-        <link>https://blog.lass.cc/posts/%E8%80%A6%E5%90%88%E4%B8%8E%E5%86%85%E8%81%9A/</link>
+        <link>https://srcrs.github.io/posts/%E8%80%A6%E5%90%88%E4%B8%8E%E5%86%85%E8%81%9A/</link>
         <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%80%A6%E5%90%88%E4%B8%8E%E5%86%85%E8%81%9A/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%80%A6%E5%90%88%E4%B8%8E%E5%86%85%E8%81%9A/</guid>
         <description>&lt;h2 id=&#34;耦合的类型由高到低&#34;&gt;
     &lt;a href=&#34;#%e8%80%a6%e5%90%88%e7%9a%84%e7%b1%bb%e5%9e%8b%e7%94%b1%e9%ab%98%e5%88%b0%e4%bd%8e&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     耦合的类型（由高到低）

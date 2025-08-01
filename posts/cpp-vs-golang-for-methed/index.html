@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 背景 最近在工作中遇到了一个问题，过去的服务大都是cpp，现在需要迁移到golang，其中涉及到了相关函数，本来是很简单的一个函数，但是这其中却踩了一些坑，下面记录下遇到的问题。 # 问题 cpp函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 string methed1(string src) { char str[] = &#34;0123456789ABCDEF&#34;; char* des = (char*)malloc(src.size()*2+1); int i=0; for(;i&lt;src.size();i++) { des[i*2] = str[src[i]&gt;&gt;4]; des[i*2+1] = str[src[i]&amp;0x0f]; } des[i*2] = 0; string out = des; free(des); return out; } 因为有的地方会用到这个函数，所以也需要钱已到golang服务中。golang代码如下 1 2 3 4 5 6 7 8 9 10 11 12 func methed2(src string) string { srcBytes := []byte(src) str := []byte(&#34;0123456789ABCDEF&#34;) des := make([]byte, len(srcBytes)*2+1) i := 0 for ; i &lt; len(srcBytes); i++ { des[i*2] = str[srcBytes[i]&gt;&gt;4] des[i*2+1] = str[srcBytes[i]&amp;0x0f] } des[i*2] = 0 return string(des) } 正常来看这个代码逻辑是没有问题的，但是当开始测试的时候遇到麻烦了，在网络传输中发现了不可预知的报错。">
 <title>cpp和golang关于某个函数的对比</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/cpp-vs-golang-for-methed/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/cpp-vs-golang-for-methed/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="cpp和golang关于某个函数的对比">
 <meta property='og:description' content="# 背景 最近在工作中遇到了一个问题，过去的服务大都是cpp，现在需要迁移到golang，其中涉及到了相关函数，本来是很简单的一个函数，但是这其中却踩了一些坑，下面记录下遇到的问题。 # 问题 cpp函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 string methed1(string src) { char str[] = &#34;0123456789ABCDEF&#34;; char* des = (char*)malloc(src.size()*2+1); int i=0; for(;i&lt;src.size();i++) { des[i*2] = str[src[i]&gt;&gt;4]; des[i*2+1] = str[src[i]&amp;0x0f]; } des[i*2] = 0; string out = des; free(des); return out; } 因为有的地方会用到这个函数，所以也需要钱已到golang服务中。golang代码如下 1 2 3 4 5 6 7 8 9 10 11 12 func methed2(src string) string { srcBytes := []byte(src) str := []byte(&#34;0123456789ABCDEF&#34;) des := make([]byte, len(srcBytes)*2+1) i := 0 for ; i &lt; len(srcBytes); i++ { des[i*2] = str[srcBytes[i]&gt;&gt;4] des[i*2+1] = str[srcBytes[i]&amp;0x0f] } des[i*2] = 0 return string(des) } 正常来看这个代码逻辑是没有问题的，但是当开始测试的时候遇到麻烦了，在网络传输中发现了不可预知的报错。">
-<meta property='og:url' content='https://blog.lass.cc/posts/cpp-vs-golang-for-methed/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/cpp-vs-golang-for-methed/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='methed' /><meta property='article:published_time' content='2023-05-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-05-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="cpp和golang关于某个函数的对比">

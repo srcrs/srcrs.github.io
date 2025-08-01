@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="系统版本：ubuntu20.04/debian11 前不久入手的国外vps被入侵了，发生次数超过三次，发现是因为配置的公钥匙被更改，导致我登陆不上去，并且代码配置的公钥、私钥都被删除，cpu跑满，大概被拉去挖矿了，不知是何种方式入侵的。为了以后减少被入侵的风险，我做了如下配置 # 修改ssh登陆接口 1 2 3 4 5 vim /etc/ssh/sshd_config #更改端口，自定义 Port: 12312 #重启sshd /etc/init.d/ssh restart # 禁止root用户远程登陆 1 2 3 4 5 6 7 vim /etc/ssh/sshd_config #禁止root用户登陆，将yes改为no PermitRootLogin no #禁止密码登陆 PasswordAuthentication no #重启sshd /etc/init.d/ssh restart # 添加自定义用户 1 2 #根据提示操作即可 adduser book # 指定用户切换root无需密码 1 2 3 4 5 6 7 8 9 #添加wheel用户组 addgroup wheel vim /etc/pam.d/su #取消注释 auth sufficient pam_wheel.so trust #指定username无需密码切换root usermod -g wheel book #未知操作 echo &#34;SU_WHEEL_ONLY yes&#34;&gt;&gt;/etc/login.">
 <title>vps安全设置</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/vps-security-settings-policy/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/vps-security-settings-policy/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="vps安全设置">
 <meta property='og:description' content="系统版本：ubuntu20.04/debian11 前不久入手的国外vps被入侵了，发生次数超过三次，发现是因为配置的公钥匙被更改，导致我登陆不上去，并且代码配置的公钥、私钥都被删除，cpu跑满，大概被拉去挖矿了，不知是何种方式入侵的。为了以后减少被入侵的风险，我做了如下配置 # 修改ssh登陆接口 1 2 3 4 5 vim /etc/ssh/sshd_config #更改端口，自定义 Port: 12312 #重启sshd /etc/init.d/ssh restart # 禁止root用户远程登陆 1 2 3 4 5 6 7 vim /etc/ssh/sshd_config #禁止root用户登陆，将yes改为no PermitRootLogin no #禁止密码登陆 PasswordAuthentication no #重启sshd /etc/init.d/ssh restart # 添加自定义用户 1 2 #根据提示操作即可 adduser book # 指定用户切换root无需密码 1 2 3 4 5 6 7 8 9 #添加wheel用户组 addgroup wheel vim /etc/pam.d/su #取消注释 auth sufficient pam_wheel.so trust #指定username无需密码切换root usermod -g wheel book #未知操作 echo &#34;SU_WHEEL_ONLY yes&#34;&gt;&gt;/etc/login.">
-<meta property='og:url' content='https://blog.lass.cc/posts/vps-security-settings-policy/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/vps-security-settings-policy/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='vps' /><meta property='article:published_time' content='2021-09-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-09-28T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="vps安全设置">

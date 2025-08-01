@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Lanqiao on srcrs</title>
-        <link>https://blog.lass.cc/tags/lanqiao/</link>
+        <link>https://srcrs.github.io/tags/lanqiao/</link>
         <description>Recent content in Lanqiao on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/lanqiao/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/lanqiao/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>第十一届蓝桥杯省赛第一场原题</title>
-        <link>https://blog.lass.cc/posts/dasai-lanqiao-eleventh-first-round/</link>
+        <link>https://srcrs.github.io/posts/dasai-lanqiao-eleventh-first-round/</link>
         <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/dasai-lanqiao-eleventh-first-round/</guid>
+        <guid>https://srcrs.github.io/posts/dasai-lanqiao-eleventh-first-round/</guid>
         <description>&lt;h2 id=&#34;a指数计算5分&#34;&gt;
     &lt;a href=&#34;#a%e6%8c%87%e6%95%b0%e8%ae%a1%e7%ae%975%e5%88%86&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     A：指数计算(5分)

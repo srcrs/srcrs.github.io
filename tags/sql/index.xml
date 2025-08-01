@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Sql on srcrs</title>
-        <link>https://blog.lass.cc/tags/sql/</link>
+        <link>https://srcrs.github.io/tags/sql/</link>
         <description>Recent content in Sql on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 22 Oct 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/sql/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 22 Oct 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/sql/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>慢查SQL与一个BUG</title>
-        <link>https://blog.lass.cc/posts/sql-bug/</link>
+        <link>https://srcrs.github.io/posts/sql-bug/</link>
         <pubDate>Fri, 22 Oct 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/sql-bug/</guid>
+        <guid>https://srcrs.github.io/posts/sql-bug/</guid>
         <description>&lt;h2 id=&#34;慢查sql&#34;&gt;
     &lt;a href=&#34;#%e6%85%a2%e6%9f%a5sql&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     慢查SQL
@@ -125,10 +125,10 @@
         </item>
         <item>
         <title>SQL的with使用</title>
-        <link>https://blog.lass.cc/posts/sql-with/</link>
+        <link>https://srcrs.github.io/posts/sql-with/</link>
         <pubDate>Sat, 16 Oct 2021 12:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/sql-with/</guid>
+        <guid>https://srcrs.github.io/posts/sql-with/</guid>
         <description>&lt;p&gt;sql在此之前的联表查询，都是写在一条语句中，两个表的阅读还可以，但是上升到四五个表的时候，阅读性就会差很多，此时with语句就非常好用了。&lt;/p&gt;
 &lt;p&gt;使用的场景是在metabase中做数据展示、数据监控。&lt;/p&gt;
 &lt;p&gt;先分别在每一张表中，查到所需要的数据集，然后再去联表查。&lt;/p&gt;
@@ -186,10 +186,10 @@
         </item>
         <item>
         <title>50道SQL练手</title>
-        <link>https://blog.lass.cc/posts/50-sql-practice-tips/</link>
+        <link>https://srcrs.github.io/posts/50-sql-practice-tips/</link>
         <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/50-sql-practice-tips/</guid>
+        <guid>https://srcrs.github.io/posts/50-sql-practice-tips/</guid>
         <description>&lt;h2 id=&#34;表结构及数据&#34;&gt;
     &lt;a href=&#34;#%e8%a1%a8%e7%bb%93%e6%9e%84%e5%8f%8a%e6%95%b0%e6%8d%ae&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     表结构及数据

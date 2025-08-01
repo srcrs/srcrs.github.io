@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Ci/Cd on srcrs</title>
-        <link>https://blog.lass.cc/tags/ci/cd/</link>
+        <link>https://srcrs.github.io/tags/ci/cd/</link>
         <description>Recent content in Ci/Cd on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 16 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 16 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>使用Circle CI自动部署Vuepress博客</title>
-        <link>https://blog.lass.cc/posts/%E4%BD%BF%E7%94%A8circle-ci%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2vuepress%E5%8D%9A%E5%AE%A2/</link>
+        <link>https://srcrs.github.io/posts/%E4%BD%BF%E7%94%A8circle-ci%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2vuepress%E5%8D%9A%E5%AE%A2/</link>
         <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E4%BD%BF%E7%94%A8circle-ci%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2vuepress%E5%8D%9A%E5%AE%A2/</guid>
+        <guid>https://srcrs.github.io/posts/%E4%BD%BF%E7%94%A8circle-ci%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2vuepress%E5%8D%9A%E5%AE%A2/</guid>
         <description>&lt;h2 id=&#34;背景&#34;&gt;
     &lt;a href=&#34;#%e8%83%8c%e6%99%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     背景

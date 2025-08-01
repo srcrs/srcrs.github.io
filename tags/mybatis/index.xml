@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Mybatis on srcrs</title>
-        <link>https://blog.lass.cc/tags/mybatis/</link>
+        <link>https://srcrs.github.io/tags/mybatis/</link>
         <description>Recent content in Mybatis on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 05 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/mybatis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 05 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/mybatis/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Mybatis初入门</title>
-        <link>https://blog.lass.cc/posts/mybatis%E5%88%9D%E5%85%A5%E9%97%A8/</link>
+        <link>https://srcrs.github.io/posts/mybatis%E5%88%9D%E5%85%A5%E9%97%A8/</link>
         <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/mybatis%E5%88%9D%E5%85%A5%E9%97%A8/</guid>
+        <guid>https://srcrs.github.io/posts/mybatis%E5%88%9D%E5%85%A5%E9%97%A8/</guid>
         <description>&lt;p&gt;:::tip
 记录一下Mybatis的入门环境配置。
 :::&lt;/p&gt;

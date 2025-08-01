@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>面试 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E9%9D%A2%E8%AF%95/</link>
+        <link>https://srcrs.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
         <description>Recent content in 面试 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 19 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 19 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>备战面试</title>
-        <link>https://blog.lass.cc/posts/prepare-for-interviews/</link>
+        <link>https://srcrs.github.io/posts/prepare-for-interviews/</link>
         <pubDate>Wed, 19 Aug 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/prepare-for-interviews/</guid>
+        <guid>https://srcrs.github.io/posts/prepare-for-interviews/</guid>
         <description>&lt;h2 id=&#34;什么是应届生&#34;&gt;
     &lt;a href=&#34;#%e4%bb%80%e4%b9%88%e6%98%af%e5%ba%94%e5%b1%8a%e7%94%9f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     什么是应届生？

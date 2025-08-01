@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Work on srcrs</title>
-        <link>https://blog.lass.cc/tags/work/</link>
+        <link>https://srcrs.github.io/tags/work/</link>
         <description>Recent content in Work on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 20 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/work/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/work/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>基于git的轻量级docker镜像版本发布</title>
-        <link>https://blog.lass.cc/posts/light-weight-devops/</link>
+        <link>https://srcrs.github.io/posts/light-weight-devops/</link>
         <pubDate>Sat, 20 Jul 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/light-weight-devops/</guid>
+        <guid>https://srcrs.github.io/posts/light-weight-devops/</guid>
         <description>&lt;h2 id=&#34;背景&#34;&gt;
     &lt;a href=&#34;#%e8%83%8c%e6%99%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     背景
@@ -42,10 +42,10 @@
 &lt;p&gt;watchtower&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://blog.lass.cc/posts/light-weight-devops/devops.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://srcrs.github.io/posts/light-weight-devops/devops.png&#34;
 	width=&#34;942&#34;
 	height=&#34;1635&#34;
-	srcset=&#34;https://blog.lass.cc/posts/light-weight-devops/devops_hudc1b0e91a97197d5754338d45da8cc68_94206_480x0_resize_box_3.png 480w, https://blog.lass.cc/posts/light-weight-devops/devops_hudc1b0e91a97197d5754338d45da8cc68_94206_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://srcrs.github.io/posts/light-weight-devops/devops_hudc1b0e91a97197d5754338d45da8cc68_94206_480x0_resize_box_3.png 480w, https://srcrs.github.io/posts/light-weight-devops/devops_hudc1b0e91a97197d5754338d45da8cc68_94206_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -360,10 +360,10 @@
         </item>
         <item>
         <title>复现是排查问题的第一步</title>
-        <link>https://blog.lass.cc/posts/reproduction-is-the-first-step-in-troubleshooting/</link>
+        <link>https://srcrs.github.io/posts/reproduction-is-the-first-step-in-troubleshooting/</link>
         <pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/reproduction-is-the-first-step-in-troubleshooting/</guid>
+        <guid>https://srcrs.github.io/posts/reproduction-is-the-first-step-in-troubleshooting/</guid>
         <description>&lt;p&gt;上周四，在新公司第一次凌晨2点回家。&lt;/p&gt;
 &lt;p&gt;源于一个已经跑了一年多的故障，起初以为是一个很简单的bug，没想到却查了那么久。周四下午14点上班后就开始排查，最开始的思路就是倒推，因为是线上环境，我们的日志并没有全量打印，查了几个小时，并没有找到合理的逻辑证据链。&lt;/p&gt;
 &lt;p&gt;“想办法在测试环境复现吧”，这个方向在排查受阻时就已经尝试过了，再次回到这里实属无奈，找了几个case，完全按照着一样的路径，并没有办法复现，耐心逐渐消失；又回到根据日志倒退的排查思路，没有痕迹，排查陷入僵局。&lt;/p&gt;

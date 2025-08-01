@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>感悟 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E6%84%9F%E6%82%9F/</link>
+        <link>https://srcrs.github.io/tags/%E6%84%9F%E6%82%9F/</link>
         <description>Recent content in 感悟 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%84%9F%E6%82%9F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E6%84%9F%E6%82%9F/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>小学生初入社会两个月</title>
-        <link>https://blog.lass.cc/posts/%E5%B0%8F%E5%AD%A6%E7%94%9F%E5%88%9D%E5%85%A5%E7%A4%BE%E4%BC%9A%E4%B8%A4%E4%B8%AA%E6%9C%88/</link>
+        <link>https://srcrs.github.io/posts/%E5%B0%8F%E5%AD%A6%E7%94%9F%E5%88%9D%E5%85%A5%E7%A4%BE%E4%BC%9A%E4%B8%A4%E4%B8%AA%E6%9C%88/</link>
         <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%B0%8F%E5%AD%A6%E7%94%9F%E5%88%9D%E5%85%A5%E7%A4%BE%E4%BC%9A%E4%B8%A4%E4%B8%AA%E6%9C%88/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%B0%8F%E5%AD%A6%E7%94%9F%E5%88%9D%E5%85%A5%E7%A4%BE%E4%BC%9A%E4%B8%A4%E4%B8%AA%E6%9C%88/</guid>
         <description>&lt;p&gt;2021年3月29入职到今天，已有两个来月，这是我的第一份实习，并且在下个月就要正式入职了，这段时间发生了很多事，看到了很多，学到了很多，我觉得应该把这些想法记录下来。&lt;/p&gt;
 &lt;p&gt;事情还得从来北京说起。2021年3月15从家里出发，晚上的火车是11点，就提前和表哥说好到时候送我去车站，晚上九点多，他带着表嫂、小宝宝一起来了，我们一起吃了一点饺子，这也是我们家的老传统了。把行李装上车，就此出发。也许是很久没有出远门，还有点不舍，车子在拐弯前，我又朝家又看了一眼，我要走出社会了！&lt;/p&gt;
 &lt;p&gt;车上，打开车窗，外面很黑，风很爽。看着小宝宝在闹腾，从出生到现在已经快会走路，时间在走，我们每个人都在变化，想起了小时候表哥欺负我的日子，小时候父亲拉着我去北京的日子，表哥带着我干暑假工，只不过这次是我一个人，一个对未来满怀着期待的人。&lt;/p&gt;
@@ -29,10 +29,10 @@
         </item>
         <item>
         <title>细数我做的一些小工具</title>
-        <link>https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
+        <link>https://srcrs.github.io/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
         <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%BB%86%E6%95%B0%E6%88%91%E5%81%9A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
         <description>&lt;p&gt;这个春节过着可真烦啊，人情味太浓，有时候我觉得也不太好，每年家家都要吃个遍，有的还两次三次的吃，属实不想参加，习俗也该改改了。&lt;/p&gt;
 &lt;p&gt;从最初的贴吧签到开始，那时候刚刚开始什么也都不懂，那时候仅仅收到了手指头能掰出来的star和fork，我还发到了朋友圈去炫耀，不过开心是真的。一转眼，朋友圈也关了快小半年了。&lt;/p&gt;
 &lt;p&gt;当up主，在b站发了一些小视频，但是没有播放量啊，虚荣心在作祟，那就刷吧。偶然间发现，视频隔段时间进去会增加一次播放量，那么就开干了，利用selenium可以实现代码操作浏览器，那么只需要把每次观看视频的流程让代码去执行一遍就好了，再来个定时执行，就能够实现刷播放量了。&lt;/p&gt;
@@ -60,10 +60,10 @@
         </item>
         <item>
         <title>跨越阶级的出路</title>
-        <link>https://blog.lass.cc/posts/%E8%B7%A8%E8%B6%8A%E9%98%B6%E7%BA%A7%E7%9A%84%E5%87%BA%E8%B7%AF/</link>
+        <link>https://srcrs.github.io/posts/%E8%B7%A8%E8%B6%8A%E9%98%B6%E7%BA%A7%E7%9A%84%E5%87%BA%E8%B7%AF/</link>
         <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%B7%A8%E8%B6%8A%E9%98%B6%E7%BA%A7%E7%9A%84%E5%87%BA%E8%B7%AF/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%B7%A8%E8%B6%8A%E9%98%B6%E7%BA%A7%E7%9A%84%E5%87%BA%E8%B7%AF/</guid>
         <description>&lt;p&gt;有好久都没有写了，有点生疏了，这段时间也发生了好多事，但是就是不想写，希望最近捡起来吧，像叶子博客一样。&lt;/p&gt;
 &lt;p&gt;这段时间，去郑州考试，离开学校回家，买了人生中第一个 ios 新设备，狼狈的套花呗还钱，人的离去，给别人补课，这篇是记录在补课的过程中的一些感受。&lt;/p&gt;
 &lt;p&gt;一天在一起吃饭，突然聊到了小孩子的成绩，“我家那个才厉害，去年数学考了 12 分”，饭后，看到他写作业，更是一种折磨，消灾是小学三年级，简单的加减法，常常把进位搞错，乘除更不用说，乘法口诀还要思考一会，应用题更是一窍不通。&lt;/p&gt;
@@ -77,10 +77,10 @@
         </item>
         <item>
         <title>秋风瑟瑟，大浪向前推</title>
-        <link>https://blog.lass.cc/posts/%E7%A7%8B%E9%A3%8E%E7%91%9F%E7%91%9F%E5%A4%A7%E6%B5%AA%E5%90%91%E5%89%8D%E6%8E%A8/</link>
+        <link>https://srcrs.github.io/posts/%E7%A7%8B%E9%A3%8E%E7%91%9F%E7%91%9F%E5%A4%A7%E6%B5%AA%E5%90%91%E5%89%8D%E6%8E%A8/</link>
         <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%A7%8B%E9%A3%8E%E7%91%9F%E7%91%9F%E5%A4%A7%E6%B5%AA%E5%90%91%E5%89%8D%E6%8E%A8/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%A7%8B%E9%A3%8E%E7%91%9F%E7%91%9F%E5%A4%A7%E6%B5%AA%E5%90%91%E5%89%8D%E6%8E%A8/</guid>
         <description>&lt;p&gt;窝在宿舍一天了，傍晚，脱掉身上的袄去买饭，走到宿舍楼下，阵阵风吹来，带些寒意，地下落叶一片，抬头看，树上的叶子也黄了一些，原来是秋天来了。&lt;/p&gt;
 &lt;p&gt;随着一件件等待着的事开始做，我也快要离开学校了，同样也很着急，工作还没有着落。&lt;/p&gt;
 &lt;p&gt;这个月17号参加的蓝桥杯，曾是我最想参加的，随着时间，以及对自己的认知，我知道算法这条路，并不适合我。水了一个二等奖了，比完赛，我自认拿不到奖，未知原因，两道基础题丢分，我很懊恼，但是最后，竟然能够拿奖，的确是&amp;quot;水杯&amp;quot;。看了A组的成绩，河南也就南阳理工能在郑大碗里分一杯羹。&lt;/p&gt;
@@ -93,10 +93,10 @@
         </item>
         <item>
         <title>网络的好</title>
-        <link>https://blog.lass.cc/posts/%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A5%BD/</link>
+        <link>https://srcrs.github.io/posts/%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A5%BD/</link>
         <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A5%BD/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A5%BD/</guid>
         <description>&lt;p&gt;今天收到父亲的指示，让我把他的车年检一下，需要把车开到县城的行政大厅。说实话，我这技术，还真的很慌，县城车乱的很。&lt;/p&gt;
 &lt;p&gt;我就开始在网上收集信息，关于年检需要的材料，代办理又是如何规定的，偶然看到一个人说，六年免检车辆可以在网上办理，大喜，立马转换了思路。查到了网上办理，需要到交管12123APP，或者网站申请提交相关的资料凭证就可以了。部分地区已经实现了电子版年检不需要纸质，如果需要纸质可以指定邮寄的地址，付邮费即可。&lt;/p&gt;
 &lt;p&gt;这真是太方便了，如果自己开车去怎么着也得一上午，来回还要耗油，省时省钱。上次是我妈去办的，里面工作的人以没开车为由，忽悠了500块。六年免检车在不在其实都无所谓，更重要的是是免费的，只要相关的材料带齐全了就行了，可恶啊。也不知道向别人要发票。所以我对里面工作的人也都没有好感。&lt;/p&gt;
@@ -110,10 +110,10 @@
         </item>
         <item>
         <title>落幕之后</title>
-        <link>https://blog.lass.cc/posts/%E8%90%BD%E5%B9%95%E4%B9%8B%E5%90%8E/</link>
+        <link>https://srcrs.github.io/posts/%E8%90%BD%E5%B9%95%E4%B9%8B%E5%90%8E/</link>
         <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%90%BD%E5%B9%95%E4%B9%8B%E5%90%8E/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%90%BD%E5%B9%95%E4%B9%8B%E5%90%8E/</guid>
         <description>&lt;p&gt;又是一年毕业季，高中、中考对于我来说已经是几年前的事了，原来不过是从面前、身后，再到回忆。&lt;/p&gt;
 &lt;p&gt;今年关注的要多一点，身边有几个要参加这两场考试的人，可能是对于一个人来说具有决定意义的考试，但是考的却都不太理想，意外的是，我弟弟整天看不到他在学习，中考考的比我以前都好，另外一个小老表，可能面临着没有学籍，高考的表妹，只能选择专科。&lt;/p&gt;
 &lt;p&gt;看来，那些别人家的孩子，距离我还很远。记得高中老师曾推荐我们看《青春派》，讲的是主角为爱高考失利，复习一年再次参加高考的故事。我仍清楚记得，过年，主角打完电话，就站在门口，看着烟花，烟火绚烂一时，可落下来的灰才是决定未来的分。&lt;/p&gt;
@@ -124,10 +124,10 @@
         </item>
         <item>
         <title>至暗ing</title>
-        <link>https://blog.lass.cc/posts/%E8%87%B3%E6%9A%97ing/</link>
+        <link>https://srcrs.github.io/posts/%E8%87%B3%E6%9A%97ing/</link>
         <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%87%B3%E6%9A%97ing/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%87%B3%E6%9A%97ing/</guid>
         <description>&lt;p&gt;要疯掉了，一个简单的登录流程，不知道怎么实现。前两天突然想到，用户是如何登录的，在我以前的印象中就是有个登录窗口，以提交表单形式查询对应的数据库表，看看有没有这个用户的信息，如果用户名和密码是正确的，那么就可以放行。&lt;/p&gt;
 &lt;p&gt;但是登录不是这样的啊，这样登录只不过是查询了一次数据库表，发送了一次http请求，而http请求是无状态的，也就是说并没有保存这个登录的状态。像正常登录网站，登录成功之后对应有用户的一些信息，可以实现退出注册，这才是个登录啊。&lt;/p&gt;
 &lt;p&gt;在前后端还未分离的时候，Tomcat会生成一个session，也就是一次会话，在这个会话之中可以保存用户的一些信息，在前后端未分离时，前端页面能获取到这个session，后端也能获取到这个session，可以当用户登录成功之后，后端将用户的关键信息加入到session中，然后前端就可以验证在此session中是否有此用户关键信息，以此判断是否已经登录成功。&lt;/p&gt;

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Sm4 on srcrs</title>
-        <link>https://blog.lass.cc/tags/sm4/</link>
+        <link>https://srcrs.github.io/tags/sm4/</link>
         <description>Recent content in Sm4 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 11 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/sm4/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 11 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/sm4/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>复盘国密sm4踩坑</title>
-        <link>https://blog.lass.cc/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</link>
+        <link>https://srcrs.github.io/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</link>
         <pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</guid>
+        <guid>https://srcrs.github.io/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</guid>
         <description>&lt;p&gt;复盘最近工作遇到的国密sm4解密，花费了不少精力才解决。&lt;/p&gt;
 &lt;p&gt;打开ai搜索引擎，初步了解什么是国密sm4。输出了以下内容：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

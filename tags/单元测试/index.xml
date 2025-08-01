@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>单元测试 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
+        <link>https://srcrs.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
         <description>Recent content in 单元测试 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 27 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 27 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>使用PHPUinit进行单元测试</title>
-        <link>https://blog.lass.cc/posts/%E4%BD%BF%E7%94%A8phpuinit%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
+        <link>https://srcrs.github.io/posts/%E4%BD%BF%E7%94%A8phpuinit%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
         <pubDate>Sun, 27 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E4%BD%BF%E7%94%A8phpuinit%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid>
+        <guid>https://srcrs.github.io/posts/%E4%BD%BF%E7%94%A8phpuinit%E8%BF%9B%E8%A1%8C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid>
         <description>&lt;p&gt;在过去写代码的过程中，很少会去自己写一些单元测试的case，通常就是用输出、打印的方式人工确认数据是否正确。在工作过程中，遇到的代码多且杂，且容易忘，导致在修改的时候，会很害怕，但是有了测试的case，这一切将会变的非常的容易。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 什么叫合成与复用 现在面临这样一个场景，B类需要使用A类中的三个方法，可以有这几种方法实现。 # 第一种方法 B类继承A类，这样，B类就可以使用A类的public方法。 A+ method_1(): void+ method_2(): void+ method_3(): voidExtendsExtendsBViewer does not support full SVG 1.1 # 第二种方法 B类依赖A类，A类在B类中以局部变量形式存在。 A+ method_1(): void+ method_2(): void+ method_3(): voidB+ method(a:A): void # 第三种方法 使用聚合的方式。更加深刻理解了聚合与组合的关系，以前只是知道，都是整体与部分的关系，但是组合是不可分开的，就像人和手一样不可分开，但是如何提现到代码上？同生同灭，不可分离。 A+ method_1(): void+ method_2(): void+ method_3(): voidB+ a: A+ setA(a:A): void # 第四种方法 组合方式实现。 A+ method_1(): void+ method_2(): void+ method_3(): voidB+ a: A = new A() # 基本内容 合成与复用的原则是尽量使用合成/聚合的方式，而不是使用继承。 # 设计原则核心思想 找出应用中可能需要变化的除外，把他们独立出来，不要和那些不需要变化的代码混在一起。 针对接口编程，而不是针对实现编程。 需要解决对象之间的关系，松耦合。">
 <title>组合与复用</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/%E7%BB%84%E5%90%88%E4%B8%8E%E5%A4%8D%E7%94%A8/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/%E7%BB%84%E5%90%88%E4%B8%8E%E5%A4%8D%E7%94%A8/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="组合与复用">
 <meta property='og:description' content="# 什么叫合成与复用 现在面临这样一个场景，B类需要使用A类中的三个方法，可以有这几种方法实现。 # 第一种方法 B类继承A类，这样，B类就可以使用A类的public方法。 A+ method_1(): void+ method_2(): void+ method_3(): voidExtendsExtendsBViewer does not support full SVG 1.1 # 第二种方法 B类依赖A类，A类在B类中以局部变量形式存在。 A+ method_1(): void+ method_2(): void+ method_3(): voidB+ method(a:A): void # 第三种方法 使用聚合的方式。更加深刻理解了聚合与组合的关系，以前只是知道，都是整体与部分的关系，但是组合是不可分开的，就像人和手一样不可分开，但是如何提现到代码上？同生同灭，不可分离。 A+ method_1(): void+ method_2(): void+ method_3(): voidB+ a: A+ setA(a:A): void # 第四种方法 组合方式实现。 A+ method_1(): void+ method_2(): void+ method_3(): voidB+ a: A = new A() # 基本内容 合成与复用的原则是尽量使用合成/聚合的方式，而不是使用继承。 # 设计原则核心思想 找出应用中可能需要变化的除外，把他们独立出来，不要和那些不需要变化的代码混在一起。 针对接口编程，而不是针对实现编程。 需要解决对象之间的关系，松耦合。">
-<meta property='og:url' content='https://blog.lass.cc/posts/%E7%BB%84%E5%90%88%E4%B8%8E%E5%A4%8D%E7%94%A8/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/%E7%BB%84%E5%90%88%E4%B8%8E%E5%A4%8D%E7%94%A8/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='设计模式' /><meta property='article:published_time' content='2020-02-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-02-17T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="组合与复用">

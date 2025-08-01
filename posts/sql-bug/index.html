@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 慢查SQL 具体遇到的场景是这样：order表有a,b,c,d,e这五个字段，我想找到所有b=0，并且c&gt;1634957358数据，b和c是索引，b在数据库中是无序的，表中数据一共有19万条，基于以上，我写出了如下sql 1 select * from order where b=0 and c&gt;1634957358; 需要查找的数据量，如下。 1 2 3 4 5 6 7 select count(*) from order where b=0; +----------+ | count(*) | +----------+ | 48440 | +----------+ 1 row in set (0.13 sec) 1 2 3 4 5 6 7 select count(*) from order where c&gt;1624078160; +----------+ | count(*) | +----------+ | 161147 | +----------+ 1 row in set (0.06 sec) 分析sql语句">
 <title>慢查SQL与一个BUG</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/sql-bug/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/sql-bug/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="慢查SQL与一个BUG">
 <meta property='og:description' content="# 慢查SQL 具体遇到的场景是这样：order表有a,b,c,d,e这五个字段，我想找到所有b=0，并且c&gt;1634957358数据，b和c是索引，b在数据库中是无序的，表中数据一共有19万条，基于以上，我写出了如下sql 1 select * from order where b=0 and c&gt;1634957358; 需要查找的数据量，如下。 1 2 3 4 5 6 7 select count(*) from order where b=0; +----------+ | count(*) | +----------+ | 48440 | +----------+ 1 row in set (0.13 sec) 1 2 3 4 5 6 7 select count(*) from order where c&gt;1624078160; +----------+ | count(*) | +----------+ | 161147 | +----------+ 1 row in set (0.06 sec) 分析sql语句">
-<meta property='og:url' content='https://blog.lass.cc/posts/sql-bug/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/sql-bug/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='sql' /><meta property='article:published_time' content='2021-10-22T12:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-22T12:00:00&#43;00:00'/>
 <meta name="twitter:title" content="慢查SQL与一个BUG">

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Ssm on srcrs</title>
-        <link>https://blog.lass.cc/tags/ssm/</link>
+        <link>https://srcrs.github.io/tags/ssm/</link>
         <description>Recent content in Ssm on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 14 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/ssm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 14 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/ssm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>优雅的ssm框架</title>
-        <link>https://blog.lass.cc/posts/%E4%BC%98%E9%9B%85%E7%9A%84ssm%E6%A1%86%E6%9E%B6/</link>
+        <link>https://srcrs.github.io/posts/%E4%BC%98%E9%9B%85%E7%9A%84ssm%E6%A1%86%E6%9E%B6/</link>
         <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E4%BC%98%E9%9B%85%E7%9A%84ssm%E6%A1%86%E6%9E%B6/</guid>
+        <guid>https://srcrs.github.io/posts/%E4%BC%98%E9%9B%85%E7%9A%84ssm%E6%A1%86%E6%9E%B6/</guid>
         <description>&lt;p&gt;:::tip
 已经连续练了好几天这个，但是一些细节还是会忘，加深一下印象。
 :::&lt;/p&gt;
@@ -1625,10 +1625,10 @@ IDEA商业版 | 1.45.0
         </item>
         <item>
         <title>记录两个错误</title>
-        <link>https://blog.lass.cc/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/</link>
+        <link>https://srcrs.github.io/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/</link>
         <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/</guid>
         <description>&lt;p&gt;&lt;strong&gt;Web应用程序[root]注册了JDBC驱动程序，但在Web应用程序停止时未能注销它。为了防止内存泄漏，jdbc驱动程序被强制注销&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;这个应该就是jdbc驱动版本的问题，我当时mysql数据库版本是5.几，用的8.几的驱动包就报这个错误，然后换成了5.几驱动包就没有这个错误了，但是现在又换回8.几的包又不报这个错误了，也有可能是c3p0的原因。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;c3p0让我吃了不少苦头&lt;/strong&gt;&lt;/p&gt;

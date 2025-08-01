@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 问题描述： 前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。 # 问题分析过程 # 确认问题复现步骤 在本次问题中，可以通过curl请求即可复现。 # 是否是nginx设置了超时？ # 确认部署机器 假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令 1 curl -v &#39;https://api.xxxx.com&#39; 通过-v命令可以，查询到curl请求更详细的过程，格式类似如下 1 2 3 4 5 6 7 8 9 10 * Trying 198.18.1.220:80... * Connected to baidu.com (198.18.1.220) port 80 (#0) &gt; GET / HTTP/1.1 &gt; Host: baidu.com &gt; User-Agent: curl/7.87.0 &gt; Accept: */* &gt; * Empty reply from server * Closing connection 0 curl: (52) Empty reply from server 便得到第一步请求到达了 198.">
 <title>记录一下问题排查过程</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/solve-test-problem/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/solve-test-problem/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="记录一下问题排查过程">
 <meta property='og:description' content="# 问题描述： 前端和后端在联调接口，因为一些特殊需要，需要将接口超时时间设置为2分钟，但是几经更改仍然没有生效，大概30秒左右超时断开，接口调用是通过域名，因此我询问nginx影响，得到反馈是已经设置了，但仍然是超时了。随后便开始排查这个问题。 # 问题分析过程 # 确认问题复现步骤 在本次问题中，可以通过curl请求即可复现。 # 是否是nginx设置了超时？ # 确认部署机器 假设接口是：https://api.xxxx.com ，我需要确认实际请求的机器，使用如下命令 1 curl -v &#39;https://api.xxxx.com&#39; 通过-v命令可以，查询到curl请求更详细的过程，格式类似如下 1 2 3 4 5 6 7 8 9 10 * Trying 198.18.1.220:80... * Connected to baidu.com (198.18.1.220) port 80 (#0) &gt; GET / HTTP/1.1 &gt; Host: baidu.com &gt; User-Agent: curl/7.87.0 &gt; Accept: */* &gt; * Empty reply from server * Closing connection 0 curl: (52) Empty reply from server 便得到第一步请求到达了 198.">
-<meta property='og:url' content='https://blog.lass.cc/posts/solve-test-problem/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/solve-test-problem/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='solve' /><meta property='article:published_time' content='2023-07-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-07-10T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="记录一下问题排查过程">

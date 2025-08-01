@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>前端 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%89%8D%E7%AB%AF/</link>
+        <link>https://srcrs.github.io/tags/%E5%89%8D%E7%AB%AF/</link>
         <description>Recent content in 前端 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>在Vue.js项目中添加Echarts</title>
-        <link>https://blog.lass.cc/posts/%E5%9C%A8vue.js%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0echarts/</link>
+        <link>https://srcrs.github.io/posts/%E5%9C%A8vue.js%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0echarts/</link>
         <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%9C%A8vue.js%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0echarts/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%9C%A8vue.js%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0echarts/</guid>
         <description>&lt;h2 id=&#34;背景&#34;&gt;
     &lt;a href=&#34;#%e8%83%8c%e6%99%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     背景

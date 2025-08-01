@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>图论 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%9B%BE%E8%AE%BA/</link>
+        <link>https://srcrs.github.io/tags/%E5%9B%BE%E8%AE%BA/</link>
         <description>Recent content in 图论 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 26 May 2019 00:56:36 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%9B%BE%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 May 2019 00:56:36 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%9B%BE%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>单源最短路径</title>
-        <link>https://blog.lass.cc/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</link>
+        <link>https://srcrs.github.io/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</link>
         <pubDate>Sun, 26 May 2019 00:56:36 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</guid>
         <description>&lt;p&gt;单源最短路径，顾名思义，就是从一个地点到多个地点的最短距离，生活中也比较常见，例如当你选择但你想去某地旅游的时候，是不是要分析一下，当你下火车的地点一定，要按照怎样的游玩顺序，走最短的路，游玩最多的景点。没错，这个算法就是来解决这个问题的————&lt;code&gt;Dijkstra&lt;/code&gt;算法。&lt;/p&gt;
 &lt;h2 id=&#34;dijkstra算法历史&#34;&gt;
     &lt;a href=&#34;#dijkstra%e7%ae%97%e6%b3%95%e5%8e%86%e5%8f%b2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -188,10 +188,10 @@
         </item>
         <item>
         <title>最小生成树</title>
-        <link>https://blog.lass.cc/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</link>
+        <link>https://srcrs.github.io/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</link>
         <pubDate>Wed, 22 May 2019 17:51:35 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</guid>
+        <guid>https://srcrs.github.io/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</guid>
         <description>&lt;p&gt;:::tip
 最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时&lt;code&gt;prim&lt;/code&gt;算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用&lt;code&gt;Kruskal&lt;/code&gt;来解决这类问题吧。
 :::&lt;/p&gt;
@@ -530,10 +530,10 @@
         </item>
         <item>
         <title>图的几种存储方式</title>
-        <link>https://blog.lass.cc/posts/%E5%9B%BE%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F/</link>
+        <link>https://srcrs.github.io/posts/%E5%9B%BE%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F/</link>
         <pubDate>Mon, 20 May 2019 21:16:11 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%9B%BE%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%9B%BE%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F/</guid>
         <description>&lt;p&gt;:::tip
 图在数据结构中比较重要，但是了解的却非常的少，所以现在就重新再学习一遍。图的存储结构用的最多的就是邻接矩阵了，因为简单，只需要开一个二维数组就可以了，但是边的数量非常的少时，空间就比较浪费了，所以为了提高效率，就必须做出改变，下面就来一一说说吧。
 :::&lt;/p&gt;

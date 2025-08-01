@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>背包 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E8%83%8C%E5%8C%85/</link>
+        <link>https://srcrs.github.io/tags/%E8%83%8C%E5%8C%85/</link>
         <description>Recent content in 背包 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 03 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E8%83%8C%E5%8C%85/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 03 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E8%83%8C%E5%8C%85/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>背包问题求具体方案</title>
-        <link>https://blog.lass.cc/posts/looking-for-a-specific-solution-to-the-backpack-problem/</link>
+        <link>https://srcrs.github.io/posts/looking-for-a-specific-solution-to-the-backpack-problem/</link>
         <pubDate>Sun, 03 May 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/looking-for-a-specific-solution-to-the-backpack-problem/</guid>
+        <guid>https://srcrs.github.io/posts/looking-for-a-specific-solution-to-the-backpack-problem/</guid>
         <description>&lt;p&gt;:::tip
 好久都没有写过c++程序了，怕连helloword都忘怎么写了，还要没事的时候捡起来练练，一练发现了自己的知识漏洞，整了好久。
 :::&lt;/p&gt;
@@ -204,10 +204,10 @@
         </item>
         <item>
         <title>有依赖的背包问题</title>
-        <link>https://blog.lass.cc/posts/%E6%9C%89%E4%BE%9D%E8%B5%96%E7%9A%84%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link>
+        <link>https://srcrs.github.io/posts/%E6%9C%89%E4%BE%9D%E8%B5%96%E7%9A%84%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link>
         <pubDate>Fri, 30 Aug 2019 23:00:54 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E6%9C%89%E4%BE%9D%E8%B5%96%E7%9A%84%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid>
+        <guid>https://srcrs.github.io/posts/%E6%9C%89%E4%BE%9D%E8%B5%96%E7%9A%84%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;p&gt;:::tip
 今天真是狗血啊，一道题弄着这么长的时间，还没有搞得很透彻，虽然AC了。我要狠狠的记住它。
 :::&lt;/p&gt;

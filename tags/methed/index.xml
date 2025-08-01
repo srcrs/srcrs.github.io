@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Methed on srcrs</title>
-        <link>https://blog.lass.cc/tags/methed/</link>
+        <link>https://srcrs.github.io/tags/methed/</link>
         <description>Recent content in Methed on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/methed/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/methed/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>cpp和golang关于某个函数的对比</title>
-        <link>https://blog.lass.cc/posts/cpp-vs-golang-for-methed/</link>
+        <link>https://srcrs.github.io/posts/cpp-vs-golang-for-methed/</link>
         <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/cpp-vs-golang-for-methed/</guid>
+        <guid>https://srcrs.github.io/posts/cpp-vs-golang-for-methed/</guid>
         <description>&lt;h2 id=&#34;背景&#34;&gt;
     &lt;a href=&#34;#%e8%83%8c%e6%99%af&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     背景

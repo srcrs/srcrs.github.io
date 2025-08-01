@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="最近在了解到docker swarm，它是docker官方推出的分布式容器编排的解决方案，利用中午休息的时间，简单的尝试了一下，创建一个集群，默认当前节点是主节点，然后让另一个节点加入，简简单单的小实验，让我有了深入了解它的兴趣。 # 什么是docker swarm docker swarm是一个容器编排工具。一次启动多个容器，并且需要做健康检查，在其中某些容器挂掉的时候，另一些容器能够立马补充进来，通常在分布式系统中使用的较多一些，它可以将多个docker容器作为单个服务进行管理。 # 它可以做什么 # 适用的场景 # 和k8s有什么区别 # 基本命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 #初始化集群 docker swarm init #删除一个集群 docker swarm leave #加入集群 docker swarm join #显示集群下的节点 docker node ls #创建一个网络连接 docker network create #显示网络下链接 docker network ls #创建服务 docker service create #显示服务列表 #docker service ls # 实战一：在集群中创建nginx # 环境 三台ubuntu服务器，已安装docker。 主机master 主机slave-1 主机slave-2 # 初始化集群 在主机master中初始化一个集群，适用于主机只有一个ip，如果有多个ip需要指定advertise-addr参数。">
 <title>初识docker swarm</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/docker-swarm/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/docker-swarm/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="初识docker swarm">
 <meta property='og:description' content="最近在了解到docker swarm，它是docker官方推出的分布式容器编排的解决方案，利用中午休息的时间，简单的尝试了一下，创建一个集群，默认当前节点是主节点，然后让另一个节点加入，简简单单的小实验，让我有了深入了解它的兴趣。 # 什么是docker swarm docker swarm是一个容器编排工具。一次启动多个容器，并且需要做健康检查，在其中某些容器挂掉的时候，另一些容器能够立马补充进来，通常在分布式系统中使用的较多一些，它可以将多个docker容器作为单个服务进行管理。 # 它可以做什么 # 适用的场景 # 和k8s有什么区别 # 基本命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 #初始化集群 docker swarm init #删除一个集群 docker swarm leave #加入集群 docker swarm join #显示集群下的节点 docker node ls #创建一个网络连接 docker network create #显示网络下链接 docker network ls #创建服务 docker service create #显示服务列表 #docker service ls # 实战一：在集群中创建nginx # 环境 三台ubuntu服务器，已安装docker。 主机master 主机slave-1 主机slave-2 # 初始化集群 在主机master中初始化一个集群，适用于主机只有一个ip，如果有多个ip需要指定advertise-addr参数。">
-<meta property='og:url' content='https://blog.lass.cc/posts/docker-swarm/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/docker-swarm/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2021-11-28T12:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-11-28T12:00:00&#43;00:00'/>
 <meta name="twitter:title" content="初识docker swarm">

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>PWA on srcrs</title>
-        <link>https://blog.lass.cc/tags/pwa/</link>
+        <link>https://srcrs.github.io/tags/pwa/</link>
         <description>Recent content in PWA on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 27 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/pwa/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 27 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/pwa/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>为Vuepress配置PWA</title>
-        <link>https://blog.lass.cc/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/</link>
+        <link>https://srcrs.github.io/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/</link>
         <pubDate>Mon, 27 Jan 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/</guid>
+        <guid>https://srcrs.github.io/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/</guid>
         <description>&lt;p&gt;今天给博客配置了一个&lt;code&gt;PWA&lt;/code&gt;，开始的时候按照官网的配置，以为就像是写文章一样，在本地测试就可以看到效果，结果踩了坑，一直都没有成功，最好找了好多的例子，发现我与他们的配置都差不多，就上传到&lt;code&gt;github&lt;/code&gt;上，是可以使用的。原来本地是不能使用的，害我走了那么多弯路。&lt;/p&gt;
 &lt;h2 id=&#34;安装插件&#34;&gt;
     &lt;a href=&#34;#%e5%ae%89%e8%a3%85%e6%8f%92%e4%bb%b6&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;

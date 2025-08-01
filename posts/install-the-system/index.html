@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="目前我用过安装系统的方法只有两种，一种是PE盘安装，另一种是启动盘安装。 安装一个新系统不外乎有这么几个步骤。 ①设置U盘为第一启动项。 ②硬盘分区 ③安装系统 前提是准备工作要足，例如，你要是用PE盘安装的话，你事先就要将大白菜或者老毛桃等软件，将U盘制作成PE盘，然后把要安装的系统的系统放在U盘中即可。 还有一种就是把U盘制作成一个系统启动盘，这种方法安装比较简单，难的是分区，其实只要记住那些命令，也没什么难的。 先在电脑上准备好你要安装的系统，然后再在电脑上下载一个软碟通，待系统下载好之后，用软碟通写入到U盘中（刻录），等几分钟就可以刻录成功了，PE盘分区有图形界面，比较简单，而系统启动盘则需要用一些终端命令。 待系统出现需要将系统安装到何处时，按shift+F10,调出cmd，然后再命令行端口输入diskpart,按回车执行这条命令。 list disk这条指令的作用是列出所有的磁盘。 select disk 0选择0号磁盘，也就是要对0号磁盘进行操作。 clean清空硬盘内容。 create partition primary size=xxx(m) 创建分区，并设置大小。 active激活主分区，不激活到系统安装完激活也行。 format quick快速格式化分区。 convert mbr可以将磁盘格式改为mbr。 delete partition删除分区。 exit连续执行两次就可以推出命令行窗口。">
 <title>安装系统</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/install-the-system/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/install-the-system/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="安装系统">
 <meta property='og:description' content="目前我用过安装系统的方法只有两种，一种是PE盘安装，另一种是启动盘安装。 安装一个新系统不外乎有这么几个步骤。 ①设置U盘为第一启动项。 ②硬盘分区 ③安装系统 前提是准备工作要足，例如，你要是用PE盘安装的话，你事先就要将大白菜或者老毛桃等软件，将U盘制作成PE盘，然后把要安装的系统的系统放在U盘中即可。 还有一种就是把U盘制作成一个系统启动盘，这种方法安装比较简单，难的是分区，其实只要记住那些命令，也没什么难的。 先在电脑上准备好你要安装的系统，然后再在电脑上下载一个软碟通，待系统下载好之后，用软碟通写入到U盘中（刻录），等几分钟就可以刻录成功了，PE盘分区有图形界面，比较简单，而系统启动盘则需要用一些终端命令。 待系统出现需要将系统安装到何处时，按shift+F10,调出cmd，然后再命令行端口输入diskpart,按回车执行这条命令。 list disk这条指令的作用是列出所有的磁盘。 select disk 0选择0号磁盘，也就是要对0号磁盘进行操作。 clean清空硬盘内容。 create partition primary size=xxx(m) 创建分区，并设置大小。 active激活主分区，不激活到系统安装完激活也行。 format quick快速格式化分区。 convert mbr可以将磁盘格式改为mbr。 delete partition删除分区。 exit连续执行两次就可以推出命令行窗口。">
-<meta property='og:url' content='https://blog.lass.cc/posts/install-the-system/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/install-the-system/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='安装系统' /><meta property='article:published_time' content='2019-07-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-07-07T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="安装系统">

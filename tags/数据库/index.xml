@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>数据库 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+        <link>https://srcrs.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
         <description>Recent content in 数据库 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SQL触发器</title>
-        <link>https://blog.lass.cc/posts/sql-trigger/</link>
+        <link>https://srcrs.github.io/posts/sql-trigger/</link>
         <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/sql-trigger/</guid>
+        <guid>https://srcrs.github.io/posts/sql-trigger/</guid>
         <description>&lt;p&gt;:::tip
 实现数据库的动态完整性，能够避免一些不必要的错误。例如当一个人的学号修改了，则相应的选课表等基本表的学号也要修改。
 :::&lt;/p&gt;
@@ -210,10 +210,10 @@
         </item>
         <item>
         <title>SQL子查询与视图</title>
-        <link>https://blog.lass.cc/posts/sql-subqueries-and-views/</link>
+        <link>https://srcrs.github.io/posts/sql-subqueries-and-views/</link>
         <pubDate>Fri, 27 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/sql-subqueries-and-views/</guid>
+        <guid>https://srcrs.github.io/posts/sql-subqueries-and-views/</guid>
         <description>&lt;h2 id=&#34;某一元素是否包含某一集合成员&#34;&gt;
     &lt;a href=&#34;#%e6%9f%90%e4%b8%80%e5%85%83%e7%b4%a0%e6%98%af%e5%90%a6%e5%8c%85%e5%90%ab%e6%9f%90%e4%b8%80%e9%9b%86%e5%90%88%e6%88%90%e5%91%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     某一元素是否包含某一集合成员

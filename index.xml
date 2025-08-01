@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>srcrs</title>
-        <link>https://blog.lass.cc/</link>
+        <link>https://srcrs.github.io/</link>
         <description>Recent content on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>mcp大模型的通用工具调用协议</title>
-        <link>https://blog.lass.cc/posts/2025/03/30/mcp-hello-world/</link>
+        <link>https://srcrs.github.io/posts/2025/03/30/mcp-hello-world/</link>
         <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2025/03/30/mcp-hello-world/</guid>
+        <guid>https://srcrs.github.io/posts/2025/03/30/mcp-hello-world/</guid>
         <description>&lt;h2 id=&#34;mcp和function-call对比&#34;&gt;
     &lt;a href=&#34;#mcp%e5%92%8cfunction-call%e5%af%b9%e6%af%94&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     MCP和Function Call对比
@@ -458,10 +458,10 @@
         </item>
         <item>
         <title>Linux部署Flux的GGUF量化版</title>
-        <link>https://blog.lass.cc/posts/2025/03/29/flux-forge-gguf-by-linux/</link>
+        <link>https://srcrs.github.io/posts/2025/03/29/flux-forge-gguf-by-linux/</link>
         <pubDate>Sat, 29 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2025/03/29/flux-forge-gguf-by-linux/</guid>
+        <guid>https://srcrs.github.io/posts/2025/03/29/flux-forge-gguf-by-linux/</guid>
         <description>&lt;h2 id=&#34;前序&#34;&gt;
     &lt;a href=&#34;#%e5%89%8d%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     前序
@@ -669,10 +669,10 @@ CPU：32核  CPU：32 核
         </item>
         <item>
         <title>ai大模型微调</title>
-        <link>https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/</link>
+        <link>https://srcrs.github.io/posts/2024/11/19/ai-large-model-fine-tuning/</link>
         <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2024/11/19/ai-large-model-fine-tuning/</guid>
+        <guid>https://srcrs.github.io/posts/2024/11/19/ai-large-model-fine-tuning/</guid>
         <description>&lt;p&gt;深圳今天好冷，瞬间入冬了，被子比较薄，半夜冻醒了几次，早上早早起来穿上厚衣服才暖和点。还有两个多月又要过年了，真快呀，今年还未回过，倒也没有什么期待的。&lt;/p&gt;
 &lt;h2 id=&#34;前言&#34;&gt;
     &lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -1162,10 +1162,10 @@ CPU：32核  CPU：32 核
         </item>
         <item>
         <title>2024年下半年软件设计师</title>
-        <link>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</link>
+        <link>https://srcrs.github.io/posts/2024/11/10/ruankao-sd-by-2024/</link>
         <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2024/11/10/ruankao-sd-by-2024/</guid>
+        <guid>https://srcrs.github.io/posts/2024/11/10/ruankao-sd-by-2024/</guid>
         <description>&lt;h2 id=&#34;上午选择题&#34;&gt;
     &lt;a href=&#34;#%e4%b8%8a%e5%8d%88%e9%80%89%e6%8b%a9%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     上午选择题
@@ -1334,10 +1334,10 @@ CPU：32核  CPU：32 核
         </item>
         <item>
         <title>复盘国密sm4踩坑</title>
-        <link>https://blog.lass.cc/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</link>
+        <link>https://srcrs.github.io/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</link>
         <pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</guid>
+        <guid>https://srcrs.github.io/posts/2024/10/11/replay-of-the-national-secret-sm4-pitfalls/</guid>
         <description>&lt;p&gt;复盘最近工作遇到的国密sm4解密，花费了不少精力才解决。&lt;/p&gt;
 &lt;p&gt;打开ai搜索引擎，初步了解什么是国密sm4。输出了以下内容：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1509,10 +1509,10 @@ CPU：32核  CPU：32 核
         </item>
         <item>
         <title>macbook安装ollama和qwen2.5-7b</title>
-        <link>https://blog.lass.cc/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/</link>
+        <link>https://srcrs.github.io/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/</link>
         <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/</guid>
+        <guid>https://srcrs.github.io/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/</guid>
         <description>&lt;h2 id=&#34;简述&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简述
@@ -1677,10 +1677,10 @@ CPU：32核  CPU：32 核
         </item>
         <item>
         <title>使用helix&#43;delve调试golang</title>
-        <link>https://blog.lass.cc/posts/use-helix-debug-by-golang/</link>
+        <link>https://srcrs.github.io/posts/use-helix-debug-by-golang/</link>
         <pubDate>Sat, 10 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/use-helix-debug-by-golang/</guid>
+        <guid>https://srcrs.github.io/posts/use-helix-debug-by-golang/</guid>
         <description>&lt;p&gt;本教程在macos和debian都可以进行使用，基础环境不再进行额外的叙述。&lt;/p&gt;
 &lt;h2 id=&#34;安装delve&#34;&gt;
     &lt;a href=&#34;#%e5%ae%89%e8%a3%85delve&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;

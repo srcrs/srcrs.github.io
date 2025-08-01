@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>回溯 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%9B%9E%E6%BA%AF/</link>
+        <link>https://srcrs.github.io/tags/%E5%9B%9E%E6%BA%AF/</link>
         <description>Recent content in 回溯 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 11 Jun 2019 13:03:01 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%9B%9E%E6%BA%AF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 11 Jun 2019 13:03:01 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%9B%9E%E6%BA%AF/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>着色问题</title>
-        <link>https://blog.lass.cc/posts/%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98/</link>
+        <link>https://srcrs.github.io/posts/%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98/</link>
         <pubDate>Tue, 11 Jun 2019 13:03:01 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;p&gt;:::tip
 图的着色问题其实就是一个排列问题，用最少的颜色数，使一个图中两两相连的顶点颜色都不相同。
 :::&lt;/p&gt;
@@ -163,10 +163,10 @@
         </item>
         <item>
         <title>TSP货郎问题</title>
-        <link>https://blog.lass.cc/posts/tsp-salesman-problem/</link>
+        <link>https://srcrs.github.io/posts/tsp-salesman-problem/</link>
         <pubDate>Wed, 29 May 2019 23:55:38 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/tsp-salesman-problem/</guid>
+        <guid>https://srcrs.github.io/posts/tsp-salesman-problem/</guid>
         <description>&lt;p&gt;:::tip
 前有八皇后，后有货郎。货郎问题，给定n个城市的集合，从一个城市到另一个城市的距离为正整数，求一条最短且每个城市恰好经过一次的巡回路线。
 :::&lt;/p&gt;

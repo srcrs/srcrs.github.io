@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Web应用程序[root]注册了JDBC驱动程序，但在Web应用程序停止时未能注销它。为了防止内存泄漏，jdbc驱动程序被强制注销 这个应该就是jdbc驱动版本的问题，我当时mysql数据库版本是5.几，用的8.几的驱动包就报这个错误，然后换成了5.几驱动包就没有这个错误了，但是现在又换回8.几的包又不报这个错误了，也有可能是c3p0的原因。 c3p0让我吃了不少苦头 开始使用的是2010的老版本，使用率比较高，但是我一访问就会报500的错误，查有的说是jar报冲突问题，我心想这个可麻烦了，最后又把c3p0升级版本，换到15年出的版本，也是同样的问题，最后清空target文件目录，再次重新运行就没有这样的问题了。 外部引入文件配置数据源 如果数据库的数据源在外部文件中，需要引入到spring配置文件中。 但是需要注意命名 1 2 3 4 jdbc.driver=com.mysql.cj.jdbc.Driver jdbc.url=jdbc:mysql://localhost:3306/srcrs?useSSL=false&amp;amp;serverTimezone=UTC jdbc.username=root jdbc.password=123456 前面最好都加上一个jdbc，要不然就会出现一个错误，username是读取电脑主机名，我也不知道为啥。 # 参考 springboot启动报错：Handler dispatch failed; nested exception is java.lang.AbstractMethodError 关于spring通过外部引入文件配置数据源">
 <title>记录两个错误</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="记录两个错误">
 <meta property='og:description' content="Web应用程序[root]注册了JDBC驱动程序，但在Web应用程序停止时未能注销它。为了防止内存泄漏，jdbc驱动程序被强制注销 这个应该就是jdbc驱动版本的问题，我当时mysql数据库版本是5.几，用的8.几的驱动包就报这个错误，然后换成了5.几驱动包就没有这个错误了，但是现在又换回8.几的包又不报这个错误了，也有可能是c3p0的原因。 c3p0让我吃了不少苦头 开始使用的是2010的老版本，使用率比较高，但是我一访问就会报500的错误，查有的说是jar报冲突问题，我心想这个可麻烦了，最后又把c3p0升级版本，换到15年出的版本，也是同样的问题，最后清空target文件目录，再次重新运行就没有这样的问题了。 外部引入文件配置数据源 如果数据库的数据源在外部文件中，需要引入到spring配置文件中。 但是需要注意命名 1 2 3 4 jdbc.driver=com.mysql.cj.jdbc.Driver jdbc.url=jdbc:mysql://localhost:3306/srcrs?useSSL=false&amp;amp;serverTimezone=UTC jdbc.username=root jdbc.password=123456 前面最好都加上一个jdbc，要不然就会出现一个错误，username是读取电脑主机名，我也不知道为啥。 # 参考 springboot启动报错：Handler dispatch failed; nested exception is java.lang.AbstractMethodError 关于spring通过外部引入文件配置数据源">
-<meta property='og:url' content='https://blog.lass.cc/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/%E8%AE%B0%E5%BD%95%E4%B8%A4%E4%B8%AA%E9%94%99%E8%AF%AF/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ssm' /><meta property='article:published_time' content='2020-05-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-05-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="记录两个错误">

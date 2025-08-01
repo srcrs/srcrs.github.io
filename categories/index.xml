@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on srcrs</title>
-        <link>https://blog.lass.cc/categories/</link>
+        <link>https://srcrs.github.io/categories/</link>
         <description>Recent content in Categories on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Note</title>
-        <link>https://blog.lass.cc/categories/note/</link>
+        <link>https://srcrs.github.io/categories/note/</link>
         <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/categories/note/</guid>
+        <guid>https://srcrs.github.io/categories/note/</guid>
         <description></description>
         </item>
         <item>
         <title>Other</title>
-        <link>https://blog.lass.cc/categories/other/</link>
+        <link>https://srcrs.github.io/categories/other/</link>
         <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/categories/other/</guid>
+        <guid>https://srcrs.github.io/categories/other/</guid>
         <description></description>
         </item>
         <item>
         <title>Life</title>
-        <link>https://blog.lass.cc/categories/life/</link>
+        <link>https://srcrs.github.io/categories/life/</link>
         <pubDate>Wed, 24 Jul 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/categories/life/</guid>
+        <guid>https://srcrs.github.io/categories/life/</guid>
         <description></description>
         </item>
         <item>
         <title>Algorithm</title>
-        <link>https://blog.lass.cc/categories/algorithm/</link>
+        <link>https://srcrs.github.io/categories/algorithm/</link>
         <pubDate>Thu, 27 Jun 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/categories/algorithm/</guid>
+        <guid>https://srcrs.github.io/categories/algorithm/</guid>
         <description></description>
         </item>
         <item>
         <title>Docker</title>
-        <link>https://blog.lass.cc/categories/docker/</link>
+        <link>https://srcrs.github.io/categories/docker/</link>
         <pubDate>Thu, 02 May 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/categories/docker/</guid>
+        <guid>https://srcrs.github.io/categories/docker/</guid>
         <description></description>
         </item>
         

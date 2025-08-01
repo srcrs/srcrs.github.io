@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>爬虫 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E7%88%AC%E8%99%AB/</link>
+        <link>https://srcrs.github.io/tags/%E7%88%AC%E8%99%AB/</link>
         <description>Recent content in 爬虫 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 28 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E7%88%AC%E8%99%AB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 28 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E7%88%AC%E8%99%AB/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>贴吧自动签到</title>
-        <link>https://blog.lass.cc/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/</link>
+        <link>https://srcrs.github.io/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/</link>
         <pubDate>Fri, 28 Aug 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%B4%B4%E5%90%A7%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0/</guid>
         <description>&lt;p&gt;:::tip
 又在琢磨爬虫，我本以为像以前一样，没想到又不知道踩什么坑进去了。
 :::&lt;/p&gt;
@@ -143,10 +143,10 @@
         </item>
         <item>
         <title>自动提交百度收录</title>
-        <link>https://blog.lass.cc/posts/%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/</link>
+        <link>https://srcrs.github.io/posts/%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/</link>
         <pubDate>Tue, 09 Jun 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/</guid>
         <description>&lt;p&gt;:::tip
 不知道为什么百度收录那么慢，提交sitemap已经一周了，貌似只有个主页，相反谷歌却已经有十来个链接了，再尝试每天API提交一次试试。
 :::&lt;/p&gt;
@@ -431,10 +431,10 @@
         </item>
         <item>
         <title>验证码识别与抽奖实践</title>
-        <link>https://blog.lass.cc/posts/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E4%B8%8E%E6%8A%BD%E5%A5%96%E5%AE%9E%E8%B7%B5/</link>
+        <link>https://srcrs.github.io/posts/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E4%B8%8E%E6%8A%BD%E5%A5%96%E5%AE%9E%E8%B7%B5/</link>
         <pubDate>Tue, 24 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E4%B8%8E%E6%8A%BD%E5%A5%96%E5%AE%9E%E8%B7%B5/</guid>
+        <guid>https://srcrs.github.io/posts/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E4%B8%8E%E6%8A%BD%E5%A5%96%E5%AE%9E%E8%B7%B5/</guid>
         <description>&lt;p&gt;:::tip
 以前总想着如何破解验证码，涉及到图像识别需要学习成本，索性百度有图像识别的API接口，每天可以调用5000次，也够用了，顺便实现了青岛啤酒抽奖。
 :::&lt;/p&gt;
@@ -745,10 +745,10 @@
         </item>
         <item>
         <title>github actions定时执行</title>
-        <link>https://blog.lass.cc/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/</link>
+        <link>https://srcrs.github.io/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/</link>
         <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/</guid>
+        <guid>https://srcrs.github.io/posts/github-actions%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/</guid>
         <description>&lt;p&gt;github actions（以下简称gc）太牛了，还支持定时执行，正和我意，脚本不用我每天都去提交触发一次，到达某个时间就会执行的，真良心。&lt;/p&gt;
 &lt;p&gt;但是需要注意这个自动执行的时区，默认是国际标准时间，与国内相差有16个小时，可以在网上找时间换算器，以免出错。&lt;/p&gt;
 &lt;p&gt;还有需要注意的是，它这个定时执行，并不像手机闹钟一样，设置完立马就生效，例如现在12:00，现在设置个12:02的闹钟，时间到了闹钟就响了​。但是gc却有所区别，我开是这样做的时候，总是不会自动触发，我想是不是配置错了，后来发现也不是的。我把定时改成了每5分钟执行一次，但是到第一个五分钟并没有执行，而是在第二个五分钟开始执行，我就知道了，它这个定时任务并不是立即生效的，或者说也有可能需要等待一个周期。&lt;/p&gt;
@@ -757,10 +757,10 @@
         </item>
         <item>
         <title>Selenium&#43;部署到服务器</title>
-        <link>https://blog.lass.cc/posts/selenium-deployed-to-server/</link>
+        <link>https://srcrs.github.io/posts/selenium-deployed-to-server/</link>
         <pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/selenium-deployed-to-server/</guid>
+        <guid>https://srcrs.github.io/posts/selenium-deployed-to-server/</guid>
         <description>&lt;p&gt;:::tip
 jsoup不能实现较好得交互性，所以常常要找实际请求的地址，而Selenium则方便多了，可以调用浏览器，恰好chrome有无界面版的，可以在服务器运行。顺便实现了一下提交xgzbd填报。
 :::&lt;/p&gt;
@@ -974,10 +974,10 @@ jsoup不能实现较好得交互性，所以常常要找实际请求的地址，
         </item>
         <item>
         <title>用爬虫让码云自动部署</title>
-        <link>https://blog.lass.cc/posts/%E7%94%A8%E7%88%AC%E8%99%AB%E8%AE%A9%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
+        <link>https://srcrs.github.io/posts/%E7%94%A8%E7%88%AC%E8%99%AB%E8%AE%A9%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
         <pubDate>Sat, 07 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%94%A8%E7%88%AC%E8%99%AB%E8%AE%A9%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%94%A8%E7%88%AC%E8%99%AB%E8%AE%A9%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</guid>
         <description>&lt;p&gt;:::tip
 github的Pags服务在国内访问速度太慢了，因此我就想着在部署的时候就往码云上也提交一份代码，但是码云却并不会自动部署代码到Pags服务中，本片就是为解决这个。
 :::&lt;/p&gt;
@@ -1348,10 +1348,10 @@ github的Pags服务在国内访问速度太慢了，因此我就想着在部署�
         </item>
         <item>
         <title>模拟登录GitHub拿到Cookie</title>
-        <link>https://blog.lass.cc/posts/%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95github%E6%8B%BF%E5%88%B0cookie/</link>
+        <link>https://srcrs.github.io/posts/%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95github%E6%8B%BF%E5%88%B0cookie/</link>
         <pubDate>Fri, 06 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95github%E6%8B%BF%E5%88%B0cookie/</guid>
+        <guid>https://srcrs.github.io/posts/%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95github%E6%8B%BF%E5%88%B0cookie/</guid>
         <description>&lt;p&gt;:::tip
 爬取有些网站可能会需要登录才能有拿到某些数据的权限，所以 这次学习了一下如何登录一个网站，并且拿到Cookie，以后就可以用Cookie来登录。
 :::&lt;/p&gt;

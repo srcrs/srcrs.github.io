@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>想法 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E6%83%B3%E6%B3%95/</link>
+        <link>https://srcrs.github.io/tags/%E6%83%B3%E6%B3%95/</link>
         <description>Recent content in 想法 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 03 Aug 2019 21:10:35 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E6%83%B3%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 03 Aug 2019 21:10:35 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E6%83%B3%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>关于广度优先搜索的思考</title>
-        <link>https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8E%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E6%80%9D%E8%80%83/</link>
+        <link>https://srcrs.github.io/posts/%E5%85%B3%E4%BA%8E%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E6%80%9D%E8%80%83/</link>
         <pubDate>Sat, 03 Aug 2019 21:10:35 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8E%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%85%B3%E4%BA%8E%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E6%80%9D%E8%80%83/</guid>
         <description>&lt;p&gt;:::tip
 最近在做关于广度优先搜索的题，平常接触关于深度优先搜索的题比较多一点，遇到&lt;code&gt;bfs&lt;/code&gt;不知道该怎么下手了，所以就特意练了两天，有了一点处理的小想法，记录下来，免得以后忘记了。
 :::&lt;/p&gt;
@@ -577,10 +577,10 @@
         </item>
         <item>
         <title>关于深度优先搜索的一些思考</title>
-        <link>https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</link>
+        <link>https://srcrs.github.io/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</link>
         <pubDate>Wed, 24 Jul 2019 16:09:38 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</guid>
         <description>&lt;p&gt;:::tip
 最近在做一些关于深度优先搜索的题，可让我遭了不少的罪，觉得看着啊，没什么难的，网上教学的都说，深度优先搜索实际上就是一个栈，也的确就是这样。但是当我们实际操作过程中，总会遇到一些问题。
 :::&lt;/p&gt;

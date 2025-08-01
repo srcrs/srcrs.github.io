@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Bfs on srcrs</title>
-        <link>https://blog.lass.cc/tags/bfs/</link>
+        <link>https://srcrs.github.io/tags/bfs/</link>
         <description>Recent content in Bfs on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/bfs/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/bfs/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>迷宫</title>
-        <link>https://blog.lass.cc/posts/%E8%BF%B7%E5%AE%AB/</link>
+        <link>https://srcrs.github.io/posts/%E8%BF%B7%E5%AE%AB/</link>
         <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%BF%B7%E5%AE%AB/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%BF%B7%E5%AE%AB/</guid>
         <description>&lt;p&gt;:::tip
 今天做了一下蓝桥杯第十届的几道真题，但是迷宫这道题差点让我弄不出来，因为以前搜索类型的题我也练了不少，记录下出现的问题吧。
 :::&lt;/p&gt;

@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# MCP和Function Call对比 在本次文章开始写之前，要搞明白Function Call和MCP的区别。 graph TD A[用户输入] --&gt; B[大模型判断意图] B --&gt; C{是否需要调用函数?} C --&gt;|是| D[生成结构化函数调用请求&lt;br&gt;（如JSON参数）] C --&gt;|否| E[直接生成回答] D --&gt; F[开发者解析并执行函数] F --&gt; G[获取函数执行结果] G --&gt; H[将结果反馈给大模型] H --&gt; I[生成最终回答] I --&gt; J[输出给用户] graph LR A[用户请求] --&gt; B[大模型] B --&gt; C[MCP服务器] C --&gt; D{路由判断} D --&gt;|工具调用| E[执行外部工具] D --&gt;|数据查询| F[访问数据库] E --&gt; C{{MCP服务器}} F --&gt; C C --&gt; B[大模型] B --&gt; G[生成回答] 对比维度 Function Call MCP (Managed Context Protocol) 协议层级 特定厂商（如OpenAI）的功能实现 通用协议标准（类似USB-C接口规范） 标准化程度 依赖厂商定义，灵活性高但碎片化 强制遵循JSON-RPC 2.">
 <title>mcp大模型的通用工具调用协议</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/2025/03/30/mcp-hello-world/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/2025/03/30/mcp-hello-world/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="mcp大模型的通用工具调用协议">
 <meta property='og:description' content="# MCP和Function Call对比 在本次文章开始写之前，要搞明白Function Call和MCP的区别。 graph TD A[用户输入] --&gt; B[大模型判断意图] B --&gt; C{是否需要调用函数?} C --&gt;|是| D[生成结构化函数调用请求&lt;br&gt;（如JSON参数）] C --&gt;|否| E[直接生成回答] D --&gt; F[开发者解析并执行函数] F --&gt; G[获取函数执行结果] G --&gt; H[将结果反馈给大模型] H --&gt; I[生成最终回答] I --&gt; J[输出给用户] graph LR A[用户请求] --&gt; B[大模型] B --&gt; C[MCP服务器] C --&gt; D{路由判断} D --&gt;|工具调用| E[执行外部工具] D --&gt;|数据查询| F[访问数据库] E --&gt; C{{MCP服务器}} F --&gt; C C --&gt; B[大模型] B --&gt; G[生成回答] 对比维度 Function Call MCP (Managed Context Protocol) 协议层级 特定厂商（如OpenAI）的功能实现 通用协议标准（类似USB-C接口规范） 标准化程度 依赖厂商定义，灵活性高但碎片化 强制遵循JSON-RPC 2.">
-<meta property='og:url' content='https://blog.lass.cc/posts/2025/03/30/mcp-hello-world/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/2025/03/30/mcp-hello-world/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2025-03-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-30T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="mcp大模型的通用工具调用协议">

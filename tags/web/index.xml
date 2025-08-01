@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Web on srcrs</title>
-        <link>https://blog.lass.cc/tags/web/</link>
+        <link>https://srcrs.github.io/tags/web/</link>
         <description>Recent content in Web on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 24 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/web/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 24 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Spring Security整合Jwt</title>
-        <link>https://blog.lass.cc/posts/spring-security%E6%95%B4%E5%90%88jwt/</link>
+        <link>https://srcrs.github.io/posts/spring-security%E6%95%B4%E5%90%88jwt/</link>
         <pubDate>Fri, 24 Jul 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/spring-security%E6%95%B4%E5%90%88jwt/</guid>
+        <guid>https://srcrs.github.io/posts/spring-security%E6%95%B4%E5%90%88jwt/</guid>
         <description>&lt;p&gt;本次基于&lt;code&gt;Spring Boot&lt;/code&gt;整合了&lt;code&gt;Spring Security&lt;/code&gt;和&lt;code&gt;Jwt&lt;/code&gt;，可以解决前后端分离之后用户认证与授权的问题。在前后端还未分离的时候，对用户进行身份认证大约是这样的。&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;客&lt;!-- raw HTML omitted --&gt;户&lt;!-- raw HTML omitted --&gt;端&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;客户端&amp;hellip;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;服&lt;!-- raw HTML omitted --&gt;务&lt;!-- raw HTML omitted --&gt;端&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;服务端&amp;hellip;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;用户登录&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;用户登录&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;登录成功，用户信息存储session&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;登录成功，用户信息存储session&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;返回登录状态，并发送cookie&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;返回登录状态，并发送cookie&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;将服务端发来的cookie存储&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;将服务端发来的cookie存储&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;携带cookie，发送请求&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;携带cookie，发送请求&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Viewer does not support full SVG 1.1&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;p&gt;这种缺点就是身份信息需要客户端和服务器同时存储，当用户基数很大的时候，需要大量的内存来解决这个问题。&lt;/p&gt;
@@ -971,10 +971,10 @@
         </item>
         <item>
         <title>基于springboot&#43;vue cli遇到的问题</title>
-        <link>https://blog.lass.cc/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <link>https://srcrs.github.io/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
         <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%9F%BA%E4%BA%8Espringboot&#43;vue-cli%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;p&gt;:::tip
 做了一个简单的图书管理系统，也就是实现了CRUD，记录一下中间遇到的问题，以及解决的办法。
 :::&lt;/p&gt;
@@ -1146,10 +1146,10 @@
         </item>
         <item>
         <title>Spring Boot&#43;Vue cli项目部署问题</title>
-        <link>https://blog.lass.cc/posts/spring-boot&#43;vue-cli-3.0%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98/</link>
+        <link>https://srcrs.github.io/posts/spring-boot&#43;vue-cli-3.0%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98/</link>
         <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/spring-boot&#43;vue-cli-3.0%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98/</guid>
+        <guid>https://srcrs.github.io/posts/spring-boot&#43;vue-cli-3.0%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;p&gt;:::tip
 今天把写好的前后端分离小项目部署到服务器，没有想象的那么顺利，记录一下中间遇到的问题，以及解决的办法。
 :::&lt;/p&gt;
@@ -1214,10 +1214,10 @@
         </item>
         <item>
         <title>Spring Security整合</title>
-        <link>https://blog.lass.cc/posts/spring-security%E7%9A%84%E6%95%B4%E5%90%88/</link>
+        <link>https://srcrs.github.io/posts/spring-security%E7%9A%84%E6%95%B4%E5%90%88/</link>
         <pubDate>Fri, 12 Jun 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/spring-security%E7%9A%84%E6%95%B4%E5%90%88/</guid>
+        <guid>https://srcrs.github.io/posts/spring-security%E7%9A%84%E6%95%B4%E5%90%88/</guid>
         <description>&lt;p&gt;:::tip
 当对一个新事物不熟悉的时候，最好的办法就是走老路，别人怎样就怎样，版本需一致，勿要掉坑。
 :::&lt;/p&gt;

@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=":::tip 最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时prim算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用Kruskal来解决这类问题吧。 ::: # 迷之想法 中午用vector版本邻接表存储的无向图，我的想法是这样的，对每一个顶点域邻接的部分从小到大排序，这样求一个顶点到邻接点的最短距离直接取第一个点就好，等用完了这个点，就将它从该位置移除，与此同时，还要将它的主对角线对称位置也移除，就这样一步步运行下去，但是到最后，还是判断不了添加完的的多个点是否是连通状态，结果就卡在这了。 # 迷之代码 # 采用存储的方式 1 2 3 4 5 6 7 8 const int Max=1e4+2; typedef struct EdgeNode { int to; int w; }; vector&lt;EdgeNode&gt; s[Max];//存储方式 vector&lt;bool&gt; f; # 输入的方式 1 2 3 4 5 6 7 8 9 10 11 12 int n,m; cin &gt;&gt; n &gt;&gt; m;//n代表点数,m代表边数 for(int k=0;k&lt;m;k++){ int i,j,w; cin &gt;&gt; i &gt;&gt; j &gt;&gt; w; EdgeNode e; e.to=j; e.w=w; s[i].">
 <title>最小生成树</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="最小生成树">
 <meta property='og:description' content=":::tip 最近老师在讲贪心算法的应用，最小生成树是其中最经典的应用之一，有时候知道其中的思想，但是用代码实现起来还是很有差距的，中午弄了几个小时prim算法建最小生成树，但是最后还是没搞懂其中的关键，最后无法判断两个点是否是连通的，决定以后就用Kruskal来解决这类问题吧。 ::: # 迷之想法 中午用vector版本邻接表存储的无向图，我的想法是这样的，对每一个顶点域邻接的部分从小到大排序，这样求一个顶点到邻接点的最短距离直接取第一个点就好，等用完了这个点，就将它从该位置移除，与此同时，还要将它的主对角线对称位置也移除，就这样一步步运行下去，但是到最后，还是判断不了添加完的的多个点是否是连通状态，结果就卡在这了。 # 迷之代码 # 采用存储的方式 1 2 3 4 5 6 7 8 const int Max=1e4+2; typedef struct EdgeNode { int to; int w; }; vector&lt;EdgeNode&gt; s[Max];//存储方式 vector&lt;bool&gt; f; # 输入的方式 1 2 3 4 5 6 7 8 9 10 11 12 int n,m; cin &gt;&gt; n &gt;&gt; m;//n代表点数,m代表边数 for(int k=0;k&lt;m;k++){ int i,j,w; cin &gt;&gt; i &gt;&gt; j &gt;&gt; w; EdgeNode e; e.to=j; e.w=w; s[i].">
-<meta property='og:url' content='https://blog.lass.cc/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='图论' /><meta property='article:published_time' content='2019-05-22T17:51:35&#43;00:00'/><meta property='article:modified_time' content='2019-05-22T17:51:35&#43;00:00'/>
 <meta name="twitter:title" content="最小生成树">

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>优化 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E4%BC%98%E5%8C%96/</link>
+        <link>https://srcrs.github.io/tags/%E4%BC%98%E5%8C%96/</link>
         <description>Recent content in 优化 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 04 Jun 2019 22:01:23 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 04 Jun 2019 22:01:23 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>gulp与InstantClick</title>
-        <link>https://blog.lass.cc/posts/gulp%E4%B8%8Einstantclick/</link>
+        <link>https://srcrs.github.io/posts/gulp%E4%B8%8Einstantclick/</link>
         <pubDate>Tue, 04 Jun 2019 22:01:23 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/gulp%E4%B8%8Einstantclick/</guid>
+        <guid>https://srcrs.github.io/posts/gulp%E4%B8%8Einstantclick/</guid>
         <description>&lt;p&gt;:::tip
 最近又在折腾这个博客，虽然快考试了，但是一直也不知道要复习什么，无聊就瞎折腾吧。博客的源文件中的文件中有大量的空白，虽然是一些空格，但是也会占据空间，影响加载速度，本次目的就是为了提高加载速度。
 :::&lt;/p&gt;

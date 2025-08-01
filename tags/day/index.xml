@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Day on srcrs</title>
-        <link>https://blog.lass.cc/tags/day/</link>
+        <link>https://srcrs.github.io/tags/day/</link>
         <description>Recent content in Day on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 24 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/day/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 24 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/day/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>拥抱变化</title>
-        <link>https://blog.lass.cc/posts/embrace-change/</link>
+        <link>https://srcrs.github.io/posts/embrace-change/</link>
         <pubDate>Wed, 24 Jul 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/embrace-change/</guid>
+        <guid>https://srcrs.github.io/posts/embrace-change/</guid>
         <description>&lt;p&gt;做了一个梦，梦里的我头秃了，上网查了一下可能是最近压力大了，也确实，最近很内耗，工作和生活都发生了很大的变化。&lt;/p&gt;
 &lt;p&gt;进公司已经两年了，对业务相对比较熟悉了，在忙的时候能一天发布几个版本，对于每天服务几百万用户的系统来说，是有些不可理喻的，在这个过程中需要保持头脑清醒，精神高度集中，要说得到了什么，只能说心态得到了锻炼。两年来自认为做好了本职工作，做到了工作按时完成，生产环境告警、故障不论何时及时打开电脑进行排查，工作空闲时也积极排查系统可能存在的bug，在组内可以说绝无仅有。可两年来待遇并没有得到提升，也可能是打杂的活，随便换一个人都能干吧，这也是焦虑所在，接触不到新的东西了，开会你别想去，只需要像ChatGPT一样干活就好了。只因为是“子”。&lt;/p&gt;
 &lt;p&gt;上周，发现隔壁的同事一个上午都在清理办公桌，中午下班就背着书包挥挥手向周围人告别了，能感受到最近的氛围，这位过去也是加班的常客，最近却很少看到了。紧接着，又听闻总监要离职了，工作了十几年的老程序员，挺唏嘘的，夜晚睡觉前我写下：没有永恒的东西，在变化中适应、成长。我问了自己几个问题，如果你今天就没法干程序员了，你能去做什么；如果今天给你干掉了，你能多久重新找到一份工作；未来五年、十年你想要过什么样的生活，是否是遥不可及的梦。&lt;/p&gt;

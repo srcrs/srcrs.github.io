@@ -4,11 +4,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今天给博客配置了一个PWA，开始的时候按照官网的配置，以为就像是写文章一样，在本地测试就可以看到效果，结果踩了坑，一直都没有成功，最好找了好多的例子，发现我与他们的配置都差不多，就上传到github上，是可以使用的。原来本地是不能使用的，害我走了那么多弯路。 # 安装插件 1 2 yarn add -D @vuepress/plugin-pwa # OR npm install -D @vuepress/plugin-pwa 通过yarn或者npm都可以安装 # 使用插件 1 2 3 4 5 6 module.exports = { plugins: [&#39;@vuepress/pwa&#39;, { serviceWorker: true,//用于缓存页面类容，供离线使用 updatePopup: true //用于刷新类容的弹窗 }], } # 简单配置 为了使网站完全兼容PWA，需要做两件事： 在.vuepress/public添加manifest.json文件和icons文件夹 在.vuepress/config.js添加正确的head links # manifest.json的例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 { &#34;name&#34;: &#34;srcrs&#34;,//用户主屏幕上的名字 &#34;short_name&#34;: &#34;srcrs&#34;,//当屏幕较小显示的短名字 &#34;icons&#34;: [//添加到主屏幕之后的图标，生成的web应用图标 { &#34;src&#34;: &#34;/icons/android-chrome-192x192.">
 <title>为Vuepress配置PWA</title>
 
-<link rel='canonical' href='https://blog.lass.cc/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/'>
+<link rel='canonical' href='https://srcrs.github.io/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="为Vuepress配置PWA">
 <meta property='og:description' content="今天给博客配置了一个PWA，开始的时候按照官网的配置，以为就像是写文章一样，在本地测试就可以看到效果，结果踩了坑，一直都没有成功，最好找了好多的例子，发现我与他们的配置都差不多，就上传到github上，是可以使用的。原来本地是不能使用的，害我走了那么多弯路。 # 安装插件 1 2 yarn add -D @vuepress/plugin-pwa # OR npm install -D @vuepress/plugin-pwa 通过yarn或者npm都可以安装 # 使用插件 1 2 3 4 5 6 module.exports = { plugins: [&#39;@vuepress/pwa&#39;, { serviceWorker: true,//用于缓存页面类容，供离线使用 updatePopup: true //用于刷新类容的弹窗 }], } # 简单配置 为了使网站完全兼容PWA，需要做两件事： 在.vuepress/public添加manifest.json文件和icons文件夹 在.vuepress/config.js添加正确的head links # manifest.json的例子 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 { &#34;name&#34;: &#34;srcrs&#34;,//用户主屏幕上的名字 &#34;short_name&#34;: &#34;srcrs&#34;,//当屏幕较小显示的短名字 &#34;icons&#34;: [//添加到主屏幕之后的图标，生成的web应用图标 { &#34;src&#34;: &#34;/icons/android-chrome-192x192.">
-<meta property='og:url' content='https://blog.lass.cc/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/'>
+<meta property='og:url' content='https://srcrs.github.io/posts/%E4%B8%BAvuepress%E9%85%8D%E7%BD%AEpwa/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='PWA' /><meta property='article:published_time' content='2020-01-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-01-27T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="为Vuepress配置PWA">

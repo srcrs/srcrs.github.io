@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>蓝桥杯 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/</link>
+        <link>https://srcrs.github.io/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/</link>
         <description>Recent content in 蓝桥杯 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>第十一届蓝桥杯省赛第一场原题</title>
-        <link>https://blog.lass.cc/posts/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%81%E8%B5%9B%E7%AC%AC%E4%B8%80%E5%9C%BA%E5%8E%9F%E9%A2%98/</link>
+        <link>https://srcrs.github.io/posts/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%81%E8%B5%9B%E7%AC%AC%E4%B8%80%E5%9C%BA%E5%8E%9F%E9%A2%98/</link>
         <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%81%E8%B5%9B%E7%AC%AC%E4%B8%80%E5%9C%BA%E5%8E%9F%E9%A2%98/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%81%E8%B5%9B%E7%AC%AC%E4%B8%80%E5%9C%BA%E5%8E%9F%E9%A2%98/</guid>
         <description>&lt;h2 id=&#34;a指数计算5分&#34;&gt;
     &lt;a href=&#34;#a%e6%8c%87%e6%95%b0%e8%ae%a1%e7%ae%975%e5%88%86&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     A：指数计算(5分)

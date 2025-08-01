@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Maven on srcrs</title>
-        <link>https://blog.lass.cc/tags/maven/</link>
+        <link>https://srcrs.github.io/tags/maven/</link>
         <description>Recent content in Maven on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 11 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/maven/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 11 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>maven</title>
-        <link>https://blog.lass.cc/posts/maven/</link>
+        <link>https://srcrs.github.io/posts/maven/</link>
         <pubDate>Wed, 11 Mar 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/maven/</guid>
+        <guid>https://srcrs.github.io/posts/maven/</guid>
         <description>&lt;p&gt;:::tip
 maven是自动化构建工具，有着强大的管理jar包的能力，这样当在做一个工程的时候，想使用哪个jar包时，不必去四处百度下载这个jar包，只需要在配置项中加入几行代码就可使用。
 :::&lt;/p&gt;

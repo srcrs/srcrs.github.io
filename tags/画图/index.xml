@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>画图 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E7%94%BB%E5%9B%BE/</link>
+        <link>https://srcrs.github.io/tags/%E7%94%BB%E5%9B%BE/</link>
         <description>Recent content in 画图 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 19 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E7%94%BB%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 19 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E7%94%BB%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>图片转移与改进</title>
-        <link>https://blog.lass.cc/posts/%E5%9B%BE%E7%89%87%E8%BD%AC%E7%A7%BB%E4%B8%8E%E6%94%B9%E8%BF%9B/</link>
+        <link>https://srcrs.github.io/posts/%E5%9B%BE%E7%89%87%E8%BD%AC%E7%A7%BB%E4%B8%8E%E6%94%B9%E8%BF%9B/</link>
         <pubDate>Sun, 19 Jan 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%9B%BE%E7%89%87%E8%BD%AC%E7%A7%BB%E4%B8%8E%E6%94%B9%E8%BF%9B/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%9B%BE%E7%89%87%E8%BD%AC%E7%A7%BB%E4%B8%8E%E6%94%B9%E8%BF%9B/</guid>
         <description>&lt;p&gt;画图以前用的hexo的插件mermaid，转移到vuepress之后就无法使用这个插件了，以前画的图就变成一片代码了，为了减少画图的挂的可能性，以后就用&lt;code&gt;draw.io&lt;/code&gt;画图，嵌入&lt;code&gt;svg&lt;/code&gt;图片，本来开始希望嵌入的是&lt;code&gt;base64&lt;/code&gt;，但是最后发现它的代码长度比&lt;code&gt;svg&lt;/code&gt;长了不少，就放弃了。采用这种方式引入图片有一个缺点，文章变得太长了，好处就是图片稳定性增加了。&lt;/p&gt;
 &lt;p&gt;在&lt;code&gt;index.styl&lt;/code&gt;引入了样式覆盖，使得图片居中显示在文章中。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -27,10 +27,10 @@
         </item>
         <item>
         <title>MATLAB画图入门</title>
-        <link>https://blog.lass.cc/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/</link>
+        <link>https://srcrs.github.io/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/</link>
         <pubDate>Sat, 10 Aug 2019 12:57:48 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/</guid>
+        <guid>https://srcrs.github.io/posts/matlab%E7%94%BB%E5%9B%BE%E5%85%A5%E9%97%A8/</guid>
         <description>&lt;p&gt;:::tip
 由于数学建模的需要，就来学习一下怎么使用&lt;code&gt;MATLAB&lt;/code&gt;进行画图。发现用它画的图还挺好看的，二维图形，三维图形，它都能够胜任，而且很美观，下面就是关于一些常见的图形应该怎么画。
 :::&lt;/p&gt;

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Note on srcrs</title>
-        <link>https://blog.lass.cc/tags/note/</link>
+        <link>https://srcrs.github.io/tags/note/</link>
         <description>Recent content in Note on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/note/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/note/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>随身wifi但愿不会踩坑</title>
-        <link>https://blog.lass.cc/posts/portable-wifi/</link>
+        <link>https://srcrs.github.io/posts/portable-wifi/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/portable-wifi/</guid>
+        <guid>https://srcrs.github.io/posts/portable-wifi/</guid>
         <description>&lt;h2 id=&#34;前序&#34;&gt;
     &lt;a href=&#34;#%e5%89%8d%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     前序
@@ -76,10 +76,10 @@
         </item>
         <item>
         <title>一些程序语言的生命周期</title>
-        <link>https://blog.lass.cc/posts/the-life-cycle-of-some-language-programs/</link>
+        <link>https://srcrs.github.io/posts/the-life-cycle-of-some-language-programs/</link>
         <pubDate>Wed, 04 Jan 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/the-life-cycle-of-some-language-programs/</guid>
+        <guid>https://srcrs.github.io/posts/the-life-cycle-of-some-language-programs/</guid>
         <description>&lt;p&gt;从一个简单的 &lt;code&gt;Hello World&lt;/code&gt; ，来分析各种程序语言背后的执行原理。&lt;/p&gt;
 &lt;h2 id=&#34;c语言&#34;&gt;
     &lt;a href=&#34;#c%e8%af%ad%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;

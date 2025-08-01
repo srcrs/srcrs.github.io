@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>贪心算法 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</link>
+        <link>https://srcrs.github.io/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</link>
         <description>Recent content in 贪心算法 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 26 May 2019 00:56:36 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 May 2019 00:56:36 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>单源最短路径</title>
-        <link>https://blog.lass.cc/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</link>
+        <link>https://srcrs.github.io/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</link>
         <pubDate>Sun, 26 May 2019 00:56:36 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</guid>
         <description>&lt;p&gt;单源最短路径，顾名思义，就是从一个地点到多个地点的最短距离，生活中也比较常见，例如当你选择但你想去某地旅游的时候，是不是要分析一下，当你下火车的地点一定，要按照怎样的游玩顺序，走最短的路，游玩最多的景点。没错，这个算法就是来解决这个问题的————&lt;code&gt;Dijkstra&lt;/code&gt;算法。&lt;/p&gt;
 &lt;h2 id=&#34;dijkstra算法历史&#34;&gt;
     &lt;a href=&#34;#dijkstra%e7%ae%97%e6%b3%95%e5%8e%86%e5%8f%b2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -188,10 +188,10 @@
         </item>
         <item>
         <title>贪心算法思想</title>
-        <link>https://blog.lass.cc/posts/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</link>
+        <link>https://srcrs.github.io/posts/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</link>
         <pubDate>Sat, 18 May 2019 16:04:05 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</guid>
+        <guid>https://srcrs.github.io/posts/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</guid>
         <description>&lt;p&gt;:::tip
 贪心这个词在我们的生活中随处可见，贪心像是大自然万物特有的，而人将这发展到了极致。得到了想要的东西，还想要更好的东西，永无止境，所以又有一个词：知足常乐。只不过现在所有你想要的都摆在了你的面前，你要怎么选择呢？
 :::&lt;/p&gt;

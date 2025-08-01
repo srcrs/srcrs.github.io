@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Vps on srcrs</title>
-        <link>https://blog.lass.cc/tags/vps/</link>
+        <link>https://srcrs.github.io/tags/vps/</link>
         <description>Recent content in Vps on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 28 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/vps/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 28 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/vps/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>vps安全设置</title>
-        <link>https://blog.lass.cc/posts/vps-security-settings-policy/</link>
+        <link>https://srcrs.github.io/posts/vps-security-settings-policy/</link>
         <pubDate>Tue, 28 Sep 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/vps-security-settings-policy/</guid>
+        <guid>https://srcrs.github.io/posts/vps-security-settings-policy/</guid>
         <description>&lt;p&gt;系统版本：ubuntu20.04/debian11&lt;/p&gt;
 &lt;p&gt;前不久入手的国外vps被入侵了，发生次数超过三次，发现是因为配置的公钥匙被更改，导致我登陆不上去，并且代码配置的公钥、私钥都被删除，cpu跑满，大概被拉去挖矿了，不知是何种方式入侵的。为了以后减少被入侵的风险，我做了如下配置&lt;/p&gt;
 &lt;h2 id=&#34;修改ssh登陆接口&#34;&gt;

@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>心话 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E5%BF%83%E8%AF%9D/</link>
+        <link>https://srcrs.github.io/tags/%E5%BF%83%E8%AF%9D/</link>
         <description>Recent content in 心话 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E5%BF%83%E8%AF%9D/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E5%BF%83%E8%AF%9D/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>梦回十年</title>
-        <link>https://blog.lass.cc/posts/%E6%A2%A6%E5%9B%9E%E5%8D%81%E5%B9%B4/</link>
+        <link>https://srcrs.github.io/posts/%E6%A2%A6%E5%9B%9E%E5%8D%81%E5%B9%B4/</link>
         <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E6%A2%A6%E5%9B%9E%E5%8D%81%E5%B9%B4/</guid>
+        <guid>https://srcrs.github.io/posts/%E6%A2%A6%E5%9B%9E%E5%8D%81%E5%B9%B4/</guid>
         <description>&lt;p&gt;这段时间过得真跟梦似的，有了大学里第一次外出学习的机会，到了外面，虽然知道自己会很菜，但是没想到菜的那么狠。连续好几天白天黑夜颠倒的，自己都有点摸不到北了，有时候会收获颇微，有时候感觉自己理解又加深了一点，总之一切在朝着好的方向发展的，甚感欣慰。&lt;/p&gt;
 &lt;p&gt;刷题，最近有一段时间都没有刷题了，这段时间忙完之后，还是要继续刷题的，按照自己定下的路径来，攻破自己的瓶颈。还有就是要学习Python，感觉生活中用的可能会多一点，会比较好玩一点，例如爬取网页中自己想要的数据，实现网站的自动登录（可以以此来思考制作短信验证码骚扰，嘿嘿）。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>古往今来，莫衷一是</title>
-        <link>https://blog.lass.cc/posts/%E5%8F%A4%E5%BE%80%E4%BB%8A%E6%9D%A5%E8%8E%AB%E8%A1%B7%E4%B8%80%E6%98%AF/</link>
+        <link>https://srcrs.github.io/posts/%E5%8F%A4%E5%BE%80%E4%BB%8A%E6%9D%A5%E8%8E%AB%E8%A1%B7%E4%B8%80%E6%98%AF/</link>
         <pubDate>Sat, 13 Jul 2019 00:03:28 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E5%8F%A4%E5%BE%80%E4%BB%8A%E6%9D%A5%E8%8E%AB%E8%A1%B7%E4%B8%80%E6%98%AF/</guid>
+        <guid>https://srcrs.github.io/posts/%E5%8F%A4%E5%BE%80%E4%BB%8A%E6%9D%A5%E8%8E%AB%E8%A1%B7%E4%B8%80%E6%98%AF/</guid>
         <description>&lt;p&gt;:::tip
 《饥饿》这篇文章看完了，觉得读不太懂这本书，也许是现在我们的生活变好了，难以体会到饥饿与死亡挂钩那种焦虑，但是我们又是相似的，都处在社会的最底层，都是一双手，两条腿。把最近所想所见所闻，写下来。
 :::&lt;/p&gt;
@@ -37,10 +37,10 @@
         </item>
         <item>
         <title>那时年少不轻狂</title>
-        <link>https://blog.lass.cc/posts/%E9%82%A3%E6%97%B6%E5%B9%B4%E5%B0%91%E4%B8%8D%E8%BD%BB%E7%8B%82/</link>
+        <link>https://srcrs.github.io/posts/%E9%82%A3%E6%97%B6%E5%B9%B4%E5%B0%91%E4%B8%8D%E8%BD%BB%E7%8B%82/</link>
         <pubDate>Sun, 16 Jun 2019 01:51:06 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E9%82%A3%E6%97%B6%E5%B9%B4%E5%B0%91%E4%B8%8D%E8%BD%BB%E7%8B%82/</guid>
+        <guid>https://srcrs.github.io/posts/%E9%82%A3%E6%97%B6%E5%B9%B4%E5%B0%91%E4%B8%8D%E8%BD%BB%E7%8B%82/</guid>
         <description>&lt;p&gt;:::tip
 今天是父亲节，记得在去年的时候，这一天我写了一个推算父亲节的程序，一转眼也已经一年了。这说明，从我接触写程序也已经一年了，虽然现在会的比以前多了一点，但是还是感觉不是那么够，惶恐感萦绕左右，我说这些干啥呢。
 :::&lt;/p&gt;
@@ -53,10 +53,10 @@
         </item>
         <item>
         <title>真想把一辈子都写在这</title>
-        <link>https://blog.lass.cc/posts/%E7%9C%9F%E6%83%B3%E6%8A%8A%E4%B8%80%E8%BE%88%E5%AD%90%E9%83%BD%E5%86%99%E5%9C%A8%E8%BF%99/</link>
+        <link>https://srcrs.github.io/posts/%E7%9C%9F%E6%83%B3%E6%8A%8A%E4%B8%80%E8%BE%88%E5%AD%90%E9%83%BD%E5%86%99%E5%9C%A8%E8%BF%99/</link>
         <pubDate>Sat, 01 Jun 2019 23:19:29 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/%E7%9C%9F%E6%83%B3%E6%8A%8A%E4%B8%80%E8%BE%88%E5%AD%90%E9%83%BD%E5%86%99%E5%9C%A8%E8%BF%99/</guid>
+        <guid>https://srcrs.github.io/posts/%E7%9C%9F%E6%83%B3%E6%8A%8A%E4%B8%80%E8%BE%88%E5%AD%90%E9%83%BD%E5%86%99%E5%9C%A8%E8%BF%99/</guid>
         <description>&lt;p&gt;:::tip
 此刻又到夜晚十一点多了，上了大学后，很少在十二点以前睡觉了，晚上吃完饭就在宿舍里坐着，看会书，玩会手机时间就走到了现在。小时候总希望时间能走快点，快点放假，快点长大，现在多想时间能走慢一点，一周，晃眼就过去了，在这流年中多想收获能更多一点。
 :::&lt;/p&gt;

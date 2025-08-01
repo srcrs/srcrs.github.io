@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>通信 on srcrs</title>
-        <link>https://blog.lass.cc/tags/%E9%80%9A%E4%BF%A1/</link>
+        <link>https://srcrs.github.io/tags/%E9%80%9A%E4%BF%A1/</link>
         <description>Recent content in 通信 on srcrs</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 28 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.lass.cc/tags/%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 28 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://srcrs.github.io/tags/%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Socket实现多客户端与服务端交互</title>
-        <link>https://blog.lass.cc/posts/socket%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BA%A4%E4%BA%92/</link>
+        <link>https://srcrs.github.io/posts/socket%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BA%A4%E4%BA%92/</link>
         <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://blog.lass.cc/posts/socket%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BA%A4%E4%BA%92/</guid>
+        <guid>https://srcrs.github.io/posts/socket%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BA%A4%E4%BA%92/</guid>
         <description>&lt;p&gt;Socket可以有两种方式实现客户端与服务端的连接，一种是TCP，一种是UDP，本次用的TCP。
 设计思路无非是，服务端先搭建好一个地址和端口，然后客户端连接到这个地址和端口。中间也遇到了很多的问题，比如说多个 客户端怎么连接到一个服务端，这里只需要为每个用户开一个线程就可以解决。另外就是如何实现服务端作为通信的桥梁，接收一个客户端的信息到其余的客户端上，这里用的是HashMap，一个存放识别客户端的ID，一个存放客户端的Socket对象，这样，每次操作遍历所有的节点，就可以实现转发到不同的客户端上。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Server&lt;/strong&gt;&lt;/p&gt;
