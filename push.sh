@@ -1,4 +1,4 @@
-docker cp hugo-server:/usr/share/nginx/html/ .
+docker cp doduocc-server:/usr/share/nginx/html/ .
 
 cp -r html/* .
 
