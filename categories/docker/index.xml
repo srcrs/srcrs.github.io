@@ -15,8 +15,7 @@
         <description>&lt;h2 id=&#34;简述&#34;&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     简述
-&lt;/h2&gt;&lt;p&gt;在前面已经给大家推荐过&lt;a class=&#34;link&#34; href=&#34;https://blog.lass.cc/posts/easy-to-use-torrent-client/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;【exatorrent】好用的web端BT磁力在线播放工具&lt;/a&gt;，这个工具将会把电影下载到本地磁盘，当种子热度不好的时候，下载完再看不会有卡顿的情况。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;在前面已经给大家推荐过&lt;a class=&#34;link&#34; href=&#34;https://srcrs.github.io/posts/easy-to-use-torrent-client/&#34; &gt;【exatorrent】好用的web端BT磁力在线播放工具&lt;/a&gt;，这个工具将会把电影下载到本地磁盘，当种子热度不好的时候，下载完再看不会有卡顿的情况。&lt;/p&gt;
 &lt;p&gt;那时候就在想，有没有一款工具不用下载就可以立即观看电影的工具，就是它了——&lt;a class=&#34;link&#34; href=&#34;https://github.com/YouROK/TorrServer&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;TorrServer&lt;/a&gt;，实际使用起来也是很好的，只有在观看电影时才会占用一些资源，而且只是缓存电影当前这一小部分，当观看结束后资源会自动释放。&lt;/p&gt;
 &lt;h2 id=&#34;torrserver介绍&#34;&gt;
