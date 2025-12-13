@@ -22,6 +22,25 @@
 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股
 3.要有一个好的客户端用户体验，电脑、手机设备&lt;/p&gt;
 &lt;p&gt;为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  graph TB
+    A[用户] --&amp;gt; B[AI客户端&amp;lt;br/&amp;gt;Cherry Studio/Kelivo/RikkaHub]
+    B --&amp;gt; C[AI Agent&amp;lt;br/&amp;gt;GLM4.6/OpenRouter]
+    C --&amp;gt; D[MCP工具层]
+    D --&amp;gt; E[LongPort MCP&amp;lt;br/&amp;gt;行情数据/交易执行]
+    E --&amp;gt; F[长桥OpenAPI&amp;lt;br/&amp;gt;A股/港股/美股]
+
+    B --&amp;gt; G[提示词引擎]
+    C --&amp;gt; H[投资分析逻辑]
+    D --&amp;gt; I[风险监控]
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#ffebee
+&lt;/pre&gt;
+
 &lt;h2 id=&#34;数据源选型&#34;&gt;
     &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e6%ba%90%e9%80%89%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     数据源选型
@@ -55,25 +74,6 @@
 &lt;/h2&gt;&lt;p&gt;这部分原本我觉得会很快完成的，没想到长桥的&lt;code&gt;mcp&lt;/code&gt;在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目&lt;code&gt;Issues&lt;/code&gt;中提问，寻找解决方案，退而求其次&lt;code&gt;web&lt;/code&gt;版的&lt;code&gt;lobe-chat&lt;/code&gt;总应该行吧？连接是正常的，但是调用异常。&lt;/p&gt;
 &lt;p&gt;后来我偶然间想到是否有&lt;code&gt;mcp&lt;/code&gt;代理服务，比如将&lt;code&gt;stdio&lt;/code&gt;协议转换成&lt;code&gt;streamable http&lt;/code&gt;协议，将&lt;code&gt;sse&lt;/code&gt;协议转换成&lt;code&gt;stdio&lt;/code&gt;等，也就是协议的互转。也许能够解决协议不兼容的部分。&lt;code&gt;fastmcp proxy&lt;/code&gt;可以完美实现我的想法。&lt;/p&gt;
 &lt;p&gt;接下来还要解决访问权限的问题，长桥&lt;code&gt;mcp&lt;/code&gt;并没有该功能，我的解决方案是加一层&lt;code&gt;nginx&lt;/code&gt;，使用&lt;code&gt;http&lt;/code&gt;用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是&lt;code&gt;nginx + fastmcp-proxy + longport-mcp&lt;/code&gt;架构。&lt;/p&gt;
-&lt;pre class=&#34;mermaid&#34;&gt;
-  graph TB
-    A[用户] --&amp;gt; B[AI客户端&amp;lt;br/&amp;gt;Cherry Studio/Kelivo/RikkaHub]
-    B --&amp;gt; C[AI Agent&amp;lt;br/&amp;gt;GLM4.6/OpenRouter]
-    C --&amp;gt; D[MCP工具层]
-    D --&amp;gt; E[LongPort MCP&amp;lt;br/&amp;gt;行情数据/交易执行]
-    E --&amp;gt; F[长桥OpenAPI&amp;lt;br/&amp;gt;A股/港股/美股]
-
-    B --&amp;gt; G[提示词引擎]
-    C --&amp;gt; H[投资分析逻辑]
-    D --&amp;gt; I[风险监控]
-
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
-    style E fill:#ffebee
-&lt;/pre&gt;
-
 &lt;h3 id=&#34;项目目录&#34;&gt;
     &lt;a href=&#34;#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     项目目录
