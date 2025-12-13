@@ -55,6 +55,25 @@
 &lt;/h2&gt;&lt;p&gt;这部分原本我觉得会很快完成的，没想到长桥的&lt;code&gt;mcp&lt;/code&gt;在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目&lt;code&gt;Issues&lt;/code&gt;中提问，寻找解决方案，退而求其次&lt;code&gt;web&lt;/code&gt;版的&lt;code&gt;lobe-chat&lt;/code&gt;总应该行吧？连接是正常的，但是调用异常。&lt;/p&gt;
 &lt;p&gt;后来我偶然间想到是否有&lt;code&gt;mcp&lt;/code&gt;代理服务，比如将&lt;code&gt;stdio&lt;/code&gt;协议转换成&lt;code&gt;streamable http&lt;/code&gt;协议，将&lt;code&gt;sse&lt;/code&gt;协议转换成&lt;code&gt;stdio&lt;/code&gt;等，也就是协议的互转。也许能够解决协议不兼容的部分。&lt;code&gt;fastmcp proxy&lt;/code&gt;可以完美实现我的想法。&lt;/p&gt;
 &lt;p&gt;接下来还要解决访问权限的问题，长桥&lt;code&gt;mcp&lt;/code&gt;并没有该功能，我的解决方案是加一层&lt;code&gt;nginx&lt;/code&gt;，使用&lt;code&gt;http&lt;/code&gt;用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是&lt;code&gt;nginx + fastmcp-proxy + longport-mcp&lt;/code&gt;架构。&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  graph TB
+    A[用户] --&amp;gt; B[AI客户端&amp;lt;br/&amp;gt;Cherry Studio/Kelivo/RikkaHub]
+    B --&amp;gt; C[AI Agent&amp;lt;br/&amp;gt;GLM4.6/OpenRouter]
+    C --&amp;gt; D[MCP工具层]
+    D --&amp;gt; E[LongPort MCP&amp;lt;br/&amp;gt;行情数据/交易执行]
+    E --&amp;gt; F[长桥OpenAPI&amp;lt;br/&amp;gt;A股/港股/美股]
+
+    B --&amp;gt; G[提示词引擎]
+    C --&amp;gt; H[投资分析逻辑]
+    D --&amp;gt; I[风险监控]
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#ffebee
+&lt;/pre&gt;
+
 &lt;h3 id=&#34;项目目录&#34;&gt;
     &lt;a href=&#34;#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     项目目录
@@ -163,6 +182,24 @@
     &lt;a href=&#34;#nginx--longport-mcp%e6%9e%b6%e6%9e%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     nginx + longport-mcp架构
 &lt;/h3&gt;&lt;p&gt;这是直接使用长桥&lt;code&gt;mcp&lt;/code&gt;服务，该方案存在大部分客户端兼容性问题&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[AI客户端] --&amp;gt; B{HTTP请求&amp;lt;br/&amp;gt;:8080}
+    B --&amp;gt; C[Nginx&amp;lt;br/&amp;gt;Basic Auth]
+    C --&amp;gt; D[LongPort MCP&amp;lt;br/&amp;gt;HTTP服务]
+    D --&amp;gt; E[长桥证券API]
+
+    C --&amp;gt; F[认证失败]
+    F --&amp;gt; G[401错误]
+
+    D --&amp;gt; H[协议兼容性问题]
+    H --&amp;gt; I[连接异常]
+
+    style C fill:#fff3e0
+    style D fill:#ffebee
+    style H fill:#ffcdd2
+&lt;/pre&gt;
+
 &lt;h4 id=&#34;longport-mcpdockerfile&#34;&gt;
     &lt;a href=&#34;#longport-mcpdockerfile&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     longport-mcp(Dockerfile)
@@ -293,6 +330,33 @@
     &lt;a href=&#34;#nginx--fastmcp-proxy--longport-mcp%e6%9e%b6%e6%9e%84&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     nginx + fastmcp-proxy + longport-mcp架构
 &lt;/h3&gt;&lt;p&gt;完美兼容性方案&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    A[用户设备] --&amp;gt; B[AI客户端]
+    B --&amp;gt; C[HTTP请求]
+    C --&amp;gt; D{Nginx反向代理&amp;lt;br/&amp;gt;端口8080}
+    D --&amp;gt; E[Basic Auth认证]
+    E --&amp;gt; F[FastMCP Proxy&amp;lt;br/&amp;gt;协议转换]
+    F --&amp;gt; G[LongPort MCP&amp;lt;br/&amp;gt;Stdio协议]
+    G --&amp;gt; H[长桥证券API]
+
+    subgraph &amp;#34;安全边界&amp;#34;
+        D --&amp;gt; E --&amp;gt; F
+    end
+
+    subgraph &amp;#34;协议转换层&amp;#34;
+        F --&amp;gt; G
+    end
+
+    subgraph &amp;#34;数据服务层&amp;#34;
+        G --&amp;gt; H
+    end
+
+    style D fill:#ffebee
+    style F fill:#e8f5e8
+    style G fill:#e1f5fe
+&lt;/pre&gt;
+
 &lt;h4 id=&#34;fastmcp-proxy--longport-mcpdockerfile&#34;&gt;
     &lt;a href=&#34;#fastmcp-proxy--longport-mcpdockerfile&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     fastmcp-proxy + longport-mcp(Dockerfile)

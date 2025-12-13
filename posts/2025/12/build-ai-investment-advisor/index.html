@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 # 项目目录 1 2 3 4 5 6 7 8 9 10 11 . ├── docker-compose.yaml ├── longport │ ├── Dockerfile │ ├── mcp-servers.json │ ├── proxy_server.py │ └── requirements.txt └── nginx ├── .htpasswd └── conf.">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 graph TB A[用户] --&gt; B[AI客户端&lt;br/&gt;Cherry Studio/Kelivo/RikkaHub] B --&gt; C[AI Agent&lt;br/&gt;GLM4.6/OpenRouter] C --&gt; D[MCP工具层] D --&gt; E[LongPort MCP&lt;br/&gt;行情数据/交易执行] E --&gt; F[长桥OpenAPI&lt;br/&gt;A股/港股/美股] B --&gt; G[提示词引擎] C --&gt; H[投资分析逻辑] D --&gt; I[风险监控] style A fill:#e1f5fe style B fill:#f3e5f5 style C fill:#e8f5e8 style D fill:#fff3e0 style E fill:#ffebee # 项目目录 1 2 3 4 5 6 7 8 9 10 11 .">
 <title>构建一个智能投顾AI助手</title>
 
 <link rel='canonical' href='https://srcrs.github.io/posts/2025/12/build-ai-investment-advisor/'>
 
 <link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="构建一个智能投顾AI助手">
-<meta property='og:description' content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 # 项目目录 1 2 3 4 5 6 7 8 9 10 11 . ├── docker-compose.yaml ├── longport │ ├── Dockerfile │ ├── mcp-servers.json │ ├── proxy_server.py │ └── requirements.txt └── nginx ├── .htpasswd └── conf.">
+<meta property='og:description' content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 graph TB A[用户] --&gt; B[AI客户端&lt;br/&gt;Cherry Studio/Kelivo/RikkaHub] B --&gt; C[AI Agent&lt;br/&gt;GLM4.6/OpenRouter] C --&gt; D[MCP工具层] D --&gt; E[LongPort MCP&lt;br/&gt;行情数据/交易执行] E --&gt; F[长桥OpenAPI&lt;br/&gt;A股/港股/美股] B --&gt; G[提示词引擎] C --&gt; H[投资分析逻辑] D --&gt; I[风险监控] style A fill:#e1f5fe style B fill:#f3e5f5 style C fill:#e8f5e8 style D fill:#fff3e0 style E fill:#ffebee # 项目目录 1 2 3 4 5 6 7 8 9 10 11 .">
 <meta property='og:url' content='https://srcrs.github.io/posts/2025/12/build-ai-investment-advisor/'>
 <meta property='og:site_name' content='srcrs'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2025-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-13T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="构建一个智能投顾AI助手">
-<meta name="twitter:description" content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 # 项目目录 1 2 3 4 5 6 7 8 9 10 11 . ├── docker-compose.yaml ├── longport │ ├── Dockerfile │ ├── mcp-servers.json │ ├── proxy_server.py │ └── requirements.txt └── nginx ├── .htpasswd └── conf.">
+<meta name="twitter:description" content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 graph TB A[用户] --&gt; B[AI客户端&lt;br/&gt;Cherry Studio/Kelivo/RikkaHub] B --&gt; C[AI Agent&lt;br/&gt;GLM4.6/OpenRouter] C --&gt; D[MCP工具层] D --&gt; E[LongPort MCP&lt;br/&gt;行情数据/交易执行] E --&gt; F[长桥OpenAPI&lt;br/&gt;A股/港股/美股] B --&gt; G[提示词引擎] C --&gt; H[投资分析逻辑] D --&gt; I[风险监控] style A fill:#e1f5fe style B fill:#f3e5f5 style C fill:#e8f5e8 style D fill:#fff3e0 style E fill:#ffebee # 项目目录 1 2 3 4 5 6 7 8 9 10 11 .">
     <link rel="shortcut icon" href="/favicon.svg" />
 
   
@@ -368,7 +368,7 @@
 
 
                 <time class="article-time--reading">
-                    3 minute read
+                    4 minute read
                 </time>
             </div>
         
@@ -426,6 +426,25 @@
 </h2><p>这部分原本我觉得会很快完成的，没想到长桥的<code>mcp</code>在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目<code>Issues</code>中提问，寻找解决方案，退而求其次<code>web</code>版的<code>lobe-chat</code>总应该行吧？连接是正常的，但是调用异常。</p>
 <p>后来我偶然间想到是否有<code>mcp</code>代理服务，比如将<code>stdio</code>协议转换成<code>streamable http</code>协议，将<code>sse</code>协议转换成<code>stdio</code>等，也就是协议的互转。也许能够解决协议不兼容的部分。<code>fastmcp proxy</code>可以完美实现我的想法。</p>
 <p>接下来还要解决访问权限的问题，长桥<code>mcp</code>并没有该功能，我的解决方案是加一层<code>nginx</code>，使用<code>http</code>用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是<code>nginx + fastmcp-proxy + longport-mcp</code>架构。</p>
+<pre class="mermaid">
+  graph TB
+    A[用户] --&gt; B[AI客户端&lt;br/&gt;Cherry Studio/Kelivo/RikkaHub]
+    B --&gt; C[AI Agent&lt;br/&gt;GLM4.6/OpenRouter]
+    C --&gt; D[MCP工具层]
+    D --&gt; E[LongPort MCP&lt;br/&gt;行情数据/交易执行]
+    E --&gt; F[长桥OpenAPI&lt;br/&gt;A股/港股/美股]
+
+    B --&gt; G[提示词引擎]
+    C --&gt; H[投资分析逻辑]
+    D --&gt; I[风险监控]
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#ffebee
+</pre>
+
 <h3 id="项目目录">
     <a href="#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95" class="header-anchor">#</a>
     项目目录
@@ -534,6 +553,24 @@
     <a href="#nginx--longport-mcp%e6%9e%b6%e6%9e%84" class="header-anchor">#</a>
     nginx + longport-mcp架构
 </h3><p>这是直接使用长桥<code>mcp</code>服务，该方案存在大部分客户端兼容性问题</p>
+<pre class="mermaid">
+  flowchart LR
+    A[AI客户端] --&gt; B{HTTP请求&lt;br/&gt;:8080}
+    B --&gt; C[Nginx&lt;br/&gt;Basic Auth]
+    C --&gt; D[LongPort MCP&lt;br/&gt;HTTP服务]
+    D --&gt; E[长桥证券API]
+
+    C --&gt; F[认证失败]
+    F --&gt; G[401错误]
+
+    D --&gt; H[协议兼容性问题]
+    H --&gt; I[连接异常]
+
+    style C fill:#fff3e0
+    style D fill:#ffebee
+    style H fill:#ffcdd2
+</pre>
+
 <h4 id="longport-mcpdockerfile">
     <a href="#longport-mcpdockerfile" class="header-anchor">#</a>
     longport-mcp(Dockerfile)
@@ -664,6 +701,33 @@
     <a href="#nginx--fastmcp-proxy--longport-mcp%e6%9e%b6%e6%9e%84" class="header-anchor">#</a>
     nginx + fastmcp-proxy + longport-mcp架构
 </h3><p>完美兼容性方案</p>
+<pre class="mermaid">
+  flowchart TB
+    A[用户设备] --&gt; B[AI客户端]
+    B --&gt; C[HTTP请求]
+    C --&gt; D{Nginx反向代理&lt;br/&gt;端口8080}
+    D --&gt; E[Basic Auth认证]
+    E --&gt; F[FastMCP Proxy&lt;br/&gt;协议转换]
+    F --&gt; G[LongPort MCP&lt;br/&gt;Stdio协议]
+    G --&gt; H[长桥证券API]
+
+    subgraph &#34;安全边界&#34;
+        D --&gt; E --&gt; F
+    end
+
+    subgraph &#34;协议转换层&#34;
+        F --&gt; G
+    end
+
+    subgraph &#34;数据服务层&#34;
+        G --&gt; H
+    end
+
+    style D fill:#ffebee
+    style F fill:#e8f5e8
+    style G fill:#e1f5fe
+</pre>
+
 <h4 id="fastmcp-proxy--longport-mcpdockerfile">
     <a href="#fastmcp-proxy--longport-mcpdockerfile" class="header-anchor">#</a>
     fastmcp-proxy + longport-mcp(Dockerfile)
@@ -1118,6 +1182,11 @@
 
         document.head.appendChild(customFont);
     }());
+</script>
+
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
 </script>
 
 
