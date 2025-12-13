@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 # 项目目录 1 2 3 4 5 6 7 8 9 10 11 . ├── docker-compose.yaml ├── longport │ ├── Dockerfile │ ├── mcp-servers.json │ ├── proxy_server.py │ └── requirements.txt └── nginx ├── .htpasswd └── conf.">
+<title>构建一个智能投顾AI助手</title>
+
+<link rel='canonical' href='https://srcrs.github.io/posts/2025/12/build-ai-investment-advisor/'>
+
+<link rel="stylesheet" href="/scss/style.min.6eaf2e37b1fc42bf032876d12481913b3ce4a25f4154d1a7a2ab404cad9ebc83.css"><meta property='og:title' content="构建一个智能投顾AI助手">
+<meta property='og:description' content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 # 项目目录 1 2 3 4 5 6 7 8 9 10 11 . ├── docker-compose.yaml ├── longport │ ├── Dockerfile │ ├── mcp-servers.json │ ├── proxy_server.py │ └── requirements.txt └── nginx ├── .htpasswd └── conf.">
+<meta property='og:url' content='https://srcrs.github.io/posts/2025/12/build-ai-investment-advisor/'>
+<meta property='og:site_name' content='srcrs'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='ai' /><meta property='article:published_time' content='2025-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="构建一个智能投顾AI助手">
+<meta name="twitter:description" content="# 简述 今年的工作全部精力都投入到Agent相关内容了，惊叹于AI发展过于迅速，尤其是AI编程在今年实现了商业化，自己也买了一年GLM订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资Agent来帮我分析呢？ 接下来便投入到了研究和探索。最早接触到的是TradingAgents，它是Github一个开源的股票分析项目，多个Agent根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用trpc-Agent-go重新实现了改项目，获取资源的工具统一用mcp实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。 从TradingAgents学到的经验，我总结了要做好一个投资助手要满足以下条件： 1.架构上要够简单，能够泛化 2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股 3.要有一个好的客户端用户体验，电脑、手机设备 为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。 # 数据源选型 开源仓库：https://github.com/longportapp/openapi 数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了mcp，据说是券商行业首个mcp，一次性可以接入A股、港股、美股数据。 他们的mcp是使用的rust实现，很多mcp客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。 # 大模型选型 这部分其实选择最好的模型即可，需要支持Function Call。我自己付费了Openrouter和GLM，目前用的是GLM4.6较多一些。 # 客户端选型 以下都是开源的客户端 电脑：cherry studio 安卓：rikkahub或者kelivo # 构建MCP服务 这部分原本我觉得会很快完成的，没想到长桥的mcp在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目Issues中提问，寻找解决方案，退而求其次web版的lobe-chat总应该行吧？连接是正常的，但是调用异常。 后来我偶然间想到是否有mcp代理服务，比如将stdio协议转换成streamable http协议，将sse协议转换成stdio等，也就是协议的互转。也许能够解决协议不兼容的部分。fastmcp proxy可以完美实现我的想法。 接下来还要解决访问权限的问题，长桥mcp并没有该功能，我的解决方案是加一层nginx，使用http用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是nginx + fastmcp-proxy + longport-mcp架构。 # 项目目录 1 2 3 4 5 6 7 8 9 10 11 . ├── docker-compose.yaml ├── longport │ ├── Dockerfile │ ├── mcp-servers.json │ ├── proxy_server.py │ └── requirements.txt └── nginx ├── .htpasswd └── conf.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu546579717b7fab0b18401baea9cc125e_15933_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">srcrs</a></h1>
+            <h2 class="site-description">Happiness comes from the realization of dreams, or it may start from a wonderful encounter.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/srcrs'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://srcrs.github.io/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#简述">简述</a></li>
+    <li><a href="#数据源选型">数据源选型</a></li>
+    <li><a href="#大模型选型">大模型选型</a></li>
+    <li><a href="#客户端选型">客户端选型</a></li>
+    <li><a href="#构建mcp服务">构建MCP服务</a>
+      <ol>
+        <li><a href="#项目目录">项目目录</a></li>
+        <li><a href="#nginx">nginx</a>
+          <ol>
+            <li><a href="#apiconf">api.conf</a></li>
+            <li><a href="#htpasswd">.htpasswd</a></li>
+          </ol>
+        </li>
+        <li><a href="#nginx--longport-mcp架构">nginx + longport-mcp架构</a>
+          <ol>
+            <li><a href="#longport-mcpdockerfile">longport-mcp(Dockerfile)</a></li>
+            <li><a href="#docker-composeyaml">docker-compose.yaml</a></li>
+          </ol>
+        </li>
+        <li><a href="#nginx--fastmcp-proxy--longport-mcp架构">nginx + fastmcp-proxy + longport-mcp架构</a>
+          <ol>
+            <li><a href="#fastmcp-proxy--longport-mcpdockerfile">fastmcp-proxy + longport-mcp(Dockerfile)</a></li>
+            <li><a href="#proxy_serverpy">proxy_server.py</a></li>
+            <li><a href="#mcp-serversjson">mcp-servers.json</a></li>
+            <li><a href="#requirementstxt">requirements.txt</a></li>
+            <li><a href="#docker-composeyaml-1">docker-compose.yaml</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#编写提示词">编写提示词</a></li>
+    <li><a href="#结语">结语</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                Note
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/2025/12/build-ai-investment-advisor/">构建一个智能投顾AI助手</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 13, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="简述">
+    <a href="#%e7%ae%80%e8%bf%b0" class="header-anchor">#</a>
+    简述
+</h2><p>今年的工作全部精力都投入到<code>Agent</code>相关内容了，惊叹于<code>AI</code>发展过于迅速，尤其是<code>AI</code>编程在今年实现了商业化，自己也买了一年<code>GLM</code>订阅。今年也是我的投资生涯元年，看了几本书就妄想能在股市中大展手脚，好在今年是牛市，收益也超出了自己的预期，我的原则是不追求短期利益，着眼于长期投资。投资也是一个技术活，要看懂周期，看懂行业，看懂技术指标，在繁忙的工作中，这些分析会占用很大的精力，我在想，能否自己来做一个投资<code>Agent</code>来帮我分析呢？</p>
+<p>接下来便投入到了研究和探索。最早接触到的是<code>TradingAgents</code>，它是<code>Github</code>一个开源的股票分析项目，多个<code>Agent</code>根据获取的不同信息，左右互搏，帮助投资者实现分析目的。为了深入分析这套体系，我用<code>trpc-Agent-go</code>重新实现了改项目，获取资源的工具统一用<code>mcp</code>实现，这一套下来，看起来分析的是头头是道，但是内容太多普通人难以辨别，运行一次就需要10-20分钟，并且该项目没有一个好的前端用户体验，遂作废。</p>
+<p>从<code>TradingAgents</code>学到的经验，我总结了要做好一个投资助手要满足以下条件：
+1.架构上要够简单，能够泛化
+2.数据源要稳定，市场上开源数据很难同时一次性满足A股、港股、美股
+3.要有一个好的客户端用户体验，电脑、手机设备</p>
+<p>为此以下，我设计了这套解决方案：使用开源客户端，接入大模型，接入MCP数据源，设计提示词，只需要输入股票代码便能够分析。下面将详细记录我的做法。</p>
+<h2 id="数据源选型">
+    <a href="#%e6%95%b0%e6%8d%ae%e6%ba%90%e9%80%89%e5%9e%8b" class="header-anchor">#</a>
+    数据源选型
+</h2><p>开源仓库：<code>https://github.com/longportapp/openapi</code></p>
+<p>数据源选择的是长桥，长桥是一家位于香港的券商，他们有着阿里的背景，核心创始团队很多来自阿里，在2025年5月16日便开放了<code>mcp</code>，据说是券商行业首个<code>mcp</code>，一次性可以接入A股、港股、美股数据。</p>
+<p>他们的<code>mcp</code>是使用的<code>rust</code>实现，很多<code>mcp</code>客户端可能是由于协议差异原因，无法接入，后面我会详细讲解。</p>
+<h2 id="大模型选型">
+    <a href="#%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%80%89%e5%9e%8b" class="header-anchor">#</a>
+    大模型选型
+</h2><p>这部分其实选择最好的模型即可，需要支持<code>Function Call</code>。我自己付费了<a class="link" href="https://openrouter.ai/"  target="_blank" rel="noopener"
+    >Openrouter</a>和<a class="link" href="https://z.ai/"  target="_blank" rel="noopener"
+    >GLM</a>，目前用的是<code>GLM4.6</code>较多一些。</p>
+<h2 id="客户端选型">
+    <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e9%80%89%e5%9e%8b" class="header-anchor">#</a>
+    客户端选型
+</h2><p>以下都是开源的客户端</p>
+<ul>
+<li>
+<p>电脑：<a class="link" href="https://www.cherry-ai.com/"  target="_blank" rel="noopener"
+    >cherry studio</a></p>
+</li>
+<li>
+<p>安卓：<a class="link" href="https://github.com/rikkahub/rikkahub"  target="_blank" rel="noopener"
+    >rikkahub</a>或者<a class="link" href="https://github.com/Chevey339/kelivo"  target="_blank" rel="noopener"
+    >kelivo</a></p>
+</li>
+</ul>
+<h2 id="构建mcp服务">
+    <a href="#%e6%9e%84%e5%bb%bamcp%e6%9c%8d%e5%8a%a1" class="header-anchor">#</a>
+    构建MCP服务
+</h2><p>这部分原本我觉得会很快完成的，没想到长桥的<code>mcp</code>在手机的客户端无法使用，付出了很大精力寻找手机客户端，在项目<code>Issues</code>中提问，寻找解决方案，退而求其次<code>web</code>版的<code>lobe-chat</code>总应该行吧？连接是正常的，但是调用异常。</p>
+<p>后来我偶然间想到是否有<code>mcp</code>代理服务，比如将<code>stdio</code>协议转换成<code>streamable http</code>协议，将<code>sse</code>协议转换成<code>stdio</code>等，也就是协议的互转。也许能够解决协议不兼容的部分。<code>fastmcp proxy</code>可以完美实现我的想法。</p>
+<p>接下来还要解决访问权限的问题，长桥<code>mcp</code>并没有该功能，我的解决方案是加一层<code>nginx</code>，使用<code>http</code>用户名/密码基本身份验证，作为个人使用足够了。最后完美方案是<code>nginx + fastmcp-proxy + longport-mcp</code>架构。</p>
+<h3 id="项目目录">
+    <a href="#%e9%a1%b9%e7%9b%ae%e7%9b%ae%e5%bd%95" class="header-anchor">#</a>
+    项目目录
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── docker-compose.yaml
+</span></span><span class="line"><span class="cl">├── longport
+</span></span><span class="line"><span class="cl">│   ├── Dockerfile
+</span></span><span class="line"><span class="cl">│   ├── mcp-servers.json
+</span></span><span class="line"><span class="cl">│   ├── proxy_server.py
+</span></span><span class="line"><span class="cl">│   └── requirements.txt
+</span></span><span class="line"><span class="cl">└── nginx
+</span></span><span class="line"><span class="cl">     ├── .htpasswd
+</span></span><span class="line"><span class="cl">     └── conf.d
+</span></span><span class="line"><span class="cl">          └──api.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="nginx">
+    <a href="#nginx" class="header-anchor">#</a>
+    nginx
+</h3><h4 id="apiconf">
+    <a href="#apiconf" class="header-anchor">#</a>
+    api.conf
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen 80;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location /mcp {
+</span></span><span class="line"><span class="cl">        auth_basic &#34;please input password&#34;;
+</span></span><span class="line"><span class="cl">        auth_basic_user_file /etc/nginx/.htpasswd;
+</span></span><span class="line"><span class="cl">        proxy_pass http://longport:8000/mcp;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="htpasswd">
+    <a href="#htpasswd" class="header-anchor">#</a>
+    .htpasswd
+</h4><ul>
+<li>安装工具</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install apache2-utils
+</span></span><span class="line"><span class="cl"><span class="c1"># CentOS/RHEL</span>
+</span></span><span class="line"><span class="cl">sudo yum install httpd-tools
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>生成密码文件</li>
+</ul>
+<p>请特别注意 -c参数只在第一次创建文件时使用，后续添加用户时去掉 -c，以免覆盖现有文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo htpasswd -c /etc/nginx/.htpasswd myuser
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>添加更多用户</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo htpasswd /etc/nginx/.htpasswd anotheruser
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="nginx--longport-mcp架构">
+    <a href="#nginx--longport-mcp%e6%9e%b6%e6%9e%84" class="header-anchor">#</a>
+    nginx + longport-mcp架构
+</h3><p>这是直接使用长桥<code>mcp</code>服务，该方案存在大部分客户端兼容性问题</p>
+<h4 id="longport-mcpdockerfile">
+    <a href="#longport-mcpdockerfile" class="header-anchor">#</a>
+    longport-mcp(Dockerfile)
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> debian:bookworm-slim</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 安装必要的运行时依赖</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    curl <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    ca-certificates <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    unzip <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    tar <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    sudo <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 创建目录和日志</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir -p /app/logs<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 下载并安装 longport-mcp</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> curl -sSL https://raw.githubusercontent.com/longportapp/openapi/refs/heads/main/mcp/install <span class="p">|</span> bash<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 暴露端口</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 8000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 设置工作目录</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 启动命令 (直接使用环境变量，程序自动读取)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;longport-mcp&#34;</span><span class="p">,</span> <span class="s2">&#34;--http&#34;</span><span class="p">,</span> <span class="s2">&#34;--readonly&#34;</span><span class="p">,</span> <span class="s2">&#34;--bind&#34;</span><span class="p">,</span> <span class="s2">&#34;0.0.0.0:8000&#34;</span><span class="p">,</span> <span class="s2">&#34;--log-dir&#34;</span><span class="p">,</span> <span class="s2">&#34;/app/logs&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="docker-composeyaml">
+    <a href="#docker-composeyaml" class="header-anchor">#</a>
+    docker-compose.yaml
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.8&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">longport-nginx</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:alpine</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8080:80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 挂载配置文件目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./nginx/conf.d:/etc/nginx/conf.d</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 挂载Lua脚本和依赖库目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./nginx/.htpasswd:/etc/nginx/.htpasswd</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">longport</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">longport</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l">./longport</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 中国地区配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">LONGPORT_REGION=CN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 认证信息 (请填入你的真实信息)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">LONGPORT_APP_KEY=your-app-key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">LONGPORT_APP_SECRET=your-app-secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">LONGPORT_ACCESS_TOKEN=your-access-token</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 日志配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">RUST_LOG=info</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./logs:/app/logs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="nginx--fastmcp-proxy--longport-mcp架构">
+    <a href="#nginx--fastmcp-proxy--longport-mcp%e6%9e%b6%e6%9e%84" class="header-anchor">#</a>
+    nginx + fastmcp-proxy + longport-mcp架构
+</h3><p>完美兼容性方案</p>
+<h4 id="fastmcp-proxy--longport-mcpdockerfile">
+    <a href="#fastmcp-proxy--longport-mcpdockerfile" class="header-anchor">#</a>
+    fastmcp-proxy + longport-mcp(Dockerfile)
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> python:3.11-slim</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Set working directory</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Install system dependencies</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    curl <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    ca-certificates <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    unzip <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    tar <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    sudo <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Copy requirements and install Python dependencies</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> requirements.txt .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> pip install --no-cache-dir -r requirements.txt<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir -p /app/logs<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Download and Install longport-mcp</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> curl -sSL https://raw.githubusercontent.com/longportapp/openapi/refs/heads/main/mcp/install <span class="p">|</span> bash<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Copy the proxy server code</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> . .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Expose port</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 8000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Run the proxy server</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="s2">&#34;proxy_server.py&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="proxy_serverpy">
+    <a href="#proxy_serverpy" class="header-anchor">#</a>
+    proxy_server.py
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastmcp</span> <span class="kn">import</span> <span class="n">FastMCP</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Load config from JSON file</span>
+</span></span><span class="line"><span class="cl"><span class="n">config_path</span> <span class="o">=</span> <span class="s2">&#34;/app/mcp-servers.json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create and run proxy</span>
+</span></span><span class="line"><span class="cl"><span class="n">proxy</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="o">.</span><span class="n">as_proxy</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;MCP Proxy&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stateless_http</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">transport</span><span class="o">=</span><span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">port</span><span class="o">=</span><span class="mi">8000</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="mcp-serversjson">
+    <a href="#mcp-serversjson" class="header-anchor">#</a>
+    mcp-servers.json
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;longport-mcp&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/local/bin/longport-mcp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;LONGPORT_APP_KEY&#34;</span><span class="p">:</span> <span class="s2">&#34;your-app-key&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;LONGPORT_APP_SECRET&#34;</span><span class="p">:</span> <span class="s2">&#34;your-app-secret&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;LONGPORT_ACCESS_TOKEN&#34;</span><span class="p">:</span> <span class="s2">&#34;your-access-token&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="requirementstxt">
+    <a href="#requirementstxt" class="header-anchor">#</a>
+    requirements.txt
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">fastmcp==2.14.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="docker-composeyaml-1">
+    <a href="#docker-composeyaml-1" class="header-anchor">#</a>
+    docker-compose.yaml
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.8&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">longport-nginx</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:alpine</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8080:80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 挂载配置文件目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./nginx/conf.d:/etc/nginx/conf.d</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 挂载Lua脚本和依赖库目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./nginx/.htpasswd:/etc/nginx/.htpasswd</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">longport</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">longport</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l">./longport</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 日志配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">RUST_LOG=info</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./logs:/app/logs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./longport/mcp-servers.json:/app/mcp-servers.json</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="编写提示词">
+    <a href="#%e7%bc%96%e5%86%99%e6%8f%90%e7%a4%ba%e8%af%8d" class="header-anchor">#</a>
+    编写提示词
+</h2><p>提示词可以根据自己的投资风格进行编写，千人千面，这里就不进行分享了。</p>
+<h2 id="结语">
+    <a href="#%e7%bb%93%e8%af%ad" class="header-anchor">#</a>
+    结语
+</h2><p>工具只是辅助，万不可全部都相信工具、大V，投资需谨慎。最后，祝大家在投资的道路上都能挣大钱！</p>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor">#</a>
+    参考
+</h2><ul>
+<li><a class="link" href="https://longbridge.com/sg/zh-CN/blog/longbridge-launches-industry-first-brokerage-mcp-ai-market-analysis-trading?channel=WSAB0002"  target="_blank" rel="noopener"
+    >【最新消息】长桥发布行业首个券商 MCP，让 AI 协助进行市场分析及交易</a></li>
+<li><a class="link" href="https://open.longbridge.com/zh-CN/docs/llm"  target="_blank" rel="noopener"
+    >长桥开放平台LLM</a></li>
+<li><a class="link" href="https://gofastmcp.com/servers/proxy"  target="_blank" rel="noopener"
+    >fastmcp-proxy</a></li>
+<li><a class="link" href="https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/"  target="_blank" rel="noopener"
+    >nginx-http-base-auth</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai/">Ai</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2025/03/30/mcp-hello-world/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mcp大模型的通用工具调用协议</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2025/03/29/flux-forge-gguf-by-linux/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux部署Flux的GGUF量化版</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/11/19/ai-large-model-fine-tuning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ai大模型微调</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2024/10/01/macbook-install-ollama-and-qwen2.5-7b/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">macbook安装ollama和qwen2.5-7b</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/ai-agentic-design-patterns-with-autogen/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">利用AutoGen的人工智能智能体设计模式</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                defer
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>
